@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>BoardInsert</title>
+<script>
+	jQuery(function($){
+		$("#tb").DataTable(
+		{
+		   // 표시 건수기능 숨기기
+		   "lengthChange": false,
+		   // 정보 표시 숨기기
+			"info": false,
+
+			// 페이지 넘기는 방식
+			pagingType : "full_numbers",
+
+			"language": {
+			"emptyTable": "데이터가 없어요.",
+			"lengthMenu": "페이지당 _MENU_ 개씩 보기",
+			"info": "현재 _START_ - _END_ / _TOTAL_건",
+			"infoEmpty": "데이터 없음",
+			"infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
+			"search": "검색: ",
+			"zeroRecords": "일치하는 데이터가 없어요.",
+			"loadingRecords": "로딩중...",
+			"processing":     "잠시만 기다려 주세요...",
+			"paginate": {
+				"next": "다음",
+				"previous": "이전"
+					}
+				}
+			}
+		);
+	});
+</script>
+<style type="text/css">
+	#boardInsertTable{margin: auto; border-collapse: collapse; border-left: hidden; border-right: hidden;}
+	#boardInsertTable tr td{padding: 5px;}
+	#w3{margin: auto; width: 700px; border-collapse: collapse;}
+	#w3-sidebar{margin-top: 138px; height: 356px !important;}
+    .col-sm-7 {
+    width: 55.333333% !important;
+    margin-top: 10px !important;
+</style>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"/>
+<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+</head>
+<body>
+	<!-- 헤더 -->
+
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- Site Icons -->
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+<!-- Google Fonts -->
+ <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700" rel="stylesheet"> 
+
+<!-- Custom & Default Styles -->
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/animate.css">
+<link rel="stylesheet" href="style.css"> 
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- 헤더 끝 -->
+</head>
+<body>
+    <!-- 헤더 -->
+    <div class="topbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 hidden-xs">
+                    <!-- end menu -->
+                </div>
+                <!-- end col -->
+
+                <div class="col-md-6 col-sm-6">
+                    <nav class="topbar-menu">
+                        <ul class="list-inline text-right navbar-right">
+                            <li><a href="">로그인</a></li>
+                        </ul>
+                        <!-- end list -->
+                    </nav>
+                    <!-- end menu -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end 상단 로그인 바 -->
+
+    <!-- 헤더 -->
+    <header class="header site-header">
+        <div class="container">
+            <nav class="navbar navbar-default yamm">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+										<span class="sr-only">Toggle navigation</span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+									</button>
+                        <a class="navbar-brand" href="index.jsp"><img src="images/logo.png" alt="Linda"></a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="active"><a href="index.jsp">Home</a></li>
+                            <li><a href="">자료검색</a></li>
+                            <li><a href="">도서관 서비스</a></li>
+                            <li><a href="">도서관 안내</a></li>
+                            <li><a href="">마이라이브러리</a></li>
+                            <li class="dropdown yamm-fw hasmenu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">더보기 <span
+													class="fa fa-angle-down"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <div class="yamm-content">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <ul>
+                                                        <li><a href="service-01.html">SEO Consultants</a></li>
+                                                        <li><a href="service-02.html">SEO Audits</a></li>
+                                                        <li><a href="service-03.html">SEO Packages & Plans</a>
+                                                        </li>
+                                                        <li><a href="service-04.html">Web Copywriting</a></li>
+                                                        <li><a href="service-05.html">SEO Copywriting</a></li>
+                                                        <li><a href="service-06.html">Keyword Research</a></li>
+                                                        <li><a href="service-07.html">SEO Strategy</a></li>
+                                                        <li><a href="service-08.html">Website Design</a></li>
+                                                        <li><a href="service-09.html">Link Building Services</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <ul>
+                                                        <li><a href="page-services.html">All Services</a></li>
+                                                        <li><a href="page-pricing.html">Pricing & Plans</a></li>
+                                                        <li><a href="page-clients.html">Our Clients</a></li>
+                                                        <li><a href="page-testimonials.html">Testimonials</a>
+                                                        </li>
+                                                        <li><a href="book-sales.html">중고서적 판매</a></li>
+                                                        <li><a href="page-seo-analysis.html">SEO Analysis</a>
+                                                        </li>
+                                                        <li><a href="case-studies.html">Case Studies</a></li>
+                                                        <li><a href="case-studies-alt.html">Case Studies Alt</a>
+                                                        </li>
+                                                        <li><a href="case-studies-single.html">Case Studies
+																			Single</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <ul>
+                                                        <li><a href="blog.html">Blog & News</a></li>
+                                                        <li><a href="blog-alt.html">Blog Alternative</a></li>
+                                                        <li><a href="blog-single.html">Single Blog</a></li>
+                                                        <li><a href="page.html">Default Page</a></li>
+                                                        <li><a href="공지사항.html">공지사항</a>
+                                                        </li>
+                                                        <li><a href="page-contact.html">Contact us</a></li>
+                                                        <li><a href="page-contact-alt.html">Contact
+																			Alternative</a></li>
+                                                        <li><a href="page-faqs.html">FAQ's Page</a></li>
+                                                        <li><a href="page-not-found.html">404 Not Found</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--/.nav-collapse -->
+                </div>
+                <!--/.container-fluid -->
+            </nav>
+            <!-- end nav -->
+        </div>
+        <!-- end container -->
+    </header>
+<!-- 헤더 끝 -->
+	<c:import url="../common/header.jsp"/>
+	
+	<!-- 왼쪽 사이드 바 https://www.w3schools.com/w3css/w3css_sidebar.asp -->
+	<div id="w3-sidebar"class="w3-sidebar w3-bar-block w3-light-blue" style="width:200px" >
+		<a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 1</a>
+		<a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 2</a>
+        <a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 3</a>
+        <a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 4</a>
+        <img src="images/logo.jpg" height="200px" width="200px"/>
+	</div>
+	
+	<!-- 오른쪽 사이드 바  -->
+	<aside>
+		
+	</aside>
+	
+	<div id="w3" class="w3-panel w3-round-large w3-blue" align="center" style="width: 800px;">
+		<h2 class="w3-text-white" style="text-shadow:1px 1px 0 #444; font-weight: bold;">게시글 등록</h2>
+	</div>
+	
+	<br><br>
+	
+	<!-- 첨부파일 등록을 위해 Multipart/form-data encType 지정 -->
+	<form action="binsert.bo" method="post" enctype="Multipart/form-data">
+		<table id="boardInsertTable" border="1">
+			<tr>
+				<th>제목</th>
+				<td>
+					<input type="text" size="80" name="bTitle">
+				</td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td>
+					<input type="text" name="bWriter" readonly value="${ loginUser.id }" style="background: lightgrey;">
+				</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td><textarea rows="10" cols="80" name="bContent" style="resize: none;"></textarea></td>
+			</tr>
+			<tr>
+				<th>모집인원</th>
+				<td>
+					<input class="w3-radio" type="radio" name="maxmember" value="4" checked>
+					<label>4명</label>
+					
+					<input class="w3-radio" type="radio" name="maxmember" value="6">
+					<label>6명</label>
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="2" align="center">
+					<input class="w3-button w3-round-large w3-light-blue w3-hover-Green" type="submit" value="등록 하기"> &nbsp;
+					<button class="w3-button w3-round-large w3-light-blue w3-hover-Green" onclick="location.href='blist.bo'">목록으로</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+	
+	<!-- footer -->
+	<c:import url="../common/footer.jsp"/>
+	<!-- 푸터 -->
+<footer class="footer primary-footer ">
+    <div class="container ">
+        <div class="row ">
+            <div class="col-md-3 col-sm-4 ">
+            </div>
+            <!-- end col -->
+            <div class="col-md-6 col-sm-6 col-xs-12 text-center ">
+                <p>2019 &copy;The StudyHub.lib All rights reserved.</p>
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- end container -->
+</footer>
+<!-- end primary-footer -->
+
+
+<!-- jQuery Files -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/parallax.js"></script>
+<script src="js/animate.js"></script>
+<script src="js/custom.js"></script>
+
+</body>
+</html>

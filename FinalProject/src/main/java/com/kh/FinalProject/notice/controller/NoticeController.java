@@ -15,4 +15,5 @@ public class NoticeController {
 	public String noticeDetail() {
 		return "noticeListDetail";
 	}
+	// test
 }

@@ -8,14 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-.studyroom_topbox {
-	
-}
-
-.studyroom_topbox {
-	
-}
-
 .studyroom_title {
 	text-align: left;
 	color: #3ac5c8;
@@ -77,6 +69,8 @@
 .btnEnd{
 	margin-top:10px;
 	margin-bottm:10px;
+	margin-right:10px;
+	text-align:right;
 }
 </style>
 </head>
@@ -129,15 +123,19 @@ int date = cr.get(Calendar.DATE);
 							<c:forEach var="i"  begin="9" end="22">
 								<tr>
 									<c:if test="${i<10}">
-									
-									<th class="studyroom_time">0${i}:00</th>				
+										<th class="studyroom_time">0${i}:00</th>				
 									</c:if>
 									<c:if test="${i>=10}">
-									<th class="studyroom_time">${i}:00</th>				
+										<th class="studyroom_time">${i}:00</th>				
 									</c:if>
 									
-									<c:forEach var="i"  begin="1" end="11">
-										<td><a href="srReservation.sr">+</a></td>
+									<c:forEach var="j"  begin="1" end="11">
+										<td>
+										<!--  버튼 클릭시 팝업이 뜨고 팝업에 클릭한 버튼의 시작시간 및 마감 시간을 select할 값으로 전달 -->
+											<a href="#" onclick="srReservation()">+</a>
+											<!-- 클릭한 버튼의 시간대 값 전달 용 hidden input -->
+											<input id="checkTime" type="hidden" value="${i}"/>
+										</td>
 									</c:forEach>
 								</tr>				
 							</c:forEach>
@@ -178,29 +176,56 @@ int date = cr.get(Calendar.DATE);
 									<select name="year"  class="studyroom_option2">
 										<!-- 오늘 년도 기본 선택-->
 										<%
-									      for(int i=year;i<year+3;i++){
+									      for(int i=year-1; i<year+3; i++){
 									       String selected = (i == year)?"selected":"";
 									       String color = (i == year)?"#CCCCCC":"#FFFFFF";
 									         out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>");       
 									      }
 									      %>
 									</select> 
-									<select name="month"  class="studyroom_option2">
+									<select name="month"  class="studyroom_option2" onchange="daycheck(this)">
 										<!--  -->
 										<!-- 오늘 달 기본 선택-->
 										 <%
-									      for(int i=1;i<=12;i++){
+									      for(int i=1; i<=12; i++){
 									       String selected = (i == month+1)?"selected":"";
 									       String color = (i == month+1)?"#CCCCCC":"#FFFFFF";
 									         out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>");       
 									      }
 									      %>
 									</select> 
-									<select name="day"  class="studyroom_option2">
+									<select id="day"  class="studyroom_option2">
 										<!-- 선택된 달의 숫자만큼 일수 반복-->
-										<!-- 오늘 날짜 기본 선택-->
-										<option selected="selected" value="30">30</option>
-										<option>31</option>
+										<%
+											if(date == 1 || date == 3 || date == 5 || date == 7 || date == 8 || date == 10 || date == 12){
+										      for(int i=1; i<=31; i++){
+										      	String selected = (i == date)?"selected":"";
+										     	String color = (i == date)?"#CCCCCC":"#FFFFFF";
+										    	out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>");       
+										      }
+											}
+											else if(date == 4 || date == 6 || date == 9 || date == 11){
+												for(int i=1; i<=30; i++){
+													String selected = (i == date)?"selected":"";
+											     	String color = (i == date)?"#CCCCCC":"#FFFFFF";
+											    	out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>");      
+												}
+											}
+											else if(date == 2 && (year % 4 == 0 && year % 100 != 0) || year % 400 == 0){
+												for(int i=1; i<=29; i++){
+													String selected = (i == date)?"selected":"";
+											     	String color = (i == date)?"#CCCCCC":"#FFFFFF";
+											    	out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>"); 
+												}
+											}
+											else if(date == 2){
+												for(int i=1; i<=28; i++){
+													String selected = (i == date)?"selected":"";
+											     	String color = (i == date)?"#CCCCCC":"#FFFFFF";
+											    	out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>");
+												}
+											}
+									      %>
 									</select>
 								</div>
 								<div>
@@ -224,6 +249,69 @@ int date = cr.get(Calendar.DATE);
 		</div>
 	</section>
 
+	<script>
+	function srReservation(){
+		var reservationWin;
+		
+		url = "srReservation.sr";
+		srReservation = "srReservation";
+		specs="width=350, height=300, toolbar=no, location=no, directories=no";
+		
+		window.open(url,srReservation,specs);
+// 		reservationWin.document.getElementById("startTime").value = document.getElementById("checkTime").value;
+// 		var time = document.getElementById("startTime"); 
+		
+// 		time.target = srReservation;
+// 		time.action = url;
+// 		time.submit();
+
+		
+	} 
+
+	function daycheck(e){
+		var target = document.getElementById("day");
+		var d = new Date();
+		
+		target.options.length = 0;
+		
+		if(e.value == 1 || e.value == 3 || e.value == 5 || e.value == 7 || e.value == 8 || e.value == 10 || e.value == 12){
+	      for(var i=1; i<=31; i++){
+		       var opt = document.createElement("option");
+		       opt.value = i;
+		       opt.innerHTML = i;
+		       if(d.getDate()==i) opt.selected=true;
+		       target.appendChild(opt);
+	      }
+		}
+		else if(e.value == 4 || e.value == 6 || e.value == 9 || e.value == 11){
+			for(var i=1; i<=30; i++){
+				var opt = document.createElement("option");
+			    opt.value = i;
+			    opt.innerHTML = i;
+			    if(d.getDate()==i) opt.selected=true;
+			    target.appendChild(opt);       
+			}
+		}
+		else if(e.value == 2 && (d.getFullYear() % 4 == 0 && d.getFullYear() % 100 != 0) || d.getFullYear() % 400 == 0){
+			for(var i=1; i<=29; i++){
+				var opt = document.createElement("option");
+			    opt.value = i;
+			    opt.innerHTML = i;
+			    if(d.getDate()==i) opt.selected=true;
+			    target.appendChild(opt); 
+			}
+		}
+		else if(e.value == 2){
+			for(var i=1; i<=28; i++){
+				var opt = document.createElement("option");
+			    opt.value = i;
+			    opt.innerHTML = i;
+			    if(d.getDate()==i) opt.selected=true;
+			    target.appendChild(opt);
+			}
+		}	
+	}
+	</script>
 	
 	
 	<jsp:include page="../common/footer.jsp" />

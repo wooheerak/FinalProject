@@ -35,7 +35,7 @@
 		</div>
 		<div class="container">
 			<div class="col-md-6">
-				테이블
+				
 			</div>
 		</div>
 		<!-- end container -->

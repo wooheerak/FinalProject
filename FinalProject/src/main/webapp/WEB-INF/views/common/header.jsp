@@ -79,7 +79,7 @@
 												</div>
 												<div class="col-md-4">
 													<ul>
-														<li><a href="">All Services</a></li>
+														<li><a href="srDay.sr">스터디룸 조회</a></li>
 		                                                <li><a href="">Pricing & Plans</a></li>
 		                                                <li><a href="">Our Clients</a></li>
 		                                                <li><a href="">Testimonials</a></li>

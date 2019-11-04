@@ -76,8 +76,6 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 	</section>
 	<!-- end section -->
 <!--  -->
-
-
 	<jsp:include page="../common/footer.jsp" />
 
 </body>

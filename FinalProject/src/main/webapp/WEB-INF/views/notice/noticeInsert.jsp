@@ -72,7 +72,7 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 							</div>
 			</form>
 		</div>
-
+<!--  -->
 	</section>
 	<!-- end section -->
 

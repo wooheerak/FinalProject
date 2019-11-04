@@ -37,7 +37,7 @@
 		<div class="container">
 			<div class="boardDetail">
 				<div class="boardInfo"
-					style="background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b3b3; padding: 10px;">
+					style="background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b3b3; padding: 20px;">
 					<p class="boardInfoTitle">
 						<b>일반열람실 24시간 개방 안내</b>
 					</p>

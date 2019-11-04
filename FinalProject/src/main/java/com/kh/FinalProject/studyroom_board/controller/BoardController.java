@@ -48,7 +48,6 @@ public class BoardController {
 
 	}
 	
-	// 게시글 보기
 	@RequestMapping("bDetail.bo")
 	public ModelAndView boardDetail(@RequestParam("bo_number") int bo_number, ModelAndView mv) {
 		

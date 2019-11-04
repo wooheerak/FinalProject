@@ -132,7 +132,7 @@ int date = cr.get(Calendar.DATE);
 									<c:forEach var="j"  begin="1" end="11">
 										<td>
 										<!--  버튼 클릭시 팝업이 뜨고 팝업에 클릭한 버튼의 시작시간 및 마감 시간을 select할 값으로 전달 -->
-											<a href="#" onclick="srReservation()">+</a>
+											<a href="#" onclick="srReservation();">+</a>
 											<!-- 클릭한 버튼의 시간대 값 전달 용 hidden input -->
 											<input id="checkTime" type="hidden" value="${i}"/>
 										</td>
@@ -252,18 +252,20 @@ int date = cr.get(Calendar.DATE);
 	<script>
 	function srReservation(){
 		var reservationWin;
+		var time = document.getElementById("startTime");
 		
-		url = "srReservation.sr";
-		srReservation = "srReservation";
-		specs="width=350, height=300, toolbar=no, location=no, directories=no";
+		console.log(time.value());
 		
-		window.open(url,srReservation,specs);
+		var url = "srReservation.sr";
+		var srReservation = "srReservation";
+		var specs="width=350, height=300, left=20, top=30 toolbar=no, location=no, directories=no";
+		
+		window.open('',srReservation,specs);
 // 		reservationWin.document.getElementById("startTime").value = document.getElementById("checkTime").value;
-// 		var time = document.getElementById("startTime"); 
 		
-// 		time.target = srReservation;
-// 		time.action = url;
-// 		time.submit();
+		time.target = srReservation;
+		time.action = url;
+		time.submit();
 
 		
 	} 

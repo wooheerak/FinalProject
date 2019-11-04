@@ -15,6 +15,10 @@ public class NoticeController {
 	public String noticeDetail() {
 		return "noticeListDetail";
 	}
-	// test  다시올려요
+	
+	@RequestMapping("noticeinsert.no")
+	public String noticeIncert() {
+		return "noticeInsert";
+	}
 	
 }

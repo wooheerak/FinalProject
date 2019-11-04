@@ -19,6 +19,9 @@ public class BoardController {
 
 	}
 	
+	
+	
+	
 	@RequestMapping("bDetail.bo")
 	public String boardDetail() {
 		

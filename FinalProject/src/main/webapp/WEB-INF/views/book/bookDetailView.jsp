@@ -62,29 +62,6 @@
 				</div><!-- end row -->
 			</div><!-- end container -->
    </section>
-   
-   <section class="section lb">
-			<div class="container">
-				<div class="row case-single">
-					<div class="col-md-6 col-sm-6 col-xs-12">
-						<div class="pitem">
-							<div class="case-box">
-								<img src="resources/upload/case_03.png" alt="" class="img-responsive">
-							</div><!-- end case-box -->
-						</div><!-- end pitem -->
-					</div><!-- end col -->
-
-					<div class="col-md-6 col-sm-6 col-xs-12">
-						<div class="case-details">
-							<h3>WP Servis <small>SEO / SEM</small></h3>
-							<p> Integer nec velit pellentesque justo ornare tempus eleifend non velit. Aenean est justo, auctor in tincidunt non, mattis a urna. Phasellus ligula justo, posuere vitae dignissim et, porta nec dui. Proin vel dignissim dui. Etiam quis urna odio. Nunc dignissim rutrum condimentum. Praesent volutpat magna risus, in molestie orci tempor eget. Morbi eleifend commodo odio feugiat malesuada. </p>
-							<p>Etiam quis urna odio. Nunc dignissim rutrum condimentum. Praesent volutpat magna risus, in molestie orci tempor eget. Morbi eleifend commodo odio feugiat malesuada. </p>
-							<a href="#" class="btn btn-transparent btn-lg"><i class="fa fa-file-pdf-o"></i> Download PDF</a>
-						</div><!-- end details -->
-					</div><!-- end col -->
-				</div><!-- end row -->
-			</div><!-- end container -->
-		</section><!-- end section -->
    <!-- end section -->
 
    <jsp:include page="../common/footer.jsp" />

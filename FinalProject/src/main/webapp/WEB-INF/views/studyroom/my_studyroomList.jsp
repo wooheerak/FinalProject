@@ -93,7 +93,8 @@
                             <tr>
                                 <th style = "text-align: center;">번호</th>
                                 <th style = "text-align: center;">이용 내역</th>
-                                <th style = "text-align: center;">처리상태</th>
+                                <th style = "text-align: center;">참여자</th>
+                                <th style = "text-align: center;">예약 시간</th>
                                 <th style = "text-align: center;">날짜</th>
                                 <th style = "text-align: center;"></th>
                                
@@ -101,18 +102,20 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>1</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[73번]</td>
-                                <td>예약인증 전</td>
+                                <td>4</td>
+                                <td>꽃채운 스터디룸&nbsp;&nbsp;&nbsp;[2층]</td>
+                                <td>이동수,문아람,이혜진,윤동혁,최진호</td>
+                                <td>09:00~11:00</td>
                                 <td>2019-10-30</td>
                                 <td><button class = "btn cancelRev" >예약 취소</button></td>
                                 
                             </tr>
 
                             <tr>
-                                <td>2</td>
-                                <td>B열람실&nbsp;&nbsp;&nbsp;[34번]</td>
-                                <td>만료</td>
+                                <td>3</td>
+                                <td>마루 스터디룸&nbsp;&nbsp;&nbsp;[1층]</td>
+                                <td>이동수,고슬지,최진호</td>
+                                <td>12:00~13:00</td>
                                 <td>2019-10-29</td>
                                 <td></td>
                                
@@ -120,17 +123,19 @@
 
                             <tr>
                                 <td>3</td>
-                                <td>C열람실&nbsp;&nbsp;&nbsp;[12번]</td>
-                                <td>만료</td>
+                                <td>우주 스터디룸&nbsp;&nbsp;&nbsp;[3층]</td>
+                                <td>최진호,최진수,이상은,이수진</td>
+                                <td>10:00~11:00</td>
                                 <td>2019-10-27</td>
                                 <td></td>
                                
                             </tr>
 
                             <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
+                                <td>1</td>
+                                <td>다솜 스터디룸&nbsp;&nbsp;&nbsp;[3층]</td>
+                                <td>최진호,우희락,이동수,이성원,이수진,이상은,고슬지,안정식</td>
+                                <td>14:00~16:00</td>
                                 <td>2019-10-26</td>
                                 <td></td>
                             

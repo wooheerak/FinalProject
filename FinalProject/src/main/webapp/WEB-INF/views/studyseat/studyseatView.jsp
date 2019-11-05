@@ -52,7 +52,7 @@
 				<div class="col-md-9 " style="height: 700px; display: inline;">
 					<div class="service-box"
 						style="height: 700px; border: 1px solid lightgray; border-radius: 4px;">
-						<div class="row window">
+						<div class="row window" style = "margin-left : 300px;">
 							<p style="margin-top: 10px; font-size: large;">창&nbsp;&nbsp;&nbsp;문</p>
 						</div>
 						<div class="row"
@@ -719,6 +719,12 @@
 		});
 		
 		function resvSeat(){
+			var url = "popResv.ss";
+			var option = "width=400, height=250, resizable=no, scrollbars=no, status=no;";
+			var popX =  (window.screen.width / 2) - (500 / 2);
+			var popY =  (window.screen.height / 2) - (250 / 2);
+			window.open(url , "", option + ", left = " + popX + ", top = " + popY);				
+			
 			
 		}
 	</script>

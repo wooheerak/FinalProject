@@ -11,8 +11,6 @@ public interface Studyroom_BoderService {
 
 	Board selectBoard(int bo_number);
 
-	ArrayList<Reply> selectReplyList(int bo_number);
-
 	int insertBoard(Board b);
 
 	int updateBoard(Board b);
@@ -21,5 +19,6 @@ public interface Studyroom_BoderService {
 
 	int memberJoin(Board b);
 
+	ArrayList<Reply> selectReplyList(int bo_number);
 
 }

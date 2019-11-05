@@ -60,12 +60,6 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 		return sbDAO.deleteBoard(sqlSession, bo_number);
 	}
 
-	// 댓글 리스트
-	@Override
-	public ArrayList<Reply> selectReplyList(int bo_number) {
-		
-		return sbDAO.selectReplyList(sqlSession, bo_number);
-	}
 
 	// 그룹 참여
 	@Override
@@ -74,4 +68,10 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 		return sbDAO.memberJoin(sqlSession, b);
 	}
 
+	// 댓글 리스트
+	@Override
+	public ArrayList<Reply> selectReplyList(int bo_number) {
+		
+		return sbDAO.selectReplyList(sqlSession, bo_number);
+	}
 }

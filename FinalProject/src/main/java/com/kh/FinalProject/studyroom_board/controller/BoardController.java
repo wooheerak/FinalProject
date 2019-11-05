@@ -100,7 +100,7 @@ public class BoardController {
 	
 	// 게시글 업데이트
 	@RequestMapping("bUpdate.bo")
-	public String boardUpdate(@ModelAttribute Board b, HttpServletRequest request, ModelAndView mv) {
+	public String boardUpdate(@ModelAttribute Board b , ModelAndView mv) {
 		
 		int result = sbService.updateBoard(b);
 					
@@ -126,11 +126,10 @@ public class BoardController {
 			throw new BoardException("게시글 삭제 실패");
 		}
 	}
+	
 	// 그룹 참여
 	@RequestMapping("bJoin.bo")
 	public String memberJoin(@ModelAttribute Board b, HttpServletRequest request, ModelAndView mv) {
-		
-		System.out.println(b);
 		
 		int mem = b.getBo_member();
 		int maxmem = b.getBo_maxmember();
@@ -148,17 +147,6 @@ public class BoardController {
 		}
 		throw new BoardException("모집 인원 초과");
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	// 댓글

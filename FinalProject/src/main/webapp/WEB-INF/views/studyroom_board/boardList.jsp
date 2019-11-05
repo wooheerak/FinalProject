@@ -131,7 +131,7 @@
             	<th>제목</th>
             	<th>작성자</th>
             	<th>모집인원</th>
-            	<th>예약</th>
+            	<th>모집유형</th>
             	<th>모집상태</th>
             	<th>작성날짜</th>
             	<th>조회수</th>
@@ -161,10 +161,30 @@
             	<td>${ b.bo_member } / ${ b.bo_maxmember }</td>
            
            
-            	<td>${ b.bo_reinfo }</td>
+            	<td>
+            	<c:set var="rei" value="${ b.bo_reinfo }" />
+				<c:choose>
+				    <c:when test="${com eq 'N'}">
+				        	바로
+				    </c:when>
+				    <c:when test="${com eq 'Y'}">
+				       		예약
+				    </c:when>
+				</c:choose>
+            	</td>
           
             
-            	<td>${ b.bo_complete }</td>
+            	<td>
+				<c:set var="com" value="${b.bo_complete }" />
+				<c:choose>
+				    <c:when test="${com eq 'N'}">
+				        	모집중
+				    </c:when>
+				    <c:when test="${com eq 'Y'}">
+				       		완료
+				    </c:when>
+				</c:choose>
+            	</td>
           
            
             	<td>${ b.bo_date }</td>
@@ -177,40 +197,24 @@
             
             
         </tbody>
-			<%-- <c:forEach var="b" items="${ list }">
-			<tr class="contentTR">
-				<td align="center">${ b.bId }</td>
-				
-				<td align="left">
-					<c:if test="${ !empty loginUser }">
-						<c:url var="bdetail" value="bdetail.bo">
-							<c:param name="bId" value="${ b.bId }"/>
-						</c:url>
-						<a href="${ bdetail }">${ b.bTitle }</a>
-					</c:if>
-					<c:if test="${ empty loginUser }">
-						${ b.bTitle }		
-					</c:if>
-				</td>
-				
-				<td align="center">${ b.bWriter }</td>
-				<td align="center">${ b.bMember } / ${ b.bMaxMember }</td>
-				<td align="center">${ b.bComplete }</td>
-				<td align="center">${ b.bCreateDate }</td>
-				<td align="center">${ b.bCount }</td>
-			</tr>
-			</c:forEach>
-		</tbody> --%>
     </table>
-			
+    
+		<hr>
+		
+		<tr>
+			<td colspan="6" align="right" id="buttonTab">
+				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" style="margin-left: 80%;"  onclick="location.href='index';">뒤로가기</button>				
+			</td>
+		</tr>
+		
 		<tr>
 			<td colspan="6" align="right" id="buttonTab">
 				<c:if test="${ !empty loginUser }">
 					&nbsp; &nbsp; &nbsp;
-				<button class="w3-button w3-round-large w3-light-blue w3-hover-Green" style="margin-left: 80%;"  onclick="location.href='binsertView.bo';">글쓰기</button>				</c:if>
+				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" style="margin-left: 80%;"  onclick="location.href='bUpView.bo';">글쓰기</button>				
+				</c:if>
 			</td>
 		</tr>
-		<!--  -->
 	<!-- footer -->
 	<c:import url="../common/footer.jsp"/>
 </body>

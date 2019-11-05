@@ -137,11 +137,12 @@
 					<label>예약</label>
 				</td>
 			</tr>
-			
+			<c:url var="blist" value="blist.bo">
+			</c:url>
 			<tr>
 				<td colspan="2" align="center">
 					<input class="w3-button w3-round-large w3-light-blue w3-hover-green" type="submit" value="등록 하기"> &nbsp;
-					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='blist.bo'">목록으로</button>
+					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ blist }'">목록으로</button>
 				</td>
 			</tr>
 		</table>

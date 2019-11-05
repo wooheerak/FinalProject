@@ -68,8 +68,6 @@
         WHERE BO_NUMBER = #{bo_number}
      </update>
      
-     
-     
      <!-- 댓글 -->
      
      <resultMap type="Reply" id="replyResultSet">

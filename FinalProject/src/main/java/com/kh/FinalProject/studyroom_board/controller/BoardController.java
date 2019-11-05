@@ -67,7 +67,7 @@ public class BoardController {
 		
 		return mv;
 	}
-	
+	//
 	// 게시글 등록 폼
 	@RequestMapping("bInsertView.bo")
 	public String boardInsertView() {

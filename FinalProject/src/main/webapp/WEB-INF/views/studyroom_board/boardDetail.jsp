@@ -142,12 +142,15 @@
 			<% pageContext.setAttribute("newLineChar", "\r\n"); %> <!-- \r\n 말고 그냥 \n도, \r도 가능하다 -->
 			<td>${ fn:replace(board.bo_detail, newLineChar, "<br>") }<br></td>
 		</tr>
+		<c:url var="bJoin" value="bJoin.bo">
+			<c:param name="bo_number" value="${ board.bo_number }"/>
+		</c:url>
 		<tr>
 			<th>현재 인윈 / 모집 인원</th>
 			<td>
 				${ board.bo_member } / ${ board.bo_maxmember }
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bupView }'">참여</button>
+				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bJoin }'">참여</button>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bupView }'">탈퇴</button>
 			</td>
@@ -174,6 +177,7 @@
 		<%-- </c:if> --%>
 		
 	</table>
+	
 	
 	<br><br>
 	 <!-- 댓글 -->

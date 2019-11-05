@@ -19,5 +19,7 @@ public interface Studyroom_BoderService {
 
 	int deleteBoard(int bo_number);
 
+	int memberJoin(Board b);
+
 
 }

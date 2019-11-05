@@ -61,6 +61,15 @@
         WHERE BO_NUMBER = #{bo_number}
      </update>
      
+     <!-- 그룹 참여 -->
+     <update id = "memberJoin" parameterType = "_int" >
+        UPDATE STUDYROOM_BOARD
+        SET BO_MEMBER = BO_MEMBER + 1 
+        WHERE BO_NUMBER = #{bo_number}
+     </update>
+     
+     
+     
      <!-- 댓글 -->
      
      <resultMap type="Reply" id="replyResultSet">

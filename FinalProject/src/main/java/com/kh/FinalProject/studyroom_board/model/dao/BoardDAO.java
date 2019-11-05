@@ -45,11 +45,15 @@ public class BoardDAO {
 		return sqlSession.update("boardMapper.deleteBoard", bo_number);
 	}
 	
-
+	// 그룹 참여
+	public int memberJoin(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("boardMapper.memberJoin", b);
+	}
 	
 	// 댓글
 	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int bo_number) {
 		return (ArrayList)sqlSession.selectOne("boardMapper.selectReplyList", bo_number);
 	}
+
 
 }

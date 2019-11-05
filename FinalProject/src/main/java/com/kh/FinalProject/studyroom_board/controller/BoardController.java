@@ -126,6 +126,42 @@ public class BoardController {
 			throw new BoardException("게시글 삭제 실패");
 		}
 	}
+	// 그룹 참여
+	@RequestMapping("bJoin.bo")
+	public String memberJoin(@RequestParam("bo_member") int bo_member, HttpServletRequest request, ModelAndView mv) {
+		
+		System.out.println("b" + bo_member);
+		
+		int mem = b.getBo_member();
+		int maxmem = b.getBo_maxmember();
+		
+		if( maxmem > mem) {
+			int result = sbService.memberJoin(b);
+			
+			if(result > 0) {
+				
+				return "redirect:bDetail.bo";
+			}else {
+				throw new BoardException("그룹 참여 실패");
+			}
+			
+		}else {
+			throw new BoardException("모집 인원 초과");
+			
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// 댓글
 	@RequestMapping("rList.bo")

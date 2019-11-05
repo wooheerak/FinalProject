@@ -67,4 +67,11 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 		return sbDAO.selectReplyList(sqlSession, bo_number);
 	}
 
+	// 그룹 참여
+	@Override
+	public int memberJoin(Board b) {
+	
+		return sbDAO.memberJoin(sqlSession, b);
+	}
+
 }

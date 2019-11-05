@@ -11,6 +11,11 @@ public class StudyroomContoller {
 //		
 //		retrun mv
 //	}
+	@RequestMapping("mystudyroomList.sr")
+	public String mySeatList() {
+		
+		return "my_studyroomList";
+	}
 	
 	@RequestMapping("srDay.sr")
 	public String dayView() {

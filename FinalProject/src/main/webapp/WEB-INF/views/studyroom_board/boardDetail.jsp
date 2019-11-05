@@ -16,7 +16,7 @@
 	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
 <script type="text/javascript"
 	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
-<script>
+<!-- <script>
 	jQuery(function($) {
 		$("#boardtable").DataTable({
 			// 표시 건수기능 숨기기
@@ -47,12 +47,13 @@
 			}
 		});
 	});
-</script>
+</script> -->
 <style type="text/css">
 #boardtable {
 	margin: auto;
 	width: 80% !important;
 	min-height: 600px;
+	text-align: center;
 }
 
 #w3 {
@@ -113,9 +114,9 @@
 		<div class="icon-center">
 			<i class="fa fa-code"></i>
 		</div>
-		<table border="1" id="boardtable" align="center">
+		<table border="1" id="boardtable">
 		<tr>
-			<th>번호</th>
+			<th width="80px" align="center">번호</th>
 			<td>${ board.bo_number }</td>
 		</tr>
 		<tr>
@@ -151,6 +152,7 @@
 				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bupView }'">탈퇴</button>
 			</td>
 		</tr>
+		
 
 		<c:url var="bUpView" value="bUpView.bo">
 			<c:param name="bo_number" value="${ board.bo_number }"/>

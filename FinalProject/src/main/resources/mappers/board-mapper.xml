@@ -44,13 +44,13 @@
      <insert id = "insertBoard" parameterType = "Board">
         INSERT INTO STUDYROOM_BOARD
         VALUES(BO_SEQ.NEXTVAL , BO_SEQ.NEXTVAL , #{bo_title} , #{bo_detail} , #{bo_name} , 1 ,
-              #{bo_maxmember} , #{bo_join} , #{bo_reinfo} , 'Y' , SYSDATE , 0 , 'Y')
+              #{bo_maxmember} , NULL , #{bo_reinfo} , DEFAULT , DEFAULT , DEFAULT , DEFAULT)
      </insert>
      
      <!-- 게시글 업데이트 -->
      <update id = "updateBoard" parameterType = "Board">
         UPDATE STUDYROOM_BOARD
-        SET BO_TITLE = #{bo_title} , BO_DETAIL = #{bo_detail} , BO_DATE = #{bo_date}, BO_MAXMEMBER = #{bo_maxmember}, BO_REINFO = #{bo_reinfo}
+        SET BO_TITLE = #{bo_title} , BO_DETAIL = #{bo_detail} , BO_DATE = DEFAULT, BO_MAXMEMBER = #{bo_maxmember}, BO_REINFO = #{bo_reinfo}
         WHERE BO_NUMBER = #{bo_number}
      </update>
      

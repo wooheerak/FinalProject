@@ -145,8 +145,6 @@
 						<c:param name="page" value="${ page }"/>
 					</c:url>
 					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" type="button" onclick="location.href='${ blist }'">목록으로</button>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" type="button" onclick="location.href='javascript:history.go(-1);'">이전페이지로</button>
 				</td>
 			</tr>
 		</table>

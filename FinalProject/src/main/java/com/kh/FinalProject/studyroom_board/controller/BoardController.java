@@ -128,9 +128,9 @@ public class BoardController {
 	}
 	// 그룹 참여
 	@RequestMapping("bJoin.bo")
-	public String memberJoin(@RequestParam("bo_member") int bo_member, HttpServletRequest request, ModelAndView mv) {
+	public String memberJoin(@ModelAttribute Board b, HttpServletRequest request, ModelAndView mv) {
 		
-		System.out.println("b" + bo_member);
+		System.out.println(b);
 		
 		int mem = b.getBo_member();
 		int maxmem = b.getBo_maxmember();
@@ -145,10 +145,8 @@ public class BoardController {
 				throw new BoardException("그룹 참여 실패");
 			}
 			
-		}else {
-			throw new BoardException("모집 인원 초과");
-			
 		}
+		throw new BoardException("모집 인원 초과");
 	}
 	
 	

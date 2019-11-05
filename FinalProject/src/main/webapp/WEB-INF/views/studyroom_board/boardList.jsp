@@ -164,10 +164,10 @@
             	<td>
             	<c:set var="rei" value="${ b.bo_reinfo }" />
 				<c:choose>
-				    <c:when test="${com eq 'N'}">
+				    <c:when test="${rei eq 'N'}">
 				        	바로
 				    </c:when>
-				    <c:when test="${com eq 'Y'}">
+				    <c:when test="${rei eq 'Y'}">
 				       		예약
 				    </c:when>
 				</c:choose>

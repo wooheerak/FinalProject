@@ -15,4 +15,9 @@ public class BookController {
 	public String detailView() {
 		return "bookDetailView";
 	}
+	
+	@RequestMapping("requestBook.bk")
+	public String requestBook() {
+		return "requestBookView";
+	}
 }

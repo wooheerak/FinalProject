@@ -27,25 +27,30 @@
 	</section>
 	<!-- end section -->
 
-	
+
 
 	<section class="section overfree" style="padding: 30px 0px;">
 		<div class="icon-center">
 			<i class="fa fa-code"></i>
 		</div>
 		<div class="container">
-			<div class="col-md-6">
-				<table>
-				      <tr>
-				      	<td></td>
-				      	<td></td>
-				      	<td></td>
-				      </tr>
-				</table>
+			<div class="col-md-12" style="padding-top: 30px;">
+				<div>
+					<b style="font-size: 30px; margin-left: 60px;">수치해석</b>
+				</div>
+				<hr>
+				<div class="col-md-3 text-center">
+					<img alt="" src="resources/sale_books/수치해석.PNG">
+				</div>
+				<div class="col-md-9">
+					<div style="display:flex;">
+						<b>저자 |</b>&nbsp;<p>이수진</p>&nbsp;&nbsp;<b>출판사 |</b>&nbsp;<p>KH도서</p>&nbsp;&nbsp;
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- end container -->
-		
+
 	</section>
 	<!-- end section -->
 

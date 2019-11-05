@@ -71,20 +71,20 @@
 			</div>
 		</div>
 
-	<section class="section">
+	<section class="section" style="padding:0px;">
 			<div class="container">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="ebook-details row">
+				<div class="row" style = " margin-left : -160px;">
+					<div class="col-md-6" >
+						<div class="ebook-details row" >
 							<div class="col-md-3">
-								<img src="upload/book_01.png" alt="" class="img-responsive">
+								<img src="resources/upload/book_01.png" alt="" class="img-responsive">
 							</div>
 							<div class="col-md-9">
 								<div class="book-details">
-									<small>Free</small>
-									<h3>Learning SEO</h3>
-									<p>You are not late to learn SEO. Here is the simplest and most practical way for you!</p>
-									<a href="#" class="btn btn-transparent">Download</a>
+									<small>자연 과학</small>
+									<h3>아저씨</h3>
+									<p>설명...</p>
+									<a href="detailView.bk" class="btn btn-transparent">상세 보기</a>
 								</div><!-- end details -->
 							</div><!-- end col -->
 						</div><!-- end ebook-details -->
@@ -93,14 +93,14 @@
 					<div class="col-md-6">
 						<div class="ebook-details row">
 							<div class="col-md-3">
-								<img src="upload/book_02.png" alt="" class="img-responsive">
+								<img src="resources/upload/book_02.png" alt="" class="img-responsive">
 							</div>
 							<div class="col-md-9">
 								<div class="book-details">
 									<small>Free</small>
 									<h3>WordPress SEO</h3>
 									<p>Learn more about WordPress search engine optimization (tips, tricks and plugins)</p>
-									<a href="#" class="btn btn-transparent">Download</a>
+									<a href="#" class="btn btn-transparent">상세 보기</a>
 								</div><!-- end details -->
 							</div><!-- end col -->
 						</div><!-- end ebook-details -->
@@ -109,14 +109,14 @@
 					<div class="col-md-6">
 						<div class="ebook-details row">
 							<div class="col-md-3">
-								<img src="upload/book_03.png" alt="" class="img-responsive">
+								<img src="resources/upload/book_03.png" alt="" class="img-responsive">
 							</div>
 							<div class="col-md-9">
 								<div class="book-details">
 									<small>Free</small>
 									<h3>Google Tricks</h3>
 									<p>Would you like to go up in a week on Google search engine? This book is for your website.</p>
-									<a href="#" class="btn btn-transparent">Download</a>
+									<a href="#" class="btn btn-transparent">상세 보기</a>
 								</div><!-- end details -->
 							</div><!-- end col -->
 						</div><!-- end ebook-details -->
@@ -125,14 +125,14 @@
 					<div class="col-md-6">
 						<div class="ebook-details row">
 							<div class="col-md-3">
-								<img src="upload/book_04.png" alt="" class="img-responsive">
+								<img src="resources/upload/book_04.png" alt="" class="img-responsive">
 							</div>
 							<div class="col-md-9">
 								<div class="book-details">
 									<small>Free</small>
 									<h3>Search Engine Marketing</h3>
 									<p>SEM was once was used as an umbrella term to encompass both SEO and paid search activities. </p>
-									<a href="#" class="btn btn-transparent">Download</a>
+									<a href="#" class="btn btn-transparent">상세 보기</a>
 								</div><!-- end details -->
 							</div><!-- end col -->
 						</div><!-- end ebook-details -->
@@ -141,14 +141,14 @@
 					<div class="col-md-6">
 						<div class="ebook-details row">
 							<div class="col-md-3">
-								<img src="upload/book_05.png" alt="" class="img-responsive">
+								<img src="resources/upload/book_05.png" alt="" class="img-responsive">
 							</div>
 							<div class="col-md-9">
 								<div class="book-details">
 									<small>Free</small>
 									<h3>SEO for Beginners</h3>
 									<p>Are you new to search engine? In this book I have given you some tips. This is useful ebook.</p>
-									<a href="#" class="btn btn-transparent">Download</a>
+									<a href="#" class="btn btn-transparent">상세 보기</a>
 								</div><!-- end details -->
 							</div><!-- end col -->
 						</div><!-- end ebook-details -->
@@ -157,7 +157,7 @@
 					<div class="col-md-6">
 						<div class="ebook-details row">
 							<div class="col-md-3">
-								<img src="upload/book_06.png" alt="" class="img-responsive">
+								<img src="resources/upload/book_06.png" alt="" class="img-responsive">
 							</div>
 							<div class="col-md-9">
 								<div class="book-details">
@@ -173,14 +173,14 @@
 					<div class="col-md-6">
 						<div class="ebook-details row">
 							<div class="col-md-3">
-								<img src="upload/book_02.png" alt="" class="img-responsive">
+								<img src="resources/upload/book_02.png" alt="" class="img-responsive">
 							</div>
 							<div class="col-md-9">
 								<div class="book-details">
 									<small>Free</small>
 									<h3>Why WordPress Best</h3>
 									<p>In this ebook, you can learn why WordPress is one of the best SEO friendly content management system.</p>
-									<a href="#" class="btn btn-transparent">Download</a>
+									<a href="#" class="btn btn-transparent">상세 보기</a>
 								</div><!-- end details -->
 							</div><!-- end col -->
 						</div><!-- end ebook-details -->
@@ -189,14 +189,14 @@
 					<div class="col-md-6">
 						<div class="ebook-details row">
 							<div class="col-md-3">
-								<img src="upload/book_01.png" alt="" class="img-responsive">
+								<img src="resources/upload/book_01.png" alt="" class="img-responsive">
 							</div>
 							<div class="col-md-9">
 								<div class="book-details">
 									<small>Free</small>
 									<h3>High Rank SEO</h3>
 									<p>This ebook ideal for professionals. You can make more powerful website SEO with our tips and tricks.</p>
-									<a href="#" class="btn btn-transparent">Download</a>
+									<a href="#" class="btn btn-transparent">상세 보기</a>
 								</div><!-- end details -->
 							</div><!-- end col -->
 						</div><!-- end ebook-details -->
@@ -206,14 +206,14 @@
 					<div class="col-md-6">
 						<div class="ebook-details row">
 							<div class="col-md-3">
-								<img src="upload/book_04.png" alt="" class="img-responsive">
+								<img src="resources/upload/book_04.png" alt="" class="img-responsive">
 							</div>
 							<div class="col-md-9">
 								<div class="book-details">
 									<small>Free</small>
 									<h3>Blogger SEO</h3>
 									<p>Blogger is a most popular free blog source on the web. In the ebook we teach you blog seo.</p>
-									<a href="#" class="btn btn-transparent">Download</a>
+									<a href="#" class="btn btn-transparent">상세 보기</a>
 								</div><!-- end details -->
 							</div><!-- end col -->
 						</div><!-- end ebook-details -->
@@ -222,14 +222,14 @@
 					<div class="col-md-6">
 						<div class="ebook-details row">
 							<div class="col-md-3">
-								<img src="upload/book_03.png" alt="" class="img-responsive">
+								<img src="resources/upload/book_03.png" alt="" class="img-responsive">
 							</div>
 							<div class="col-md-9">
 								<div class="book-details">
 									<small>Free</small>
 									<h3>Affiliate Marketing</h3>
 									<p>If you are an affiliate marketer this ebook ideal for you. With SEO plus affiliate make more..</p>
-									<a href="#" class="btn btn-transparent">Download</a>
+									<a href="#" class="btn btn-transparent">상세 보기</a>
 								</div><!-- end details -->
 							</div><!-- end col -->
 						</div><!-- end ebook-details -->

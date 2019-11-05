@@ -19,56 +19,52 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	
-	@Override
-	public ArrayList<Board> selectList() {
-
-		return sbDAO.selectList(sqlSession);
-	}
-
-
+	// 조회수
 	@Override
 	public Board selectBoard(int bo_number) {
-		
-		Board b = null;
 		
 		int result = sbDAO.addReadCount(sqlSession, bo_number);
 		
 		if(result > 0) {
-			System.out.println("service : " + bo_number);
 			return  sbDAO.selectBoard(sqlSession, bo_number);
 		}
 		
 		return null;
 		
 	}
-
-
+	
+	// 게시글 리스트
 	@Override
-	public ArrayList<Reply> selectReplyList(int bo_number) {
+	public ArrayList<Board> selectList() {
 
-		return sbDAO.selectReplyList(sqlSession, bo_number);
+		return sbDAO.selectList(sqlSession);
 	}
 
-
+	// 게시글 등록
 	@Override
 	public int insertBoard(Board b) {
 		return sbDAO.insertBoard(sqlSession, b);
 	}
 
-
+	// 게시글 수정
 	@Override
 	public int updateBoard(Board b) {
-
+		
 		return sbDAO.updateBoard(sqlSession, b);
 	}
 
-
+	// 게시글 삭제
 	@Override
 	public int deleteBoard(int bo_number) {
 
 		return sbDAO.deleteBoard(sqlSession, bo_number);
 	}
 
+	// 댓글 리스트
+	@Override
+	public ArrayList<Reply> selectReplyList(int bo_number) {
+		
+		return sbDAO.selectReplyList(sqlSession, bo_number);
+	}
 
 }

@@ -19,7 +19,6 @@ public class BoardDAO {
 	// 게시글 조회수
 	public int addReadCount(SqlSessionTemplate sqlSession, int bo_number) {
 		
-		System.out.println("dao : " + bo_number);
 		return sqlSession.update("boardMapper.addReadCount", bo_number);
 	}
 
@@ -28,17 +27,19 @@ public class BoardDAO {
 		return sqlSession.selectOne("boardMapper.selectBoard", bo_number);
 	}
 
-
+	// 게시글 등록
 	public int insertBoard(SqlSessionTemplate sqlSession, Board b) {
 		
 		return sqlSession.insert("boardMapper.insertBoard", b);
 	}
-
+	
+	// 게시글 수정
 	public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
-
+		
 		return sqlSession.update("boardMapper.updateBoard", b);
 	}
 
+	// 게시글 삭제
 	public int deleteBoard(SqlSessionTemplate sqlSession, int bo_number) {
 
 		return sqlSession.update("boardMapper.deleteBoard", bo_number);

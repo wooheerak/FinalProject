@@ -54,11 +54,8 @@ public class BoardController {
 		
 		Board board = sbService.selectBoard(bo_number);
 		
-		System.out.println("controller1 : " + board);
-		
 		if(board != null) {
 			// board --> boardDetail
-			System.out.println("controller2 : " + board);
 			mv.addObject("board",board)
 			  .setViewName("boardDetail");
 		}else {
@@ -67,7 +64,7 @@ public class BoardController {
 		
 		return mv;
 	}
-	// 테스트용 주석
+	
 	// 게시글 등록 폼
 	@RequestMapping("bInsertView.bo")
 	public String boardInsertView() {
@@ -104,7 +101,7 @@ public class BoardController {
 	// 게시글 업데이트
 	@RequestMapping("bUpdate.bo")
 	public String boardUpdate(@ModelAttribute Board b, HttpServletRequest request, ModelAndView mv) {
-					
+		
 		int result = sbService.updateBoard(b);
 					
 		if(result > 0) {

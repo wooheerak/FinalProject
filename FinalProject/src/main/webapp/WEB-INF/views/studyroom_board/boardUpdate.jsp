@@ -99,7 +99,7 @@
 		<div class="icon-center">
 			<i class="fa fa-code"></i>
 		</div>
-		<form action="boardUpdate" method="post">
+		<form action="bUpdate.bo" method="post">
 		<table id="boardUpdateTable" border="1">
 			<tr>
 				<th>제목</th>

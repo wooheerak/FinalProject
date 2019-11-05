@@ -25,7 +25,7 @@
 			"info" : false,
 			columnDefs : [ {
 				targets : 0,
-				width : 200
+				width : 50
 			} ],
 			// 페이지 넘기는 방식
 			pagingType : "full_numbers",
@@ -152,7 +152,7 @@
 			</td>
 		</tr>
 
-		<c:url var="bupView" value="bupView.bo">
+		<c:url var="bUpView" value="bUpView.bo">
 			<c:param name="bo_number" value="${ board.bo_number }"/>
 		</c:url>
 		<c:url var="bdelete" value="bdelete.bo">

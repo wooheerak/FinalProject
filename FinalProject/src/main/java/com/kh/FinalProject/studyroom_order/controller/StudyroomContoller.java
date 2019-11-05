@@ -24,6 +24,7 @@ public class StudyroomContoller {
 	
 	@RequestMapping("srReservation.sr")
 	public String reservView() {
+		// 값 받은후 변경
 		return "studyroomReservation";
 	}
 }

@@ -22,4 +22,6 @@ public class StudySeatController {
 		public String studyMain() {
 			return "studyMain";
 		}
+		
+		
 }

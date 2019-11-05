@@ -114,9 +114,9 @@ int date = cr.get(Calendar.DATE);
 							
 							<th class="studyroom_time">Time</th>
 							<!-- end는 층의 방 갯수 -->
-							<c:forEach var="i" begin="1" end="11">
+							<c:forEach var="i" items="${list}" begin="0" end="${roomCount}">
 								<!-- 방이름 -->
-								<th>A${i}</th>
+								<th>${i.sr_name}</th>
 							</c:forEach>
 						</tr>
 						<!-- 시간대만큼 for문 -->
@@ -254,21 +254,19 @@ int date = cr.get(Calendar.DATE);
 		var reservationWin;
 		var time = document.getElementById("startTime");
 		
-		console.log(time.value());
-		
 		var url = "srReservation.sr";
 		var srReservation = "srReservation";
 		var specs="width=350, height=300, left=20, top=30 toolbar=no, location=no, directories=no";
 		
-		window.open('',srReservation,specs);
+		window.open(url,srReservation,specs);
 // 		reservationWin.document.getElementById("startTime").value = document.getElementById("checkTime").value;
 		
-		time.target = srReservation;
-		time.action = url;
-		time.submit();
+// 		time.target = srReservation;
+// 		time.action = url;
+// 		time.submit();
 
 		
-	} 
+	}
 
 	function daycheck(e){
 		var target = document.getElementById("day");

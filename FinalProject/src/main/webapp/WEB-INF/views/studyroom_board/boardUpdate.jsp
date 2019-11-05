@@ -99,65 +99,62 @@
 		<div class="icon-center">
 			<i class="fa fa-code"></i>
 		</div>
+		<form action="bUpdate.bo" method="post">
 		<table id="boardUpdateTable" border="1">
 			<tr>
 				<th>제목</th>
-				<td><input type="text" size="80" name="bTitle"
-					value="${ board.bTitle }"></td>
+				<td>
+					<input type="text" size="80" name="bo_title" value="${ board.bo_title }">
+				</td>
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td><input type="text" name="bWriter" readonly
-					value="${ board.bWriter }" style="background: lightgrey;">
+				<td>
+					<input type="text" name="bo_name" readonly value="${ board.bo_name }" style="background: lightgrey;">
 				</td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea rows="10" cols="200" name="bContent">${ board.bContent }</textarea></td>
+				<td><textarea rows="10" cols="200" name="bo_detail">${ board.bo_detail }</textarea></td>
 			</tr>
-
+			
 			<tr>
 				<th>모집인원</th>
-				<td><input class="w3-radio" type="radio" name="maxmember"
-					value="4" checked> <label>4명</label> <input
-					class="w3-radio" type="radio" name="maxmember" value="6"> <label>6명</label>
+				<td>
+					<input class="w3-radio" type="radio" name="maxmember" value="4" checked>
+					<label>4명</label>
+					
+					<input class="w3-radio" type="radio" name="maxmember" value="6">
+					<label>6명</label>
 				</td>
 			</tr>
-
-
-			<%-- <tr>
-			<th>첨부파일</th>
-			<td>
-				<input type="file" name="reloadFile">
-				<c:if test="${ !empty board.originalFileName }">
-					<br>현재 업로드한 파일 : 
-					<a href="${ contextPath }/resources/buploadFiles/${ board.renameFileName }" download="${ board.originalFileName }">
-						${ board.originalFileName }
-					</a>
-				</c:if>
-				<br>
-			</td>
-		</tr> --%>
 			<tr>
-				<td colspan="2" align="center"><input
-					class="w3-button w3-round-large w3-light-blue w3-hover-green"
-					type="submit" value="수정하기"> &nbsp; <c:url var="blist"
-						value="blist.bo">
-						<c:param name="page" value="${ page }" />
+				<th>예약</th>
+				<td>
+					<input class="w3-radio" type="radio" name="bo_reinfo" value="바로" checked>
+					<label>바로</label>
+					
+					<input class="w3-radio" type="radio" name="bo_reinfo" value="예약">
+					<label>예약</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input class="w3-button w3-round-large w3-light-blue w3-hover-green" type="submit" value="수정하기"> &nbsp;
+					<c:url var="blist" value="blist.bo">
+						<c:param name="page" value="${ page }"/>
 					</c:url>
-					<button
-						class="w3-button w3-round-large w3-light-blue w3-hover-green"
-						type="button" onclick="location.href='${ blist }'">목록으로</button>
+					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" type="button" onclick="location.href='${ blist }'">목록으로</button>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<button
-						class="w3-button w3-round-large w3-light-blue w3-hover-green"
-						type="button" onclick="location.href='javascript:history.go(-1);'">이전페이지로</button>
+					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" type="button" onclick="location.href='javascript:history.go(-1);'">이전페이지로</button>
 				</td>
 			</tr>
 		</table>
-	</section>
-
+	</form>
+	
+	<br><br>
 	<!-- footer -->
-	<c:import url="../common/footer.jsp" />
+	<c:import url="../common/footer.jsp"/>
+	
 </body>
 </html>

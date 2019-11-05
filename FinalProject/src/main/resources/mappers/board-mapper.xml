@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="boardMapper">
+
+	<resultMap type="Board" id="boardResultSet">
+		<id  property="bo_primary" column="BO_PRIMARY"/>	 <!-- 번호 -->
+		<result property="bo_number" column="BO_NUMBER"/>	 <!-- 글 번호 -->
+		<result property="bo_title" column="BO_TITLE"/>	 <!-- 제목 -->
+		<result property="bo_detail" column="BO_DETAIL"/> <!-- 내용 -->
+		<result property="bo_name" column="BO_NAME"/>	 <!-- 작성자 -->
+		<result property="bo_member" column="BO_MEMBER"/>	 <!-- 현재 인원 -->
+		<result property="bo_maxmember" column="BO_MAXMEMBER"/>	 <!-- 모집 인원 -->
+		<result property="bo_join" column="BO_JOIN"/>	 	 <!-- 참여자 아이디 -->
+		<result property="bo_reinfo" column="BO_REINFO"/>	  <!-- 예약 정보 -->
+		<result property="bo_complete" column="BO_COMPLETE"/><!-- 모집 상태 -->
+		<result property="bo_date" column="BO_DATE"/> <!-- 작성일 -->
+		<result property="bo_count" column="BO_COUNT"/>	 <!-- 조회수 -->
+		<result property="bo_ing" column="BO_ING"/>	  <!-- 상태 -->
+	</resultMap>
+	
+     <!-- 게시판 리스트 -->
+     <select id = "selectList" resultMap="boardResultSet">
+        SELECT * 
+        FROM STUDYROOM_BOARD
+        WHERE BO_ING = 'Y' 
+        ORDER BY BO_NUMBER DESC
+     </select>
+     
+     <!-- 게시글 상세보기 -->
+     <select id = "selectBoard" parameterType = "_int" resultMap = "boardResultSet">
+        SELECT * 
+        FROM STUDYROOM_BOARD 
+        WHERE BO_NUMBER = #{bo_number} AND BO_ING = 'Y'
+     </select>
+     
+     <!-- 조회수 -->
+     <update id="addReadCount" parameterType = "_int">
+        UPDATE STUDYROOM_BOARD
+        SET BO_COUNT = BO_COUNT + 1
+        WHERE BO_NUMBER = #{bo_number}
+     </update>
+     
+     <!-- 게시글 등록 -->
+     <insert id = "insertBoard" parameterType = "Board">
+        INSERT INTO STUDYROOM_BOARD
+        VALUES(BO_SEQ.NEXTVAL , BO_SEQ.NEXTVAL , #{bo_title} , #{bo_detail} , #{bo_name} , 1 ,
+              #{bo_maxmember} , #{bo_join} , #{bo_reinfo} , 'Y' , SYSDATE , 0 , 'Y')
+     </insert>
+     
+     <!-- 게시글 업데이트 -->
+     <update id = "updateBoard" parameterType = "Board">
+        UPDATE STUDYROOM_BOARD
+        SET BO_TITLE = #{bo_title} , BO_DETAIL = #{bo_detail} , BO_DATE = #{bo_date}, BO_MAXMEMBER = #{bo_maxmember}, BO_REINFO = #{bo_reinfo}
+        WHERE BO_NUMBER = #{bo_number}
+     </update>
+     
+     <!-- 게시글 삭제 -->
+     <update id = "deleteBoard" parameterType = "_int" >
+        UPDATE STUDYROOM_BOARD
+        SET BO_ING = 'N'
+        WHERE BO_NUMBER = #{bo_number}
+     </update>
+     
+     <!-- 댓글 -->
+     
+     <resultMap type="Reply" id="replyResultSet">
+        <id property = "rId" column = "RID"/>
+        <result property = "rContent" column = "RCONTENT"/>
+        <result property = "refBid" column = "REF_BID"/>
+        <result property = "rWriter" column = "RWRITER"/>
+        <result property = "rCreateDate" column = "R_CREATE_DATE"/>
+        <result property = "rModifyDate" column = "R_MODIFY_DATE"/>
+        <result property = "rStatus" column = "R_STATUS"/>
+     </resultMap>
+     
+     <!-- 댓글  -->
+     <select id = "selectReplyList" parameterType = "_int" resultMap = "replyResultSet">
+        SELECT * 
+        FROM STUDYROOM_REPLY R
+        JOIN STUDYROOM_BOARD B ON (REF_BID = BO_NUMBER)        
+        WHERE REF_BID = #{bo_number}
+        ORDER BY REF_BID DESC
+     </select>
+     
+     
+     <!-- 댓글 입력 -->
+     <insert id = "insertReply" parameterType = "Reply" >
+        INSERT INTO STUDYROOM_REPLY
+        VALUES(RNO_SEQ.NEXTVAL , #{rContent} , #{refBid} , #{rWriter} , SYSDATE, SYSDATE,DEFAULT )
+     </insert>
+     
+     <!-- 댓글 삭제 -->
+     <update id = "deleteReplyBoard" parameterType = "_int">
+        UPDATE STUDYROOM_REPLY
+        SET R_STATUS = 'N'
+        WHERE REF_BID = #{refBid}
+     </update>
+ 	
+</mapper>

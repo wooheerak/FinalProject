@@ -98,45 +98,59 @@
 		<div class="icon-center">
 			<i class="fa fa-code"></i>
 		</div>
+		<form action="bInsert.bo" method="post">
 		<table id="boardInsertTable" border="1">
 			<tr>
 				<th>제목</th>
-				<td><input type="text" size="80" name="bTitle"></td>
+				<td>
+					<input type="text" size="80" name="bo_title">
+				</td>
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td><input type="text" name="bWriter" readonly
-					value="${ loginUser.id }" style="background: lightgrey;"></td>
+				<td>
+					<%-- <input type="text" name="bo_name" readonly value="${ loginUser.id }" style="background: lightgrey;"> --%>
+					<input type="text" size="80" name="bo_name">
+				</td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea rows="10" cols="200" name="bContent"></textarea></td>
+				<td><textarea rows="10" cols="200" name="bo_detail"></textarea></td>
 			</tr>
 			<tr>
 				<th>모집인원</th>
-				<td><input class="w3-radio" type="radio" name="maxmember"
-					value="4" checked> <label>4명</label> <input
-					class="w3-radio" type="radio" name="maxmember" value="6"> <label>6명</label>
+				<td>
+					<input class="w3-radio" type="radio" name="bo_maxmember" value="4" checked>
+					<label>4명</label>
+					
+					<input class="w3-radio" type="radio" name="bo_maxmember" value="6">
+					<label>6명</label>
 				</td>
 			</tr>
 			<tr>
 				<th>예약</th>
-				<td><input class="w3-radio" type="radio" name="re" value="now"
-					checked> <label>바로</label> <input class="w3-radio"
-					type="radio" name="re" value="re"> <label>예약</label></td>
+				<td>
+					<input class="w3-radio" type="radio" name="bo_reinfo" value="바로" checked>
+					<label>바로</label>
+					
+					<input class="w3-radio" type="radio" name="bo_reinfo" value="예약">
+					<label>예약</label>
+				</td>
 			</tr>
-
+			
 			<tr>
-				<td colspan="2" align="center"><input
-					class="w3-button w3-round-large w3-light-blue w3-hover-green"
-					type="submit" value="등록 하기"> &nbsp;
-					<button
-						class="w3-button w3-round-large w3-light-blue w3-hover-green"
-						onclick="location.href='blist.bo'">목록으로</button></td>
+				<td colspan="2" align="center">
+					<input class="w3-button w3-round-large w3-light-blue w3-hover-green" type="submit" value="등록 하기"> &nbsp;
+					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='blist.bo'">목록으로</button>
+				</td>
 			</tr>
 		</table>
-	</section>
+	</form>
+	
+	
+	<br><br>
 	<!-- footer -->
-	<c:import url="../common/footer.jsp" />
+	<c:import url="../common/footer.jsp"/>
+	
 </body>
 </html>

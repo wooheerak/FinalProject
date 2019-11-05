@@ -23,8 +23,9 @@
 			// 정보 표시 숨기기
 			"info" : true,
 
-			// 높이 고정
-
+			  // 정렬
+            "order": [],
+            
 			// 페이지 넘기는 방식
 			pagingType : "full_numbers",
 
@@ -124,133 +125,58 @@
 			<i class="fa fa-code"></i>
 		</div>
 		<table id="tb" class="table">
-			<thead>
-				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>모집인원</th>
-					<th>바로/예약</th>
-					<th>상태</th>
-					<th>작성날짜</th>
-					<th>조회수</th>
-				</tr>
-			</thead>
+        <thead>
+            <tr>
+            	<th>번호</th>
+            	<th>제목</th>
+            	<th>작성자</th>
+            	<th>모집인원</th>
+            	<th>바로/예약</th>
+            	<th>상태</th>
+            	<th>작성날짜</th>
+            	<th>조회수</th>
+          	</tr>
+        </thead>
 
-			<tbody align="center">
-
-				<tr>
-					<td>1</td>
-					<td>인문 과학</td>
-					<td>성원</td>
-					<td>2/4</td>
-					<td>바로</td>
-					<td>모집중</td>
-					<td>2019/10/30</td>
-					<td>8</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>수학 공부</td>
-					<td>수진</td>
-					<td>3/6</td>
-					<td>바로</td>
-					<td>모집중</td>
-					<td>2019/10/30</td>
-					<td>4</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>팀 프로젝트</td>
-					<td>동수</td>
-					<td>4/6</td>
-					<td>예약(11/03)</td>
-					<td>모집중</td>
-					<td>2019/10/31</td>
-					<td>7</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>자격증 시험</td>
-					<td>희락</td>
-					<td>2/4</td>
-					<td>바로</td>
-					<td>모집중</td>
-					<td>2019/9/30</td>
-					<td>2</td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>기말 빡공</td>
-					<td>진호</td>
-					<td>6/6</td>
-					<td>예약(11/01)</td>
-					<td>모집완료</td>
-					<td>2019/10/20</td>
-					<td>10</td>
-				</tr>
-				<tr>
-					<td>6</td>
-					<td>롤 할사람</td>
-					<td>한수</td>
-					<td>1/4</td>
-					<td>바로</td>
-					<td>모집중</td>
-					<td>2019/10/10</td>
-					<td>45</td>
-				</tr>
-				<tr>
-					<td>7</td>
-					<td>공무원 시험 대비</td>
-					<td>준호</td>
-					<td>5/6</td>
-					<td>예약(11/02)</td>
-					<td>모집중</td>
-					<td>2019/10/15</td>
-					<td>8</td>
-				</tr>
-				<tr>
-					<td>8</td>
-					<td>공시생 모여라</td>
-					<td>성호</td>
-					<td>6/6</td>
-					<td>바로</td>
-					<td>모집완료</td>
-					<td>2019/10/21</td>
-					<td>9</td>
-				</tr>
-				<tr>
-					<td>9</td>
-					<td>학원 가기 전에</td>
-					<td>철현</td>
-					<td>2/4</td>
-					<td>예약(11/04)</td>
-					<td>모집중</td>
-					<td>2019/10/28</td>
-					<td>11</td>
-				</tr>
-				<tr>
-					<td>10</td>
-					<td>탈주각 보실 분?</td>
-					<td>상은</td>
-					<td>1/6</td>
-					<td>바로</td>
-					<td>모집중</td>
-					<td>2019/10/05</td>
-					<td>13</td>
-				</tr>
-				<tr>
-					<td>99</td>
-					<td>유학 가자~</td>
-					<td>재윤</td>
-					<td>4/4</td>
-					<td>예약(11/10)</td>
-					<td>모집완료</td>
-					<td>2019/10/08</td>
-					<td>21</td>
-				</tr>
-
-			</tbody>
+        <tbody align="center">
+        
+            <!-- 번호, 제목, 작성자, 현재인원/최대인원, 예약상태, 모집상태, 작성시간, 조회수 -->
+            <c:forEach var="b" items="${ list }">
+            <tr>
+            	<td>${ b.bo_number }</td>
+     
+            
+            	<%-- <td>${ b.bo_title }</td> --%>
+            	<td>
+						<c:url var="bDetail" value="bDetail.bo">
+							<c:param name="bo_number" value="${ b.bo_number }"/>
+						</c:url>
+						<a href="${ bDetail }">${ b.bo_title }</a>
+				</td>
+            
+            
+            	<td>${ b.bo_name }</td>
+            
+            
+            	<td>${ b.bo_member } / ${ b.bo_maxmember }</td>
+           
+           
+            	<td>${ b.bo_reinfo }</td>
+          
+            
+            	<td>${ b.bo_complete }</td>
+          
+           
+            	<td>${ b.bo_date }</td>
+         
+       
+            	<td>${ b.bo_count }</td>
+            </tr>
+            
+            </c:forEach>
+            
+            
+        </tbody>
 			<%-- <c:forEach var="b" items="${ list }">
 			<tr class="contentTR">
 				<td align="center">${ b.bId }</td>
@@ -275,23 +201,17 @@
 			</tr>
 			</c:forEach>
 		</tbody> --%>
-		</table>
-
-		<%-- 		<tr>
-			<td colspan="6" align="right" id="buttonTab"><c:if
-					test="${ !empty loginUser }">
+    </table>
+			
+		<tr>
+			<td colspan="6" align="right" id="buttonTab">
+				<c:if test="${ !empty loginUser }">
 					&nbsp; &nbsp; &nbsp;
-				<button
-						class="w3-button w3-round-large w3-light-blue w3-hover-Green"
-						style="margin-left: 80%;"
-						onclick="location.href='binsertView.bo';">글쓰기</button>
-				</c:if></td>
-		</tr> --%>
-
-	</section>
-
+				<button class="w3-button w3-round-large w3-light-blue w3-hover-Green" style="margin-left: 80%;"  onclick="location.href='binsertView.bo';">글쓰기</button>				</c:if>
+			</td>
+		</tr>
+		<!--  -->
 	<!-- footer -->
-	<c:import url="../common/footer.jsp" />
-
+	<c:import url="../common/footer.jsp"/>
 </body>
 </html>

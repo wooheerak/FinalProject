@@ -11,6 +11,8 @@ public class BookController {
 		return "bookListView";
 	}
 
-	
-	////// 테스트용 
+	@RequestMapping("detailView.bk")
+	public String detailView() {
+		return "bookDetailView";
+	}
 }

@@ -32,4 +32,6 @@ public class StudyroomContoller {
 		// 값 받은후 변경
 		return "studyroomReservation";
 	}
+	
+	
 }

@@ -48,7 +48,7 @@
                             <!-- <span><i class="fa fa-check"></i></span> -->
                             <div class = "menuContent" focusable="true">내 정보 조회</div>
                             <div class = "menuContent" focusable="true">대출 내역 조회</div>
-                            <div class = "menuContent" focusable="true">열람실/스터디룸 이용내역 조회</div>
+                            <div class = "menuContent" focusable="true" onclick = "location.href='myseatList.ss'">열람실/스터디룸 이용내역 조회</div>
                             <div class = "menuContent" focusable="true">도서 신청 조회</div>
                             <div class = "menuContent" focusable="true">BOOKSALES<br>거래 내역</div>
                             <!-- <li>Sector and Competitor Analysis <span><i class="fa fa-check"></i></span></li> -->
@@ -67,7 +67,8 @@
                 <div class="dropdown portfolio-filter">
                     <button class="btn  dropdown-toggle" type="button" data-toggle="dropdown" style = "float: left;border-radius: 2px; width : 160px ; text-align: center; background: white; border : 1px solid lightgray;">
                         <p class = "isStudy" style = "display: inline;">열람실/스터디룸</p>
-                       <span class="fa fa-angle-down" style = "display: inline;"></span></button>
+                      
+
                     <ul class="dropdown-menu" style="margin-top:40px;">
                         <li><a class= "seat" href="myseatList.ss" data-filter="*" style="text-align: center;">열람실</a></li>
                         <li><a class= "studyroom" href="mystudyroomList.sr" data-filter=".cat1" style="text-align: center;">스터디룸</a></li>                       

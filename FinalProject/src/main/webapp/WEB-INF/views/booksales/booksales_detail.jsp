@@ -35,7 +35,11 @@
 		</div>
 		<div class="container">
 			<div class="col-md-6">
-				
+				<table>
+				      <tr>
+				      	<td></td>
+				      </tr>
+				</table>
 			</div>
 		</div>
 		<!-- end container -->

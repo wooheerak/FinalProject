@@ -654,7 +654,7 @@
 						<button type="button" class="btn btn-primary btn-block reset"
 							style="width: 100px; padding-left: 4px; display: inline; margin-left: 3px; border-radius: 0px;">좌석
 							다시 선택</button>
-						<button type="button" class="btn btn-primary btn-block"
+						<button type="button" class="btn btn-primary btn-block" onclick = "resvSeat();"
 							style="width: 100px; display: inline; margin-top: 0px; margin-left: 10px; padding-left: 35px; border-radius: 0px;">예약</button>
 					</form>
 				</div>
@@ -717,6 +717,10 @@
 		$(".room").on("click", function() {
 			$("#floor").text($(this).attr("value"));
 		});
+		
+		function resvSeat(){
+			
+		}
 	</script>
 
 	<jsp:include page="../common/footer.jsp" />

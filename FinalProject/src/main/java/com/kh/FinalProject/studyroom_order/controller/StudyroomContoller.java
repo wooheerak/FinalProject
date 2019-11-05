@@ -26,4 +26,6 @@ public class StudyroomContoller {
 	public String reservView() {
 		return "studyroomReservation";
 	}
+	
+	
 }

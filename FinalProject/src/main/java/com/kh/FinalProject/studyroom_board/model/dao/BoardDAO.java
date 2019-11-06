@@ -46,8 +46,8 @@ public class BoardDAO {
 	}
 	
 	// 그룹 참여
-	public int memberJoin(SqlSessionTemplate sqlSession, Board b) {
-		return sqlSession.update("boardMapper.memberJoin", b);
+	public int memberJoin(SqlSessionTemplate sqlSession, int bo_number) {
+		return sqlSession.update("boardMapper.memberJoin", bo_number);
 	}
 	
 	// 댓글

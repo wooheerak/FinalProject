@@ -17,7 +17,7 @@ public interface Studyroom_BoderService {
 
 	int deleteBoard(int bo_number);
 
-	int memberJoin(Board b);
+	int memberJoin(int bo_number);
 
 	ArrayList<Reply> selectReplyList(int bo_number);
 

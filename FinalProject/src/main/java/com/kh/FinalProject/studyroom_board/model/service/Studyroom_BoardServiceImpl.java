@@ -63,9 +63,10 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 
 	// 그룹 참여
 	@Override
-	public int memberJoin(Board b) {
+	public int memberJoin(int bo_number) {
 	
-		return sbDAO.memberJoin(sqlSession, b);
+		return sbDAO.memberJoin(sqlSession, bo_number);
+	
 	}
 
 	// 댓글 리스트

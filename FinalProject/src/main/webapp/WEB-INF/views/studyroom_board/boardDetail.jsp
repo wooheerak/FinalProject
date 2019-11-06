@@ -104,6 +104,11 @@ text-align: center !important;
 		</tr>
 		<tr>
 			<th>현재 인윈 / 모집 인원</th>
+			<c:url var="bJoin" value="bJoin.bo">
+				<c:param name="bo_number" value="${ board.bo_number }"/>
+				<c:param name="bo_member" value="${ board.bo_member }"/>
+				<c:param name="bo_maxmember" value="${ board.bo_maxmember }"/>
+			</c:url>
 			<td>
 				${ board.bo_member } / ${ board.bo_maxmember }
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

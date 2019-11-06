@@ -129,13 +129,14 @@ public class BoardController {
 	
 	// 그룹 참여
 	@RequestMapping("bJoin.bo")
-	public String memberJoin(@ModelAttribute Board b, HttpServletRequest request, ModelAndView mv) {
+	public String memberJoin(@RequestParam("bo_number") int bo_number,
+							@RequestParam("Bo_member") int Bo_member,
+							@RequestParam("Bo_maxmember") int Bo_maxmember,
+							HttpServletRequest request, ModelAndView mv) {
 		
-		int mem = b.getBo_member();
-		int maxmem = b.getBo_maxmember();
 		
-		if( maxmem > mem) {
-			int result = sbService.memberJoin(b);
+		if( Bo_member < Bo_member) {
+			int result = sbService.memberJoin(bo_number);
 			
 			if(result > 0) {
 				
@@ -144,8 +145,9 @@ public class BoardController {
 				throw new BoardException("그룹 참여 실패");
 			}
 			
+		}else {
+			throw new BoardException("모집 인원 초과");
 		}
-		throw new BoardException("모집 인원 초과");
 	}
 	
 	

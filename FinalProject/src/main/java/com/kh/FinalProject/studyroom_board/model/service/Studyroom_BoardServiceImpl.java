@@ -52,7 +52,6 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 		
 		System.out.println("service : " + b );
 		
-		return sbDAO.updateBoard(sqlSession, b);
 	}
 
 	// 게시글 삭제
@@ -76,5 +75,17 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 	public ArrayList<Reply> selectReplyList(int bo_number) {
 		
 		return sbDAO.selectReplyList(sqlSession, bo_number);
+	}
+
+	// 댓글 등록
+	@Override
+	public int insertReply(Reply r) {
+
+		return sbDAO.insertReply(sqlSession, r);
+	}
+
+	@Override
+	public int deleteReply(int refBid) {
+		return sbDAO.deleteReply(sqlSession, refBid);
 	}
 }

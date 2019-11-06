@@ -21,4 +21,8 @@ public interface Studyroom_BoderService {
 
 	ArrayList<Reply> selectReplyList(int bo_number);
 
+	int insertReply(Reply r);
+
+	int deleteReply(int refBid);
+
 }

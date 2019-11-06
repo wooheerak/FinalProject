@@ -43,7 +43,7 @@
      <!-- 게시글 등록 -->
      <insert id = "insertBoard" parameterType = "Board">
         INSERT INTO STUDYROOM_BOARD
-        VALUES(BO_SEQ.NEXTVAL , BO_SEQ.NEXTVAL , #{bo_title} , #{bo_detail} , #{bo_name} , 1 ,
+        VALUES(SEQ_BOP.NEXTVAL , SEQ_BON.NEXTVAL , #{bo_title} , #{bo_detail} , #{bo_name} , 1 ,
               #{bo_maxmember} , NULL , #{bo_reinfo} , DEFAULT , DEFAULT , DEFAULT , DEFAULT)
      </insert>
      
@@ -93,11 +93,11 @@
      <!-- 댓글 입력 -->
      <insert id = "insertReply" parameterType = "Reply" >
         INSERT INTO STUDYROOM_REPLY
-        VALUES(RNO_SEQ.NEXTVAL , #{rContent} , #{refBid} , #{rWriter} , SYSDATE, SYSDATE,DEFAULT )
+        VALUES(SEQ_RID.NEXTVAL , #{rContent} , #{refBid} , #{rWriter} , SYSDATE, SYSDATE, DEFAULT )
      </insert>
      
      <!-- 댓글 삭제 -->
-     <update id = "deleteReplyBoard" parameterType = "_int">
+     <update id = "deleteReply" parameterType = "_int">
         UPDATE STUDYROOM_REPLY
         SET R_STATUS = 'N'
         WHERE REF_BID = #{refBid}

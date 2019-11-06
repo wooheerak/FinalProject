@@ -57,5 +57,13 @@ public class BoardDAO {
 		return (ArrayList)sqlSession.selectOne("boardMapper.selectReplyList", bo_number);
 	}
 
+	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.insert("boardMapper.insertReply", r);
+	}
+
+	public int deleteReply(SqlSessionTemplate sqlSession, int refBid) {
+		return sqlSession.update("boardMapper.deleteReply", refBid);
+	}
+
 
 }

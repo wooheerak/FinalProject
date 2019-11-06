@@ -32,7 +32,7 @@
 
 .replyTable {
 	margin: auto;
-	width: 600px;
+	width: 500px;
 }
 
 .col-sm-7 {
@@ -153,6 +153,14 @@ text-align: center !important;
          <td>
             <button id = "rSubmit" class="w3-button w3-round-large w3-light-blue w3-hover-green">등록</button>            
          </td>
+         <c:url var="rdelete" value="rdelete.bo">
+			<c:param name="refBid" value="${ Reply.refBid }"/>
+		</c:url>
+         <c:if test="${ loginUser.id eq Reply.rWriter }">
+			<td colspan="2" align="center">
+				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ rdelete }'">삭제하기</button>
+			</td>
+		</c:if>
       </tr>
    </table>
    
@@ -164,7 +172,7 @@ text-align: center !important;
       </thead>
       <tbody></tbody>
    </table>
-   
+    
    <script>
       $(function(){
          getReplyList();

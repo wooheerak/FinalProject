@@ -6,12 +6,14 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -21,6 +23,7 @@ import com.kh.FinalProject.studyroom_board.model.exception.BoardException;
 import com.kh.FinalProject.studyroom_board.model.service.Studyroom_BoderService;
 import com.kh.FinalProject.studyroom_board.model.vo.Board;
 import com.kh.FinalProject.studyroom_board.model.vo.Reply;
+import com.kh.spring.member.model.vo.Member;
 
 @Controller
 public class BoardController {
@@ -154,7 +157,7 @@ public class BoardController {
 	}
 	
 	
-	// 댓글
+	// 댓글 리스트
 	@RequestMapping("rList.bo")
 	public void getReplyList(HttpServletResponse response, int bo_number) throws JsonIOException, IOException {
 		ArrayList<Reply> list = sbService.selectReplyList(bo_number);
@@ -171,7 +174,8 @@ public class BoardController {
 		
 	}
 	
-	/*@RequestMapping("addReply.bo")
+	// 댓글 입력
+	@RequestMapping("addReply.bo")
 	@ResponseBody
 	public String addReply(Reply r, HttpSession session) {
 		Member loginUser = (Member)session.getAttribute("loginUser");
@@ -186,7 +190,21 @@ public class BoardController {
 		}else {
 			throw new BoardException("댓글 등록 실패");
 		}
-	}*/
+	}
+	
+	// 댓글 삭제
+	@RequestMapping("rdelete.bo")
+	@ResponseBody
+	public String deleteReply(@RequestParam("refBid") int refBid) {
+		
+		int result = sbService.deleteReply(refBid);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			throw new BoardException("댓글 삭제 실패");
+		}
+	}
 	
 	
 

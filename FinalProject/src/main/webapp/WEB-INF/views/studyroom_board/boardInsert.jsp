@@ -130,10 +130,10 @@
 			<tr>
 				<th>예약</th>
 				<td>
-					<input class="w3-radio" type="radio" name="bo_reinfo" value="바로" checked>
+					<input class="w3-radio" type="radio" name="bo_reinfo" value="N" checked>
 					<label>바로</label>
 					
-					<input class="w3-radio" type="radio" name="bo_reinfo" value="예약">
+					<input class="w3-radio" type="radio" name="bo_reinfo" value="Y">
 					<label>예약</label>
 				</td>
 			</tr>

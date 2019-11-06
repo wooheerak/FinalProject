@@ -92,6 +92,20 @@ text-align: center !important;
 			<td>${ board.bo_date }</td>
 		</tr>
 		<tr>
+			<th>모집유형</th>
+			<td>
+				<c:set var="rei" value="${ board.bo_reinfo }" />
+				<c:choose>
+				    <c:when test="${rei eq 'N'}">
+				        	바로
+				    </c:when>
+				    <c:when test="${rei eq 'Y'}">
+				       		예약
+				    </c:when>
+				</c:choose>
+			</td>
+		</tr>
+		<tr>
 			<th>내용</th>
 			<%-- <td>${ board.bContent }</td> --%>
 			<!-- 
@@ -126,7 +140,7 @@ text-align: center !important;
 			<c:param name="bo_number" value="${ board.bo_number }"/>
 		</c:url>
 		
-		<c:url var="blist" value="blist.bo">
+		<c:url var="blist" value="bList.bo">
 		</c:url>
 		
 		<%-- <c:if test="${ loginUser.id eq board.bo_name }"> --%>
@@ -256,7 +270,7 @@ text-align: center !important;
 	<p align="center">
 		<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='index.jsp'">시작 페이지로 이동</button>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bList }'">게시판으로 가기</button>
+		<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ blist }'">게시판으로 가기</button>
 	</p>
 	
 	<!-- footer -->

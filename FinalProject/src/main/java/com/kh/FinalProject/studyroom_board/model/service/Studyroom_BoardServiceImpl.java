@@ -50,8 +50,7 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 	@Override
 	public int updateBoard(Board b) {
 		
-		System.out.println("service : " + b );
-		
+		return sbDAO.updateBoard(sqlSession, b);		
 	}
 
 	// 게시글 삭제
@@ -69,7 +68,12 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 		return sbDAO.memberJoin(sqlSession, bo_number);
 	
 	}
-
+	
+	// 그룹 탈퇴 
+	@Override
+	public int memberUnjoin(int bo_number) {
+		return sbDAO.memberUnjoin(sqlSession, bo_number);
+	}
 	// 댓글 리스트
 	@Override
 	public ArrayList<Reply> selectReplyList(int bo_number) {
@@ -83,9 +87,11 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 
 		return sbDAO.insertReply(sqlSession, r);
 	}
-
+	
+	// 댓글 삭제
 	@Override
 	public int deleteReply(int refBid) {
 		return sbDAO.deleteReply(sqlSession, refBid);
 	}
+
 }

@@ -85,9 +85,7 @@
 		                                                <li><a href="">Testimonials</a></li>
 		                                                <li><a href="booksales.bs">중고서적 판매</a></li>
 		                                                <li><a href="bList.bo">스터디룸 게시판</a></li>
-		                                                <li><a href="bDetail.bo">스터디룸 게시글 보기</a></li>
 		                                                <li><a href="bInsertView.bo">스터디룸 게시글 쓰기</a></li>
-		                                                <li><a href="bUpView.bo">스터디룸 게시글 수정</a></li>
 													</ul>
 												</div>
 												<div class="col-md-4">

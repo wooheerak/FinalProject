@@ -23,7 +23,6 @@ import com.kh.FinalProject.studyroom_board.model.exception.BoardException;
 import com.kh.FinalProject.studyroom_board.model.service.Studyroom_BoderService;
 import com.kh.FinalProject.studyroom_board.model.vo.Board;
 import com.kh.FinalProject.studyroom_board.model.vo.Reply;
-import com.kh.spring.member.model.vo.Member;
 
 @Controller
 public class BoardController {
@@ -154,6 +153,24 @@ public class BoardController {
 		}else {
 			throw new BoardException("모집 인원 초과");
 		}
+	}
+	
+	// 그룹 탈퇴
+	@RequestMapping("bUnjoin.bo")
+	public ModelAndView memberUnjoin(@RequestParam(value="bo_number",required=false) int bo_number, HttpServletRequest request, ModelAndView mv) {
+		
+		int bNo = bo_number;
+		
+		int result = sbService.memberUnjoin(bo_number);
+			
+		if(result > 0) {
+			
+			mv.addObject("bo_number", bNo).setViewName("redirect:bDetail.bo");
+			return mv;
+		}else {
+			throw new BoardException("그룹 탈퇴 실패");
+		}
+		
 	}
 	
 	

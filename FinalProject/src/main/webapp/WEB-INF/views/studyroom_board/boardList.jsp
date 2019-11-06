@@ -203,7 +203,7 @@
 		
 		<tr>
 			<td colspan="6" align="right" id="buttonTab">
-				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" style="margin-left: 80%;"  onclick="location.href='index';">뒤로가기</button>				
+				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" style="margin-left: 80%;"  onclick="location.href='index.jsp';">뒤로가기</button>				
 			</td>
 		</tr>
 		

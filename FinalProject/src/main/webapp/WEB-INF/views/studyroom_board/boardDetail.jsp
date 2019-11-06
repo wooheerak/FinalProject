@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>BoardDetail</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
@@ -44,8 +45,11 @@
 	margin: auto;
 }
 th{
-text-align: center !important;
+ text-align: center !important;
+ background: lightblue;
+ color: black;
 }
+
 </style>
 </head>
 <body>
@@ -123,12 +127,66 @@ text-align: center !important;
 				<c:param name="bo_member" value="${ board.bo_member }"/>
 				<c:param name="bo_maxmember" value="${ board.bo_maxmember }"/>
 			</c:url>
+			<c:url var="bUnjoin" value="bUnjoin.bo">
+				<c:param name="bo_number" value="${ board.bo_number }"/>
+			</c:url>
+			<td>${ board.bo_member } / ${ board.bo_maxmember }</td>
+		</tr>
+		<tr>
+			<th>참여자</th>
 			<td>
-				${ board.bo_member } / ${ board.bo_maxmember }
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bJoin }'">참여</button>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bupView }'">탈퇴</button>
+			<c:set var="join" value="${ board.bo_join }" />
+				<c:choose>
+				    <c:when test="${join eq NULL}">
+				        	참여자가 없어요
+				    </c:when>
+				    <c:when test="${join != 'NULL'}">
+				       		${ board.bo_join }
+				    </c:when>
+				</c:choose>
+				<br><br>
+				
+				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join" <%-- onclick="location.href='${ bJoin }'" --%>>참여</button>
+				<script type="text/javascript">
+				$('#join').click(function(){
+					Swal.fire({
+						width: 600,
+						padding: 100,
+					  title: '참여 하시겠습니까?',
+					  text: "다시한번 확인해주세요",
+					  icon: 'warning',
+					  showCancelButton: true,
+					  confirmButtonColor: '#3085d6',
+					  cancelButtonColor: '#d33',
+					  cancelButtonText: '취소',
+					  confirmButtonText: '참여할래요!!'
+					}).then((result) => {location.href='${ bJoin }'
+					  
+					})
+				});
+				</script>
+				
+				<c:if test="${ loginUser.id eq board.bo_join }">
+					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="cancel" <%-- onclick="location.href='${ bUnjoin }'" --%>>탈퇴</button>
+					<script type="text/javascript">
+					$('#cancel').click(function(){
+						Swal.fire({
+							width: 600,
+							padding: 100,
+						  title: '탈퇴 하시겠습니까?',
+						  text: "다시한번 확인해주세요",
+						  icon: 'warning',
+						  showCancelButton: true,
+						  confirmButtonColor: '#3085d6',
+						  cancelButtonColor: '#d33',
+						  cancelButtonText: '취소',
+						  confirmButtonText: '탈퇴할래요!!'
+						}).then((result) => {location.href='${ bUnjoin }'
+						  
+						})
+					});
+					</script>
+				</c:if>
 			</td>
 		</tr>
 
@@ -143,15 +201,15 @@ text-align: center !important;
 		<c:url var="blist" value="bList.bo">
 		</c:url>
 		
-		<%-- <c:if test="${ loginUser.id eq board.bo_name }"> --%>
-		<tr>
-			<td colspan="2" align="center">
-				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bUpView }'">수정하기</button>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bdelete }'">삭제하기</button>
-			</td>
-		</tr>
-		<%-- </c:if> --%>
+		<c:if test="${ loginUser.id eq board.bo_name }">
+			<tr>
+				<td colspan="2" align="center">
+					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bUpView }'">수정하기</button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bdelete }'">삭제하기</button>
+				</td>
+			</tr>
+		</c:if> 
 		
 	</table>
 	
@@ -259,13 +317,6 @@ text-align: center !important;
    </script>
 
 	<br><br>
-	
-	<%-- <p align="center">
-		<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='index.jsp'">메인 페이지</button>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     
-		<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ blist }'">뒤로 가기</button>
-	</p> --%>
-	
 	
 	<p align="center">
 		<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='index.jsp'">시작 페이지로 이동</button>

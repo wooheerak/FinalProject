@@ -36,8 +36,6 @@ public class BoardDAO {
 	// 게시글 수정
 	public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
 		
-		System.out.println("DAO : " + b );
-		
 		return sqlSession.update("boardMapper.updateBoard", b);
 	}
 
@@ -52,18 +50,26 @@ public class BoardDAO {
 		return sqlSession.update("boardMapper.memberJoin", bo_number);
 	}
 	
-	// 댓글
+	// 그룹 탈퇴
+	public int memberUnjoin(SqlSessionTemplate sqlSession, int bo_number) {
+		return sqlSession.update("boardMapper.memberUnjoin", bo_number);
+	}
+	
+	// 댓글 리스트
 	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int bo_number) {
 		return (ArrayList)sqlSession.selectOne("boardMapper.selectReplyList", bo_number);
 	}
 
+	// 댓글 등록
 	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
 		return sqlSession.insert("boardMapper.insertReply", r);
 	}
 
+	// 댓글 삭제
 	public int deleteReply(SqlSessionTemplate sqlSession, int refBid) {
 		return sqlSession.update("boardMapper.deleteReply", refBid);
 	}
+
 
 
 }

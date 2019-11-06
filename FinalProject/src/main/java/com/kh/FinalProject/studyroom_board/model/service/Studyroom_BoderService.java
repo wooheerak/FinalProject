@@ -25,4 +25,6 @@ public interface Studyroom_BoderService {
 
 	int deleteReply(int refBid);
 
+	int memberUnjoin(int bo_number);
+
 }

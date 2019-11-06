@@ -129,18 +129,22 @@ public class BoardController {
 	
 	// 그룹 참여
 	@RequestMapping("bJoin.bo")
-	public String memberJoin(@RequestParam("bo_number") int bo_number,
-							@RequestParam("Bo_member") int Bo_member,
-							@RequestParam("Bo_maxmember") int Bo_maxmember,
+	public ModelAndView memberJoin(@RequestParam(value="bo_number",required=false) int bo_number,
+							@RequestParam("bo_member") int bo_member,
+							@RequestParam("bo_maxmember") int bo_maxmember,
 							HttpServletRequest request, ModelAndView mv) {
 		
+		int mem = bo_member;
+		int maxmem = bo_maxmember;
+		int bNo = bo_number;
 		
-		if( Bo_member < Bo_member) {
+		if( mem < maxmem) {
 			int result = sbService.memberJoin(bo_number);
 			
 			if(result > 0) {
 				
-				return "redirect:bDetail.bo";
+				mv.addObject("bo_number", bNo).setViewName("redirect:bDetail.bo");
+				return mv;
 			}else {
 				throw new BoardException("그룹 참여 실패");
 			}

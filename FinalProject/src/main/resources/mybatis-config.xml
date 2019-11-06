@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
+
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
 		<typeAlias type="com.kh.FinalProject.studyroom_board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.FinalProject.studyroom_board.model.vo.Reply" alias="Reply"/>
+		<typeAlias type="com.kh.FinalProject.studyseat.model.vo.Seat" alias="Seat"/>
 	</typeAliases>
+	
 	<mappers>
 		<mapper resource="mappers/board-mapper.xml"/>
+		<mapper resource="mappers/seat-mapper.xml"/>
 	</mappers>
 </configuration>
+
+
 

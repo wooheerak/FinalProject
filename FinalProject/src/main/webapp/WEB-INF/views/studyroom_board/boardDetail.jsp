@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,22 +83,23 @@ th{
 		<tr>
 			<th width="80px" align="center">번호</th>
 			<td>${ board.bo_number }</td>
-		</tr>
-		<tr>
-			<th>제목</th>
+		
+			<td style="width: 150px; background-color: lightblue; font-weight: bold;">제목</td>
 			<td>${ board.bo_title }</td>
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td>${ board.bo_name }</td>
+			<td colspan="3">${ board.bo_name }</td>
 		</tr>
 		<tr>
 			<th>작성날짜</th>
-			<td>${ board.bo_date }</td>
+			<td colspan="3">
+				<fmt:formatDate value="${ board.bo_date }" pattern="MM-dd HH:mm:ss" />
+			</td>
 		</tr>
 		<tr>
 			<th>모집유형</th>
-			<td>
+			<td colspan="3">
 				<c:set var="rei" value="${ board.bo_reinfo }" />
 				<c:choose>
 				    <c:when test="${rei eq 'N'}">
@@ -118,55 +120,53 @@ th{
 			-->
 			
 			<% pageContext.setAttribute("newLineChar", "\r\n"); %> <!-- \r\n 말고 그냥 \n도, \r도 가능하다 -->
-			<td>${ fn:replace(board.bo_detail, newLineChar, "<br>") }<br></td>
+			<td colspan="3" style="height: 500px; text-align: left;">${ fn:replace(board.bo_detail, newLineChar, "<br>") }<br></td>
 		</tr>
 		<tr>
 			<th>현재 인윈 / 모집 인원</th>
-			<c:url var="bJoin" value="bJoin.bo">
-				<c:param name="bo_number" value="${ board.bo_number }"/>
-				<c:param name="bo_member" value="${ board.bo_member }"/>
-				<c:param name="bo_maxmember" value="${ board.bo_maxmember }"/>
-			</c:url>
-			<c:url var="bUnjoin" value="bUnjoin.bo">
-				<c:param name="bo_number" value="${ board.bo_number }"/>
-			</c:url>
-			<td>${ board.bo_member } / ${ board.bo_maxmember }</td>
-		</tr>
-		<tr>
-			<th>참여자</th>
+				<c:url var="bJoin" value="bJoin.bo">
+					<c:param name="bo_number" value="${ board.bo_number }"/>
+					<c:param name="bo_member" value="${ board.bo_member }"/>
+					<c:param name="bo_maxmember" value="${ board.bo_maxmember }"/>
+				</c:url>
+				<c:url var="bUnjoin" value="bUnjoin.bo">
+					<c:param name="bo_number" value="${ board.bo_number }"/>
+				</c:url>
+				<td style="width: 150px;">${ board.bo_member } / ${ board.bo_maxmember }</td>
+			<td style="width: 150px; background-color: lightblue; font-weight: bold;">참여자 아이디</td>
 			<td>
-			<c:set var="join" value="${ board.bo_join }" />
-				<c:choose>
-				    <c:when test="${join eq NULL}">
-				        	참여자가 없어요
-				    </c:when>
-				    <c:when test="${join != 'NULL'}">
-				       		${ board.bo_join }
-				    </c:when>
-				</c:choose>
-				<br><br>
-				
-				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join" <%-- onclick="location.href='${ bJoin }'" --%>>참여</button>
-				<script type="text/javascript">
-				$('#join').click(function(){
-					Swal.fire({
-						width: 600,
-						padding: 100,
-					  title: '참여 하시겠습니까?',
-					  text: "다시한번 확인해주세요",
-					  icon: 'warning',
-					  showCancelButton: true,
-					  confirmButtonColor: '#3085d6',
-					  cancelButtonColor: '#d33',
-					  cancelButtonText: '취소',
-					  confirmButtonText: '참여할래요!!'
-					}).then((result) => {location.href='${ bJoin }'
-					  
-					})
-				});
-				</script>
-				
-				<c:if test="${ loginUser.id eq board.bo_join }">
+				<c:set var="join" value="${ board.bo_join }" />
+					<c:choose>
+					    <c:when test="${join eq NULL}">
+					        	참여자가 없어요
+					    </c:when>
+					    <c:when test="${join != 'NULL'}">
+					       		${ board.bo_join }
+					    </c:when>
+					</c:choose>
+			<c:if test="${ loginUser.id != board.bo_name }">
+				<c:if test="${ loginUser.id != board.bo_join }">
+					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join" <%-- onclick="location.href='${ bJoin }'" --%>>참여</button>
+					<script type="text/javascript">
+					$('#join').click(function(){
+						Swal.fire({
+							width: 600,
+							padding: 100,
+						  title: '참여 하시겠습니까?',
+						  text: "다시한번 확인해주세요",
+						  icon: 'warning',
+						  showCancelButton: true,
+						  confirmButtonColor: '#3085d6',
+						  cancelButtonColor: '#d33',
+						  cancelButtonText: '취소',
+						  confirmButtonText: '참여할래요!!'
+						}).then((result) => {location.href='${ bJoin }'
+						  
+						})
+					});
+					</script>
+				</c:if>
+				<c:if test="${ loginUser.id == board.bo_join }">
 					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="cancel" <%-- onclick="location.href='${ bUnjoin }'" --%>>탈퇴</button>
 					<script type="text/javascript">
 					$('#cancel').click(function(){
@@ -187,8 +187,67 @@ th{
 					});
 					</script>
 				</c:if>
+			</c:if>
 			</td>
 		</tr>
+	
+		<%-- <tr>
+			<th>참여자</th>
+			<td>
+			<c:set var="join" value="${ board.bo_join }" />
+				<c:choose>
+				    <c:when test="${join eq NULL}">
+				        	참여자가 없어요
+				    </c:when>
+				    <c:when test="${join != 'NULL'}">
+				       		${ board.bo_join }
+				    </c:when>
+				</c:choose>
+				<br><br>
+				
+				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join" onclick="location.href='${ bJoin }'">참여</button>
+				<script type="text/javascript">
+				$('#join').click(function(){
+					Swal.fire({
+						width: 600,
+						padding: 100,
+					  title: '참여 하시겠습니까?',
+					  text: "다시한번 확인해주세요",
+					  icon: 'warning',
+					  showCancelButton: true,
+					  confirmButtonColor: '#3085d6',
+					  cancelButtonColor: '#d33',
+					  cancelButtonText: '취소',
+					  confirmButtonText: '참여할래요!!'
+					}).then((result) => {location.href='${ bJoin }'
+					  
+					})
+				});
+				</script>
+				
+				<c:if test="${ loginUser.id eq board.bo_join }">
+					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="cancel" onclick="location.href='${ bUnjoin }'">탈퇴</button>
+					<script type="text/javascript">
+					$('#cancel').click(function(){
+						Swal.fire({
+							width: 600,
+							padding: 100,
+						  title: '탈퇴 하시겠습니까?',
+						  text: "다시한번 확인해주세요",
+						  icon: 'warning',
+						  showCancelButton: true,
+						  confirmButtonColor: '#3085d6',
+						  cancelButtonColor: '#d33',
+						  cancelButtonText: '취소',
+						  confirmButtonText: '탈퇴할래요!!'
+						}).then((result) => {location.href='${ bUnjoin }'
+						  
+						})
+					});
+					</script>
+				</c:if>
+			</td>
+		</tr> --%>
 
 		<c:url var="bUpView" value="bUpView.bo">
 			<c:param name="bo_number" value="${ board.bo_number }"/>

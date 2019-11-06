@@ -128,6 +128,12 @@
 					
 					<input class="w3-radio" type="radio" name="bo_maxmember" value="6">
 					<label>6명</label>
+					
+					<input class="w3-radio" type="radio" name="bo_maxmember" value="8">
+					<label>8명</label>
+					
+					<input class="w3-radio" type="radio" name="bo_maxmember" value="11">
+					<label>11명</label>
 				</td>
 			</tr>
 			<tr>

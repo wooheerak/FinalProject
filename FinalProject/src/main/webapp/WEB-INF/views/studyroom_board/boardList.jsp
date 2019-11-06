@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -133,7 +134,7 @@
             	<th>모집인원</th>
             	<th>모집유형</th>
             	<th>모집상태</th>
-            	<th>작성날짜</th>
+            	<th>작성시간</th>
             	<th>조회수</th>
           	</tr>
         </thead>
@@ -185,9 +186,8 @@
 				    </c:when>
 				</c:choose>
             	</td>
-          
-           
-            	<td>${ b.bo_date }</td>
+
+            	<td><fmt:formatDate value="${ b.bo_date }" pattern="MM-dd HH:mm:ss" /></td>
          
        
             	<td>${ b.bo_count }</td>

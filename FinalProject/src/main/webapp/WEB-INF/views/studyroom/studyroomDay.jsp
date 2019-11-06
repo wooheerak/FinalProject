@@ -256,7 +256,7 @@ int date = cr.get(Calendar.DATE);
 		
 		var url = "srReservation.sr";
 		var srReservation = "srReservation";
-		var specs="width=350, height=300, left=20, top=30 toolbar=no, location=no, directories=no";
+		var specs="width=420px, height=350px, left=20, top=30, toolbar=no, location=no, directories=no";
 		
 		window.open(url,srReservation,specs);
 // 		reservationWin.document.getElementById("startTime").value = document.getElementById("checkTime").value;

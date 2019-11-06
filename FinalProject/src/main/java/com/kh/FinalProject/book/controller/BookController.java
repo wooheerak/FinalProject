@@ -20,4 +20,10 @@ public class BookController {
 	public String requestBook() {
 		return "requestBookView";
 	}
+//	location.href='이동주소';
+	@RequestMapping("reservationBook.bk")
+	public String reservationBook() {
+		
+		return "bookListView";
+	}
 }

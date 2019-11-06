@@ -117,7 +117,7 @@
 					받아야 완료되며, 24시간 이후 자동 예약 취소됩니다.</b> <br>
 				<br>
 				<hr>
-				<button class="w3-button w3-blue" style="margin-bottom:-45px; margin-left:60px; border-radius: 10px; ">예약하기</button>
+				<button onclick="reservation()" class="w3-button w3-blue" style="margin-bottom:-45px; margin-left:60px; border-radius: 10px; ">예약하기</button>
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				<button class="w3-button w3-blue" style="margin-bottom:-45px; margin-left:60px; border-radius: 10px;"
 				onclick="document.getElementById('id01').style.display='none'">취 소</button>
@@ -127,6 +127,14 @@
 	
 	<button onclick="location.href='selectList.bk'" class="w3-btn w3-white w3-border" style="border-radius: 10px; margin-left:48%; margin-top:-25%">목록으로</button>
 	<br><br>
+	
+
+	<script>
+		function reservation(){
+			alert('예약이 완료되었습니다.');
+			location.href="reservationBook.bk";
+		}
+	</script>	
 
 	<jsp:include page="../common/footer.jsp" />
 

@@ -83,7 +83,7 @@
 								<div class="book-details">
 									<small>자연 과학</small>
 									<h3>아저씨</h3>
-									<p>설명...</p>
+									<p>이거 방탄유리야 이 개XX야~ / 아직한발 남았따...</p>
 									<a href="detailView.bk" class="btn btn-transparent">상세 보기</a>
 								</div><!-- end details -->
 							</div><!-- end col -->

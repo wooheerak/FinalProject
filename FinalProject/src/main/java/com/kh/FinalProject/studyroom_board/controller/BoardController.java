@@ -6,15 +6,12 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -100,13 +97,15 @@ public class BoardController {
 	
 	// 게시글 업데이트
 	@RequestMapping("bUpdate.bo")
-	public String boardUpdate(@ModelAttribute Board b , ModelAndView mv) {
+	public ModelAndView boardUpdate(@ModelAttribute Board b, ModelAndView mv) {
+		
+		System.out.println("controller : " + b );
 		
 		int result = sbService.updateBoard(b);
 					
 		if(result > 0) {
-		
-			return "redirect:bDetail.bo";
+			mv.setViewName("redirect:bDetail.bo?bo_number=" + b.getBo_number());
+			return mv;
 		}else {
 			throw new BoardException("게시글 수정 실패");
 		}

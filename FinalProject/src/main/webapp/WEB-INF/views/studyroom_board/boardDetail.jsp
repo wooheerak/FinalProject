@@ -121,9 +121,11 @@ text-align: center !important;
 		<c:url var="bUpView" value="bUpView.bo">
 			<c:param name="bo_number" value="${ board.bo_number }"/>
 		</c:url>
+		
 		<c:url var="bdelete" value="bdelete.bo">
 			<c:param name="bo_number" value="${ board.bo_number }"/>
 		</c:url>
+		
 		<c:url var="blist" value="blist.bo">
 		</c:url>
 		

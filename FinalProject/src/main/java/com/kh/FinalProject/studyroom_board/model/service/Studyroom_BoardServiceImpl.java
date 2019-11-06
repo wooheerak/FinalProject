@@ -50,6 +50,8 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 	@Override
 	public int updateBoard(Board b) {
 		
+		System.out.println("service : " + b );
+		
 		return sbDAO.updateBoard(sqlSession, b);
 	}
 

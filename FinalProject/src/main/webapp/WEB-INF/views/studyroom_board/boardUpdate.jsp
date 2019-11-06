@@ -99,8 +99,10 @@
 		<div class="icon-center">
 			<i class="fa fa-code"></i>
 		</div>
-		<form action="bUpdate.bo" method="post">
+		
+	<form action="bUpdate.bo" method="post">
 		<table id="boardUpdateTable" border="1">
+		<input type="hidden" name="bo_number" value="${ board.bo_number }">
 			<tr>
 				<th>제목</th>
 				<td>
@@ -121,10 +123,10 @@
 			<tr>
 				<th>모집인원</th>
 				<td>
-					<input class="w3-radio" type="radio" name="maxmember" value="4" checked>
+					<input class="w3-radio" type="radio" name="bo_maxmember" value="4" checked>
 					<label>4명</label>
 					
-					<input class="w3-radio" type="radio" name="maxmember" value="6">
+					<input class="w3-radio" type="radio" name="bo_maxmember" value="6">
 					<label>6명</label>
 				</td>
 			</tr>
@@ -138,6 +140,7 @@
 					<label>예약</label>
 				</td>
 			</tr>
+			
 			<tr>
 				<td colspan="2" align="center">
 					<input class="w3-button w3-round-large w3-light-blue w3-hover-green" type="submit" value="수정하기"> &nbsp;

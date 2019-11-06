@@ -36,6 +36,8 @@ public class BoardDAO {
 	// 게시글 수정
 	public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
 		
+		System.out.println("DAO : " + b );
+		
 		return sqlSession.update("boardMapper.updateBoard", b);
 	}
 

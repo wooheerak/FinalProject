@@ -50,7 +50,7 @@
      <!-- 게시글 업데이트 -->
      <update id = "updateBoard" parameterType = "Board">
         UPDATE STUDYROOM_BOARD
-        SET BO_TITLE = #{bo_title} , BO_DETAIL = #{bo_detail} , BO_DATE = DEFAULT, BO_MAXMEMBER = #{bo_maxmember}, BO_REINFO = #{bo_reinfo}
+        SET BO_TITLE = #{bo_title} , BO_DETAIL = #{bo_detail} , BO_DATE = DEFAULT , BO_MAXMEMBER = #{bo_maxmember} , BO_REINFO = #{bo_reinfo}
         WHERE BO_NUMBER = #{bo_number}
      </update>
      

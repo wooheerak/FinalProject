@@ -38,7 +38,7 @@ public class NoticeServiceImpl {
 	}
 
 	public int inserNotice(Notice n) {
-		return nDAO.insertBoard(sqlSession, n);
+		return nDAO.insertNotice(sqlSession, n);
 	}
 
 }

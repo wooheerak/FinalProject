@@ -9,8 +9,8 @@
 		<result property="nContent" column="NCONTENT"/>
 		<result property="nCreateDate" column="N_CREATE_DATE"/>
 		<result property="nModifyDate" column="N_MODIFY_DATE"/>
-		<result property="nOriginalFilename" column="ORIGINAL_FILENAME"/>
-		<result property="nRenameFilename" column="RENAME_FILENAME"/>
+		<result property="originalFileName" column="ORIGINAL_FILENAME"/>
+		<result property="renameFileName" column="RENAME_FILENAME"/>
 		<result property="nCount" column="NCOUNT"/>
 		<result property="nStatus" column="N_STATUS"/>
 	</resultMap>
@@ -40,6 +40,6 @@
      <!-- 공지사항 작성 -->
      <insert id="insertNotice" parameterType="Notice">
      	INSERT INTO NOTICE
-     	VALUES (seq_nid.nextval, #{nTitle}, #{nWriter}, #{nContent}, #{originalFileName}, #{renameFileName}, default, sysdate, sysdate, default)
+     	VALUES (SEQ_NID.NEXTVAL, #{nTitle}, #{nWriter}, #{nContent}, sysdate, sysdate, #{originalFileName}, #{renameFileName}, default, default)
      </insert>
 </mapper>

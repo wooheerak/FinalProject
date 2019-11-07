@@ -35,11 +35,10 @@
 			<i class="fa fa-code"></i>
 		</div>
 		<div class="container">
-			<div class="boardDetail">
-			
-				<div class="boardInfo"
+			<div class="noticeDetail">	
+				<div class="noticeInfo"
 					style="background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b3b3; padding: 20px;">
-					<p class="boardInfoTitle">
+					<p class="noticeInfoTitle">
 						<b>${ n.nTitle }</b>
 					</p>
 					<p class="writeInfo text-right">
@@ -51,11 +50,17 @@
 						</dd>
 					</dl>
 				</div>
-				<div class="boardContent"
+				<div class="noticeContent"
 					style="background-color: #fff; border: 1px solid #e6e6e6; border-top: none; padding: 20px; font-size: 13px;">
 					${ n.nContent }
 				</div>
-
+				
+				<c:if test="${ !empty n.originalFileName }">
+					<div style="padding: 20px; border: 1px solid #e6e6e6; border-top: none; border-bottom: 1px solid #b3b3b3; vertical-align: middle;">
+						<i class="fa fa-file"></i>&nbsp;&nbsp;&nbsp;<a href="${ contextPath }/resources/nuploadFiles/${ n.renameFileName }" download="${ n.originalFileName }">${ n.originalFileName }</a>
+              		 	<!-- a태그 안에서 다운로드 받을 것이 있을 때 쓰는 속성 download, 얘는 download="fileName" 이라고 해서 fileName을 지정해줄 수 있다. -->
+					</div>
+				</c:if>
 
 			</div>
 			<br>

@@ -29,4 +29,10 @@ public class SeatServiceImpl implements SeatService{
 		
 		return sDao.selectSeatList(sqlSession);
 	}
+
+	@Override
+	public ArrayList<Seat> selectSeatList(String floor) {
+		
+		return sDao.selectSeatList(sqlSession , floor);
+	}
 }

@@ -21,4 +21,10 @@ public class SeatDao {
 		return (ArrayList)sqlSession.selectList("seatMapper.selectSeatList");
 	}
 
+
+	public ArrayList<Seat> selectSeatList(SqlSessionTemplate sqlSession, String floor) {
+		
+		return (ArrayList)sqlSession.selectList("seatMapper.selectFloorSeat" , floor);
+	}
+
 }

@@ -15,5 +15,10 @@
   		WHERE SS_FLOOR = 'A'
   	</select>
   	
+  	<select id = "selectFloorSeat" parameterType = "string" resultType = "Seat">
+  		SELECT *
+  		FROM STUDYSEAT
+  		WHERE SS_FLOOR = #{floor}
+  	</select>
   
 </mapper>

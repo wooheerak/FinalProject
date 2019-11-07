@@ -13,4 +13,6 @@ public interface SeatService {
 
 	ArrayList<Seat> selectSeatList();
 
+	ArrayList<Seat> selectSeatList(String floor);
+
 }

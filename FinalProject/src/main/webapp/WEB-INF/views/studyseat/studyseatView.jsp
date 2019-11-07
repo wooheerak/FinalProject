@@ -15,7 +15,7 @@
 
 	<section class="section normalhead lb">
 		<div class="container">
-			<div class="row">
+			<div class="row"> 
 				<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
 					<h2>
 						<strong>열람실</strong>조회
@@ -56,47 +56,48 @@
 							<p style="margin-top: 10px; font-size: large;">창&nbsp;&nbsp;&nbsp;문</p>
 						</div>
 						<br>
-						<c:forEach var = "seat" items = "${ list }" varStatus="status">
-							<c:if test = "${ (status.index % 20 == 0) }">
-								<div class="row" style="margin-left: 20px; margin-right: 10px; margin-top: 5px;">
-								
-							</c:if>
-							<c:if test = "${ status.index % 10 == 0 }">
-								<c:if test = "${ status.index % 20 == 0 }">
-									<div class="seatCharts-row" style="display: inline;">
+						<div id = "seatList">
+							<c:forEach var = "seat" items = "${ list }" varStatus="status">
+								<c:if test = "${ (status.index % 20 == 0) }">
+									<div class="row" style="margin-left: 20px; margin-right: 10px; margin-top: 5px;">
+									
 								</c:if>
-								<c:if test = "${ status.index % 20 != 0 }">
-									<div class="seatCharts-row" style="display: inline; float : right;">
-								</c:if>								
-							</c:if>
-							
-							
-							<c:if test = '${ seat.ss_use eq "N" }'>
-								<div id="s${ seat.ss_no }" role="checkbox" onclick="clickSeat(this);"	aria-checked="false" focusable="true" tabindex="-1" class="seatCharts-seat seatCharts-cell available">${ seat.ss_no }</div>
-							</c:if>
+								<c:if test = "${ status.index % 10 == 0 }">
+									<c:if test = "${ status.index % 20 == 0 }">
+										<div class="seatCharts-row" style="display: inline;">
+									</c:if>
+									<c:if test = "${ status.index % 20 != 0 }">
+										<div class="seatCharts-row" style="display: inline; float : right;">
+									</c:if>								
+								</c:if>
 								
-							<c:if test = '${ seat.ss_use eq "Y" }'>
-								<div id="s${ seat.ss_no }" role="checkbox" onclick="clickSeat(this);" aria-checked="false" focusable="true" tabindex="-1" class="seatCharts-seat seatCharts-cell unavailable">${ seat.ss_no }</div>
-							</c:if>
-							
-							
-							<c:if test = "${ status.index != 0 && status.index % 10 == 9 }">
-								</div>								
-							</c:if>
-							
-							<c:if test = "${ status.index != 0 && status.index % 20 == 19 }">
-								</div>								
-							</c:if>
-							
-							<c:if test = "${ status.index != 0 && status.index % 40 == 39 }">
-								<br>								
-							</c:if>
-							
-							
-					
-							
-						</c:forEach>
-
+								
+								<c:if test = '${ seat.ss_use eq "N" }'>
+									<div id="s${ seat.ss_no }" role="checkbox" onclick="clickSeat(this);"	aria-checked="false" focusable="true" tabindex="-1" class="seatCharts-seat seatCharts-cell available">${ seat.ss_no }</div>
+								</c:if>
+									
+								<c:if test = '${ seat.ss_use eq "Y" }'>
+									<div id="s${ seat.ss_no }" role="checkbox" onclick="clickSeat(this);" aria-checked="false" focusable="true" tabindex="-1" class="seatCharts-seat seatCharts-cell unavailable">${ seat.ss_no }</div>
+								</c:if>
+								
+								
+								<c:if test = "${ status.index != 0 && status.index % 10 == 9 }">
+									</div>								
+								</c:if>
+								
+								<c:if test = "${ status.index != 0 && status.index % 20 == 19 }">
+									</div>								
+								</c:if>
+								
+								<c:if test = "${ status.index != 0 && status.index % 40 == 39 }">
+									<br>								
+								</c:if>
+								
+								
+						
+								
+							</c:forEach>
+						</div>
 
 						<div class="row door">
 							<p style="margin-top: 10px; font-size: large;">출&nbsp;&nbsp;입&nbsp;&nbsp;문</p>
@@ -111,26 +112,27 @@
 						style="border: 1px solid gray; border-radius: 4px;">
 						<div class="pricing-header sixch">
 							<b><p id="floor"
-									style="font-size: 35px; color: white; display: inline;">A</p></b> <small
+									style="font-size: 35px; color: white; display: inline;">${ floor }</p></b> <small
 								style="color: white; display: inline;">열람실</small>
 						</div>
 						<br>
 						<div class="service-box"
 							style="border: 1px solid lightgray; height: 380px;">
+							
 							<div class="service-box room" focusable="true"
-								style="text-align: center; cursor: pointer;" value="A">
+								style="text-align: center; cursor: pointer;" value="A" >
 								<b>A열람실</b> <br>
 								<p id="a-floor" style="display: inline;">${ count[0] }</p>
 								석/160석
 							</div>
 							<div class="service-box room" focusable="true"
-								style="text-align: center; cursor: pointer;" value="B">
+								style="text-align: center; cursor: pointer;" value="B" >
 								<b>B열람실</b> <br>
 								<p id="b-floor" style="display: inline;">${ count[1] }</p>
 								석/120석
 							</div>
 							<div class="service-box room" focusable="true"
-								style="text-align: center; cursor: pointer;" value="C">
+								style="text-align: center; cursor: pointer;" value="C" >
 								<b>C열람실</b> <br>
 								<p id="c-floor" style="display: inline;">${ count[2] }</p>
 								석/130석
@@ -179,6 +181,7 @@
 					$(obj).removeClass("selected");
 					$(obj).addClass("available");
 					check = 0;
+					
 
 				} else {
 					console.log("unavailable");
@@ -206,19 +209,80 @@
 			seatId = "";
 		});
 
-		$(".room").on("click", function() {
-			$("#floor").text($(this).attr("value"));
-		});
+		
+		
 		
 		function resvSeat(){
 			var url = "popResv.ss";
 			var option = "width=400, height=250, resizable=no, scrollbars=no, status=no;";
-			var popX =  (window.screen.width / 2) - (500 / 2);
-			var popY =  (window.screen.height / 2) - (250 / 2);
-			window.open(url , "", option + ", left = " + popX + ", top = " + popY);				
-			
+			var popX =  ((window.screen.width / 2) - (500 / 2));
+			var popY =  ((window.screen.height / 2) - (250 / 2));
+			window.open(url , "", option + ", left = " + popX + ", top = " + popY);					
 			
 		}
+		
+		/* 열람실 좌석 div부분 채우는 Ajax */
+		$(".room").on("click", function(){
+			var floor = $(this).attr("value");
+			$("#floor").text(floor);
+			
+			$.ajax({
+				url : "slistAjax.ss" ,
+				data : { floor : floor } ,
+				dataType : "json" ,
+				success : function(data){
+					
+					console.log(data);
+					$("#a-floor").text(data.cList[0].count);
+					$("#b-floor").text(data.cList[1].count);
+					$("#c-floor").text(data.cList[2].count);
+					
+					$("#seatList").text("");
+					
+					var str = "";
+					
+					for(var i in data.sList){
+						var no = data.sList[i].no;
+						var floor = data.sList[i].floor;
+						var use = data.sList[i].use;
+						
+						if(i % 20 == 0){
+							str = '<div class="row" style="margin-left: 20px; margin-right: 10px; margin-top: 5px;">';
+							
+							$("#seatList").append(str);
+						}	
+						if(i % 10 == 0){
+							if(i % 20 == 0){
+								str = '<div class="seatCharts-row" style="display: inline;">';
+								$("#seatList").append(str);	
+							}
+							if(i % 20 != 0){
+								str = '<div class="seatCharts-row" style="display: inline; float : right;">';
+								$("#seatList").append(str);
+							}
+						}
+						
+						if(data.sList[i].use == "Y"){
+							'<div id="s'+ data.sList[i].no +'" role="checkbox" onclick="clickSeat(this);" aria-checked="false" focusable="true" tabindex="-1" class="seatCharts-seat seatCharts-cell unavailable">'+ data.sList[i].no + '</div>'
+						}
+						
+						if(data.sList[i].use == "N"){
+							'<div id="s'+ data.sList[i].no +'" role="checkbox" onclick="clickSeat(this);" aria-checked="false" focusable="true" tabindex="-1" class="seatCharts-seat seatCharts-cell unavailable">'+ data.sList[i].no + '</div>'
+						}
+						
+					}
+					
+				} ,
+				error : function(data){
+					
+					console.log(data);
+				}
+				
+				
+				
+			});
+		});
+		
 	</script>
 
 	<jsp:include page="../common/footer.jsp" />

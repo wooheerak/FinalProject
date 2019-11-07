@@ -10,7 +10,7 @@ public class Board {
 	private String bo_name;	// 작성자
 	private int bo_member;	// 현재 인원
 	private int bo_maxmember;	// 모집 인원
-	private Date bo_date;	// 작성일
+	private String bo_date;	// 작성일
 	private String bo_complete; // 모집 완료
 	private String bo_join;	// 참여자
 	private String bo_reinfo;	// 예약 정보
@@ -22,7 +22,7 @@ public class Board {
 
 	// 전체
 	public Board(int bo_primary, int bo_number, String bo_title, String bo_detail, String bo_name, int bo_member,
-			int bo_maxmember, Date bo_date, String bo_complete, String bo_join, String bo_reinfo, String bo_ing,
+			int bo_maxmember, String bo_date, String bo_complete, String bo_join, String bo_reinfo, String bo_ing,
 			int bo_count) {
 		super();
 		this.bo_primary = bo_primary;
@@ -96,11 +96,11 @@ public class Board {
 		this.bo_maxmember = bo_maxmember;
 	}
 
-	public Date getBo_date() {
+	public String getBo_date() {
 		return bo_date;
 	}
 
-	public void setBo_date(Date bo_date) {
+	public void setBo_date(String bo_date) {
 		this.bo_date = bo_date;
 	}
 

@@ -20,7 +20,7 @@
 	
      <!-- 게시판 리스트 -->
      <select id = "selectList" resultMap="boardResultSet">
-        SELECT * 
+        SELECT *
         FROM STUDYROOM_BOARD
         WHERE BO_ING = 'Y' 
         ORDER BY BO_NUMBER DESC
@@ -50,7 +50,7 @@
      <!-- 게시글 업데이트 -->
      <update id = "updateBoard" parameterType = "Board">
         UPDATE STUDYROOM_BOARD
-        SET BO_TITLE = #{bo_title} , BO_DETAIL = #{bo_detail} , BO_DATE = TO_DATE(SYSDATE,'yyyy-mm-dd HH24-MI-SS') , BO_MAXMEMBER = #{bo_maxmember} , BO_REINFO = #{bo_reinfo}
+        SET BO_TITLE = #{bo_title} , BO_DETAIL = #{bo_detail} , BO_DATE = SYSDATE , BO_MAXMEMBER = #{bo_maxmember} , BO_REINFO = #{bo_reinfo}
         WHERE BO_NUMBER = #{bo_number}
      </update>
      

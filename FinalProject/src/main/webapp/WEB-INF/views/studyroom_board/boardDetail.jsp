@@ -94,7 +94,7 @@ th{
 		<tr>
 			<th>작성날짜</th>
 			<td colspan="3">
-				<fmt:formatDate value="${ board.bo_date }" pattern="MM-dd HH:mm:ss" />
+				${ board.bo_date }
 			</td>
 		</tr>
 		<tr>

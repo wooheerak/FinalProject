@@ -14,8 +14,6 @@
 	src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript"
 	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
-<script type="text/javascript"
-	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
 <script>
 	jQuery(function($) {
 		$("#tb").DataTable({
@@ -187,8 +185,7 @@
 				</c:choose>
             	</td>
 
-            	<td><fmt:formatDate value="${ b.bo_date }" pattern="MM-dd HH:mm:ss" /></td>
-         
+            	<td>${ b.bo_date } </td>
        
             	<td>${ b.bo_count }</td>
             </tr>

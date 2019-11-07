@@ -89,7 +89,7 @@ th{
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td colspan="3">${ board.bo_name }</td>
+			<td colspan="3" >${ board.bo_name }</td>
 		</tr>
 		<tr>
 			<th>작성날짜</th>
@@ -126,11 +126,13 @@ th{
 			<th>현재 인윈 / 모집 인원</th>
 				<c:url var="bJoin" value="bJoin.bo">
 					<c:param name="bo_number" value="${ board.bo_number }"/>
+					<c:param name="bo_name" value="${ b.bo_name }"/>
 					<c:param name="bo_member" value="${ board.bo_member }"/>
 					<c:param name="bo_maxmember" value="${ board.bo_maxmember }"/>
 				</c:url>
 				<c:url var="bUnjoin" value="bUnjoin.bo">
 					<c:param name="bo_number" value="${ board.bo_number }"/>
+					<c:param name="bo_name" value="${ b.bo_name }"/>
 				</c:url>
 				<td style="width: 150px;">${ board.bo_member } / ${ board.bo_maxmember }</td>
 			<td style="width: 150px; background-color: lightblue; font-weight: bold;">참여자 아이디</td>

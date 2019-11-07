@@ -17,14 +17,15 @@ public interface Studyroom_BoderService {
 
 	int deleteBoard(int bo_number);
 
-	int memberJoin(int bo_number);
-
-	ArrayList<Reply> selectReplyList(int bo_number);
+	int memberJoin(Board b);
 
 	int insertReply(Reply r);
-
+	
 	int deleteReply(int refBid);
+	
+	int memberUnjoin(Board b);
+	
+	ArrayList<Reply> selectReplyList(int bo_number);
 
-	int memberUnjoin(int bo_number);
 
 }

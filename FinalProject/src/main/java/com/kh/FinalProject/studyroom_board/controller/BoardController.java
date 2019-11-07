@@ -130,17 +130,15 @@ public class BoardController {
 	
 	// 그룹 참여
 	@RequestMapping("bJoin.bo")
-	public ModelAndView memberJoin(@RequestParam(value="bo_number",required=false) int bo_number,
-							@RequestParam("bo_member") int bo_member,
-							@RequestParam("bo_maxmember") int bo_maxmember,
+	public ModelAndView memberJoin(Board b,
 							HttpServletRequest request, ModelAndView mv) {
 		
-		int mem = bo_member;
-		int maxmem = bo_maxmember;
-		int bNo = bo_number;
+		int mem = b.getBo_member();
+		int maxmem = b.getBo_maxmember();
+		int bNo = b.getBo_number();
 		
 		if( mem < maxmem) {
-			int result = sbService.memberJoin(bo_number);
+			int result = sbService.memberJoin(b);
 			
 			if(result > 0) {
 				
@@ -157,11 +155,11 @@ public class BoardController {
 	
 	// 그룹 탈퇴
 	@RequestMapping("bUnjoin.bo")
-	public ModelAndView memberUnjoin(@RequestParam(value="bo_number",required=false) int bo_number, HttpServletRequest request, ModelAndView mv) {
+	public ModelAndView memberUnjoin(Board b, HttpServletRequest request, ModelAndView mv) {
 		
-		int bNo = bo_number;
+		int bNo = b.getBo_number();
 		
-		int result = sbService.memberUnjoin(bo_number);
+		int result = sbService.memberUnjoin(b);
 			
 		if(result > 0) {
 			

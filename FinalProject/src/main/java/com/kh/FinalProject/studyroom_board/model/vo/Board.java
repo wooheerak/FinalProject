@@ -39,6 +39,22 @@ public class Board {
 		this.bo_ing = bo_ing;
 		this.bo_count = bo_count;
 	}
+	
+	// 그룹 참여
+	public Board(int bo_number, String bo_name, int bo_member, int bo_maxmember) {
+		super();
+		this.bo_number = bo_number;
+		this.bo_name = bo_name;
+		this.bo_member = bo_member;
+		this.bo_maxmember = bo_maxmember;
+	}
+
+	// 그룹 탈퇴
+	public Board(int bo_number, String bo_name) {
+		super();
+		this.bo_number = bo_number;
+		this.bo_name = bo_name;
+	}
 
 	public int getBo_primary() {
 		return bo_primary;

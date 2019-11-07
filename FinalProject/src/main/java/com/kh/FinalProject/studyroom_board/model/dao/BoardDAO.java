@@ -46,13 +46,13 @@ public class BoardDAO {
 	}
 	
 	// 그룹 참여
-	public int memberJoin(SqlSessionTemplate sqlSession, int bo_number) {
-		return sqlSession.update("boardMapper.memberJoin", bo_number);
+	public int memberJoin(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("boardMapper.memberJoin", b);
 	}
 	
 	// 그룹 탈퇴
-	public int memberUnjoin(SqlSessionTemplate sqlSession, int bo_number) {
-		return sqlSession.update("boardMapper.memberUnjoin", bo_number);
+	public int memberUnjoin(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("boardMapper.memberUnjoin", b);
 	}
 	
 	// 댓글 리스트

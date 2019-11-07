@@ -145,7 +145,6 @@
             	<td>${ b.bo_number }</td>
      
             
-            	<%-- <td>${ b.bo_title }</td> --%>
             	<td>
 						<c:url var="bDetail" value="bDetail.bo">
 							<c:param name="bo_number" value="${ b.bo_number }"/>

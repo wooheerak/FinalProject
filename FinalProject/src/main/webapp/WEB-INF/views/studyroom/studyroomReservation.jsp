@@ -95,7 +95,7 @@ input{
 						<tr>
 							<td colspan="2"><b>층</b></td>
 							<td colspan="5">
-								<select id="studyroomFloor" onchange="studyroomNameChange(this)" style="width:100%;">
+								<select id="studyroomFloor" name="studyroomFloor" onchange="studyroomNameChange(this)" style="width:100%;">
 									<!-- 유저가 클린한 방의 층 selected -->
 									<option selected="selected" value="1" >1</option> 
 									<option value="2">2</option>
@@ -107,16 +107,21 @@ input{
 						<tr>
 							<td colspan="2"><b>스터디룸 이름</b></td>
 							<td colspan="5">
-								<select id="studyroom" style="width:100%;">
-									<option>사용자가 클릭한 방의 이름</option>
+								<select id="studyroom" name="studyroom" style="width:100%;">
+									<option>studyroomName</option>
 								</select>
 							</td>
 							<td></td>
 						</tr>
 						<tr>
+							<td colspan="2"><b>예약 일</b></td>
+							<td colspan="5"><input type="text" readonly id="so_date" name="so_date" value="2019-11-07" style="background: lightgrey;"/></td>
+							<td></td>
+						</tr>
+						<tr>
 							<td colspan="2"><b>예약 시간</b></td>
 							<td colspan="2">
-								<select id="startTime" onchange="endTimeChange(this)" style="width:100%">
+								<select id="startTime" name="startTime" onchange="endTimeChange(this)" style="width:100%">
 									<c:forEach var="i" begin="9" end="20">
 										<c:if test="${i<10}">
 											<!-- i값이 사용자가 클릭한 값이랑 일치하면 selected -->
@@ -131,7 +136,7 @@ input{
 							</td>
 							<td>~</td>
 							<td colspan="2">
-								<select id="endTime" style="width:100%">
+								<select id="endTime" name="endTime" style="width:100%">
 									<c:forEach var="i" begin="10" end="11">										
 										<c:if test="${i>=10}">
 											<!-- i값이 사용자가 클릭한 값이랑 일치하면 selected -->
@@ -151,7 +156,7 @@ input{
 							<td colspan="2"><b>참여자</b></td>
 							<td colspan="5"><input type="text" style="height:24px;"></td> 
 							<td>
-								<button type="button" class="btn btn-transparent" style="width:25px; height:25px;" id="addParticipant">+</button>
+								<button type="button" class="btn btn-transparent addPar" style="width:25px; height:25px;" id="addParticipant" >+</button>
 							</td>
 						</tr>
 					</table>
@@ -171,7 +176,7 @@ input{
 	$('#addParticipant').click(
 		function (){
 			$('#reservationTable > tbody:last').append(
-					'<tr id = "t'+ count +'"><td colspan="2"></td><td colspan="5"><input type="text" style="height:24px;"></td><td><button type="button" onclick="deleteParticipant(this);" class="btn btn-transparent" style="width:25px; height:25px;" id = "b'+ count +'">-</button></td></tr>');
+					'<tr id = "t'+ count +'"><td colspan="2"></td><td colspan="5"><input type="text" style="height:24px;"></td><td><button type="button" onclick="deleteParticipant(this);" class="btn btn-transparent addPar" style="width:25px; height:25px;" id = "b'+ count +'">-</button></td></tr>');
 			count++;
 					
 	});
@@ -182,69 +187,84 @@ input{
 		$(tId).remove();
 	}
 	
-function reservation(){
-	InsertStudyroom.sr
-}
-
-function studyroomNameChange(e){
-	var target = document.getElementById("studyroom");
-	target.options.length = 0;
-	var a = ["글고운","난길","마루","우솔"]
-	var b = ["꽃채운","우리별","나루"]
-	var c = ["미리내","우주","가온","다솜"]
-	
-	
-	if(e.value==1){
-		for(var i in a){			
-			var opt = document.createElement("option");
-		    opt.value = a[i];
-		    opt.innerHTML = a[i];
-		    //if(i==1) opt.selected=true;
-		    target.appendChild(opt);
-		}
-	}
-	else if(e.value==2){
-		for(var i in b){			
-			var opt = document.createElement("option");
-		    opt.value = b[i];
-		    opt.innerHTML = b[i];
-		    //if(i==1) opt.selected=true;
-		    target.appendChild(opt);
-		}
-	}
-	else if(e.value==3){
-		for(var i in c){			
-			var opt = document.createElement("option");
-		    opt.value = c[i];
-		    opt.innerHTML = c[i];
-		    //if(i==1) opt.selected=true;
-		    target.appendChild(opt);
-		}
+	function reservation(){
+		// 스터디룸 예약 게시판으로 입력 체크
+		// 참여자 인원수 자동 체크
+		
+		// 예약 시간 중복 검사
+		
+		// 참여자 실제 학생인지 검사
+		// 참여자에 같은 학번 입력 방지(중복 입력방지)
+		// 참여자와 예약자 같은 학번 입력 방지
+		
+		// 참여 인원수가 방의 1/2 이상인지 검사
+		
+		// 정상 예약후 창 끄기, 부모(원래 페이지 새로고침)
+		
+		document.id.action='InsertStudyroom.sr';
+		document.id.submit();
+		
 	}
 	
-}
-
-function endTimeChange(e){
-	var target = document.getElementById("endTime");
-	
-	target.options.length = 0;
-	
-	if((e.value)<20){
-		for(var i=1; i<3; i++){			
-			var opt = document.createElement("option");
-		    opt.value = Number(e.value)+Number(i)+":00";
-		    opt.innerHTML = Number(e.value)+Number(i)+":00";
-		    if(i==1) opt.selected=true;
-		    target.appendChild(opt);
+	function studyroomNameChange(e){
+		var target = document.getElementById("studyroom");
+		target.options.length = 0;
+		var a = ["글고운","난길","마루","우솔"]
+		var b = ["꽃채운","우리별","나루"]
+		var c = ["미리내","우주","가온","다솜"]
+		
+		
+		if(e.value==1){
+			for(var i in a){			
+				var opt = document.createElement("option");
+			    opt.value = a[i];
+			    opt.innerHTML = a[i];
+			    //if(i==1) opt.selected=true;
+			    target.appendChild(opt);
+			}
 		}
-	}else{
-		var opt = document.createElement("option");
-	    opt.value = Number(e.value)+1+":00";
-	    opt.innerHTML = Number(e.value)+1+":00";
-	    target.appendChild(opt);
+		else if(e.value==2){
+			for(var i in b){			
+				var opt = document.createElement("option");
+			    opt.value = b[i];
+			    opt.innerHTML = b[i];
+			    //if(i==1) opt.selected=true;
+			    target.appendChild(opt);
+			}
+		}
+		else if(e.value==3){
+			for(var i in c){			
+				var opt = document.createElement("option");
+			    opt.value = c[i];
+			    opt.innerHTML = c[i];
+			    //if(i==1) opt.selected=true;
+			    target.appendChild(opt);
+			}
+		}
+		
 	}
 	
-}
+	function endTimeChange(e){
+		var target = document.getElementById("endTime");
+		
+		target.options.length = 0;
+		
+		if((e.value)<20){
+			for(var i=1; i<3; i++){			
+				var opt = document.createElement("option");
+			    opt.value = Number(e.value)+Number(i)+":00";
+			    opt.innerHTML = Number(e.value)+Number(i)+":00";
+			    if(i==1) opt.selected=true;
+			    target.appendChild(opt);
+			}
+		}else{
+			var opt = document.createElement("option");
+		    opt.value = Number(e.value)+1+":00";
+		    opt.innerHTML = Number(e.value)+1+":00";
+		    target.appendChild(opt);
+		}
+		
+	}
 
 </script>
 </body>

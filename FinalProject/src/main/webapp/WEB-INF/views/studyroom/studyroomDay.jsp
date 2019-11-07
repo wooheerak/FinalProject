@@ -103,7 +103,6 @@ int date = cr.get(Calendar.DATE);
 		</div>
 		<div class="container">
 			<div class="row">
-
 				<div class="col-md-9">
 					<table class="studyroom_main">
 						<!-- rowspan을 사용하기 위해 예약시간 없으면 없는 수만큼 for문에서 차감 하는 식의 2중포문 제작-->
@@ -129,21 +128,18 @@ int date = cr.get(Calendar.DATE);
 										<th class="studyroom_time">${i}:00</th>				
 									</c:if>
 									
-									<c:forEach var="j"  begin="1" end="11">
+									<c:forEach var="j"  begin="0" end="${roomCount}" items="${list}">
 										<td>
 										<!--  버튼 클릭시 팝업이 뜨고 팝업에 클릭한 버튼의 시작시간 및 마감 시간을 select할 값으로 전달 -->
-											<a href="#" onclick="srReservation();">+</a>
-											<!-- 클릭한 버튼의 시간대 값 전달 용 hidden input -->
-											<input id="checkTime" type="hidden" value="${i}"/>
+										    
+											<button id="startTime" name="startTime" type="submit" value="${i},${ j.sr_name}" class="btn btn-transparent" onclick="srReservation();" style="padding:0px;width:73px;height:38px;">+</button>
 										</td>
 									</c:forEach>
 								</tr>				
 							</c:forEach>
-							
 					</table>
 				</div>
-
-
+				
 				<div class="col-md-3">
 					<div class="studyroom_title">
 						<h3>floor</h3>
@@ -173,7 +169,7 @@ int date = cr.get(Calendar.DATE);
 						<div>
 							<form>
 								<div>
-									<select name="year"  class="studyroom_option2">
+									<select id="year" name="year"  class="studyroom_option2">
 										<!-- 오늘 년도 기본 선택-->
 										<%
 									      for(int i=year-1; i<year+3; i++){
@@ -183,7 +179,7 @@ int date = cr.get(Calendar.DATE);
 									      }
 									      %>
 									</select> 
-									<select name="month"  class="studyroom_option2" onchange="daycheck(this)">
+									<select id="month" name="month"  class="studyroom_option2" onchange="daycheck(this)">
 										<!--  -->
 										<!-- 오늘 달 기본 선택-->
 										 <%
@@ -194,7 +190,7 @@ int date = cr.get(Calendar.DATE);
 									      }
 									      %>
 									</select> 
-									<select id="day"  class="studyroom_option2">
+									<select id="day" name="day"  class="studyroom_option2">
 										<!-- 선택된 달의 숫자만큼 일수 반복-->
 										<%
 											if(date == 1 || date == 3 || date == 5 || date == 7 || date == 8 || date == 10 || date == 12){
@@ -251,19 +247,41 @@ int date = cr.get(Calendar.DATE);
 
 	<script>
 	function srReservation(){
-		var reservationWin;
-		var time = document.getElementById("startTime");
 		
-		var url = "srReservation.sr";
+		var studyroomValue = $("#startTime").attr("value").split(',');
+		//console.log(studyroomValue);
+		
+		//스터디룸 이름 
+		var name = studyroomValue[1];
+		//console.log(studyroomValue[1])
+		
+ 		// 예약일 
+		var so_date = $("#year option:selected").attr("value")
+						+'-'+$("#month option:selected").attr("value")
+						+'-'+$("#day option:selected").attr("value");
+		//console.log(so_date);
+ 		
+ 		// 예약시작 시간 
+		var startTime = studyroomValue[0];
+		//console.log(studyroomValue[0])
+ 		
+ 		// 예약자 정보 
+//  		var organizer = $("#");
+		var organizer = "201132081";
+		
+		
+		var url = "srReservation.sr?name="+name+",so_date="+so_date+",startTime="+startTime+",organizer="+oraganizer;
+			
 		var srReservation = "srReservation";
+		
 		var specs="width=420px, height=350px, left=20, top=30, toolbar=no, location=no, directories=no";
 		
 		window.open(url,srReservation,specs);
 // 		reservationWin.document.getElementById("startTime").value = document.getElementById("checkTime").value;
 		
-// 		time.target = srReservation;
-// 		time.action = url;
-// 		time.submit();
+//  		time.target = srReservation;
+//  		time.action = url;
+//  		time.submit();
 
 		
 	}

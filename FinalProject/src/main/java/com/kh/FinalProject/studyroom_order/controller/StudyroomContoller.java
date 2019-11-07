@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.FinalProject.studyroom_order.model.serivce.StudyroomService;
@@ -50,9 +51,22 @@ public class StudyroomContoller {
 	}
 	
 	@RequestMapping("srReservation.sr")
-	public String reservView() {
+	public ModelAndView reservView(@RequestParam("name") String name, @RequestParam("so_date") String so_date,
+								@RequestParam("startTime") String startTime, @RequestParam("organizer") String organizer,
+								ModelAndView mv) {
+		System.out.println(name);
+		System.out.println(so_date);
+		System.out.println(startTime);
+		System.out.println(organizer);
+		
 		// 값 받은후 변경
-		return "studyroomReservation";
+		mv.addObject("name",name);
+		mv.addObject("so_date",so_date);
+		mv.addObject("startTime",startTime);
+		mv.addObject("organizer",organizer);
+		mv.setViewName("studyroomReservation");
+		
+		return mv;
 	}
 	
 	@RequestMapping("InsertStudyroom.sr")

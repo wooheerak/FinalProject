@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -44,32 +44,32 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 			<i class="fa fa-code"></i>
 		</div>
 		<div class="container">
-			<form action="binsert.bo" method="post" enctype="Multipart/form-data">
+			<form action="ninsert.no" method="post" enctype="Multipart/form-data">
 				<table id="noticeInsertTable" class="table" border="1">
 					<tr>
 						<th>제목</th>
-						<td><input type="text" size="100%" name="bTitle"></td>
+						<td><input type="text" size="100%" name="nTitle"></td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td><input type="text" name="bWriter" readonly
-							value="${ loginUser.id }" style="background: lightgrey;">
+						<td><input type="text" name="nWriter"
+							value="${ loginUser.id }">
 						</td>
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td><textarea rows="20" cols="140" name="bContent"
+						<td><textarea rows="20" cols="140" name="nContent"
 								style="resize: none;"></textarea></td>
 					</tr>
 					<tr>
 						<th>첨부파일</th>
 						<td><input type="file" name="uploadFile"></td>
-					</tr>
+					</tr>					
 				</table>
 				<div class="text-center">
-								<a href="" class="btn btn-transparent">등록하기</a>&nbsp;&nbsp;&nbsp;&nbsp;
-								<a href="nlist.no" class="btn btn-transparent">목록</a>
-							</div>
+					<input class="btn btn-transparent" type="submit" value="등록 하기" style="background-color: transparent;"> &nbsp;
+					<a href="nlist.no" class="btn btn-transparent">목록</a>
+				</div>
 			</form>
 		</div>
 <!--  -->

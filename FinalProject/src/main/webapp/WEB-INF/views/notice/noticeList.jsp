@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -118,7 +118,7 @@
 							<td>${ n.nCreateDate }</td>
 							<td>${ n.nCount }</td>
 							<td>
-								<c:if test="${ ! empty n.nOriginalFilename }">
+								<c:if test="${ ! empty n.originalFileName }">
 									<i class="fa fa-file"></i>
 								</c:if>
 							</td>
@@ -128,36 +128,6 @@
 			</table>
 		</div>
 
-
-		<!-- 		<div class="pull-right">
-			<a href='#' onClick='fn_write()' class="btn btn-success">글쓰기</a>
-		</div> -->
-
-
-		<!-- 		<script type="text/javascript">
-			$(function() {
-				$(".contentTR").mouseenter(function() {
-					$(this).css({
-						"color" : "black",
-						"font-weight" : "bold",
-						"cursor" : "pointer"
-					});
-				}).mouseout(function() {
-					$(this).css({
-						"color" : "gray",
-						"font-weight" : "normal"
-					});
-				}).click(function() {
-					var nId = $(this).children("td").eq(0).text();
-
-					location.href = "bdetail.bo?nId=" + nId + "&page=" + $
-					{
-						pi.currentPage
-					}
-					;
-				});
-			});
-		</script> -->
 	</section>
 	<!-- end section -->
 

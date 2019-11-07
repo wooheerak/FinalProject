@@ -34,6 +34,8 @@ public class NoticeController {
 
 		ArrayList<Notice> list = nService.selectList();
 
+		System.out.println(list);
+		
 		if (list != null) {
 
 			mv.addObject("list", list);
@@ -45,7 +47,7 @@ public class NoticeController {
 		return mv;
 
 	}
-
+	
 	// 게시글 보기
 	@RequestMapping("ndetail.no")
 	public ModelAndView noticeDetail(@RequestParam("nId") int nId, ModelAndView mv) {

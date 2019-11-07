@@ -95,8 +95,8 @@
 														<li><a href="">Blog & News</a></li>
 		                                                <li><a href="">Blog Alternative</a></li>
 		                                                <li><a href="">Single Blog</a></li>
-		                                                <li><a href="noticeinsert.no">공지사항 작성</a></li>
-		                                                <li><a href="notice.no">공지사항</a></li>
+		                                                <li><a href="ninsertView.no">공지사항 작성</a></li>
+		                                                <li><a href="nlist.no">공지사항</a></li>
 		                                                <li><a href="myseatList.ss">나의 열람실</a></li>
 		                                                <li><a href="">Contact Alternative</a></li>
 		                                                <li><a href="">FAQ's Page</a></li>

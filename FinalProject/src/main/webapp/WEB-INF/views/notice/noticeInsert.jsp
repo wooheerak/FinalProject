@@ -68,7 +68,7 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 				</table>
 				<div class="text-center">
 								<a href="" class="btn btn-transparent">등록하기</a>&nbsp;&nbsp;&nbsp;&nbsp;
-								<a href="notice.no" class="btn btn-transparent">목록</a>
+								<a href="nlist.no" class="btn btn-transparent">목록</a>
 							</div>
 			</form>
 		</div>

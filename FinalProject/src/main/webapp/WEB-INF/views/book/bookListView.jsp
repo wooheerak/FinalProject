@@ -87,6 +87,7 @@ $(document).ready(function() {
    <section class="section" style="padding:0px;">
          <div class="container" id="bookList">
             <div class="row" style = " margin-left : -160px;">
+            <%c:if %>
                <div class="col-md-6" >
                   <div class="ebook-details row" >
                      <div class="col-md-3">

@@ -118,8 +118,9 @@
 							<td>${ n.nCreateDate }</td>
 							<td>${ n.nCount }</td>
 							<td>
-								<c:if test="${ ! empty n.originalFileName }">
-									<i class="fa fa-file"></i>
+								<c:if test="${ !empty n.originalFileName }">
+									<a href="${ contextPath }/resources/nuploadFiles/${ n.renameFileName }" download="${ n.originalFileName }"><i class="fa fa-file"></i></a>
+			              		 	<!-- a태그 안에서 다운로드 받을 것이 있을 때 쓰는 속성 download, 얘는 download="fileName" 이라고 해서 fileName을 지정해줄 수 있다. -->
 								</c:if>
 							</td>
 						</tr>

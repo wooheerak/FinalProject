@@ -30,4 +30,9 @@ public class NoticeDAO {
 		return sqlSession.insert("noticeMapper.insertNotice", n);
 	}
 
+	// 공지사항 수정
+	public int updateNotice(SqlSessionTemplate sqlSession, Notice n) {
+		return sqlSession.update("noticeMapper.updateNotice", n);
+	}
+
 }

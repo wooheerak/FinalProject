@@ -42,4 +42,13 @@
      	INSERT INTO NOTICE
      	VALUES (SEQ_NID.NEXTVAL, #{nTitle}, #{nWriter}, #{nContent}, sysdate, sysdate, #{originalFileName}, #{renameFileName}, default, default)
      </insert>
+     
+     <!-- 공지사항 수정 -->
+	<update id="updateNotice" parameterType="Notice">
+		UPDATE NOTICE
+		SET nTitle=#{bTitle}, nContent=#{bContent}, originalFileName=#{originalFileName},
+			renameFileName=#{renameFileName}, nModifyDate=sysdate
+		where nId = #{nId}
+     </update>
+
 </mapper>

@@ -18,15 +18,12 @@ import com.kh.FinalProject.notice.model.exception.NoticeException;
 import com.kh.FinalProject.notice.model.service.NoticeServiceImpl;
 import com.kh.FinalProject.notice.model.vo.Notice;
 
+
 @Controller
 public class NoticeController {
 
 	@Autowired
 	private NoticeServiceImpl nService;
-
-	/*
-	 * @RequestMapping("nlist.no") public String notice() { return "noticeList"; }
-	 */
 
 	// 공지사항 리스트
 	@RequestMapping("nlist.no")
@@ -75,11 +72,6 @@ public class NoticeController {
 							   @RequestParam("uploadFile") MultipartFile uploadFile,
 							   HttpServletRequest request) {
 
-		System.out.println(n);
-		System.out.println(uploadFile);
-		System.out.println(uploadFile.getOriginalFilename());
-
-//		if(!uploadFile.getOriginalFilename().equals("")) {
 		if (uploadFile != null && !uploadFile.isEmpty()) {
 
 			String renameFileName = saveFile(uploadFile, request);
@@ -127,5 +119,56 @@ public class NoticeController {
 		
 		return renameFileName;
 	}
+	
+	// 게시글 업데이트
+	@RequestMapping("nupView.no")
+	public ModelAndView noticeUpdateView(@RequestParam("nId") int nId, ModelAndView mv) {
+		
+		Notice notice = nService.selectNotice(nId);
+		
+		mv.addObject("notice", notice)
+		  .setViewName("noticeUpdate");
+		
+		return mv;
+	}
+	
+	@RequestMapping("nupdate.no")
+	public ModelAndView noticeUpdate(@ModelAttribute Notice n,
+									 @RequestParam("reloadFile") MultipartFile reloadFile,
+									 HttpServletRequest request,
+									 ModelAndView mv) {
+		
+		if(reloadFile != null && !reloadFile.isEmpty()) {
+			deleteFile(n.getRenameFileName(), request);
+		}
 
+		String renameFileName = saveFile(reloadFile, request);
+		
+		if(renameFileName != null) {
+			n.setOriginalFileName(reloadFile.getOriginalFilename());
+			n.setRenameFileName(renameFileName);
+		}
+		
+		int result = nService.updateNotice(n);
+		if(result > 0) {
+			// page --> ndetail
+			mv.setViewName("redirect:ndetail.no?nId=" + n.getnId());
+		}else {
+			throw new NoticeException("게시글 수정에 실패하였습니다.");
+		}
+		
+		return mv;
+	}
+	
+	
+	public void deleteFile(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\nuploadFiles";
+		
+		File f = new File(savePath + "\\" + fileName);
+		
+		if(f.exists()) {
+			f.delete();
+		}	
+	}
 }

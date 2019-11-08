@@ -66,6 +66,11 @@
 			<br>
 			<br>
 			<div class="text-center">
+			    <c:url var="updateView" value="nupView.no">
+			       <c:param name="nId" value = "${ n.nId }"/>
+			    </c:url>
+			    
+				<a href="${ updateView }" class="btn btn-transparent">수정</a>
 				<a href="nlist.no" class="btn btn-transparent">목록</a>
 			</div>
 		</div>

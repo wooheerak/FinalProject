@@ -10,7 +10,7 @@ import com.kh.FinalProject.notice.model.dao.NoticeDAO;
 import com.kh.FinalProject.notice.model.vo.Notice;
 
 @Service("nService")
-public class NoticeServiceImpl {
+public class NoticeServiceImpl implements NoticeService{
 
 	@Autowired
 	private NoticeDAO nDAO;

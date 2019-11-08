@@ -35,4 +35,11 @@ public class SeatServiceImpl implements SeatService{
 		
 		return sDao.selectSeatList(sqlSession , floor);
 	}
+
+	
+	@Override
+	public int updateResv(int sNo) {
+	
+		return sDao.updateResv(sqlSession, sNo);
+	}
 }

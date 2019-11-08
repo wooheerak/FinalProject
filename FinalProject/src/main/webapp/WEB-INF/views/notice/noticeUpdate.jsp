@@ -50,6 +50,7 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 			<form action="nupdate.no" method="post" enctype="Multipart/form-data">
 				<table id="noticeInsertTable" class="table" border="1">
 					<tr>
+						<input type = "hidden" name = "nId" value = "${ notice.nId }"/>
 						<th>제목</th>
 						<td><input type="text" size="100%" name="nTitle" value="${ notice.nTitle }"></td>
 					</tr>
@@ -65,7 +66,7 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 					<tr>
 						<th>첨부파일</th>
 						<td>
-							<input type="file" name="uploadFile">
+							<input type="file" name="reloadFile">
 							<c:if test="${ !empty notice.originalFileName }">
 								<br>현재 업로드한 파일 : 
 								<a href="${ contextPath }/resources/nuploadFiles/${ notice.renameFileName }" download="${ notice.originalFileName }">

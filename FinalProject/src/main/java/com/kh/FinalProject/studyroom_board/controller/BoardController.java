@@ -74,6 +74,7 @@ public class BoardController {
 		return "boardInsert";
 	}
 	
+	
 	// 게시글 등록
 	@RequestMapping("bInsert.bo")
 	public String boardInsert(@ModelAttribute Board b, HttpServletRequest request) {

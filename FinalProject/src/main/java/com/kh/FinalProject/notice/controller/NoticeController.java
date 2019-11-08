@@ -169,4 +169,18 @@ public class NoticeController {
 			f.delete();
 		}	
 	}
+	
+	// 공지사항 삭제
+	@RequestMapping("ndelete.no")
+	public String noticeDelete(@RequestParam("nId") int nId) {
+		
+		int result = nService.noticeDelete(nId);
+
+		if(result > 0) {
+			return "redirect:nlist.no";
+		}else {
+			throw new NoticeException("게시글 삭제에 실패하였습니다.");
+		}
+		
+	}
 }

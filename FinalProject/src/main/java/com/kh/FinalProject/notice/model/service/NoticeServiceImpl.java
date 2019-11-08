@@ -45,4 +45,8 @@ public class NoticeServiceImpl {
 		return nDAO.updateNotice(sqlSession, n);
 	}
 
+	public int noticeDelete(int nId) {
+		return nDAO.noticeDelete(sqlSession, nId);
+	}
+
 }

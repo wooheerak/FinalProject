@@ -2644,6 +2644,12 @@ div.seatCharts-seat.unavailable {
     cursor: not-allowed;
 }
 
+div.seatCharts-seat.reserved {
+    background-color: #BE81F7;
+    color : white;
+    cursor: not-allowed;
+}
+
 div.seatCharts-container {
     border-right: 1px dotted #adadad;
     width: 400px;

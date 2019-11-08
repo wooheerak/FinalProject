@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -162,6 +162,7 @@
 		var seatId = "";
 		var seatNo = 0;
 		var check = 0;
+		var floor = "";
 
 		function clickSeat(obj) {
 			if (check == 0) {
@@ -212,18 +213,11 @@
 		
 		
 		
-		function resvSeat(){
-			var url = "popResv.ss";
-			var option = "width=400, height=250, resizable=no, scrollbars=no, status=no;";
-			var popX =  ((window.screen.width / 2) - (500 / 2));
-			var popY =  ((window.screen.height / 2) - (250 / 2));
-			window.open(url , "", option + ", left = " + popX + ", top = " + popY);					
-			
-		}
+		
 		
 		/* 열람실 좌석 div부분 채우는 Ajax */
 		$(".room").on("click", function(){
-			var floor = $(this).attr("value");
+			floor = $(this).attr("value");
 			$("#floor").text(floor);
 			
 			$.ajax({
@@ -247,30 +241,43 @@
 						var use = data.sList[i].use;
 						
 						if(i % 20 == 0){
-							str = '<div class="row" style="margin-left: 20px; margin-right: 10px; margin-top: 5px;">';
-							
-							$("#seatList").append(str);
+							str += '<div class="row" style="margin-left: 20px; margin-right: 10px; margin-top: 5px;">';							
 						}	
+						
 						if(i % 10 == 0){
 							if(i % 20 == 0){
-								str = '<div class="seatCharts-row" style="display: inline;">';
-								$("#seatList").append(str);	
+								str += '<div class="seatCharts-row" style="display: inline;">';									
 							}
 							if(i % 20 != 0){
-								str = '<div class="seatCharts-row" style="display: inline; float : right;">';
-								$("#seatList").append(str);
+								str += '<div class="seatCharts-row" style="display: inline; float : right;">';								
 							}
 						}
 						
+						
 						if(data.sList[i].use == "Y"){
-							'<div id="s'+ data.sList[i].no +'" role="checkbox" onclick="clickSeat(this);" aria-checked="false" focusable="true" tabindex="-1" class="seatCharts-seat seatCharts-cell unavailable">'+ data.sList[i].no + '</div>'
+							str  += '<div id="s'+ data.sList[i].no +'" role="checkbox"  aria-checked="false" focusable="true" tabindex="-1" class="seatCharts-seat seatCharts-cell appendSeat unavailable">'+ data.sList[i].no + '</div>';							
+						}						
+						else if(data.sList[i].use == "N"){
+							str += '<div id="s' + data.sList[i].no +'" role="checkbox"  aria-checked="false" focusable="true" tabindex="-1" class="seatCharts-seat seatCharts-cell appendSeat available">' +  data.sList[i].no  + '</div>';							
 						}
 						
-						if(data.sList[i].use == "N"){
-							'<div id="s'+ data.sList[i].no +'" role="checkbox" onclick="clickSeat(this);" aria-checked="false" focusable="true" tabindex="-1" class="seatCharts-seat seatCharts-cell unavailable">'+ data.sList[i].no + '</div>'
+						
+						
+						if( i != 0 && i % 10 == 9){							
+							str += '</div>';							
+						}
+						
+						if( i != 0 && i % 20 == 19){							
+							str += '</div>';							
+						}
+						
+						if( i != 0 && i % 40 == 39){							
+							str += '<br>';							
 						}
 						
 					}
+					
+					$("#seatList").append(str);
 					
 				} ,
 				error : function(data){
@@ -282,6 +289,52 @@
 				
 			});
 		});
+		
+		$(document).on("click", ".appendSeat"  ,function(){
+			if (check == 0) {
+				if ($(this).hasClass('available')) {
+					console.log("available");
+					seatNo = Number($(this).text());
+					seatId = "#" + $(this).attr("id");
+					console.log(seatId);
+					$("#seatNo").text(seatNo);
+					$(this).removeClass("available");
+					$(this).addClass("selected");
+					check = 1;
+
+				} else if ($(this).hasClass('selected')) {
+					console.log("selected");
+
+					$(this).removeClass("selected");
+					$(this).addClass("available");
+					check = 0;
+					
+
+				} else {
+					console.log("unavailable");
+				}
+			} else {
+				if (seatNo == Number($(this).text())) {
+					$(this).removeClass("selected");
+					$(this).addClass("available");
+					$("#seatNo").text("");
+
+					check = 0;
+				}
+
+			}
+		});
+		
+		
+		function resvSeat(){
+			var ss_no = seatNo;
+			var url = "popResv.ss?ss_no=" + ss_no + "&floor=" + floor;
+			var option = "width=400, height=250, resizable=no, scrollbars=no, status=no;";
+			var popX =  ((window.screen.width / 2) - (500 / 2));
+			var popY =  ((window.screen.height / 2) - (250 / 2));
+			window.open(url , "", option + ", left = " + popX + ", top = " + popY);					
+			
+		}
 		
 	</script>
 

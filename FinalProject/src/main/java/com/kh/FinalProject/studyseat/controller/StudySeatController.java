@@ -11,6 +11,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -26,7 +27,7 @@ public class StudySeatController {
 		private SeatService sService ;
 		
 		@RequestMapping("seatList.ss")
-		public ModelAndView selectSeatList(ModelAndView mv) {
+		public ModelAndView selectSeatList(ModelAndView mv , @RequestParam(value = "floor" , defaultValue = "A") String floor) {
 			
 						
 			// A , B , C 열람실의 좌석을 먼저 가져옴
@@ -45,7 +46,7 @@ public class StudySeatController {
 				
 				 mv.addObject("count" , countList)
 				   .addObject("list" , sList)
-				   .addObject("floor" , "A")
+				   .addObject("floor" , floor)
 				   .setViewName("studyseatView");
 				return mv;
 			}
@@ -67,8 +68,11 @@ public class StudySeatController {
 		}		
 		
 		@RequestMapping("popResv.ss")
-		public String popResv() {
-			return "popReservation";
+		public ModelAndView popResv(@RequestParam("ss_no") int ss_no,@RequestParam(value = "floor" , defaultValue = "A") String floor, ModelAndView mv) {
+			
+			mv.addObject("sNo" , ss_no).addObject("floor" , floor).setViewName("popReservation");
+			
+			return mv;
 		}
 		
 		@RequestMapping("popCancel.ss")
@@ -133,5 +137,25 @@ public class StudySeatController {
 			}			
 			
 		}
+		
+		@RequestMapping("updateR.ss")
+		public ModelAndView updateResv(ModelAndView mv , @RequestParam("sNo") int sNo , @RequestParam("floor") String floor) {
+			
+			System.out.println("sNo : " + sNo + ", floor : " + floor);
+			
+						
+			int result = sService.updateResv(sNo);
+			
+			if(result > 0) {
+				
+				
+				return mv;
+			}
+			else {
+				throw new SeatException("좌석 예약하기 실패!");
+			}
+			
+		}
+		
 	
 }

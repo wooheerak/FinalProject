@@ -27,4 +27,10 @@ public class SeatDao {
 		return (ArrayList)sqlSession.selectList("seatMapper.selectFloorSeat" , floor);
 	}
 
+
+	public int updateResv(SqlSessionTemplate sqlSession, int sNo) {
+
+		return sqlSession.update("seatMapper.updateResv" , sNo);
+	}
+
 }

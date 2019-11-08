@@ -20,5 +20,11 @@
   		FROM STUDYSEAT
   		WHERE SS_FLOOR = #{floor}
   	</select>
+  	
+  	<update id = "updateResv" parameterType = "_int">
+  		UPDATE STUDYSEAT
+  		SET SS_USE = 'R'
+  		WHERE SS_NO = #{sNo}
+  	</update>
   
 </mapper>

@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.FinalProject.studyroom_order.model.vo.Studyroom;
+import com.kh.FinalProject.studyroom_order.model.vo.StudyroomOrder;
 
 @Repository("srDao")
 public class StudyroomDao {
@@ -16,6 +17,11 @@ public class StudyroomDao {
 
 	public ArrayList<Studyroom> selectRoomList(SqlSession sqlSession) {
 		return (ArrayList)sqlSession.selectList("studyroomMapper.selectRoomList");
+	}
+
+	public int reservationStudyroom(SqlSession sqlSession, StudyroomOrder sr) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("studyroomMapper.reservationStudyroom",sr);
 	}
 
 }

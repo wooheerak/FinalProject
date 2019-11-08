@@ -30,8 +30,6 @@ public class NoticeController {
 	public ModelAndView noticeList(ModelAndView mv) {
 
 		ArrayList<Notice> list = nService.selectList();
-
-		System.out.println(list);
 		
 		if (list != null) {
 
@@ -137,7 +135,7 @@ public class NoticeController {
 									 @RequestParam("reloadFile") MultipartFile reloadFile,
 									 HttpServletRequest request,
 									 ModelAndView mv) {
-		
+
 		if(reloadFile != null && !reloadFile.isEmpty()) {
 			deleteFile(n.getRenameFileName(), request);
 		}

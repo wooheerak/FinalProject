@@ -46,8 +46,8 @@
      <!-- 공지사항 수정 -->
 	<update id="updateNotice" parameterType="Notice">
 		UPDATE NOTICE
-		SET nTitle=#{bTitle}, nContent=#{bContent}, originalFileName=#{originalFileName},
-			renameFileName=#{renameFileName}, nModifyDate=sysdate
+		SET NTITLE=#{nTitle}, NCONTENT=#{nContent}, ORIGINAL_FILENAME=#{originalFileName},
+			RENAME_FILENAME=#{renameFileName}, N_MODIFY_DATE=sysdate
 		where nId = #{nId}
      </update>
 

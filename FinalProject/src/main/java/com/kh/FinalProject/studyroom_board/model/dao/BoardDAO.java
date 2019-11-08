@@ -1,6 +1,7 @@
 package com.kh.FinalProject.studyroom_board.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -46,13 +47,13 @@ public class BoardDAO {
 	}
 	
 	// 그룹 참여
-	public int memberJoin(SqlSessionTemplate sqlSession, Board b) {
-		return sqlSession.update("boardMapper.memberJoin", b);
+	public int memberJoin(SqlSessionTemplate sqlSession, Map<String, Object> join) {
+		return sqlSession.update("boardMapper.memberJoin", join);
 	}
 	
 	// 그룹 탈퇴
-	public int memberUnjoin(SqlSessionTemplate sqlSession, Board b) {
-		return sqlSession.update("boardMapper.memberUnjoin", b);
+	public int memberUnjoin(SqlSessionTemplate sqlSession, Map<String, Object> join) {
+		return sqlSession.update("boardMapper.memberUnjoin", join);
 	}
 	
 	// 댓글 리스트

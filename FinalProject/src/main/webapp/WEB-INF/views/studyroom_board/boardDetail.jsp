@@ -50,6 +50,9 @@ th{
  background: lightblue;
  color: black;
 }
+.swal2-popup {
+  font-size: 20px !important;
+}
 
 </style>
 </head>
@@ -126,13 +129,13 @@ th{
 			<th>현재 인윈 / 모집 인원</th>
 				<c:url var="bJoin" value="bJoin.bo">
 					<c:param name="bo_number" value="${ board.bo_number }"/>
-					<c:param name="bo_name" value="${ b.bo_name }"/>
+					<c:param name="id" value="${ loginUser.id }"/>
 					<c:param name="bo_member" value="${ board.bo_member }"/>
 					<c:param name="bo_maxmember" value="${ board.bo_maxmember }"/>
 				</c:url>
 				<c:url var="bUnjoin" value="bUnjoin.bo">
 					<c:param name="bo_number" value="${ board.bo_number }"/>
-					<c:param name="bo_name" value="${ b.bo_name }"/>
+					<c:param name="id" value="${ loginUser.id }"/>
 				</c:url>
 				<td style="width: 150px;">${ board.bo_member } / ${ board.bo_maxmember }</td>
 			<td style="width: 150px; background-color: lightblue; font-weight: bold;">참여자 아이디</td>
@@ -147,10 +150,10 @@ th{
 					    </c:when>
 					</c:choose>
 			<c:if test="${ loginUser.id != board.bo_name }">
-				<c:if test="${ loginUser.id != board.bo_join }">
-					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join" <%-- onclick="location.href='${ bJoin }'" --%>>참여</button>
+				<%-- <c:if test="${ loginUser.id != board.bo_join }"> --%>
+					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join">참여</button>
 					<script type="text/javascript">
-					$('#join').click(function(){
+					 $('#join').click(function(){
 						Swal.fire({
 							width: 600,
 							padding: 100,
@@ -162,14 +165,24 @@ th{
 						  cancelButtonColor: '#d33',
 						  cancelButtonText: '취소',
 						  confirmButtonText: '참여할래요!!'
-						}).then((result) => {location.href='${ bJoin }'
+						}).then((result) => {
+							if (result.value) {
+							    location.href='${ bJoin }'
+						    	 swalWithBootstrapButtons.fire(
+						    		      '참여 완료!',
+						    		      '열심히 공부해요',
+						    		      'success'
+						    		    )
+							  } else {
+							  }
 						  
 						})
-					});
+					});  
+					
 					</script>
-				</c:if>
+				<%-- </c:if> --%>
 				<c:if test="${ loginUser.id == board.bo_join }">
-					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="cancel" <%-- onclick="location.href='${ bUnjoin }'" --%>>탈퇴</button>
+					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="cancel">탈퇴</button>
 					<script type="text/javascript">
 					$('#cancel').click(function(){
 						Swal.fire({
@@ -182,8 +195,17 @@ th{
 						  confirmButtonColor: '#3085d6',
 						  cancelButtonColor: '#d33',
 						  cancelButtonText: '취소',
-						  confirmButtonText: '탈퇴할래요!!'
-						}).then((result) => {location.href='${ bUnjoin }'
+						  confirmButtonText: '탈퇴할래요!!',
+						}).then((result) => {
+							if (result.value) {
+							    location.href='${ bUnjoin }'
+						    	 swalWithBootstrapButtons.fire(
+						    		      '탈퇴 되었습니다',
+						    		      '탈퇴 완료.',
+						    		      'success'
+						    		    )
+							  } else {
+							  }
 						  
 						})
 					});

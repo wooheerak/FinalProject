@@ -105,8 +105,7 @@ th{
 			<tr>
 				<th>작성자</th>
 				<td>
-					<%-- <input type="text" name="bo_name" readonly value="${ loginUser.id }" style="background: lightgrey;"> --%>
-					<input type="text" size="80" name="bo_name">
+					<input type="text" name="bo_name" readonly value="${ loginUser.id }" style="background: lightgrey;">
 				</td>
 			</tr>
 			<tr>

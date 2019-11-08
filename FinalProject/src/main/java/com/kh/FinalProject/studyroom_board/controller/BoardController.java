@@ -3,6 +3,8 @@ package com.kh.FinalProject.studyroom_board.controller;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -130,15 +133,22 @@ public class BoardController {
 	
 	// 그룹 참여
 	@RequestMapping("bJoin.bo")
-	public ModelAndView memberJoin(Board b,
+	public ModelAndView memberJoin(@RequestParam("bo_number") int bo_number, @RequestParam("bo_member") int bo_member,
+								@RequestParam("bo_maxmember") int bo_maxmember, @RequestParam("id") String id,
 							HttpServletRequest request, ModelAndView mv) {
 		
-		int mem = b.getBo_member();
-		int maxmem = b.getBo_maxmember();
-		int bNo = b.getBo_number();
+		int mem = bo_member;
+		int maxmem = bo_maxmember;
+		int bNo = bo_number;
+		
+	    Map<String, Object> join = new HashMap<String, Object>();
+	    join.put("bo_number", new Integer("bo_number") );
+	    join.put("id", new String("id") );
+	 
+
 		
 		if( mem < maxmem) {
-			int result = sbService.memberJoin(b);
+			int result = sbService.memberJoin(join);
 			
 			if(result > 0) {
 				
@@ -155,11 +165,16 @@ public class BoardController {
 	
 	// 그룹 탈퇴
 	@RequestMapping("bUnjoin.bo")
-	public ModelAndView memberUnjoin(Board b, HttpServletRequest request, ModelAndView mv) {
+	public ModelAndView memberUnjoin(@RequestParam("bo_number") int bo_number, @RequestParam("id") String id,
+						HttpServletRequest request, ModelAndView mv) {
 		
-		int bNo = b.getBo_number();
+		int bNo = bo_number;
 		
-		int result = sbService.memberUnjoin(b);
+		Map<String, Object> join = new HashMap<String, Object>();
+		join.put("bo_number", new Integer("bo_number") );
+		join.put("id", new String("id") );
+		
+		int result = sbService.memberUnjoin(join);
 			
 		if(result > 0) {
 			

@@ -9,7 +9,7 @@
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 
-<body>
+<body style="overflow-x: hidden">
 
 	<c:import url="../common/header.jsp"></c:import>
 
@@ -27,10 +27,7 @@
 	</section>
 	<!-- end section -->
 
-
-
-
-	<section class="section overfree" style="padding: 30px 0px;">
+	<section class="section overfree" style="padding: 30px 0px;" id="section1">
 		<div class="icon-center">
 			<i class="fa fa-code"></i>
 		</div>
@@ -290,6 +287,37 @@
 			<!-- end row -->
 		</div>
 		<!-- end container -->
+		<div class="col-md-11 text-right">
+			<a href="#section1"><i class="fa fa-sort-asc fa-2x" aria-hidden="true"></i></a>
+		</div>
+		
+		<script>
+			$(document).ready(function(){
+			  // a 태그를 클릭시
+			  $("a").on('click', function(event) {
+			
+			    // Make sure this.hash has a value before overriding default behavior
+			    if (this.hash !== "") {
+			      // Prevent default anchor click behavior
+			      event.preventDefault();
+			
+			      // Store hash
+			      var hash = this.hash;
+			
+			      // jQuery animate() 메소드를 사용해서 부드러운 스크롤 효과 만들기
+			      // 설정 지역까지 이동하는 속도 설정(milliseconds)
+			      $('html, section').animate({
+			        scrollTop: $(hash).offset().top
+			      }, 900, function(){
+			   
+			        // Add hash (#) to URL when done scrolling (default click behavior)
+			        window.location.hash = hash;
+			      });
+			    } // End if
+			  });
+			});
+		</script>
+		
 		<div class="pagination-wrapper row text-center ">
 			<ul class="pagination col-md-12 ">
 				<li class="active "><a href="# ">1</a></li>

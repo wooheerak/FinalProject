@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -24,6 +24,9 @@
 			// 정보 표시 숨기기
 			"info" : true,
 
+			// 정렬
+            "order": [],
+			
 			// 페이지 넘기는 방식
 			pagingType : "full_numbers",
 
@@ -100,136 +103,32 @@
 				</thead>
 
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>일반열람실 24시간 개방 안내</td>
-						<td>이수진</td>
-						<td>2019-10-07</td>
-						<td>1102</td>
-						<td><a href="noticedetail.no"><i class="fa fa-file"></i></a></td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>한글날 도서관 이용안내</td>
-						<td>우희락</td>
-						<td>2019-10-07</td>
-						<td>342</td>
-						<td><i class="fa fa-file"></i></td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>10월 도서관 정기교육 안내</td>
-						<td>이동수</td>
-						<td>2019-10-02</td>
-						<td>55</td>
-						<td><i></i></td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td>개천절 도서관 이용안내</td>
-						<td>우희락</td>
-						<td>2019-10-02</td>
-						<td>33</td>
-						<td><i class="fa fa-file"></i></td>
-					</tr>
-					<tr>
-						<td>5</td>
-						<td>일반열람실 24시간 개방 안내</td>
-						<td>이수진</td>
-						<td>2019-10-07</td>
-						<td>1102</td>
-						<td><i class="fa fa-file"></i></td>
-					</tr>
-					<tr>
-						<td>6</td>
-						<td>한글날 도서관 이용안내</td>
-						<td>우희락</td>
-						<td>2019-10-07</td>
-						<td>342</td>
-						<td><i class="fa fa-file"></i></td>
-					</tr>
-					<tr>
-						<td>7</td>
-						<td>10월 도서관 정기교육 안내</td>
-						<td>이동수</td>
-						<td>2019-10-02</td>
-						<td>55</td>
-						<td><i></i></td>
-					</tr>
-					<tr>
-						<td>8</td>
-						<td>개천절 도서관 이용안내</td>
-						<td>우희락</td>
-						<td>2019-10-02</td>
-						<td>33</td>
-						<td><i class="fa fa-file"></i></td>
-					</tr>
-					<tr>
-						<td>9</td>
-						<td>일반열람실 24시간 개방 안내</td>
-						<td>이수진</td>
-						<td>2019-10-07</td>
-						<td>1102</td>
-						<td><i class="fa fa-file"></i></td>
-					</tr>
-					<tr>
-						<td>10</td>
-						<td>한글날 도서관 이용안내</td>
-						<td>우희락</td>
-						<td>2019-10-07</td>
-						<td>342</td>
-						<td><i class="fa fa-file"></i></td>
-					</tr>
-					<tr>
-						<td>11</td>
-						<td>10월 도서관 정기교육 안내</td>
-						<td>이동수</td>
-						<td>2019-10-02</td>
-						<td>55</td>
-						<td><i></i></td>
-					</tr>
-					<tr>
-						<td>12</td>
-						<td>개천절 도서관 이용안내</td>
-						<td>우희락</td>
-						<td>2019-10-02</td>
-						<td>33</td>
-						<td><i class="fa fa-file"></i></td>
-					</tr>
+
+					<c:forEach var="n" items="${ list }">
+
+						<tr>
+							<td>${ n.nId }</td>
+							<td>
+								<c:url var="ndetail" value="ndetail.no">
+									<c:param name="nId" value="${ n.nId }"/>
+								</c:url>
+								<a href="${ ndetail }">${ n.nTitle }</a>
+							</td>
+							<td>${ n.nWriter }</td>
+							<td>${ n.nCreateDate }</td>
+							<td>${ n.nCount }</td>
+							<td>
+								<c:if test="${ !empty n.originalFileName }">
+									<a href="${ contextPath }/resources/nuploadFiles/${ n.renameFileName }" download="${ n.originalFileName }"><i class="fa fa-file"></i></a>
+			              		 	<!-- a태그 안에서 다운로드 받을 것이 있을 때 쓰는 속성 download, 얘는 download="fileName" 이라고 해서 fileName을 지정해줄 수 있다. -->
+								</c:if>
+							</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
 
-
-		<!-- 		<div class="pull-right">
-			<a href='#' onClick='fn_write()' class="btn btn-success">글쓰기</a>
-		</div> -->
-
-
-		<!-- 		<script type="text/javascript">
-			$(function() {
-				$(".contentTR").mouseenter(function() {
-					$(this).css({
-						"color" : "black",
-						"font-weight" : "bold",
-						"cursor" : "pointer"
-					});
-				}).mouseout(function() {
-					$(this).css({
-						"color" : "gray",
-						"font-weight" : "normal"
-					});
-				}).click(function() {
-					var nId = $(this).children("td").eq(0).text();
-
-					location.href = "bdetail.bo?nId=" + nId + "&page=" + $
-					{
-						pi.currentPage
-					}
-					;
-				});
-			});
-		</script> -->
 	</section>
 	<!-- end section -->
 

@@ -19,7 +19,9 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 }
 </style>
 
+
 <body>
+
 
 	<c:import url="../common/header.jsp"></c:import>
 
@@ -39,33 +41,38 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 
 	<!-- 공지사항 -->
 
+
 	<section class="section overfree">
 		<div class="icon-center">
 			<i class="fa fa-code"></i>
 		</div>
 		<div class="container">
-			<form action="ninsert.no" method="post" enctype="Multipart/form-data">
+			<form action="nupdate.no" method="post" enctype="Multipart/form-data">
 				<table id="noticeInsertTable" class="table" border="1">
 					<tr>
 						<th>제목</th>
-						<td>
-							<input type="text" size="100%" name="nTitle">
-						</td>
+						<td><input type="text" size="100%" name="nTitle" value="${ notice.nTitle }"></td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td>
-							<input type="text" name="nWriter">
+						<td><input type="text" name="nWriter" readonly value="${ notice.nWriter }" style="background: lightgrey;">
 						</td>
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td><textarea rows="20" cols="140" name="nContent"
-								style="resize: none;"></textarea></td>
+						<td><textarea rows="20" cols="140" name="nContent" style="resize: none;">${ notice.nContent }</textarea></td>
 					</tr>
 					<tr>
 						<th>첨부파일</th>
-						<td><input type="file" name="uploadFile"></td>
+						<td>
+							<input type="file" name="uploadFile">
+							<c:if test="${ !empty notice.originalFileName }">
+								<br>현재 업로드한 파일 : 
+								<a href="${ contextPath }/resources/nuploadFiles/${ notice.renameFileName }" download="${ notice.originalFileName }">
+									${ notice.originalFileName }
+								</a>
+							</c:if>
+						</td>
 					</tr>					
 				</table>
 				<div class="text-center">
@@ -74,12 +81,11 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 				</div>
 			</form>
 		</div>
-<!--  -->
+	<!--  -->
 	</section>
 	<!-- end section -->
-<!--  -->
+
 	<jsp:include page="../common/footer.jsp" />
-
+	
 </body>
-
 </html>

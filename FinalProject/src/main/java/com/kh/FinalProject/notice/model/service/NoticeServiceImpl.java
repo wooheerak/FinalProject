@@ -10,7 +10,7 @@ import com.kh.FinalProject.notice.model.dao.NoticeDAO;
 import com.kh.FinalProject.notice.model.vo.Notice;
 
 @Service("nService")
-public class NoticeServiceImpl {
+public class NoticeServiceImpl implements NoticeService{
 
 	@Autowired
 	private NoticeDAO nDAO;
@@ -43,6 +43,10 @@ public class NoticeServiceImpl {
 
 	public int updateNotice(Notice n) {
 		return nDAO.updateNotice(sqlSession, n);
+	}
+
+	public int noticeDelete(int nId) {
+		return nDAO.noticeDelete(sqlSession, nId);
 	}
 
 }

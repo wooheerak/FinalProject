@@ -51,4 +51,10 @@
 		where nId = #{nId}
      </update>
 
+	<!-- 공지사항 삭제 -->
+	<update id="deleteNotice" parameterType="_int">
+		UPDATE NOTICE
+		SET N_STATUS = 'N'
+		WHERE nId = #{nId}
+	</update>
 </mapper>

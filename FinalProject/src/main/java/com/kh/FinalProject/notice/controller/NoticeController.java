@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.FinalProject.notice.model.exception.NoticeException;
-import com.kh.FinalProject.notice.model.service.NoticeServiceImpl;
+import com.kh.FinalProject.notice.model.service.NoticeService;
 import com.kh.FinalProject.notice.model.vo.Notice;
 
 
@@ -23,7 +23,7 @@ import com.kh.FinalProject.notice.model.vo.Notice;
 public class NoticeController {
 
 	@Autowired
-	private NoticeServiceImpl nService;
+	private NoticeService nService;
 
 	// 공지사항 리스트
 	@RequestMapping("nlist.no")
@@ -168,5 +168,19 @@ public class NoticeController {
 		if(f.exists()) {
 			f.delete();
 		}	
+	}
+	
+	// 공지사항 삭제
+	@RequestMapping("ndelete.no")
+	public String noticeDelete(@RequestParam("nId") int nId) {
+		
+		int result = nService.noticeDelete(nId);
+
+		if(result > 0) {
+			return "redirect:nlist.no";
+		}else {
+			throw new NoticeException("게시글 삭제에 실패하였습니다.");
+		}
+		
 	}
 }

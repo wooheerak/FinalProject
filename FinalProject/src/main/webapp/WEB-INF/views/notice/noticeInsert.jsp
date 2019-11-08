@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>공지사항</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
 </head>
 <style>
 table{
@@ -60,14 +61,20 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td><textarea rows="20" cols="140" name="nContent"
-								style="resize: none;"></textarea></td>
+						<td>
+							<!-- <textarea rows="20" cols="140" name="nContent" style="resize: none;"></textarea> -->
+							<textarea name=nContent></textarea>
+			                <script>
+			                        CKEDITOR.replace( 'nContent' );
+			                </script>
+						</td>
 					</tr>
 					<tr>
 						<th>첨부파일</th>
 						<td><input type="file" name="uploadFile"></td>
 					</tr>					
 				</table>
+				
 				<div class="text-center">
 					<input class="btn btn-transparent" type="submit" value="등록 하기" style="background-color: transparent;"> &nbsp;
 					<a href="nlist.no" class="btn btn-transparent">목록</a>

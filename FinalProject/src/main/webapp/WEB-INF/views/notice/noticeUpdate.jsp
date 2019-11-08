@@ -77,7 +77,11 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 					</tr>					
 				</table>
 				<div class="text-center">
+					<c:url var="ndelete" value = "ndelete.no">
+						<c:param name="nId" value="${ notice.nId }"/>
+					</c:url>
 					<input class="btn btn-transparent" type="submit" value="등록 하기" style="background-color: transparent;"> &nbsp;
+					<button type = "button" onclick="location.href='${ ndelete }'">삭제하기</button>
 					<a href="nlist.no" class="btn btn-transparent">목록</a>
 				</div>
 			</form>

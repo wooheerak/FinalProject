@@ -19,10 +19,10 @@
    
  
  	
-	<div id="wrapper" >       
+	<div id="wrapper"  >       
 		<div class="container">
 			<div style = "margin-left : 80px; margin-top : 50px;">
-		    <b><p id = "seatId" style = "display : inline;">20</p></b><small style = "display : inline;">번 좌석을 예약하시겠습니까?</small>
+		    <p style = "display : inline;">열람실 예약을 취소하시겠습니까?</p>
 		    </div>
 			<div class="row" style = "margin-left : 45px; margin-top : 50px;">      
 		       <a href="#" class="btn btn-transparent btn-lg okresv" style = "margin-right : 10px;">O&nbsp;&nbsp;&nbsp;K</a>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="seatMapper">
+  	
+  	<select id="countSeat" resultType = "_int">
+  		SELECT COUNT(*) 
+		FROM STUDYSEAT
+		WHERE SS_USE = 'N'
+		GROUP BY SS_FLOOR
+  	</select>
+  	
+  	<select id="selectSeatList" resultType = "Seat">
+  		SELECT *
+  		FROM STUDYSEAT
+  		WHERE SS_FLOOR = 'A'
+  	</select>
+  	
+  	<select id = "selectFloorSeat" parameterType = "string" resultType = "Seat">
+  		SELECT *
+  		FROM STUDYSEAT
+  		WHERE SS_FLOOR = #{floor}
+  	</select>
+  
+</mapper>

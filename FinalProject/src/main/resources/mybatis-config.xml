@@ -7,9 +7,11 @@
 	<typeAliases>
 		<typeAlias type="com.kh.FinalProject.studyroom_board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.FinalProject.studyroom_board.model.vo.Reply" alias="Reply"/>
+		<typeAlias type="com.kh.FinalProject.book.model.vo.Book" alias="Book"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/board-mapper.xml"/>
+		<mapper resource="mappers/book-mapper.xml"/>
 	</mappers>
 </configuration>
 

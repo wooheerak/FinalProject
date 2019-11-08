@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -37,27 +37,21 @@ $(document).ready(function() {
          <i class="fa fa-code"></i>
       </div>
       <div class="container">
-         <form class="calculateform"
+         <form action="selectList.bk" class="calculateform"
             style="padding-bottom: 35px; background-color: lightblue;">
 
             <div class="dorpdown dropdown portfolio-filter"
                style="display: flex;">
-               <SELECT name='col'>
+               <SELECT name='searchOption'>
                   <!-- 검색 컬럼 -->
-                  <OPTION value='0'>전체검색</OPTION>
-                  <OPTION value='1'>경상계열</OPTION>
-                  <OPTION value='2'>인문/사회계열</OPTION>
-                  <OPTION value='3'>공학계열</OPTION>
-                  <OPTION value='4'>어학계열</OPTION>
-                  <OPTION value='5'>법학계열</OPTION>
-                  <OPTION value='6'>의학/약학계열</OPTION>
-                  <OPTION value='7'>사법계열</OPTION>
-                  <OPTION value='8'>예체능계열</OPTION>
-                  <OPTION value='9'>기타</OPTION>
+                  <OPTION value='title'>제목 검색</OPTION>
+                  <OPTION value='author'>저자 검색</OPTION>
+                  <OPTION value='publisher'>출판사 검색</OPTION>
+                  <OPTION value='ISBN'>ISBN 검색</OPTION>
                </SELECT>&nbsp;&nbsp; 
                <input type="text" class="form-control" id="searchbar"
-                  name="url" style="height: 49.33px;" placeholder="검색어를 입력하세요">&nbsp;&nbsp;
-               <input type="submit" id="search" name="send" value="검색" class="btn btn-default" />
+                  name="search" style="height: 49.33px;" placeholder="검색어를 입력하세요">&nbsp;&nbsp;
+               <input type="submit" name="send" value="검색" class="btn btn-default" />
             </div>
          </form>
       </div>
@@ -79,15 +73,28 @@ $(document).ready(function() {
          </div>
       </div>
       
-      
-
-<table id="book">
-
-</table>
    <section class="section" style="padding:0px;">
          <div class="container" id="bookList">
             <div class="row" style = " margin-left : -160px;">
-            <%c:if %>
+            
+			<c:forEach var="b" items="${ list }">
+               <div class="col-md-6" >
+                  <div class="ebook-details row" >
+                     <div class="col-md-3">
+                        <img src="resources/upload/${b.bIMG }" alt="" class="img-responsive">
+                     </div>
+                     <div class="col-md-9">
+                        <div class="book-details">
+                           <small>${b.bMainCTG }</small>
+                           <h3>${b.bName }</h3>
+                           <p>저자 : ${b.bWriter } &nbsp;&nbsp;&nbsp; 출판 : ${b.bPublisher }&nbsp;&nbsp;&nbsp; <br>
+                           	언어 : ${b.bLanguage } </p>
+                           <a href="detailView.bk" class="btn btn-transparent">상세 보기</a>
+                        </div><!-- end details -->
+                     </div><!-- end col -->
+                  </div><!-- end ebook-details -->
+               </div><!-- end col -->             
+			</c:forEach>
                <div class="col-md-6" >
                   <div class="ebook-details row" >
                      <div class="col-md-3">
@@ -257,6 +264,10 @@ $(document).ready(function() {
    <!-- end section -->
 
    <jsp:include page="../common/footer.jsp" />
+   
+   <script>
+   		function 
+   </script>
    
 
 

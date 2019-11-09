@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kh.FinalProject.user.model.exception.UserException;
 import com.kh.FinalProject.user.model.sevice.UserService;
 import com.kh.FinalProject.user.model.vo.User;
 
@@ -38,10 +39,11 @@ public class UserController {
 			
 			System.out.println(loginUser);
 			
-			return "redirect:index.do";
+		}else {
+			throw new UserException("로그인 실패");
 		}
+		return "redirect:index.do";
 		
-		return "userlogin";
 	}
 	
 	@RequestMapping("userinformation.ui")

@@ -107,22 +107,7 @@
 								</ul>
 							</li>
 							<li>
-								
-							
-								<a href="login.ul">로그인</a>
-								<a>/</a>
-								<a href="userinformation.ui">회원정보수정</a>	
-							</li>	
-						</ul>
-					</div>
-					<!--/.nav-collapse -->
-				</div>
-				<!--/.container-fluid -->
-			</nav>
-			<!-- end nav -->
-		</div>
-		<!-- end container -->
-		<div class="loginArea" align="right">
+								<div class="loginArea" align="right">
 									<c:if test="${ empty sessionScope.loginUser }">
 										<form action="userlogin.ul" method="post">
 											<table id="loginTable" style="text-align:center;">
@@ -139,7 +124,6 @@
 												</tr>
 												<tr>
 													<td colspan="3">
-														<button type="button" onclick="location.href='enrollView.me'">회원가입</button>
 														<button type="button">아이디/비밀번호 찾기</button>
 													</td>
 												</tr>
@@ -147,15 +131,29 @@
 										</form>
 									</c:if>
 									<c:if test="${ !empty sessionScope.loginUser }">
-										<h3 align="right">
-											<c:out value="${ loginUser.Member_Name }님 환영합니다."/>
+										<tr>
+											<td>${ loginUser.Member_Name }님 환영합니다.</td>
 											<c:url var="myinfo" value="myinfo.me"/>
 											<c:url var="logout" value="logout.me"/>
 											<button onclick="location.href='${myinfo}'">정보보기</button>
 											<button onclick="location.href='${logout}'">로그아웃</button>
-										</h3>
+										<tr>
 									</c:if>
 								</div>
+							
+								<a href="login.ul">로그인</a>
+								<a>/</a>
+								<a href="userinformation.ui">회원정보수정</a>	
+							</li>	
+						</ul>
+					</div>
+					<!--/.nav-collapse -->
+				</div>
+				<!--/.container-fluid -->
+			</nav>
+			<!-- end nav -->
+		</div>
+		<!-- end container -->
 	</header>
 	<!-- end header -->
 

@@ -146,11 +146,11 @@ th{
 					        	참여자가 없어요
 					    </c:when>
 					    <c:when test="${join != 'NULL'}">
-					       		${ board.bo_join }
+					       		${ board.bo_name}
 					    </c:when>
 					</c:choose>
 			<c:if test="${ loginUser.id != board.bo_name }">
-				<%-- <c:if test="${ loginUser.id != board.bo_join }"> --%>
+				<c:if test="${ loginUser.id != board.bo_join }">
 					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join">참여</button>
 					<script type="text/javascript">
 					 $('#join').click(function(){
@@ -180,7 +180,7 @@ th{
 					});  
 					
 					</script>
-				<%-- </c:if> --%>
+				</c:if>
 				<c:if test="${ loginUser.id == board.bo_join }">
 					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="cancel">탈퇴</button>
 					<script type="text/javascript">

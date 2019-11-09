@@ -40,7 +40,7 @@
 
 </head>
 <body>
-
+<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 	<header class="header site-header">
 		<div class="container">
 			<nav class="navbar navbar-default yamm">
@@ -108,7 +108,8 @@
 							</li>
 							<li>
 								<div class="loginArea" align="right">
-									<c:if test="${ empty sessionScope.loginUser }">
+									<%-- <c:if test="${ empty sessionScope.loginUser }"> --%>
+									<c:if test="${ loginUser.Member_Name == null }">
 										<form action="userlogin.ul" method="post">
 											<table id="loginTable" style="text-align:center;">
 												<tr>
@@ -130,7 +131,8 @@
 											</table>
 										</form>
 									</c:if>
-									<c:if test="${ !empty sessionScope.loginUser }">
+									<%-- <c:if test="${ !empty sessionScope.loginUser }"> --%>
+									<c:if test="${ loginUser.Member_Name != null }">
 										<tr>
 											<td>${ loginUser.Member_Name }님 환영합니다.</td>
 											<c:url var="myinfo" value="myinfo.me"/>

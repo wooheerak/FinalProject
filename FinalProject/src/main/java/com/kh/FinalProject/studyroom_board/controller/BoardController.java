@@ -26,6 +26,7 @@ import com.kh.FinalProject.studyroom_board.model.exception.BoardException;
 import com.kh.FinalProject.studyroom_board.model.service.Studyroom_BoderService;
 import com.kh.FinalProject.studyroom_board.model.vo.Board;
 import com.kh.FinalProject.studyroom_board.model.vo.Reply;
+import com.kh.FinalProject.user.model.vo.User;
 
 @Controller
 public class BoardController {
@@ -135,7 +136,7 @@ public class BoardController {
 	// 그룹 참여
 	@RequestMapping("bJoin.bo")
 	public ModelAndView memberJoin(@RequestParam("bo_number") int bo_number, @RequestParam("bo_member") int bo_member,
-								@RequestParam("bo_maxmember") int bo_maxmember, @RequestParam("id") String id,
+								@RequestParam("bo_maxmember") int bo_maxmember, @RequestParam("Member_Id") String Member_Id,
 							HttpServletRequest request, ModelAndView mv) {
 		
 		int mem = bo_member;
@@ -144,7 +145,7 @@ public class BoardController {
 		
 	    Map<String, Object> join = new HashMap<String, Object>();
 	    join.put("bo_number", new Integer("bo_number") );
-	    join.put("id", new String("id") );
+	    join.put("Member_Id", new String("Member_Id") );
 	 
 
 		
@@ -166,14 +167,14 @@ public class BoardController {
 	
 	// 그룹 탈퇴
 	@RequestMapping("bUnjoin.bo")
-	public ModelAndView memberUnjoin(@RequestParam("bo_number") int bo_number, @RequestParam("id") String id,
+	public ModelAndView memberUnjoin(@RequestParam("bo_number") int bo_number, @RequestParam("Member_Id") String Member_Id,
 						HttpServletRequest request, ModelAndView mv) {
 		
 		int bNo = bo_number;
 		
 		Map<String, Object> join = new HashMap<String, Object>();
 		join.put("bo_number", new Integer("bo_number") );
-		join.put("id", new String("id") );
+		join.put("Member_Id", new String("Member_Id") );
 		
 		int result = sbService.memberUnjoin(join);
 			
@@ -209,8 +210,8 @@ public class BoardController {
 	@RequestMapping("addReply.bo")
 	@ResponseBody
 	public String addReply(Reply r, HttpSession session) {
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		String rWriter = loginUser.getId();
+		User loginUser = (User)session.getAttribute("loginUser");
+		String rWriter = loginUser.getMember_Id();
 		
 		r.setrWriter(rWriter);
 		

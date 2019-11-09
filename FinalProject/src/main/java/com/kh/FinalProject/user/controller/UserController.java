@@ -30,10 +30,10 @@ public class UserController {
 		User loginUser = uService.userlogin(u);
 		
 		if(loginUser != null) {
-			return "index";
+			return "redirect:index.do";
 		}
 		
-		return "user/userlogin";
+		return "userlogin";
 	}
 	
 	@RequestMapping("userinformation.ui")

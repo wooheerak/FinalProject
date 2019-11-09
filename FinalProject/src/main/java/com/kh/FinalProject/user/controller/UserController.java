@@ -1,5 +1,7 @@
 package com.kh.FinalProject.user.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,8 @@ import com.kh.FinalProject.user.model.vo.User;
 
 @Controller
 public class UserController {
+	
+	private Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	
 	@Autowired
@@ -30,6 +34,10 @@ public class UserController {
 		User loginUser = uService.userlogin(u);
 		
 		if(loginUser != null) {
+			model.addAttribute("loginUser",loginUser);
+			
+			System.out.println(loginUser);
+			
 			return "redirect:index.do";
 		}
 		

@@ -107,7 +107,7 @@
 								</ul>
 							</li>
 							<li>
-								<a href="userlogin.ul">로그인</a>
+								<a href="login.ul">로그인</a>
 								<a>/</a>
 								<a href="userinformation.ui">회원정보수정</a>	
 							</li>	

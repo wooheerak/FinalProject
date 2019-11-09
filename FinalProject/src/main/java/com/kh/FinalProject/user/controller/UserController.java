@@ -1,13 +1,38 @@
 package com.kh.FinalProject.user.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.kh.FinalProject.user.model.sevice.UserService;
+import com.kh.FinalProject.user.model.vo.User;
 
 @Controller
 public class UserController {
+
+	
+	@Autowired
+	private UserService uService;
+	
+	
+	
+	@RequestMapping("login.ul")
+	public String login() {
+		
+		return "userlogin";
+	}
+	
 	
 	@RequestMapping("userlogin.ul")
-	public String userlogin() {
+	public String userlogin(User u, Model model) {
+		
+		User loginUser = uService.userlogin(u);
+		
+		if(loginUser != null) {
+			return "index";
+		}
+		
 		return "user/userlogin";
 	}
 	

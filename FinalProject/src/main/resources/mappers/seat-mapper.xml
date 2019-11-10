@@ -9,12 +9,6 @@
 		GROUP BY SS_FLOOR
   	</select>
   	
-  	<select id="selectSeatList" resultType = "Seat">
-  		SELECT *
-  		FROM STUDYSEAT
-  		WHERE SS_FLOOR = 'A'
-  	</select>
-  	
   	<select id = "selectFloorSeat" parameterType = "string" resultType = "Seat">
   		SELECT *
   		FROM STUDYSEAT

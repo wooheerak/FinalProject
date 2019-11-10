@@ -15,11 +15,6 @@ public class SeatDao {
 		return (ArrayList)sqlSession.selectList("seatMapper.countSeat");
 	}
 
-	
-	public ArrayList<Seat> selectSeatList(SqlSessionTemplate sqlSession) {
-	
-		return (ArrayList)sqlSession.selectList("seatMapper.selectSeatList");
-	}
 
 
 	public ArrayList<Seat> selectSeatList(SqlSessionTemplate sqlSession, String floor) {

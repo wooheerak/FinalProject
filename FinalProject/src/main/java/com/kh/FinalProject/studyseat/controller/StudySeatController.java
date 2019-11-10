@@ -33,16 +33,17 @@ public class StudySeatController {
 			// A , B , C 열람실의 좌석을 먼저 가져옴
 			ArrayList<Integer> countList = sService.countSeat();
 			
-			System.out.println("countList : " + countList);
+			
 			if(countList == null) {
 				throw new SeatException("열람실별 좌석갯수 불러오기 실패!");
 			}
 			
 			// default로 A열람실의 좌석을 먼저 보여줌			
-			ArrayList<Seat> sList = sService.selectSeatList();
+			ArrayList<Seat> sList = sService.selectSeatList(floor);
 			
+			System.out.println("floor : " + floor + "sList : " + sList);
 			if(sList != null) {
-				System.out.println("sList : " + sList);
+				
 				
 				 mv.addObject("count" , countList)
 				   .addObject("list" , sList)
@@ -148,6 +149,7 @@ public class StudySeatController {
 			
 			if(result > 0) {
 				
+				mv.addObject("floor" , floor).setViewName("redirect:seatList.ss");
 				
 				return mv;
 			}

@@ -46,22 +46,24 @@
 	</section>
 	<!-- end section -->
 
-	<section class="section bt" style="padding: 30px 0px;">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-9 " style="height: 700px; display: inline;">
+	<section class="section bt " style="padding: 30px 0px;">
+		<div class="container ">
+			<div class="row" style = "">
+				<div class="col-md-9 col-sm-6" style="height: 700px; display : inline;" >
 					<div class="service-box"
 						style="height: 700px; border: 1px solid lightgray; border-radius: 4px; ">
+						
 						<div class="row window" style = "margin-left : 300px; maring-bottom : 20px;">
 							<p style="margin-top: 10px; font-size: large;">창&nbsp;&nbsp;&nbsp;문</p>
 						</div>
 						<br>
 						<div id = "seatList">
 							<c:forEach var = "seat" items = "${ list }" varStatus="status">
+							
 								<c:if test = "${ (status.index % 20 == 0) }">
-									<div class="row" style="margin-left: 20px; margin-right: 10px; margin-top: 5px;">
-									
+									<div class="row" style="margin-left: 20px; margin-right: 10px; margin-top: 5px;">									
 								</c:if>
+								
 								<c:if test = "${ status.index % 10 == 0 }">
 									<c:if test = "${ status.index % 20 == 0 }">
 										<div class="seatCharts-row" style="display: inline;">
@@ -74,6 +76,10 @@
 								
 								<c:if test = '${ seat.ss_use eq "N" }'>
 									<div id="s${ seat.ss_no }" role="checkbox" onclick="clickSeat(this);"	aria-checked="false" focusable="true" tabindex="-1" class="seatCharts-seat seatCharts-cell available">${ seat.ss_no }</div>
+								</c:if>
+								
+								<c:if test = '${ seat.ss_use eq "R" }'>
+									<div id="s${ seat.ss_no }" role="checkbox" onclick="clickSeat(this);"	aria-checked="false" focusable="true" tabindex="-1" class="seatCharts-seat seatCharts-cell reserved">${ seat.ss_no }</div>
 								</c:if>
 									
 								<c:if test = '${ seat.ss_use eq "Y" }'>
@@ -89,73 +95,68 @@
 									</div>								
 								</c:if>
 								
-								<c:if test = "${ status.index != 0 && status.index % 40 == 39 }">
+								<c:if test = "${ status.index != 0 && status.index % 40 == 39 && status.index < 159 }">									
 									<br>								
-								</c:if>
-								
-								
-						
+								</c:if>				
 								
 							</c:forEach>
+							
+							
+						
 						</div>
 
 						<div class="row door">
 							<p style="margin-top: 10px; font-size: large;">출&nbsp;&nbsp;입&nbsp;&nbsp;문</p>
 						</div>
+					
+						
+				
+				
 					</div>
-					<br>
-				</div>
-
-
-				<div class="col-md-3 col-sm-6" style="display: inline;">
-					<form class="quoteform"
-						style="border: 1px solid gray; border-radius: 4px;">
-						<div class="pricing-header sixch">
-							<b><p id="floor"
-									style="font-size: 35px; color: white; display: inline;">${ floor }</p></b> <small
-								style="color: white; display: inline;">열람실</small>
-						</div>
-						<br>
-						<div class="service-box"
-							style="border: 1px solid lightgray; height: 380px;">
-							
-							<div class="service-box room" focusable="true"
-								style="text-align: center; cursor: pointer;" value="A" >
+					
+					
+				</div>		
+				<div class="col-md-3 col-sm-6" style="display : inline;">
+							<div class="quoteform"	style="border: 1px solid gray; border-radius: 4px; width : 262.5px ; height : 696px;">
+								<div class="pricing-header sixch">
+									<b><p id="floor" style="font-size: 35px; color: white; display: inline;">${ floor }</p></b>
+									 <small	style="color: white; display: inline;">열람실</small>
+								</div>
+						        <br>
+							<div class="service-box" style="border: 1px solid lightgray; height: 380px;">							
+								<div class="service-box room" focusable="true"	style="text-align: center; cursor: pointer;" value="A" >
 								<b>A열람실</b> <br>
 								<p id="a-floor" style="display: inline;">${ count[0] }</p>
 								석/160석
-							</div>
-							<div class="service-box room" focusable="true"
-								style="text-align: center; cursor: pointer;" value="B" >
+								</div>
+								
+								<div class="service-box room" focusable="true" 	style="text-align: center; cursor: pointer;" value="B" >
 								<b>B열람실</b> <br>
 								<p id="b-floor" style="display: inline;">${ count[1] }</p>
 								석/120석
-							</div>
-							<div class="service-box room" focusable="true"
-								style="text-align: center; cursor: pointer;" value="C" >
+								</div>
+								
+								<div class="service-box room" focusable="true" 	style="text-align: center; cursor: pointer;" value="C" >
 								<b>C열람실</b> <br>
 								<p id="c-floor" style="display: inline;">${ count[2] }</p>
 								석/130석
+								</div>
 							</div>
-						</div>
-						<div class="service-box"
-							style="border: 1px solid lightgray; text-align: center;">
-							<p style="display: inline;">좌석번호 :</p>
-							<p id="seatNo" style="display: inline;"></p>
-							번
 							
-						</div>
-						<button type="button" class="btn btn-primary btn-block reset"
+							<div class="service-box" style="border: 1px solid lightgray; text-align: center;">
+							<p style="display: inline;">좌석번호 :</p>
+							<p id="seatNo" style="display: inline;"></p>번						
+							</div>
+							
+							<button type="button" class="btn btn-primary btn-block reset"
 							style="width: 100px; padding-left: 4px; display: inline; margin-left: 3px; border-radius: 0px;">좌석
 							다시 선택</button>
-						<button type="button" class="btn btn-primary btn-block" onclick = "resvSeat();"
+							
+							<button type="button" class="btn btn-primary btn-block" onclick = "resvSeat();"
 							style="width: 100px; display: inline; margin-top: 0px; margin-left: 10px; padding-left: 35px; border-radius: 0px;">예약</button>
-					</form>
-				</div>
-			</div>
-			<!-- end col -->
-		</div>
-		<!-- end row -->
+						</div>
+					</div>	
+				
 	</section>
 	<!-- end section -->
 	<script>
@@ -260,6 +261,9 @@
 						else if(data.sList[i].use == "N"){
 							str += '<div id="s' + data.sList[i].no +'" role="checkbox"  aria-checked="false" focusable="true" tabindex="-1" class="seatCharts-seat seatCharts-cell appendSeat available">' +  data.sList[i].no  + '</div>';							
 						}
+						else if(data.sList[i].use == "R"){
+							str += '<div id="s' + data.sList[i].no +'" role="checkbox" 	aria-checked="false" focusable="true" tabindex="-1" class="seatCharts-seat seatCharts-cell appendSeat reserved">' + data.sList[i].no +'</div>';
+						}
 						
 						
 						
@@ -271,7 +275,7 @@
 							str += '</div>';							
 						}
 						
-						if( i != 0 && i % 40 == 39){							
+						if( i != 0 && i % 40 == 39 && i < 159){							
 							str += '<br>';							
 						}
 						

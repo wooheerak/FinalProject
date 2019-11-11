@@ -15,11 +15,6 @@ public class SeatDao {
 		return (ArrayList)sqlSession.selectList("seatMapper.countSeat");
 	}
 
-	
-	public ArrayList<Seat> selectSeatList(SqlSessionTemplate sqlSession) {
-	
-		return (ArrayList)sqlSession.selectList("seatMapper.selectSeatList");
-	}
 
 
 	public ArrayList<Seat> selectSeatList(SqlSessionTemplate sqlSession, String floor) {
@@ -28,9 +23,9 @@ public class SeatDao {
 	}
 
 
-	public int updateResv(SqlSessionTemplate sqlSession, int sNo) {
+	public int updateResv(SqlSessionTemplate sqlSession, Seat seat) {
 
-		return sqlSession.update("seatMapper.updateResv" , sNo);
+		return sqlSession.update("seatMapper.updateResv" , seat);
 	}
 
 }

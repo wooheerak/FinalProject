@@ -129,13 +129,13 @@ th{
 			<th>현재 인윈 / 모집 인원</th>
 				<c:url var="bJoin" value="bJoin.bo">
 					<c:param name="bo_number" value="${ board.bo_number }"/>
-					<c:param name="Member_Id" value="${ loginUser.member_Id }"/>
+					<c:param name="Member_Name" value="${ loginUser.member_Name }"/>
 					<c:param name="bo_member" value="${ board.bo_member }"/>
 					<c:param name="bo_maxmember" value="${ board.bo_maxmember }"/>
 				</c:url>
 				<c:url var="bUnjoin" value="bUnjoin.bo">
 					<c:param name="bo_number" value="${ board.bo_number }"/>
-					<c:param name="Member_Id" value="${ loginUser.member_Id }"/>
+					<c:param name="Member_Name" value="${ loginUser.member_Name }"/>
 				</c:url>
 				<td style="width: 150px;">${ board.bo_member } / ${ board.bo_maxmember }</td>
 			<td style="width: 150px; background-color: lightblue; font-weight: bold;">참여자 아이디</td>
@@ -146,43 +146,45 @@ th{
 					        	참여자가 없어요
 					    </c:when>
 					    <c:when test="${join != 'NULL'}">
-					       		${ board.bo_name}
+					       		${ board.bo_join}
 					    </c:when>
 					</c:choose>
-			<c:if test="${ loginUser.member_Name != board.bo_name }">
-				<c:if test="${ loginUser.member_Id != board.bo_join }">
-					<br>
-					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join">참여</button>
-					<script type="text/javascript">
-					 $('#join').click(function(){
-						Swal.fire({
-							width: 600,
-							padding: 100,
-						  title: '참여 하시겠습니까?',
-						  text: "다시한번 확인해주세요",
-						  icon: 'warning',
-						  showCancelButton: true,
-						  confirmButtonColor: '#3085d6',
-						  cancelButtonColor: '#d33',
-						  cancelButtonText: '취소',
-						  confirmButtonText: '참여할래요!'
-						}).then((result) => {
-							if (result.value) {
-							    location.href='${ bJoin }'
-						    	 swalWithBootstrapButtons.fire(
-						    		      '참여 완료!',
-						    		      '열심히 공부해요',
-						    		      'success'
-						    		    )
-							  } else {
-							  }
-						  
-						})
-					});  
-					
-					</script>
+			<c:if test="${ board.bo_member < board.bo_maxmember}">
+				<c:if test="${ loginUser.member_Name != board.bo_name }">
+					<c:if test="${ loginUser.member_Name != board.bo_join }">
+						<br>
+						<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join">참여</button>
+						<script type="text/javascript">
+						 $('#join').click(function(){
+							Swal.fire({
+								width: 600,
+								padding: 100,
+							  title: '참여 하시겠습니까?',
+							  text: "다시한번 확인해주세요",
+							  icon: 'warning',
+							  showCancelButton: true,
+							  confirmButtonColor: '#3085d6',
+							  cancelButtonColor: '#d33',
+							  cancelButtonText: '취소',
+							  confirmButtonText: '참여할래요!'
+							}).then((result) => {
+								if (result.value) {
+								    location.href='${ bJoin }'
+							    	 swalWithBootstrapButtons.fire(
+							    		      '참여 완료!',
+							    		      '열심히 공부해요',
+							    		      'success'
+							    		    )
+								  } else {
+								  }
+							  
+							})
+						});  
+						
+						</script>
+					</c:if>
 				</c:if>
-				<c:if test="${ loginUser.member_Id == board.bo_join }">
+				<c:if test="${ loginUser.member_Name == board.bo_join }">
 					<br>
 					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="cancel">탈퇴</button>
 					<script type="text/javascript">
@@ -213,6 +215,8 @@ th{
 					});
 					</script>
 				</c:if>
+			</c:if>
+			<c:if test="${ board.bo_member == board.bo_maxmember}">
 			</c:if>
 			</td>
 		</tr>

@@ -136,12 +136,15 @@ public class BoardController {
 	// 그룹 참여
 	@RequestMapping("bJoin.bo")
 	public ModelAndView memberJoin(@RequestParam("bo_number") int bo_number, @RequestParam("bo_member") int bo_member,
-								@RequestParam("bo_maxmember") int bo_maxmember, @RequestParam("member_Id") String Member_Id,
+								@RequestParam("bo_maxmember") int bo_maxmember, @RequestParam("Member_Name") String Member_Name,
 							HttpServletRequest request, ModelAndView mv) {
 		
+		System.out.println("1 : " + bo_number);
 		Map<String, Object> join = new HashMap<String, Object>();
-		join.put("bo_number", new Integer("bo_number") );
-		join.put("Member_Id", new String("Member_Id") );
+		join.put("bo_number", bo_number );
+		join.put("Member_Name", Member_Name );
+		
+		System.out.println("map : " + join);
 		
 		int mem = bo_member;
 		int maxmem = bo_maxmember;
@@ -165,14 +168,14 @@ public class BoardController {
 	
 	// 그룹 탈퇴
 	@RequestMapping("bUnjoin.bo")
-	public ModelAndView memberUnjoin(@RequestParam("bo_number") int bo_number, @RequestParam("member_Id") String Member_Id,
+	public ModelAndView memberUnjoin(@RequestParam("bo_number") int bo_number, @RequestParam("Member_Name") String Member_Name,
 						HttpServletRequest request, ModelAndView mv) {
 		
 		int bNo = bo_number;
 		
 		Map<String, Object> join = new HashMap<String, Object>();
-		join.put("bo_number", new Integer("bo_number") );
-		join.put("Member_Id", new String("Member_Id") );
+		join.put("bo_number","bo_number");
+		join.put("Member_Name","Member_Name");
 		
 		int result = sbService.memberUnjoin(join);
 			

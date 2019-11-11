@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -37,9 +37,7 @@
 					<div class="menuContent">대출 내역 조회</div>
 					<div class="menuContent">열람실/스터디룸 이용내역 조회</div>
 					<div class="menuContent">도서 신청 조회</div>
-					<div class="menuContent">
-						BOOKSALES<br>거래 내역
-					</div>
+					<div class="menuContent">BOOKSALES<br>거래 내역</div>
 				</div>
 			</div>
 		</div>
@@ -49,25 +47,21 @@
 				<div class="col-md-6 col-sm-6 col-xs-12" style="width:230px; height:340px;">
 					<div class="pitem" style="width:220px; height:330px;">
 						<div class="case-box">
-							<img src="http://image.aladin.co.kr/product/5382/45/cover/8994217630_1.jpg" alt=""
+							<img src="resources/BOOK_IMG/${book.bIMG }" alt=""
 								class="img-responsive">
-						</div>
-						<!-- end case-box -->
-					</div>
-					<!-- end pitem -->
-				</div>
-				<!-- end col -->
+						</div><!-- end case-box -->
+					</div><!-- end pitem -->
+				</div><!-- end col -->
 
 				<div class="col-md-6 col-sm-6 col-xs-12">
 					<div class="case-details" style="width:670px; height:330px;">
-						<h3>
-							자바를 잡아라 <small>이수진 / 멍청이</small>
+						<h3>${book.bName }
+							<small>${book.bWriter } / ${book.bPublisher }</small>
 						</h3>
-						<p>대충 줄거리 부분.</p>
-						<p>대충 목차 부분.</p>
+						<p>카테고리 : ${ book.bMainCTG} <br> 언 어 : ${ book.bLanguage}</p>
+						<p>발행 일자 : ${ book.bIssueDate}</p>
 						<a onclick="document.getElementById('id01').style.display='block'" class="btn btn-transparent btn-lg cancel">
 						<i class="fa fa-book"></i>예약하기</a>
-						<!-- <a href="#" class="btn btn-transparent btn-lg" style="margin-bottom:5%; margin-right:5%;"><i class="fa fa-book"></i> 예약 하기</a> -->
 					</div>
 					<!-- end details -->
 				</div>

@@ -33,6 +33,13 @@ public class BookServiceImpl implements BookService{
 		return bDao.selectList(sqlSession , searchMap);
 	}
 
+
+	@Override
+	public Book selectBook(int bNo) {
+
+		return bDao.selectBook(sqlSession, bNo);
+	}
+
 	
 	
 }

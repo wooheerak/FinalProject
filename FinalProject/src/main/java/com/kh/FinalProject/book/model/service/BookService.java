@@ -13,4 +13,6 @@ public interface BookService {
 
 	ArrayList<Book> selectList(Map<String, Object> searchMap);
 
+	Book selectBook(int bNo);
+
 }

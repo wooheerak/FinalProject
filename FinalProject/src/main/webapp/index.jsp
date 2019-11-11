@@ -17,24 +17,21 @@
 	<div class="" style="background-color: white;">
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-				<form class="calculateform"
+				<form action="selectList.bk" class="calculateform"
 					style="height: 120px; padding-top: 33px; background-color: rgb(19, 19, 94);">
 					<div class="dorpdown dropdown" style="display: flex;">
-						<SELECT name='col'>
-							<!-- 검색 컬럼 -->
-							<OPTION value='0'>카테고리 선택</OPTION>
-							<OPTION value='1'>경상계열</OPTION>
-							<OPTION value='2'>인문/사회계열</OPTION>
-							<OPTION value='3'>공학계열</OPTION>
-							<OPTION value='4'>어학계열</OPTION>
-							<OPTION value='5'>법학계열</OPTION>
-							<OPTION value='6'>의학/약학계열</OPTION>
-							<OPTION value='7'>사법계열</OPTION>
-							<OPTION value='8'>예체능계열</OPTION>
-							<OPTION value='9'>기타</OPTION>
-						</SELECT>&nbsp;&nbsp; <input type="text" class="form-control"
-							id="searchbar" name="url" style="height: 49.33px; width: 450px;"
-							placeholder="검색어를 입력하세요">&nbsp;&nbsp; <input
+               			<SELECT name='searchOption'>
+                  			<!-- 검색 컬럼 -->
+			                  <OPTION value='title'>제목 검색</OPTION>
+			                  <OPTION value='author'>저자 검색</OPTION>
+			                  <OPTION value='publisher'>출판사 검색</OPTION>
+			                  <OPTION value='ISBN'>ISBN 검색</OPTION>
+			               </SELECT>
+						&nbsp;&nbsp; 
+						<input type="text" class="form-control"
+							id="searchbar" name="search" style="height: 49.33px; width: 450px;"
+							placeholder="검색어를 입력하세요">
+						&nbsp;&nbsp; <input
 							type="submit" name="send" value="검색" class="btn btn-default"
 							style="height: 49.33px; width: 150px;" />
 					</div>

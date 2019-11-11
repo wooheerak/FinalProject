@@ -2,28 +2,67 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="bookMapper">
 
+	<resultMap type="Book" id="bookResultSet">
+		<id property="bNo" column="B_NO"/>
+		<result property="bName" column="B_NAME"/>
+		<result property="bWriter" column="B_WRITER"/>
+		<result property="bTrans" column="B_TRANS"/>
+		<result property="bPublisher" column="B_PUBLISHER"/>
+		<result property="bPage" column="B_PAGE"/>
+		<result property="price" column="PRICE"/>
+		<result property="bMainCTG" column="B_MAIN_CTG"/>
+		<result property="bIssueDate" column="B_ISSUE_DATE"/>
+		<result property="bLanguage" column="B_LANGUAGE"/>
+		<result property="bISBN" column="B_ISBN"/>
+		<result property="bLocation" column="B_LOCATION"/>
+		<result property="status" column="B_STATUS"/>
+		<result property="bIMG" column="B_IMG"/>
+	</resultMap>
 	
 	<select id="selectCount" resultType="_int" parameterType="map">
 		select count(*)
 		from book
-		where b_status='Y' or b_status= 'R'	
+		where (b_status='Y' or b_status= 'R')
 		<choose>
 			<when test='searchOption.equals("title")'>
-				and b_name = #{search}
+				and b_name LIKE '%' || #{search} || '%'
 			</when>
 			<when test='searchOption.equals("author")'>
-				and b_writer = #{search}
+				and b_writer LIKE '%' || #{search} || '%'
 			</when>
 			<when test='searchOption.equals("publisher")'>
-				and b_publisher = #{search}
+				and b_publisher LIKE '%' || #{search} || '%'
 			</when>
 			<when test='searchOption.equals("ISBN")'>
-				and b_isbn = #{search}
+				and b_isbn LIKE '%' || #{search} || '%'
 			</when>									
 		</choose>
 	</select>
 	
+	<select id="selectList" parameterType="map" resultMap="bookResultSet">
+		select *
+		from book
+		where (b_status='Y' or b_status= 'R')	
+		<choose>
+			<when test='searchOption.equals("title")'>
+				and b_name LIKE '%' || #{search} || '%'
+			</when>
+			<when test='searchOption.equals("author")'>
+				and b_writer LIKE '%' || #{search} || '%'
+			</when>
+			<when test='searchOption.equals("publisher")'>
+				and b_publisher LIKE '%' || #{search} || '%'
+			</when>
+			<when test='searchOption.equals("ISBN")'>
+				and b_isbn LIKE '%' || #{search} || '%'
+			</when>									
+		</choose>
+	</select> 
 	
-
+	<select id="selectBook" parameterType="_int" resultMap="bookResultSet">
+		select *
+		from book
+		where (b_status='Y' or b_status= 'R') and b_no = #{bNo}
+	</select>
  	
 </mapper>

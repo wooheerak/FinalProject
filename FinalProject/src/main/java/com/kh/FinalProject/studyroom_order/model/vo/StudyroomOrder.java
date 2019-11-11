@@ -3,15 +3,15 @@ package com.kh.FinalProject.studyroom_order.model.vo;
 import java.sql.Date;
 
 public class StudyroomOrder {
-	private int so_no;
-	private String so_floor;
-	private String so_name;
-	private int so_maxpeople;
-	private String so_organizer;
-	private String so_participant;
-	private String so_start_time;
-	private String so_end_time;
-	private Date so_date;
+	private int so_no;				// 예약번호
+	private String so_floor;		// 층
+	private String so_name;			// 스터디룸 이름
+	private int so_maxpeople;		// 최대 인원
+	private String so_organizer;	// 예약자
+	private String so_participant;	// 참여자
+	private String so_start_time;	// 예약시작 시간
+	private String so_end_time;		// 예약 종료 시간
+	private Date so_date;			// 예약 일
 	
 	public StudyroomOrder() {
 		super();

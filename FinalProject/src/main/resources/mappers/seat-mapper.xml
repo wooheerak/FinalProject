@@ -15,10 +15,10 @@
   		WHERE SS_FLOOR = #{floor}
   	</select>
   	
-  	<update id = "updateResv" parameterType = "_int">
+  	<update id = "updateResv" parameterType = "Seat">
   		UPDATE STUDYSEAT
-  		SET SS_USE = 'R'
-  		WHERE SS_NO = #{sNo}
+  		SET SS_USE = 'R' , CERT_CODE = #{cert_code}
+  		WHERE SS_NO = #{ss_no} 
   	</update>
   
 </mapper>

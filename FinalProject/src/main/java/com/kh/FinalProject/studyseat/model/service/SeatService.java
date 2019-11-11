@@ -13,6 +13,6 @@ public interface SeatService {
 
 	ArrayList<Seat> selectSeatList(String floor);
 
-	int updateResv(int sNo);
+	int updateResv(Seat seat);
 
 }

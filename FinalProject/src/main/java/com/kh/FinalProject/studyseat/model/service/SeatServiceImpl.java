@@ -33,8 +33,8 @@ public class SeatServiceImpl implements SeatService{
 
 	
 	@Override
-	public int updateResv(int sNo) {
+	public int updateResv(Seat seat) {
 	
-		return sDao.updateResv(sqlSession, sNo);
+		return sDao.updateResv(sqlSession, seat);
 	}
 }

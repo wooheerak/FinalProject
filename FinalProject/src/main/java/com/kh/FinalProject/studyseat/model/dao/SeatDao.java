@@ -23,9 +23,9 @@ public class SeatDao {
 	}
 
 
-	public int updateResv(SqlSessionTemplate sqlSession, int sNo) {
+	public int updateResv(SqlSessionTemplate sqlSession, Seat seat) {
 
-		return sqlSession.update("seatMapper.updateResv" , sNo);
+		return sqlSession.update("seatMapper.updateResv" , seat);
 	}
 
 }

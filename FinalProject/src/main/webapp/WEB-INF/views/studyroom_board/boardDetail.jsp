@@ -151,6 +151,7 @@ th{
 					</c:choose>
 			<c:if test="${ loginUser.member_Name != board.bo_name }">
 				<c:if test="${ loginUser.member_Id != board.bo_join }">
+					<br>
 					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join">참여</button>
 					<script type="text/javascript">
 					 $('#join').click(function(){
@@ -182,6 +183,7 @@ th{
 					</script>
 				</c:if>
 				<c:if test="${ loginUser.member_Id == board.bo_join }">
+					<br>
 					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="cancel">탈퇴</button>
 					<script type="text/javascript">
 					$('#cancel').click(function(){

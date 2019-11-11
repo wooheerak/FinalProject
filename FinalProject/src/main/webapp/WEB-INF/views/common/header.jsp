@@ -138,11 +138,13 @@
 									</c:if>
 									<c:if test="${ !empty sessionScope.loginUser }"> 
 										<tr>
-											<td style="color: black;">${ loginUser.member_Name }님 환영합니다.</td>
+											<td>
+												<font color="black"> ${ loginUser.member_Name }님 환영합니다.</font>
+											</td>
 											<c:url var="myinfo" value="myinfo.me"/>
 											<c:url var="logout" value="logout.me"/>
-											<button onclick="location.href='${myinfo}'">정보보기</button>
-											<button onclick="location.href='${logout}'">로그아웃</button>
+											<button style="color: black;" onclick="location.href='${myinfo}'">정보보기</button>
+											<button style="color: black;" onclick="location.href='${logout}'">로그아웃</button>
 										<tr>
 									</c:if>
 								</div>

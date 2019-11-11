@@ -108,15 +108,14 @@
 							</li>
 							<li>
 								<div class="loginArea" align="right">
-									<%-- <c:if test="${ empty sessionScope.loginUser }"> --%>
-									<c:if test="${ loginUser.Member_Name == null }">
+									<c:if test="${ empty sessionScope.loginUser }">
 										<form action="userlogin.ul" method="post">
 											<table id="loginTable" style="text-align:center;">
 												<tr>
 													<td>아이디</td>
 													<td><input type="text" name="member_Id" style="background-color: lightblue; color: black"></td>
 													<td rowspan="2">
-														<button id="loginBtn">로그인</button>
+														<button id="loginBtn" style="color: black;">로그인</button>
 													</td>
 												</tr>
 												<tr>
@@ -125,16 +124,21 @@
 												</tr>
 												<tr>
 													<td colspan="3">
-														<button type="button">아이디/비밀번호 찾기</button>
+														<button type="button" style="color: black;">아이디/비밀번호 찾기</button>
+													</td>
+													
+													<td>
+														<a href="login.ul">로그인</a>
+														<a>/</a>
+														<a href="userinformation.ui">회원정보수정</a>	
 													</td>
 												</tr>
 											</table>
 										</form>
 									</c:if>
-									<%-- <c:if test="${ !empty sessionScope.loginUser }"> --%>
-									<c:if test="${ loginUser.Member_Name != null }">
+									<c:if test="${ !empty sessionScope.loginUser }"> 
 										<tr>
-											<td>${ loginUser.Member_Name }님 환영합니다.</td>
+											<td style="color: black;">${ loginUser.member_Name }님 환영합니다.</td>
 											<c:url var="myinfo" value="myinfo.me"/>
 											<c:url var="logout" value="logout.me"/>
 											<button onclick="location.href='${myinfo}'">정보보기</button>
@@ -142,10 +146,6 @@
 										<tr>
 									</c:if>
 								</div>
-							
-								<a href="login.ul">로그인</a>
-								<a>/</a>
-								<a href="userinformation.ui">회원정보수정</a>	
 							</li>	
 						</ul>
 					</div>

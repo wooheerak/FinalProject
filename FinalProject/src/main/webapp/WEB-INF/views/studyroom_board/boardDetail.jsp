@@ -129,13 +129,13 @@ th{
 			<th>현재 인윈 / 모집 인원</th>
 				<c:url var="bJoin" value="bJoin.bo">
 					<c:param name="bo_number" value="${ board.bo_number }"/>
-					<c:param name="Member_Id" value="${ loginUser.Member_Id }"/>
+					<c:param name="Member_Id" value="${ loginUser.member_Id }"/>
 					<c:param name="bo_member" value="${ board.bo_member }"/>
 					<c:param name="bo_maxmember" value="${ board.bo_maxmember }"/>
 				</c:url>
 				<c:url var="bUnjoin" value="bUnjoin.bo">
 					<c:param name="bo_number" value="${ board.bo_number }"/>
-					<c:param name="Member_Id" value="${ loginUser.Member_Id }"/>
+					<c:param name="Member_Id" value="${ loginUser.member_Id }"/>
 				</c:url>
 				<td style="width: 150px;">${ board.bo_member } / ${ board.bo_maxmember }</td>
 			<td style="width: 150px; background-color: lightblue; font-weight: bold;">참여자 아이디</td>
@@ -149,8 +149,8 @@ th{
 					       		${ board.bo_name}
 					    </c:when>
 					</c:choose>
-			<c:if test="${ loginUser.Member_Name != board.bo_name }">
-				<c:if test="${ loginUser.Member_Id != board.bo_join }">
+			<c:if test="${ loginUser.member_Name != board.bo_name }">
+				<c:if test="${ loginUser.member_Id != board.bo_join }">
 					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join">참여</button>
 					<script type="text/javascript">
 					 $('#join').click(function(){
@@ -181,7 +181,7 @@ th{
 					
 					</script>
 				</c:if>
-				<c:if test="${ loginUser.Member_Id == board.bo_join }">
+				<c:if test="${ loginUser.member_Id == board.bo_join }">
 					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="cancel">탈퇴</button>
 					<script type="text/javascript">
 					$('#cancel').click(function(){
@@ -226,7 +226,7 @@ th{
 		<c:url var="blist" value="bList.bo">
 		</c:url>
 		
-		<c:if test="${ loginUser.Member_Name eq board.bo_name }">
+		<c:if test="${ loginUser.member_Name eq board.bo_name }">
 			<tr>
 				<td colspan="2" align="center">
 					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bUpView }'">수정하기</button>
@@ -253,7 +253,7 @@ th{
          <c:url var="rdelete" value="rdelete.bo">
 			<c:param name="refBid" value="${ Reply.refBid }"/>
 		</c:url>
-         <c:if test="${ loginUser.Member_Id eq Reply.rWriter }">
+         <c:if test="${ loginUser.member_Id eq Reply.rWriter }">
 			<td colspan="2" align="center">
 				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ rdelete }'">삭제하기</button>
 			</td>

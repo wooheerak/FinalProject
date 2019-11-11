@@ -17,4 +17,17 @@
 		<result property="sr_floor" column="SR_FLOOR"/>
 		<result property="sr_maxPeople" column="SR_MAXPEOPLE"/>
 	</resultMap>
+
+	
+	<insert id="reservationStudyroom" parameterType="StudyroomOrder">
+		INSERT INTO STUDYROOM_ORDER
+		VALUES (SEQ_SRNO.NEXTVAL, #{so_floor}, #{so_name}, #{so_maxpeople},
+				#{so_organizer},#{so_participant}, #{so_start_time}, #{so_end_time},#{so_date},'Y')
+	</insert>
+	
+		<resultMap type="Studyroom" id="studyroomOrderResultSet">
+		<id property="sr_name" column="SR_NAME"/>
+		<result property="sr_floor" column="SR_FLOOR"/>
+		<result property="sr_maxPeople" column="SR_MAXPEOPLE"/>
+	</resultMap>
 </mapper>

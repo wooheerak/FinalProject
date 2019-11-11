@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.FinalProject.studyroom_order.model.dao.StudyroomDao;
 import com.kh.FinalProject.studyroom_order.model.vo.Studyroom;
+import com.kh.FinalProject.studyroom_order.model.vo.StudyroomOrder;
 
 @Service("srService")
 public class StudyroomServiceImpl implements StudyroomService{
@@ -26,6 +27,11 @@ public class StudyroomServiceImpl implements StudyroomService{
 	@Override
 	public ArrayList<Studyroom> selectRoomList() {
 		return srDao.selectRoomList(sqlSession);
+	}
+
+	@Override
+	public int reservationStudyroom(StudyroomOrder sr) {
+		return srDao.reservationStudyroom(sqlSession,sr);
 	}
 
 }

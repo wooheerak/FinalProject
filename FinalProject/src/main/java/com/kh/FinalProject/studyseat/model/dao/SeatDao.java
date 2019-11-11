@@ -28,4 +28,11 @@ public class SeatDao {
 		return sqlSession.update("seatMapper.updateResv" , seat);
 	}
 
+
+
+	public int checkDup(SqlSessionTemplate sqlSession, String id) {
+		
+		return sqlSession.selectOne("seatMapper.checkDup" , id);
+	}
+
 }

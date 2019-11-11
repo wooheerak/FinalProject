@@ -37,4 +37,11 @@ public class SeatServiceImpl implements SeatService{
 	
 		return sDao.updateResv(sqlSession, seat);
 	}
+
+
+	@Override
+	public int checkDup(String id) {
+		
+		return sDao.checkDup(sqlSession, id);
+	}
 }

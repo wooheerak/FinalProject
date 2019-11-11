@@ -17,8 +17,13 @@
   	
   	<update id = "updateResv" parameterType = "Seat">
   		UPDATE STUDYSEAT
-  		SET SS_USE = 'R' , CERT_CODE = #{cert_code}
+  		SET SS_USE = 'R' , CERT_CODE = #{cert_code} , STUDENT_ID = #{student_id}
   		WHERE SS_NO = #{ss_no} 
   	</update>
   
+  	<select id = "checkDup" parameterType = "string" resultType = "_int">
+  		SELECT COUNT(*)
+  		FROM STUDYSEAT
+  		WHERE STUDENT_ID = #{id}
+  	</select>
 </mapper>

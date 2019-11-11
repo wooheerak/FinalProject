@@ -15,4 +15,6 @@ public interface SeatService {
 
 	int updateResv(Seat seat);
 
+	int checkDup(String id);
+
 }

@@ -15,4 +15,6 @@ public interface StudyroomService {
 
 	int reservationStudyroom(StudyroomOrder sr);
 
+	ArrayList<StudyroomOrder> selectOrderList();
+
 }

@@ -3,6 +3,7 @@ package com.kh.FinalProject.studyseat.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -33,16 +35,17 @@ public class StudySeatController {
 			// A , B , C 열람실의 좌석을 먼저 가져옴
 			ArrayList<Integer> countList = sService.countSeat();
 			
-			System.out.println("countList : " + countList);
+			
 			if(countList == null) {
 				throw new SeatException("열람실별 좌석갯수 불러오기 실패!");
 			}
 			
 			// default로 A열람실의 좌석을 먼저 보여줌			
-			ArrayList<Seat> sList = sService.selectSeatList();
+			ArrayList<Seat> sList = sService.selectSeatList(floor);
 			
+			System.out.println("floor : " + floor + "sList : " + sList);
 			if(sList != null) {
-				System.out.println("sList : " + sList);
+				
 				
 				 mv.addObject("count" , countList)
 				   .addObject("list" , sList)
@@ -143,11 +146,18 @@ public class StudySeatController {
 			
 			System.out.println("sNo : " + sNo + ", floor : " + floor);
 			
-						
-			int result = sService.updateResv(sNo);
+			Seat seat = new Seat();
+			seat.setSs_no(sNo);
+			seat.setSs_floor(floor);
+			seat.setCert_code(getCertCode());
+			
+			System.out.println("seat : " + seat);
+			
+			int result = sService.updateResv(seat);
 			
 			if(result > 0) {
 				
+				mv.addObject("floor" , floor).setViewName("redirect:seatList.ss");
 				
 				return mv;
 			}
@@ -155,7 +165,35 @@ public class StudySeatController {
 				throw new SeatException("좌석 예약하기 실패!");
 			}
 			
+			
+			
 		}
 		
-	
+		
+		public String getCertCode() {
+			
+			StringBuffer temp = new StringBuffer();
+			Random rnd = new Random();
+			for (int i = 0; i < 6; i++) {
+			    int rIndex = rnd.nextInt(3);
+			    switch (rIndex) {
+			    case 0:
+			        // a-z
+			        temp.append((char) ((int) (rnd.nextInt(26)) + 97));
+			        break;
+			    case 1:
+			        // A-Z
+			        temp.append((char) ((int) (rnd.nextInt(26)) + 65));
+			        break;
+			    case 2:
+			        // 0-9
+			        temp.append((rnd.nextInt(10)));
+			        break;
+			    }
+			}
+
+
+			return temp.toString();
+		}
+
 }

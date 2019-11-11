@@ -10,6 +10,7 @@
 		<typeAlias type="com.kh.FinalProject.studyroom_board.model.vo.Reply" alias="Reply"/>
 		<typeAlias type="com.kh.FinalProject.notice.model.vo.Notice" alias="Notice"/>
 		<typeAlias type="com.kh.FinalProject.studyseat.model.vo.Seat" alias="Seat"/>
+    <typeAlias type="com.kh.FinalProject.user.model.vo.User" alias="User"/>
 
 		<typeAlias type="com.kh.FinalProject.studyroom_order.model.vo.Studyroom_orderInfo" alias="Studyroom_orderInfo"/>
 		<typeAlias type="com.kh.FinalProject.studyroom_order.model.vo.Studyroom" alias="Studyroom"/>
@@ -22,8 +23,6 @@
 		<mapper resource="mappers/notice-mapper.xml"/>
 		<mapper resource="mappers/studyroom-mapper.xml"/>
     <mapper resource="mappers/seat-mapper.xml"/>
+    <mapper resource="mappers/user-mapper.xml"/>
 	</mappers>
 </configuration>
-
-
-

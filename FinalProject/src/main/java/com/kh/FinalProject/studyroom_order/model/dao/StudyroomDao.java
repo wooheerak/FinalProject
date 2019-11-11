@@ -20,8 +20,11 @@ public class StudyroomDao {
 	}
 
 	public int reservationStudyroom(SqlSession sqlSession, StudyroomOrder sr) {
-		// TODO Auto-generated method stub
 		return sqlSession.insert("studyroomMapper.reservationStudyroom",sr);
+	}
+
+	public ArrayList<StudyroomOrder> selectOrderList(SqlSession sqlSession) {
+		return null;//(ArrayList)sqlSession.selectList("");
 	}
 
 }

@@ -3,6 +3,8 @@ package com.kh.FinalProject.studyroom_board.controller;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,10 +13,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -24,6 +26,7 @@ import com.kh.FinalProject.studyroom_board.model.exception.BoardException;
 import com.kh.FinalProject.studyroom_board.model.service.Studyroom_BoderService;
 import com.kh.FinalProject.studyroom_board.model.vo.Board;
 import com.kh.FinalProject.studyroom_board.model.vo.Reply;
+import com.kh.FinalProject.user.model.vo.User;
 
 @Controller
 public class BoardController {
@@ -72,6 +75,7 @@ public class BoardController {
 		return "boardInsert";
 	}
 	
+	
 	// 게시글 등록
 	@RequestMapping("bInsert.bo")
 	public String boardInsert(@ModelAttribute Board b, HttpServletRequest request) {
@@ -100,13 +104,15 @@ public class BoardController {
 	
 	// 게시글 업데이트
 	@RequestMapping("bUpdate.bo")
-	public String boardUpdate(@ModelAttribute Board b, HttpServletRequest request, ModelAndView mv) {
+	public ModelAndView boardUpdate(@ModelAttribute Board b, ModelAndView mv) {
+		
+		System.out.println("controller : " + b );
 		
 		int result = sbService.updateBoard(b);
 					
 		if(result > 0) {
-		
-			return "redirect:bDetail.bo";
+			mv.setViewName("redirect:bDetail.bo?bo_number=" + b.getBo_number());
+			return mv;
 		}else {
 			throw new BoardException("게시글 수정 실패");
 		}
@@ -127,7 +133,61 @@ public class BoardController {
 		}
 	}
 	
-	// 댓글
+	// 그룹 참여
+	@RequestMapping("bJoin.bo")
+	public ModelAndView memberJoin(@RequestParam("bo_number") int bo_number, @RequestParam("bo_member") int bo_member,
+								@RequestParam("bo_maxmember") int bo_maxmember, @RequestParam("member_Id") String Member_Id,
+							HttpServletRequest request, ModelAndView mv) {
+		
+		Map<String, Object> join = new HashMap<String, Object>();
+		join.put("bo_number", new Integer("bo_number") );
+		join.put("Member_Id", new String("Member_Id") );
+		
+		int mem = bo_member;
+		int maxmem = bo_maxmember;
+		int bNo = bo_number;
+		
+		if( mem < maxmem) {
+			int result = sbService.memberJoin(join);
+			
+			if(result > 0) {
+				
+				mv.addObject("bo_number", bNo).setViewName("redirect:bDetail.bo");
+				return mv;
+			}else {
+				throw new BoardException("그룹 참여 실패");
+			}
+			
+		}else {
+			throw new BoardException("모집 인원 초과");
+		}
+	}
+	
+	// 그룹 탈퇴
+	@RequestMapping("bUnjoin.bo")
+	public ModelAndView memberUnjoin(@RequestParam("bo_number") int bo_number, @RequestParam("member_Id") String Member_Id,
+						HttpServletRequest request, ModelAndView mv) {
+		
+		int bNo = bo_number;
+		
+		Map<String, Object> join = new HashMap<String, Object>();
+		join.put("bo_number", new Integer("bo_number") );
+		join.put("Member_Id", new String("Member_Id") );
+		
+		int result = sbService.memberUnjoin(join);
+			
+		if(result > 0) {
+			
+			mv.addObject("bo_number", bNo).setViewName("redirect:bDetail.bo");
+			return mv;
+		}else {
+			throw new BoardException("그룹 탈퇴 실패");
+		}
+		
+	}
+	
+	
+	// 댓글 리스트
 	@RequestMapping("rList.bo")
 	public void getReplyList(HttpServletResponse response, int bo_number) throws JsonIOException, IOException {
 		ArrayList<Reply> list = sbService.selectReplyList(bo_number);
@@ -144,11 +204,12 @@ public class BoardController {
 		
 	}
 	
-	/*@RequestMapping("addReply.bo")
+	// 댓글 입력
+	@RequestMapping("addReply.bo")
 	@ResponseBody
 	public String addReply(Reply r, HttpSession session) {
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		String rWriter = loginUser.getId();
+		User loginUser = (User)session.getAttribute("loginUser");
+		String rWriter = loginUser.getMember_Id();
 		
 		r.setrWriter(rWriter);
 		
@@ -159,7 +220,21 @@ public class BoardController {
 		}else {
 			throw new BoardException("댓글 등록 실패");
 		}
-	}*/
+	}
+	
+	// 댓글 삭제
+	@RequestMapping("rdelete.bo")
+	@ResponseBody
+	public String deleteReply(@RequestParam("refBid") int refBid) {
+		
+		int result = sbService.deleteReply(refBid);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			throw new BoardException("댓글 삭제 실패");
+		}
+	}
 	
 	
 

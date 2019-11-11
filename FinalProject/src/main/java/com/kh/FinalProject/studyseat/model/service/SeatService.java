@@ -11,10 +11,8 @@ public interface SeatService {
 
 	ArrayList<Integer> countSeat();
 
-	ArrayList<Seat> selectSeatList();
-
 	ArrayList<Seat> selectSeatList(String floor);
 
-	int updateResv(int sNo);
+	int updateResv(Seat seat);
 
 }

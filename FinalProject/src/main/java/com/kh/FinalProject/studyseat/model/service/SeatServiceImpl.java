@@ -24,11 +24,6 @@ public class SeatServiceImpl implements SeatService{
 		return sDao.countSeat(sqlSession);
 	}
 
-	@Override
-	public ArrayList<Seat> selectSeatList() {
-		
-		return sDao.selectSeatList(sqlSession);
-	}
 
 	@Override
 	public ArrayList<Seat> selectSeatList(String floor) {
@@ -38,8 +33,8 @@ public class SeatServiceImpl implements SeatService{
 
 	
 	@Override
-	public int updateResv(int sNo) {
+	public int updateResv(Seat seat) {
 	
-		return sDao.updateResv(sqlSession, sNo);
+		return sDao.updateResv(sqlSession, seat);
 	}
 }

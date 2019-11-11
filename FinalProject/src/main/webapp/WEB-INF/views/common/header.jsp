@@ -40,7 +40,7 @@
 
 </head>
 <body>
-
+<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 	<header class="header site-header">
 		<div class="container">
 			<nav class="navbar navbar-default yamm">
@@ -85,9 +85,7 @@
 		                                                <li><a href="">Testimonials</a></li>
 		                                                <li><a href="booksales.bs">중고서적 판매</a></li>
 		                                                <li><a href="bList.bo">스터디룸 게시판</a></li>
-		                                                <li><a href="bDetail.bo">스터디룸 게시글 보기</a></li>
 		                                                <li><a href="bInsertView.bo">스터디룸 게시글 쓰기</a></li>
-		                                                <li><a href="bUpView.bo">스터디룸 게시글 수정</a></li>
 													</ul>
 												</div>
 												<div class="col-md-4">
@@ -109,9 +107,47 @@
 								</ul>
 							</li>
 							<li>
-								<a href="userlogin.ul">로그인</a>
-								<a>/</a>
-								<a href="userinformation.ui">회원정보수정</a>	
+								<div class="loginArea" align="right">
+									<c:if test="${ empty sessionScope.loginUser }">
+										<form action="userlogin.ul" method="post">
+											<table id="loginTable" style="text-align:center;">
+												<tr>
+													<td>아이디</td>
+													<td><input type="text" name="member_Id" style="background-color: lightblue; color: black"></td>
+													<td rowspan="2">
+														<button id="loginBtn" style="color: black;">로그인</button>
+													</td>
+												</tr>
+												<tr>
+													<td>비밀번호</td>
+													<td><input type="password" name="member_Password" style="background-color: lightblue; color: black"></td>
+												</tr>
+												<tr>
+													<td colspan="3">
+														<button type="button" style="color: black;">아이디/비밀번호 찾기</button>
+													</td>
+													
+													<td>
+														<a href="login.ul">로그인</a>
+														<a>/</a>
+														<a href="userinformation.ui">회원정보수정</a>	
+													</td>
+												</tr>
+											</table>
+										</form>
+									</c:if>
+									<c:if test="${ !empty sessionScope.loginUser }"> 
+										<tr>
+											<td>
+												<font color="black"> ${ loginUser.member_Name }님 환영합니다.</font>
+											</td>
+											<c:url var="myinfo" value="myinfo.me"/>
+											<c:url var="logout" value="logout.me"/>
+											<button style="color: black;" onclick="location.href='${myinfo}'">정보보기</button>
+											<button style="color: black;" onclick="location.href='${logout}'">로그아웃</button>
+										<tr>
+									</c:if>
+								</div>
 							</li>	
 						</ul>
 					</div>

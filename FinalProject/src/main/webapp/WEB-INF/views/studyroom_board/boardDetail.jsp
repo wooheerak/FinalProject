@@ -2,57 +2,23 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>BoardDetail</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet"
-	href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript"
-	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
-<script type="text/javascript"
-	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
-<script>
-	jQuery(function($) {
-		$("#boardtable").DataTable({
-			// 표시 건수기능 숨기기
-			"lengthChange" : false,
-			// 정보 표시 숨기기
-			"info" : false,
-			columnDefs : [ {
-				targets : 0,
-				width : 50
-			} ],
-			// 페이지 넘기는 방식
-			pagingType : "full_numbers",
 
-			"language" : {
-				"emptyTable" : "데이터가 없어요.",
-				"lengthMenu" : "페이지당 _MENU_ 개씩 보기",
-				"info" : "현재 _START_ - _END_ / _TOTAL_건",
-				"infoEmpty" : "데이터 없음",
-				"infoFiltered" : "( _MAX_건의 데이터에서 필터링됨 )",
-				"search" : "검색: ",
-				"zeroRecords" : "일치하는 데이터가 없어요.",
-				"loadingRecords" : "로딩중...",
-				"processing" : "잠시만 기다려 주세요...",
-				"paginate" : {
-					"next" : "다음",
-					"previous" : "이전"
-				}
-			}
-		});
-	});
-</script>
 <style type="text/css">
 #boardtable {
 	margin: auto;
 	width: 80% !important;
 	min-height: 600px;
+	text-align: center;
 }
 
 #w3 {
@@ -68,7 +34,7 @@
 
 .replyTable {
 	margin: auto;
-	width: 600px;
+	width: 500px;
 }
 
 .col-sm-7 {
@@ -79,20 +45,21 @@
 #rContent {
 	margin: auto;
 }
+th{
+ text-align: center !important;
+ background: lightblue;
+ color: black;
+}
+.swal2-popup {
+  font-size: 20px !important;
+}
+
 </style>
 </head>
 <body>
 	<!-- 헤더 -->
 	<c:import url="../common/header.jsp" />
 
-	<!-- 왼쪽 사이드 바 https://www.w3schools.com/w3css/w3css_sidebar.asp -->
-	<!-- <div id="w3-sidebar"class="w3-sidebar w3-bar-block w3-light-blue" style="width:200px" >
-		<a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 1</a>
-		<a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 2</a>
-        <a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 3</a>
-        <a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 4</a>
-        <img src="resources/images/logo.JPG" height="200px" width="200px"/>
-	</div> -->
 
 	<section class="section normalhead lb">
 		<div class="container">
@@ -113,65 +80,166 @@
 		<div class="icon-center">
 			<i class="fa fa-code"></i>
 		</div>
-		<table border="1" id="boardtable" align="center">
+		
+		
+		<table border="1" id="boardtable">
 		<tr>
-			<th>번호</th>
+			<th width="80px" align="center">번호</th>
 			<td>${ board.bo_number }</td>
-		</tr>
-		<tr>
-			<th>제목</th>
+		
+			<td style="width: 150px; background-color: lightblue; font-weight: bold;">제목</td>
 			<td>${ board.bo_title }</td>
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td>${ board.bo_name }</td>
+			<td colspan="3" >${ board.bo_name }</td>
 		</tr>
 		<tr>
 			<th>작성날짜</th>
-			<td>${ board.bo_date }</td>
+			<td colspan="3">
+				${ board.bo_date }
+			</td>
+		</tr>
+		<tr>
+			<th>모집유형</th>
+			<td colspan="3">
+				<c:set var="rei" value="${ board.bo_reinfo }" />
+				<c:choose>
+				    <c:when test="${rei eq 'N'}">
+				        	바로
+				    </c:when>
+				    <c:when test="${rei eq 'Y'}">
+				       		예약
+				    </c:when>
+				</c:choose>
+			</td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<%-- <td>${ board.bContent }</td> --%>
+			
 			<!-- 
 				이렇게만 두면 엔터가 먹지 않음. 
 				DB에는 엔터가 \r\n으로 들어가서 이를 치환해주는 작업 필요
 			-->
 			
 			<% pageContext.setAttribute("newLineChar", "\r\n"); %> <!-- \r\n 말고 그냥 \n도, \r도 가능하다 -->
-			<td>${ fn:replace(board.bo_detail, newLineChar, "<br>") }<br></td>
+			<td colspan="3" style="height: 500px; text-align: left;">${ fn:replace(board.bo_detail, newLineChar, "<br>") }<br></td>
 		</tr>
 		<tr>
 			<th>현재 인윈 / 모집 인원</th>
+				<c:url var="bJoin" value="bJoin.bo">
+					<c:param name="bo_number" value="${ board.bo_number }"/>
+					<c:param name="Member_Id" value="${ loginUser.member_Id }"/>
+					<c:param name="bo_member" value="${ board.bo_member }"/>
+					<c:param name="bo_maxmember" value="${ board.bo_maxmember }"/>
+				</c:url>
+				<c:url var="bUnjoin" value="bUnjoin.bo">
+					<c:param name="bo_number" value="${ board.bo_number }"/>
+					<c:param name="Member_Id" value="${ loginUser.member_Id }"/>
+				</c:url>
+				<td style="width: 150px;">${ board.bo_member } / ${ board.bo_maxmember }</td>
+			<td style="width: 150px; background-color: lightblue; font-weight: bold;">참여자 아이디</td>
 			<td>
-				${ board.bo_member } / ${ board.bo_maxmember }
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bupView }'">참여</button>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bupView }'">탈퇴</button>
+				<c:set var="join" value="${ board.bo_join }" />
+					<c:choose>
+					    <c:when test="${join eq NULL}">
+					        	참여자가 없어요
+					    </c:when>
+					    <c:when test="${join != 'NULL'}">
+					       		${ board.bo_name}
+					    </c:when>
+					</c:choose>
+			<c:if test="${ loginUser.member_Name != board.bo_name }">
+				<c:if test="${ loginUser.member_Id != board.bo_join }">
+					<br>
+					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join">참여</button>
+					<script type="text/javascript">
+					 $('#join').click(function(){
+						Swal.fire({
+							width: 600,
+							padding: 100,
+						  title: '참여 하시겠습니까?',
+						  text: "다시한번 확인해주세요",
+						  icon: 'warning',
+						  showCancelButton: true,
+						  confirmButtonColor: '#3085d6',
+						  cancelButtonColor: '#d33',
+						  cancelButtonText: '취소',
+						  confirmButtonText: '참여할래요!'
+						}).then((result) => {
+							if (result.value) {
+							    location.href='${ bJoin }'
+						    	 swalWithBootstrapButtons.fire(
+						    		      '참여 완료!',
+						    		      '열심히 공부해요',
+						    		      'success'
+						    		    )
+							  } else {
+							  }
+						  
+						})
+					});  
+					
+					</script>
+				</c:if>
+				<c:if test="${ loginUser.member_Id == board.bo_join }">
+					<br>
+					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="cancel">탈퇴</button>
+					<script type="text/javascript">
+					$('#cancel').click(function(){
+						Swal.fire({
+							width: 600,
+							padding: 100,
+						  title: '탈퇴 하시겠습니까?',
+						  text: "다시한번 확인해주세요",
+						  icon: 'warning',
+						  showCancelButton: true,
+						  confirmButtonColor: '#3085d6',
+						  cancelButtonColor: '#d33',
+						  cancelButtonText: '취소',
+						  confirmButtonText: '탈퇴할래요!!',
+						}).then((result) => {
+							if (result.value) {
+							    location.href='${ bUnjoin }'
+						    	 swalWithBootstrapButtons.fire(
+						    		      '탈퇴 되었습니다',
+						    		      '탈퇴 완료.',
+						    		      'success'
+						    		    )
+							  } else {
+							  }
+						  
+						})
+					});
+					</script>
+				</c:if>
+			</c:if>
 			</td>
 		</tr>
-
+	
 		<c:url var="bUpView" value="bUpView.bo">
 			<c:param name="bo_number" value="${ board.bo_number }"/>
 		</c:url>
+		
 		<c:url var="bdelete" value="bdelete.bo">
 			<c:param name="bo_number" value="${ board.bo_number }"/>
 		</c:url>
-		<c:url var="blist" value="blist.bo">
+		
+		<c:url var="blist" value="bList.bo">
 		</c:url>
 		
-		<%-- <c:if test="${ loginUser.id eq board.bo_name }"> --%>
-		<tr>
-			<td colspan="2" align="center">
-				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bUpView }'">수정하기</button>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bdelete }'">삭제하기</button>
-			</td>
-		</tr>
-		<%-- </c:if> --%>
+		<c:if test="${ loginUser.member_Name eq board.bo_name }">
+			<tr>
+				<td colspan="2" align="center">
+					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bUpView }'">수정하기</button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bdelete }'">삭제하기</button>
+				</td>
+			</tr>
+		</c:if> 
 		
 	</table>
+	
 	
 	<br><br>
 	 <!-- 댓글 -->
@@ -184,6 +252,14 @@
          <td>
             <button id = "rSubmit" class="w3-button w3-round-large w3-light-blue w3-hover-green">등록</button>            
          </td>
+         <c:url var="rdelete" value="rdelete.bo">
+			<c:param name="refBid" value="${ Reply.refBid }"/>
+		</c:url>
+         <c:if test="${ loginUser.member_Id eq Reply.rWriter }">
+			<td colspan="2" align="center">
+				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ rdelete }'">삭제하기</button>
+			</td>
+		</c:if>
       </tr>
    </table>
    
@@ -195,7 +271,7 @@
       </thead>
       <tbody></tbody>
    </table>
-   
+    
    <script>
       $(function(){
          getReplyList();
@@ -269,17 +345,10 @@
 
 	<br><br>
 	
-	<%-- <p align="center">
-		<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='index.jsp'">메인 페이지</button>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     
-		<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ blist }'">뒤로 가기</button>
-	</p> --%>
-	
-	
 	<p align="center">
-		<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='home.do'">시작 페이지로 이동</button>
+		<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='index.jsp'">시작 페이지로 이동</button>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bList }'">게시판으로 가기</button>
+		<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ blist }'">게시판으로 가기</button>
 	</p>
 	
 	<!-- footer -->

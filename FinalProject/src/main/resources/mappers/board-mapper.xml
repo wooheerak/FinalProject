@@ -92,7 +92,7 @@
      <select id = "selectReplyList" parameterType = "_int" resultMap = "replyResultSet">
         SELECT * 
         FROM STUDYROOM_REPLY R
-        JOIN STUDYROOM_BOARD B ON (REF_BID = BO_NUMBER)        
+        LEFT JOIN STUDYROOM_BOARD B ON (REF_BID = BO_NUMBER)        
         WHERE REF_BID = #{bo_number}
         ORDER BY REF_BID DESC
      </select>

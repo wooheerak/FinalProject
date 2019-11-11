@@ -193,19 +193,23 @@ public class BoardController {
 	// 댓글 리스트
 	@RequestMapping("rList.bo")
 	public void getReplyList(HttpServletResponse response, int bo_number) throws JsonIOException, IOException {
+		
 		ArrayList<Reply> list = sbService.selectReplyList(bo_number);
 		
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		if(list != null) {
-		
+			
 			for(Reply r : list) {
 				r.setrContent(URLEncoder.encode(r.getrContent(), "utf-8"));
-				}
-			}else{
-				gson.toJson(list, response.getWriter());
+			}
+			
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			gson.toJson(list, response.getWriter());
+		}else {
+			System.out.println("댓글 없음");
 		}
-		
+
 	}
+	
 	
 	// 댓글 입력
 	@RequestMapping("addReply.bo")

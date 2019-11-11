@@ -149,74 +149,76 @@ th{
 					       		${ board.bo_join}
 					    </c:when>
 					</c:choose>
-			<c:if test="${ board.bo_member < board.bo_maxmember}">
-				<c:if test="${ loginUser.member_Name != board.bo_name }">
-					<c:if test="${ loginUser.member_Name != board.bo_join }">
+			<c:if test="${ !empty sessionScope.loginUser }">
+				<c:if test="${ board.bo_member < board.bo_maxmember}">
+					<c:if test="${ loginUser.member_Name != board.bo_name }">
+						<c:if test="${ loginUser.member_Name != board.bo_join }">
+							<br>
+							<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join">참여</button>
+							<script type="text/javascript">
+							 $('#join').click(function(){
+								Swal.fire({
+									width: 600,
+									padding: 100,
+								  title: '참여 하시겠습니까?',
+								  text: "다시한번 확인해주세요",
+								  icon: 'warning',
+								  showCancelButton: true,
+								  confirmButtonColor: '#3085d6',
+								  cancelButtonColor: '#d33',
+								  cancelButtonText: '취소',
+								  confirmButtonText: '참여할래요!'
+								}).then((result) => {
+									if (result.value) {
+									    location.href='${ bJoin }'
+								    	 swalWithBootstrapButtons.fire(
+								    		      '참여 완료!',
+								    		      '열심히 공부해요',
+								    		      'success'
+								    		    )
+									  } else {
+									  }
+								  
+								})
+							});  
+							
+							</script>
+						</c:if>
+					</c:if>
+					<c:if test="${ loginUser.member_Name == board.bo_join }">
 						<br>
-						<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join">참여</button>
+						<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="cancel">탈퇴</button>
 						<script type="text/javascript">
-						 $('#join').click(function(){
+						$('#cancel').click(function(){
 							Swal.fire({
 								width: 600,
 								padding: 100,
-							  title: '참여 하시겠습니까?',
+							  title: '탈퇴 하시겠습니까?',
 							  text: "다시한번 확인해주세요",
 							  icon: 'warning',
 							  showCancelButton: true,
 							  confirmButtonColor: '#3085d6',
 							  cancelButtonColor: '#d33',
 							  cancelButtonText: '취소',
-							  confirmButtonText: '참여할래요!'
+							  confirmButtonText: '탈퇴할래요!!',
 							}).then((result) => {
 								if (result.value) {
-								    location.href='${ bJoin }'
+								    location.href='${ bUnjoin }'
 							    	 swalWithBootstrapButtons.fire(
-							    		      '참여 완료!',
-							    		      '열심히 공부해요',
+							    		      '탈퇴 되었습니다',
+							    		      '탈퇴 완료.',
 							    		      'success'
 							    		    )
 								  } else {
 								  }
 							  
 							})
-						});  
-						
+						});
 						</script>
 					</c:if>
 				</c:if>
-				<c:if test="${ loginUser.member_Name == board.bo_join }">
-					<br>
-					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="cancel">탈퇴</button>
-					<script type="text/javascript">
-					$('#cancel').click(function(){
-						Swal.fire({
-							width: 600,
-							padding: 100,
-						  title: '탈퇴 하시겠습니까?',
-						  text: "다시한번 확인해주세요",
-						  icon: 'warning',
-						  showCancelButton: true,
-						  confirmButtonColor: '#3085d6',
-						  cancelButtonColor: '#d33',
-						  cancelButtonText: '취소',
-						  confirmButtonText: '탈퇴할래요!!',
-						}).then((result) => {
-							if (result.value) {
-							    location.href='${ bUnjoin }'
-						    	 swalWithBootstrapButtons.fire(
-						    		      '탈퇴 되었습니다',
-						    		      '탈퇴 완료.',
-						    		      'success'
-						    		    )
-							  } else {
-							  }
-						  
-						})
-					});
-					</script>
+				<c:if test="${ board.bo_member == board.bo_maxmember}">
 				</c:if>
-			</c:if>
-			<c:if test="${ board.bo_member == board.bo_maxmember}">
 			</c:if>
 			</td>
 		</tr>
@@ -247,26 +249,26 @@ th{
 	
 	<br><br>
 	 <!-- 댓글 -->
-   
-   <table class = "replyTable">
-      <tr>
-         <td>
-            <textarea rows = "3" cols = "55" id ="rContent" ></textarea>
-         </td>
-         <td>
-            <button id = "rSubmit" class="w3-button w3-round-large w3-light-blue w3-hover-green">등록</button>            
-         </td>
-         <c:url var="rdelete" value="rdelete.bo">
-			<c:param name="refBid" value="${ Reply.refBid }"/>
-		</c:url>
-         <c:if test="${ loginUser.member_Id eq Reply.rWriter }">
-			<td colspan="2" align="center">
-				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ rdelete }'">삭제하기</button>
-			</td>
-		</c:if>
-      </tr>
-   </table>
-   
+   <%-- <c:if test="${ !empty sessionScope.loginUser }">
+	   <table class = "replyTable">
+	      <tr>
+	         <td>
+	            <textarea rows = "3" cols = "55" id ="rContent" ></textarea>
+	         </td>
+	         	<td>
+		            <button id = "rSubmit" class="w3-button w3-round-large w3-light-blue w3-hover-green">등록</button>            
+		         </td>
+		         <c:url var="rdelete" value="rdelete.bo">
+					<c:param name="refBid" value="${ Reply.refBid }"/>
+				</c:url>
+		         <c:if test="${ loginUser.member_Id eq Reply.rWriter }">
+					<td colspan="2" align="center">
+						<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ rdelete }'">삭제하기</button>
+					</td>
+				</c:if>
+	      </tr>
+	   </table>
+   	</c:if>
    <table class = "replyTable" id = "rtb">
       <thead>
          <tr>
@@ -275,9 +277,42 @@ th{
       </thead>
       <tbody></tbody>
    </table>
+    --%>
+ <div class="container">
+    <br><br>
+    <form id="commentForm" name="commentForm" method="post">
+        <div>
+            <div>
+                <span><strong>Comments</strong></span> <span id="cCnt"></span>
+            </div>
+            <div>
+                <table class="table">                    
+                    <tr>
+                        <td>
+                        	<c:if test="${ !empty sessionScope.loginUser }">
+                            <textarea style="width: 1100px" rows="3" cols="30" id="comment" name="rContent" placeholder="댓글을 입력하세요"></textarea>
+                            <br>
+                            <div>
+                                <button id = "rSubmit" class="btn pull-right btn-success">등록</a>
+                            </div>
+                            </c:if>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <input type="hidden" id="b_code" name="bo_number" value="${board.bo_number }" />        
+    </form>
+</div>
+<div class="container">
+    <form id="commentListForm" name="commentListForm" method="post">
+        <div id="commentList">
+        </div>
+    </form>
+</div>
     
    <script>
-      $(function(){
+ /*      $(function(){
          getReplyList();
          
          setInterval(function(){
@@ -344,6 +379,61 @@ th{
             }
             
          });
+      } */
+      
+      /**
+       * 초기 페이지 로딩시 댓글 불러오기
+       */
+      $(function(){
+          
+          getCommentList();
+          
+      });
+       
+      /**
+       * 댓글 불러오기(Ajax)
+       */
+      function getCommentList(){
+          
+          $.ajax({
+              type:'GET',
+              url : "rList.bo" ,
+              dataType : "json",
+              data:$("#commentForm").serialize(),
+              contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+              success : function(data){
+                  
+                  var html = "";
+                  var cCnt = data.length;
+                  
+                  if(data.length > 0){
+                      
+                      for(i=0; i<data.length; i++){
+                          html += "<div>";
+                          html += "<div><table class='table'><h6><strong>"+data[i].writer+"</strong></h6>";
+                          html += data[i].comment + "<tr><td></td></tr>";
+                          html += "</table></div>";
+                          html += "</div>";
+                      }
+                      
+                  } else {
+                      
+                      html += "<div>";
+                      html += "<div><table class='table'><h6><strong>등록된 댓글이 없습니다.</strong></h6>";
+                      html += "</table></div>";
+                      html += "</div>";
+                      
+                  }
+                  
+                  $("#cCnt").html(cCnt);
+                  $("#commentList").html(html);
+                  
+              },
+              error:function(request,status,error){
+                  
+             }
+              
+          });
       }
    </script>
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="bsMapper">
+
+	<resultMap type="BookReg" id="brResultSet">
+		<id  property="brBnumber" column="br_BNUMBER"/>
+		<result property="brStudentId" column="br_STUDENT_ID"/>
+		<result property="brName" column="br_NAME"/>
+		<result property="brCategory" column="br_CATEGORY"/>
+		<result property="brWriter" column="br_WRITER"/>
+		<result property="brPublisher" column="br_PUBLISHER"/>
+		<result property="brIssueDate" column="br_ISSUE_DATE"/>
+		<result property="brPage" column="br_PAGE"/>
+		<result property="brISBN" column="br_ISBN"/>
+		<result property="brCondition" column="br_CONDITION"/>
+		<result property="brComment" column="br_COMMENT"/>
+		<result property="brPrice" column="br_PRICE"/>
+		<result property="brDate" column="br_DATE"/>
+		<result property="brStatus" column="br_STATUS"/>
+		<result property="brOrderStatus" column="br_ORDER_STATUS"/>
+	</resultMap>
+	
+	<!-- 중고서적 리스트 -->
+	<select id="selectList" resultMap="brResultSet">
+		SELECT *
+		FROM BOOK_REG
+		WHERE br_STATUS = 'N'
+		ORDER BY br_BNUMBER DESC
+	</select>
+	
+  
+ 	
+</mapper>

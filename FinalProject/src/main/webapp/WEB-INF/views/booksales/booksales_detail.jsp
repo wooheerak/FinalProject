@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>중고서적 판매</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
 table td {
 	padding: 20px;
@@ -112,11 +113,58 @@ table th {
 					<br>
 				</div>
 				<div class="text-center">
-					<a class="btn btn-transparent">구매하기</a>
+					<!-- Large modal -->
+					<button type="button" class="btn btn-transparent" style="background-color:white;" data-toggle="modal"
+						data-target=".bd-example-modal-lg">구매하기</button>
 				</div>
-			</div>
-		</div>
-		<!-- end container -->
+
+
+
+				<!-- Modal -->
+				<div class="modal fade bd-example-modal-lg" tabindex="-1"
+					role="dialog" aria-labelledby="myLargeModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header" style="background-color: skyblue; border-radius: 4px;">
+								<h3 class="modal-title" id="exampleModalLabel" style="color:white;">[주문하기]</h3>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div style="display: flex">
+								<div class="modal-body" style="margin-left: 90px; width: 50%">
+									<form class="w3-container">
+										<p>
+											<label>Name</label> <input class="w3-input" type="text">
+										</p>
+										<p>
+											<label>Student ID</label> <input class="w3-input" type="text">
+										</p>
+										<p>
+											<label>Phone</label> <input class="w3-input" type="text">
+										</p>
+										<p>
+											<label>E-mail</label> <input class="w3-input" type="email">
+										</p>
+									</form>
+								</div>
+								<div class="modal-body" style="margin-left: 100px;">
+									<div>
+										<p>결제상품</p>
+									</div>
+								</div>
+							</div>							
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal">취소</button>
+								<button type="button" class="btn btn-primary">주문하기</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- end container -->
 
 	</section>
 	<!-- end section -->

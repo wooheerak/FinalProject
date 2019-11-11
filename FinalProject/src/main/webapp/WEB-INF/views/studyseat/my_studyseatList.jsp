@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <!DOCTYPE html>
@@ -114,7 +114,7 @@
                                 <td>A열람실&nbsp;&nbsp;&nbsp;[73번]</td>
                                 <td>예약인증 전</td>
                                 <td>2019-10-30</td>
-                                <td><button class = "btn cancelRev" >예약 취소</button></td>
+                                <td><button class = "btn cancelRev" onclick = "cancelSeat();">예약 취소</button></td>
                                 
                             </tr>
 
@@ -154,6 +154,18 @@
         </section>
         <!-- end section -->
         </div>
+        
+        <script>
+		        function cancelSeat(){
+					var url = "popCancel.ss";
+					var option = "width=400, height=250, resizable=no, scrollbars=no, status=no;";
+					var popX =  (window.screen.width / 2) - (500 / 2);
+					var popY =  (window.screen.height / 2) - (250 / 2);
+					window.open(url , "", option + ", left = " + popX + ", top = " + popY);				
+					
+					
+				}
+        </script>
 
 	
 	<jsp:include page="../common/footer.jsp"/>

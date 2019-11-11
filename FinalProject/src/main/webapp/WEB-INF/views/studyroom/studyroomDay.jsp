@@ -41,7 +41,11 @@
 .btn-transparent{
 	padding : 0px;
 }
-
+.floor_th{
+	border-left: 1px solid #000000;
+/* 	border-right: 1px solid #000000; */
+	border-bottm: 1px solid #000000;
+}
 .studyroom_main {
 	border: 1px solid #000000;
 }
@@ -103,20 +107,57 @@ int date = cr.get(Calendar.DATE);
 		</div>
 		<div class="container">
 			<div class="row">
-
 				<div class="col-md-9">
 					<table class="studyroom_main">
 						<!-- rowspan을 사용하기 위해 예약시간 없으면 없는 수만큼 for문에서 차감 하는 식의 2중포문 제작-->
 						<!-- 방갯수만큼 for문 -->
-						<!-- ajax로 모든 층의 스터디룸을 띄워두고 해당층만 display:show 하고 나머지값은 none처리 -->
+						<tr>
+							<th class="studyroom_time" rowspan="2">Time</th>
+								<%int a=0; int b=0; int c=0;%>
+								<c:forEach var="i" items="${list}" begin="0" end="${roomCount}">
+									<c:if test="${i.sr_floor==1}">
+										<%a++;%>
+									</c:if>
+									<c:if test="${i.sr_floor==2}">
+										<%b++;%>
+									</c:if>
+									<c:if test="${i.sr_floor==3}">
+										<%c++;%>
+									</c:if>
+								</c:forEach>
+								<th class="floor_th" colspan="<%=a%>" >1</th>				
+								<th class="floor_th" colspan="<%=b%>">2</th>
+								<th class="floor_th" colspan="<%=c%>">3</th>
+						</tr>
 						
 						<tr>
-							
-							<th class="studyroom_time">Time</th>
 							<!-- end는 층의 방 갯수 -->
-							<c:forEach var="i" begin="1" end="11">
-								<!-- 방이름 -->
-								<th>A${i}</th>
+							<c:forEach var="i" items="${list}" varStatus="s" begin="0" end="${roomCount}">
+								<c:choose>
+									<c:when test="${s.index == 4}">
+										<th class="floor_th">${i.sr_name}(${i.sr_maxPeople})</th>
+									</c:when>
+									<c:when test="${s.index == 7}">
+										<th class="floor_th">${i.sr_name}(${i.sr_maxPeople})</th>
+									</c:when>
+									<c:otherwise>
+										<th>${i.sr_name}(${i.sr_maxPeople})</th>
+									</c:otherwise>
+								</c:choose>
+								
+<%-- 								<c:if test="${s.inedx == 4 }"> --%>
+<%-- 									<th class="floor_th">${i.sr_name}(${i.sr_maxPeople})</th> --%>
+<%-- 								</c:if> --%>
+<%-- 								<c:if test="${s.inedx == 7 }"> --%>
+<%-- 									<th class="floor_th">${i.sr_name}(${i.sr_maxPeople})</th> --%>
+<%-- 								</c:if > --%>
+<%-- 								<c:if test="${s.inedx != 4 }"> --%>
+<%-- 									<th>${i.sr_name}(${i.sr_maxPeople})</th> --%>
+<%-- 								</c:if> --%>
+<%-- 								<c:if test="${s.inedx != 7 }"> --%>
+<%-- 									<th>${i.sr_name}(${i.sr_maxPeople})</th> --%>
+<%-- 								</c:if> --%>
+								
 							</c:forEach>
 						</tr>
 						<!-- 시간대만큼 for문 -->
@@ -129,42 +170,19 @@ int date = cr.get(Calendar.DATE);
 										<th class="studyroom_time">${i}:00</th>				
 									</c:if>
 									
-									<c:forEach var="j"  begin="1" end="11">
+									<c:forEach var="j"  begin="0" end="${roomCount}" items="${list}">
 										<td>
 										<!--  버튼 클릭시 팝업이 뜨고 팝업에 클릭한 버튼의 시작시간 및 마감 시간을 select할 값으로 전달 -->
-											<a href="#" onclick="srReservation();">+</a>
-											<!-- 클릭한 버튼의 시간대 값 전달 용 hidden input -->
-											<input id="checkTime" type="hidden" value="${i}"/>
+										    
+											<button id="startTime${i}" name="startTime${i}" type="submit" value="${i},${ j.sr_name},${j.sr_floor}" class="btn btn-transparent" onclick="srReservation(this);" style="padding:0px;width:73px;height:38px;">+</button>
 										</td>
 									</c:forEach>
 								</tr>				
 							</c:forEach>
-							
 					</table>
 				</div>
-
-
+				
 				<div class="col-md-3">
-					<div class="studyroom_title">
-						<h3>floor</h3>
-					</div>
-					<div>
-						<form>
-							<select class="studyroom_option">
-								<!-- 층수 만큼 option-->
-								<option style="text-align-last:center;">1</option>
-								<option>2</option>
-								<option>3</option>
-							</select>
-							<div>
-								<div class="btnEnd">
-									<input class="btn btn-transparent" style="padding:0px" type="submit" value="change" />
-								</div>
-							</div>
-						</form>
-					</div>
-
-
 					<!-- 날짜 직접 입력하여 날짜 값 변경 -->
 					<div id="studyroom_DateInfobox">
 						<div class="studyroom_title">
@@ -173,7 +191,7 @@ int date = cr.get(Calendar.DATE);
 						<div>
 							<form>
 								<div>
-									<select name="year"  class="studyroom_option2">
+									<select id="year" name="year"  class="studyroom_option2">
 										<!-- 오늘 년도 기본 선택-->
 										<%
 									      for(int i=year-1; i<year+3; i++){
@@ -183,7 +201,7 @@ int date = cr.get(Calendar.DATE);
 									      }
 									      %>
 									</select> 
-									<select name="month"  class="studyroom_option2" onchange="daycheck(this)">
+									<select id="month" name="month"  class="studyroom_option2" onchange="daycheck(this)">
 										<!--  -->
 										<!-- 오늘 달 기본 선택-->
 										 <%
@@ -194,7 +212,7 @@ int date = cr.get(Calendar.DATE);
 									      }
 									      %>
 									</select> 
-									<select id="day"  class="studyroom_option2">
+									<select id="day" name="day"  class="studyroom_option2">
 										<!-- 선택된 달의 숫자만큼 일수 반복-->
 										<%
 											if(date == 1 || date == 3 || date == 5 || date == 7 || date == 8 || date == 10 || date == 12){
@@ -250,25 +268,42 @@ int date = cr.get(Calendar.DATE);
 	</section>
 
 	<script>
-	function srReservation(){
-		var reservationWin;
-		var time = document.getElementById("startTime");
+	function srReservation(e){
 		
-		console.log(time.value());
+		var studyroomValue = $(e).attr("value").split(',');
+		//console.log(studyroomValue);
 		
-		var url = "srReservation.sr";
+		//스터디룸 이름 
+		var sr_name = studyroomValue[1];
+		//console.log(studyroomValue[1])
+		
+		// 스터디룸 층
+		var sr_floor = studyroomValue[2];
+		// console.log(sr_floor);
+		
+ 		// 예약일 
+		var so_date = $("#year option:selected").attr("value")
+						+'-'+$("#month option:selected").attr("value")
+						+'-'+$("#day option:selected").attr("value");
+		//console.log(so_date);
+ 		
+ 		// 예약시작 시간 
+		var so_startTime = studyroomValue[0];
+		// console.log(so_startTime)
+ 		
+ 		// 예약자 정보 
+//  		var organizer = $("#");
+		var so_organizer = "201132081";
+		
+		var url = "srReservation.sr?sr_name="+sr_name+"&so_date="+so_date+"&so_startTime="+so_startTime+"&so_organizer="+so_organizer+"&sr_floor="+sr_floor;
+			
 		var srReservation = "srReservation";
-		var specs="width=350, height=300, left=20, top=30 toolbar=no, location=no, directories=no";
 		
-		window.open('',srReservation,specs);
-// 		reservationWin.document.getElementById("startTime").value = document.getElementById("checkTime").value;
+		var specs="width=420px, height=350px, left=20, top=30, toolbar=no, location=no, directories=no";
 		
-		time.target = srReservation;
-		time.action = url;
-		time.submit();
-
+		window.open(url,srReservation,specs);
 		
-	} 
+	}
 
 	function daycheck(e){
 		var target = document.getElementById("day");

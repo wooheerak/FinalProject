@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="noticeMapper">
+
+	<resultMap type="Notice" id="noticeResultSet">
+		<id property="nId" column="NID"/>
+		<result property="nTitle" column="NTITLE"/>
+		<result property="nWriter" column="NWRITER"/>
+		<result property="nContent" column="NCONTENT"/>
+		<result property="nCreateDate" column="N_CREATE_DATE"/>
+		<result property="nModifyDate" column="N_MODIFY_DATE"/>
+		<result property="originalFileName" column="ORIGINAL_FILENAME"/>
+		<result property="renameFileName" column="RENAME_FILENAME"/>
+		<result property="nCount" column="NCOUNT"/>
+		<result property="nStatus" column="N_STATUS"/>
+	</resultMap>
+	
+	<!-- 공지사항 리스트 -->
+	<select id="selectList" resultMap="noticeResultSet">
+		SELECT *
+		FROM NOTICE
+		WHERE N_STATUS ='Y'
+		ORDER BY NID DESC
+	</select>
+
+	<!-- 공지사항 디테일 -->
+	<select id = "selectNotice" parameterType = "_int" resultMap = "noticeResultSet">
+        SELECT * 
+        FROM NOTICE n
+        WHERE nId = #{nId} AND N_STATUS = 'Y'
+     </select>
+     
+     <!-- 공지사항 조회수 -->
+     <update id="addReadCount" parameterType = "_int">
+        UPDATE NOTICE
+        SET NCOUNT = NCOUNT + 1
+        WHERE NID = #{nId}
+     </update>
+     
+     <!-- 공지사항 작성 -->
+     <insert id="insertNotice" parameterType="Notice">
+     	INSERT INTO NOTICE
+     	VALUES (SEQ_NID.NEXTVAL, #{nTitle}, #{nWriter}, #{nContent}, sysdate, sysdate, #{originalFileName}, #{renameFileName}, default, default)
+     </insert>
+     
+     <!-- 공지사항 수정 -->
+	<update id="updateNotice" parameterType="Notice">
+		UPDATE NOTICE
+		SET NTITLE=#{nTitle}, NCONTENT=#{nContent}, ORIGINAL_FILENAME=#{originalFileName},
+			RENAME_FILENAME=#{renameFileName}, N_MODIFY_DATE=sysdate
+		where nId = #{nId}
+     </update>
+
+	<!-- 공지사항 삭제 -->
+	<update id="deleteNotice" parameterType="_int">
+		UPDATE NOTICE
+		SET N_STATUS = 'N'
+		WHERE nId = #{nId}
+	</update>
+</mapper>

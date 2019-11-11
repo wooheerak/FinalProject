@@ -274,7 +274,7 @@ int date = cr.get(Calendar.DATE);
 	function srReservation(){
 		url = "srReservation.sr";
 		name="_black"
-		specs="width=350, height=300, left=100, top=100, location=no"
+		specs="width=420px, height=350px, left=100, top=100, toolbar=no, location=no, directories=no"
 		window.open(url,'srReservation',specs)
 		var startTime = document.getElementById("time"); 
 		var endTime = document.getElementById("time")+1; 

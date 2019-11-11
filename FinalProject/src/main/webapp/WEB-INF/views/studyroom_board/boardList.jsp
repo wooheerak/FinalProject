@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,8 +12,6 @@
 	href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript"
-	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
 <script type="text/javascript"
 	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
 <script>
@@ -131,9 +130,9 @@
             	<th>제목</th>
             	<th>작성자</th>
             	<th>모집인원</th>
-            	<th>바로/예약</th>
-            	<th>상태</th>
-            	<th>작성날짜</th>
+            	<th>모집유형</th>
+            	<th>모집상태</th>
+            	<th>작성시간</th>
             	<th>조회수</th>
           	</tr>
         </thead>
@@ -146,7 +145,6 @@
             	<td>${ b.bo_number }</td>
      
             
-            	<%-- <td>${ b.bo_title }</td> --%>
             	<td>
 						<c:url var="bDetail" value="bDetail.bo">
 							<c:param name="bo_number" value="${ b.bo_number }"/>
@@ -161,14 +159,32 @@
             	<td>${ b.bo_member } / ${ b.bo_maxmember }</td>
            
            
-            	<td>${ b.bo_reinfo }</td>
+            	<td>
+            	<c:set var="rei" value="${ b.bo_reinfo }" />
+				<c:choose>
+				    <c:when test="${rei eq 'N'}">
+				        	바로
+				    </c:when>
+				    <c:when test="${rei eq 'Y'}">
+				       		예약
+				    </c:when>
+				</c:choose>
+            	</td>
           
             
-            	<td>${ b.bo_complete }</td>
-          
-           
-            	<td>${ b.bo_date }</td>
-         
+            	<td>
+				<c:set var="com" value="${b.bo_complete }" />
+				<c:choose>
+				    <c:when test="${com eq 'N'}">
+				        	모집중
+				    </c:when>
+				    <c:when test="${com eq 'Y'}">
+				       		완료
+				    </c:when>
+				</c:choose>
+            	</td>
+
+            	<td>${ b.bo_date } </td>
        
             	<td>${ b.bo_count }</td>
             </tr>
@@ -177,40 +193,24 @@
             
             
         </tbody>
-			<%-- <c:forEach var="b" items="${ list }">
-			<tr class="contentTR">
-				<td align="center">${ b.bId }</td>
-				
-				<td align="left">
-					<c:if test="${ !empty loginUser }">
-						<c:url var="bdetail" value="bdetail.bo">
-							<c:param name="bId" value="${ b.bId }"/>
-						</c:url>
-						<a href="${ bdetail }">${ b.bTitle }</a>
-					</c:if>
-					<c:if test="${ empty loginUser }">
-						${ b.bTitle }		
-					</c:if>
-				</td>
-				
-				<td align="center">${ b.bWriter }</td>
-				<td align="center">${ b.bMember } / ${ b.bMaxMember }</td>
-				<td align="center">${ b.bComplete }</td>
-				<td align="center">${ b.bCreateDate }</td>
-				<td align="center">${ b.bCount }</td>
-			</tr>
-			</c:forEach>
-		</tbody> --%>
     </table>
-			
+    
+		<hr>
+		
+		<tr>
+			<td colspan="6" align="right" id="buttonTab">
+				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" style="margin-left: 80%;"  onclick="location.href='index.jsp';">뒤로가기</button>				
+			</td>
+		</tr>
+		
 		<tr>
 			<td colspan="6" align="right" id="buttonTab">
 				<c:if test="${ !empty loginUser }">
 					&nbsp; &nbsp; &nbsp;
-				<button class="w3-button w3-round-large w3-light-blue w3-hover-Green" style="margin-left: 80%;"  onclick="location.href='binsertView.bo';">글쓰기</button>				</c:if>
+				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" style="margin-left: 80%;"  onclick="location.href='bUpView.bo';">글쓰기</button>				
+				</c:if>
 			</td>
 		</tr>
-		<!--  -->
 	<!-- footer -->
 	<c:import url="../common/footer.jsp"/>
 </body>

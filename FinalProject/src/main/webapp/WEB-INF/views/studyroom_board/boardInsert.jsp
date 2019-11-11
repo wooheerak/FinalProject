@@ -66,19 +66,15 @@
 	width: 55.333333% !important;
 	margin-top: 10px !important;
 }
+th{
+ text-align: center !important;
+ background: lightblue;
+ color: black;
+}
 </style>
 </head>
 <body>
 	<c:import url="../common/header.jsp" />
-
-	<!-- 왼쪽 사이드 바 https://www.w3schools.com/w3css/w3css_sidebar.asp -->
-	<!-- <div id="w3-sidebar"class="w3-sidebar w3-bar-block w3-light-blue" style="width:200px" >
-		<a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 1</a>
-		<a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 2</a>
-        <a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 3</a>
-        <a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 4</a>
-        <img src="resources/images/logo.JPG" height="200px" width="200px"/>
-	</div> -->
 
 	<section class="section normalhead lb">
 		<div class="container">
@@ -109,8 +105,7 @@
 			<tr>
 				<th>작성자</th>
 				<td>
-					<%-- <input type="text" name="bo_name" readonly value="${ loginUser.id }" style="background: lightgrey;"> --%>
-					<input type="text" size="80" name="bo_name">
+					<input type="text" name="bo_name" readonly value="${ loginUser.id }" style="background: lightgrey;">
 				</td>
 			</tr>
 			<tr>
@@ -125,23 +120,33 @@
 					
 					<input class="w3-radio" type="radio" name="bo_maxmember" value="6">
 					<label>6명</label>
+					
+					<input class="w3-radio" type="radio" name="bo_maxmember" value="8">
+					<label>8명</label>
+					
+					<input class="w3-radio" type="radio" name="bo_maxmember" value="11">
+					<label>11명</label>
 				</td>
 			</tr>
 			<tr>
 				<th>예약</th>
 				<td>
-					<input class="w3-radio" type="radio" name="bo_reinfo" value="바로" checked>
+					<input class="w3-radio" type="radio" name="bo_reinfo" value="N" checked>
 					<label>바로</label>
 					
-					<input class="w3-radio" type="radio" name="bo_reinfo" value="예약">
+					<input class="w3-radio" type="radio" name="bo_reinfo" value="Y">
 					<label>예약</label>
 				</td>
 			</tr>
-			
+			<c:url var="blist" value="blist.bo">
+			</c:url>
 			<tr>
 				<td colspan="2" align="center">
 					<input class="w3-button w3-round-large w3-light-blue w3-hover-green" type="submit" value="등록 하기"> &nbsp;
-					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='blist.bo'">목록으로</button>
+					<c:url var="blist" value="bList.bo">
+						<c:param name="page" value="${ page }"/>
+					</c:url>
+					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ blist }'">목록으로</button>
 				</td>
 			</tr>
 		</table>

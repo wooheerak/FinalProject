@@ -36,17 +36,17 @@
 				</div>
 
 				<div class="col-md-4">
-					<form role="form" class="contactform">
+					<form class="contactform" action="userlogin.ul" method="post">
 						<div class="form-group">
-							<input type="text" class="form-control" id="name" name="name"
+							<input type="text" class="form-control" id="id" name="member_Id"
 								placeholder="Name" required>
 						</div>
 						<div class="form-group">
 							<input type="text" class="form-control" id="password"
-								name="password" placeholder="password" required>
+								name="member_Password" placeholder="password" required>
 						</div>
 
-						<a class="btn btn-transparent">로그인</a>
+						<input type="submit" class="btn btn-transparent" value="로그인"/>
 						<a class="btn btn-transparent" onclick="location='userpassword.up'">비밀번호찾기</a>
 					</form>
 				</div>
@@ -61,6 +61,6 @@
 	</section>
 
 	<jsp:include page="../common/footer.jsp" />
-
+		
 </body>
 </html>

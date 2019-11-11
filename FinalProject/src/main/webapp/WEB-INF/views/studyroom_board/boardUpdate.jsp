@@ -13,8 +13,6 @@
 	src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript"
 	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
-<script type="text/javascript"
-	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
 <script>
 	jQuery(function($) {
 		$("#boardUpdateTable").DataTable({
@@ -66,20 +64,16 @@
 	width: 55.333333% !important;
 	margin-top: 10px !important;
 }
+th{
+ text-align: center !important;
+ background: lightblue;
+ color: black;
+}
 </style>
 </head>
 <body>
 
 	<c:import url="../common/header.jsp" />
-
-	<!-- 왼쪽 사이드 바 https://www.w3schools.com/w3css/w3css_sidebar.asp -->
-	<!-- <div id="w3-sidebar"class="w3-sidebar w3-bar-block w3-light-blue" style="width:200px" >
-		<a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 1</a>
-		<a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 2</a>
-        <a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 3</a>
-        <a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 4</a>
-        <img src="resources/images/logo.JPG" height="200px" width="200px"/>
-	</div> -->
 
 	<section class="section normalhead lb">
 		<div class="container">
@@ -99,8 +93,10 @@
 		<div class="icon-center">
 			<i class="fa fa-code"></i>
 		</div>
-		<form action="bUpdate.bo" method="post">
+		
+	<form action="bUpdate.bo" method="post">
 		<table id="boardUpdateTable" border="1">
+		<input type="hidden" name="bo_number" value="${ board.bo_number }">
 			<tr>
 				<th>제목</th>
 				<td>
@@ -121,32 +117,37 @@
 			<tr>
 				<th>모집인원</th>
 				<td>
-					<input class="w3-radio" type="radio" name="maxmember" value="4" checked>
+					<input class="w3-radio" type="radio" name="bo_maxmember" value="4" checked>
 					<label>4명</label>
 					
-					<input class="w3-radio" type="radio" name="maxmember" value="6">
+					<input class="w3-radio" type="radio" name="bo_maxmember" value="6">
 					<label>6명</label>
+					
+					<input class="w3-radio" type="radio" name="bo_maxmember" value="8">
+					<label>8명</label>
+					
+					<input class="w3-radio" type="radio" name="bo_maxmember" value="11">
+					<label>11명</label>
 				</td>
 			</tr>
 			<tr>
 				<th>예약</th>
 				<td>
-					<input class="w3-radio" type="radio" name="bo_reinfo" value="바로" checked>
+					<input class="w3-radio" type="radio" name="bo_reinfo" value="N" checked>
 					<label>바로</label>
 					
-					<input class="w3-radio" type="radio" name="bo_reinfo" value="예약">
+					<input class="w3-radio" type="radio" name="bo_reinfo" value="Y">
 					<label>예약</label>
 				</td>
 			</tr>
+			
 			<tr>
 				<td colspan="2" align="center">
 					<input class="w3-button w3-round-large w3-light-blue w3-hover-green" type="submit" value="수정하기"> &nbsp;
-					<c:url var="blist" value="blist.bo">
+					<c:url var="blist" value="bList.bo">
 						<c:param name="page" value="${ page }"/>
 					</c:url>
 					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" type="button" onclick="location.href='${ blist }'">목록으로</button>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" type="button" onclick="location.href='javascript:history.go(-1);'">이전페이지로</button>
 				</td>
 			</tr>
 		</table>

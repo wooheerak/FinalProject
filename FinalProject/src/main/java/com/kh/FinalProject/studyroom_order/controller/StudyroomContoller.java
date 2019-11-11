@@ -20,14 +20,22 @@ public class StudyroomContoller {
 	private StudyroomService srService;
 	
 	@RequestMapping("mystudyroomList.sr")
-	public String mySeatList() {
-		return "my_studyroomList";
+	public ModelAndView mySeatList(ModelAndView mv) {
+		
+		ArrayList<StudyroomOrder> list = srService.selectOrderList();
+		
+		System.out.println(list);
+		
+		if(list != null) {
+			mv.addObject("list",list);
+			
+			mv.setViewName("my_studyroomList");
+		}else {
+			
+		}
+		return mv;
 	}
 	
-//	@RequestMapping("srDay.sr")
-//	public String dayView() {
-//		return "studyroomDay";
-//	}
 	@RequestMapping("srDay.sr")
 	public ModelAndView dayView(ModelAndView mv) {
 		

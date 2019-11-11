@@ -34,4 +34,9 @@ public class StudyroomServiceImpl implements StudyroomService{
 		return srDao.reservationStudyroom(sqlSession,sr);
 	}
 
+	@Override
+	public ArrayList<StudyroomOrder> selectOrderList() {
+		return srDao.selectOrderList(sqlSession);
+	}
+
 }

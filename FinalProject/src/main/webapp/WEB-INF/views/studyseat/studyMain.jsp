@@ -49,7 +49,7 @@
 
 
                     <div class="col-md-6 col-sm-12 col-xs-12">
-                        <div class="pricing-box clearfix"  style = " margin-right: 50px; cursor: pointer;" focusable = "true"  onclick="">
+                        <div class="pricing-box clearfix"  style = " margin-right: 50px; cursor: pointer;" focusable = "true"  onclick="location.href='srDay.sr'">
                             <div class="pricing-header sixch" >
                                 <h4></h4>
                             </div>

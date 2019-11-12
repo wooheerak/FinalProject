@@ -15,7 +15,7 @@
 		<result property="brCondition" column="br_CONDITION"/>
 		<result property="brComment" column="br_COMMENT"/>
 		<result property="brPrice" column="br_PRICE"/>
-		<result property="brDate" column="br_DATE"/>
+		<result property="brRegDate" column="br_REG_DATE"/>
 		<result property="brStatus" column="br_STATUS"/>
 		<result property="brOrderStatus" column="br_ORDER_STATUS"/>
 		<result property="originalFileName" column="ORIGINAL_FILENAME"/>

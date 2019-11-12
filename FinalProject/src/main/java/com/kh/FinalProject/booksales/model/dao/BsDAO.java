@@ -18,10 +18,7 @@ public class BsDAO {
 	
 	// 중고서적 디테일
 	public BookReg selectBs(SqlSessionTemplate sqlSession, int brBnumber) {
-		System.out.println(brBnumber);
-		BookReg br = sqlSession.selectOne("bsMapper.selectBs", brBnumber);
-		System.out.println(br);
-		return br;
+		return sqlSession.selectOne("bsMapper.selectBs", brBnumber);
 	}
 
 

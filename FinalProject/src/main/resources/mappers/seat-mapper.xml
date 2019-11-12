@@ -26,4 +26,24 @@
   		FROM STUDYSEAT
   		WHERE STUDENT_ID = #{id}
   	</select>
+  	
+  	<resultMap id = "seatResultSet" type = "Seat">
+  		<id property="ss_no" column="SS_NO"/>
+  		<result property="ss_floor" column="SS_FLOOR"/>
+  		<result property="ss_use" column="SS_USE"/>
+  		<result property="ss_cert" column = "SS_CERT"/>
+  		<result property="cert_code" column="CERT_CODE"/>
+  		<result property="student_id" column="STUDENT_ID"/>
+  		<result property="start_Time" column="START_TIME"/>
+  		<result property="end_time" column="END_TIME"/>
+  	</resultMap>
+  	
+  	<resultMap id = "historyResultSet" type = "SeatHistory">
+  		<id property="shNo" column="SH_NO"/>
+  		<result property="useDate" column = "USE_DATE"/>
+  		<result property="shStatus" column="SH_STATUS"/>
+  		<collection property="seat" resultMap="seatResultSet"/>
+  	</resultMap>
+  
+  	
 </mapper>

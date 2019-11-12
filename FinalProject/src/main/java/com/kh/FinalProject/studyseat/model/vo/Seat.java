@@ -8,7 +8,7 @@ public class Seat {
 		private String ss_cert ;    // 좌석 예약 인증 여부
 		private String cert_code ;  // 좌석 예약 인증 코드
 		private String student_id ; // 사용 or 예약한 학생의 학번
-		private String strat_Time ; // 좌석 사용 시작 시간
+		private String start_Time ; // 좌석 사용 시작 시간
 		private String end_time ;   //좌석 사용 끝나는 시간
 		
 		public Seat() {
@@ -16,7 +16,7 @@ public class Seat {
 		}
 
 		public Seat(int ss_no, String ss_floor, String ss_use, String ss_cert, String cert_code, String student_id,
-				String strat_Time, String end_time) {
+				String start_Time, String end_time) {
 			super();
 			this.ss_no = ss_no;
 			this.ss_floor = ss_floor;
@@ -24,7 +24,7 @@ public class Seat {
 			this.ss_cert = ss_cert;
 			this.cert_code = cert_code;
 			this.student_id = student_id;
-			this.strat_Time = strat_Time;
+			this.start_Time = start_Time;
 			this.end_time = end_time;
 		}
 
@@ -76,12 +76,12 @@ public class Seat {
 			this.student_id = student_id;
 		}
 
-		public String getStrat_Time() {
-			return strat_Time;
+		public String getStart_Time() {
+			return start_Time;
 		}
 
-		public void setStrat_Time(String strat_Time) {
-			this.strat_Time = strat_Time;
+		public void setStart_Time(String start_Time) {
+			this.start_Time = start_Time;
 		}
 
 		public String getEnd_time() {
@@ -95,7 +95,7 @@ public class Seat {
 		@Override
 		public String toString() {
 			return "Seat [ss_no=" + ss_no + ", ss_floor=" + ss_floor + ", ss_use=" + ss_use + ", ss_cert=" + ss_cert
-					+ ", cert_code=" + cert_code + ", student_id=" + student_id + ", strat_Time=" + strat_Time
+					+ ", cert_code=" + cert_code + ", student_id=" + student_id + ", strat_Time=" + start_Time
 					+ ", end_time=" + end_time + "]";
 		}
 		

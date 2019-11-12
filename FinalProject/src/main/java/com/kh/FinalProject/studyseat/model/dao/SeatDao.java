@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.FinalProject.studyseat.model.vo.Seat;
+import com.kh.FinalProject.studyseat.model.vo.SeatHistory;
 
 @Repository("sDao")
 public class SeatDao {
@@ -33,6 +34,13 @@ public class SeatDao {
 	public int checkDup(SqlSessionTemplate sqlSession, String id) {
 		
 		return sqlSession.selectOne("seatMapper.checkDup" , id);
+	}
+
+
+
+	public ArrayList<SeatHistory> selectHistoryList(SqlSessionTemplate sqlSession, String id) {
+
+		return (ArrayList)sqlSession.selectList("seatMapper.selectHistoryList" , id);
 	}
 
 }

@@ -152,7 +152,7 @@
 							style="width: 100px; padding-left: 4px; display: inline; margin-left: 3px; border-radius: 0px;">좌석
 							다시 선택</button>
 							
-							<button type="button" class="btn btn-primary btn-block" onclick = "resvSeat();"
+							<button type="button" class="btn btn-primary btn-block" onclick = "resvModal();"
 							style="width: 100px; display: inline; margin-top: 0px; margin-left: 10px; padding-left: 35px; border-radius: 0px;">예약</button>
 						</div>
 					</div>	
@@ -160,32 +160,66 @@
 	</section>
 	<!-- end section -->
 	<div id = "myModal">
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-  Launch demo modal
-</button>
+		<!-- Button trigger modal -->
+		<button type="button" id = "mButton" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style = "display : none;">
+  		
+		</button>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  			<div class="modal-dialog modal-dialog-centered" role="document">
+    			<div class="modal-content" style = "margin-top : 300px; width : 500px;">
+      				<div class="modal-header" style = "width : 500px; text-align : center;">
+       					 <h3 class="modal-title" id="exampleModalLongTitle" style = "display : inline;">Message!</h3>
+        				 <button type="button" class="close" data-dismiss="modal" aria-label="Close" style = "display : inline;">
+          				 	<span aria-hidden="true">&times;</span>
+        				 </button>
+   				    </div>
+     			   
+     			    <div class="modal-body"  style = "text-align : center;">
+     			    	<br>
+        				<p id = "mMessage" style = "font-size : 20px;"><p>
+        				
+      				</div>
+      		
+      				<div class="modal-footer">
+        				<button type="button" class="btn btn-secondary" data-dismiss="modal" style = "float : left ; margin-left : 140px; width : 200px;">확인</button>        				
+      				</div>
+    			</div>
+  			</div>
+		</div>
+		
 	</div>
 	
+	<div id = "myModal1">
+		<!-- Button trigger modal -->
+		<button type="button" id = "popModal" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter1" style = "display : none;">
+		  이건 예약 모달
+		</button>
+		
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content" style = "margin-top : 300px; width : 500px;">
+		      <div class="modal-header" style = "width : 500px; text-align : center;" >
+		        <h3 class="modal-title" id="exampleModalLongTitle" style = "display : inline;">예약 확인 Message !</h3>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style = "display : inline;">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body" style = "text-align : center; font-size : 30px;">
+		      	<br>
+		        <b><p id = "seatId" style = "display : inline; font-size : 30px;"></p></b><small style = "display : inline;">번 좌석을 예약하시겠습니까?</small>
+		        <br><br>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" style = "background : #0080FF; color : white; float : left ; margin-left : 130px;" onclick = "resvSeat();">확인</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal" style = "background : lightgray ; margin-right : 115px; ">취소</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>
 	
 	<script>
 		var seatId = "";
@@ -368,30 +402,13 @@
 
 						}
 					}
+					else if (data == "noUser"){
+						$("#mMessage").text("로그인 후 이용해주세요 !");
+						$("#mButton").trigger("click");
+					}
 					else {
-						
-						mStr + '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Launch demo modal</button>'
-					     + '<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">'
-					     + '<div class="modal-dialog modal-dialog-centered" role="document">'
-					     + '<div class="modal-content">'
-					     + '<div class="modal-header">'
-					     + '<h5 class="modal-title" id="exampleModalLongTitle">예약 횟수 초과</h5>'
-					     + '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'
-					     + '<span aria-hidden="true">&times;</span>'
-					     + '</button>'
-					     + '</div>'
-					     + '<div class="modal-body">'
-					     +   '...'
-					     + '</div>'
-					     + '<div class="modal-footer">'
-					     + '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
-					     + '<button type="button" class="btn btn-primary">Save changes</button>'
-					     + '</div>'
-					     + '</div>'
-					     + '</div>'
-					     + '</div>';
-					     
-						$("#myModal").append(mStr);
+						$("#mMessage").text("한 ID당 예약은 한번 가능합니다!");
+						$("#mButton").trigger("click");
 					}
 				} ,
 				error : function(error){
@@ -448,8 +465,13 @@
 
 						}
 					}
+					else if (data == "noUser"){
+						$("#mMessage").text("로그인 후 이용해주세요 !");
+						$("#mButton").trigger("click");
+					}
 					else {
-						alert("자리는 ID당 한개만 예약이 가능합니다!")
+						$("#mMessage").text("한 ID당 예약은 한번 가능합니다!");
+						$("#mButton").trigger("click");
 					}
 				} ,
 				error : function(error){
@@ -459,14 +481,14 @@
 		});
 		
 		
-		function resvSeat(){
-			var ss_no = seatNo;
-			var url = "popResv.ss?ss_no=" + ss_no + "&floor=" + floor;
-			var option = "width=400, height=250, resizable=no, scrollbars=no, status=no;";
-			var popX =  ((window.screen.width / 2) - (500 / 2));
-			var popY =  ((window.screen.height / 2) - (250 / 2));
-			window.open(url , "", option + ", left = " + popX + ", top = " + popY);					
+		function resvModal(){
+			$("#seatId").text(seatNo);
+			$("#popModal").trigger("click");
 			
+		}
+		
+		function resvSeat(){
+			location.href = "updateR.ss?sNo=" + seatNo + "&floor=" + floor ;
 		}
 		
 	</script>

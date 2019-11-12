@@ -53,5 +53,8 @@
 		ORDER BY USE_DATE DESC
   	</select>
   
-  	
+  	<insert id="updateHistory" parameterType = "Seat">
+  		INSERT INTO SEAT_HISTORY
+  		VALUES(SEQ_SHNO.NEXTVAL, #{ss_no} , SYSDATE , #{student_id} , 'R')
+  	</insert>
 </mapper>

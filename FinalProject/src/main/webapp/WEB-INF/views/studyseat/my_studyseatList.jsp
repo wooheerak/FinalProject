@@ -134,110 +134,39 @@
                                 <th style = "text-align: center;">이용 내역</th>
                                 <th style = "text-align: center;">처리상태</th>
                                 <th style = "text-align: center;">날짜</th>
-                                <th style = "text-align: center;"></th>
-                               
+                                <th style = "text-align: center;"></th>                               
                             </tr>
                         </thead>
+                        
+                        
+                        
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[73번]</td>
-                                <td>예약인증 전</td>
-                                <td>2019-10-30</td>
-                                <td><button type = "button" class = "btn cancelRev" onclick = "cancelModal();">예약 취소</button></td>
-                                
-                            </tr>
-
-                            <tr>
-                                <td>2</td>
-                                <td>B열람실&nbsp;&nbsp;&nbsp;[34번]</td>
-                                <td>만료</td>
-                                <td>2019-10-29</td>
-                                <td></td>
-                               
-                            </tr>
-
-                            <tr>
-                                <td>3</td>
-                                <td>C열람실&nbsp;&nbsp;&nbsp;[12번]</td>
-                                <td>만료</td>
-                                <td>2019-10-27</td>
-                                <td></td>
-                               
-                            </tr>
-
-                            <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
-                            
-                             <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
-                            
-                             <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
-                            
-                             <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
-                            
-                             <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
-                            
-                             <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
-                            
-                             <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
-                            
-                             <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
-
+                           
+                           <c:forEach var="sh" items="${ list }" varStatus = "status" >
+                           		
+                           		<tr>
+                           			<td>${ status.count }</td>
+                           			<td>${ sh.seat.ss_floor }열람실[ ${ sh.seat.ss_no }번 ]</td>
+                           			<c:if test='${ sh.shStatus eq "N" }'>
+                           				<td>만료</td>
+                           			</c:if>
+                           			
+                           			<c:if test='${ sh.shStatus eq "R" }'>
+                           				<td>예약인증 전</td>
+                           			</c:if>
+                           			
+                           			<td>${ sh.useDate }</td>
+                           			
+                           			<c:if test='${ sh.shStatus eq "N" }'>
+                           				<td></td>
+                           			</c:if>
+                           			
+                           			<c:if test='${ sh.shStatus eq "R" }'>
+                           				<td><button id = "cb${ sh.seat.ss_no }" type = "button" class = "btn cancelRev" onclick = "cancelModal();">예약 취소</button></td>
+                           			</c:if>
+                           			
+                           		</tr>	
+                           </c:forEach>
                         </tbody>
                     </table>
 

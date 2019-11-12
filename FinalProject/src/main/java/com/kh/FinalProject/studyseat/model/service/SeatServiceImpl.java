@@ -52,4 +52,11 @@ public class SeatServiceImpl implements SeatService{
 
 		return sDao.selectHistoryList(sqlSession , id);
 	}
+
+
+	@Override
+	public int insertHistory(Seat seat) {
+		
+		return sDao.insertHistory(sqlSession , seat);
+	}
 }

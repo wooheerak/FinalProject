@@ -64,20 +64,28 @@ public class StudySeatController {
 		}
 		
 		@RequestMapping("myseatList.ss")
-		public String mySeatList(HttpServletRequest request) {
+		public ModelAndView mySeatList(HttpServletRequest request , ModelAndView mv) {
 			
 			HttpSession session = request.getSession();
 			User user = (User)session.getAttribute("loginUser");
 			String id = "";
-			ArrayList<SeatHistory> sh = new ArrayList<>();
+			ArrayList<SeatHistory> shList = null;
 			
 			if(user != null) {
 				id = user.getMember_Id();
-				sh = sService.selectHistoryList(id);				
+				shList = sService.selectHistoryList(id);				
 			}
 			
-			System.out.println("sh : " + sh);
-			return "my_studyseatList";
+			if(shList != null) {
+				mv.addObject("list" , shList).setViewName("my_studyseatList");
+				
+				return mv;
+			}
+			else {
+				throw new SeatException("개인정보 : 열람실이용내역 불러오기 실패 !");
+			}	
+			
+			
 		}
 		
 		@RequestMapping("studymain.ss")
@@ -160,7 +168,12 @@ public class StudySeatController {
 			
 			System.out.println("seat : " + seat);
 			
-			int result = sService.updateResv(seat);
+			int result1 = sService.updateResv(seat);
+			int result = 0;
+			
+			if(result1 > 0) {
+				result = sService.insertHistory(seat);
+			}
 			
 			if(result > 0) {
 				

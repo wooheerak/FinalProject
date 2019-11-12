@@ -43,4 +43,11 @@ public class SeatDao {
 		return (ArrayList)sqlSession.selectList("seatMapper.selectHistoryList" , id);
 	}
 
+
+
+	public int insertHistory(SqlSessionTemplate sqlSession, Seat seat) {
+		
+		return sqlSession.insert("seatMapper.updateHistory" , seat);
+	}
+
 }

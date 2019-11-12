@@ -20,4 +20,6 @@ public interface SeatService {
 
 	ArrayList<SeatHistory> selectHistoryList(String id);
 
+	int insertHistory(Seat seat);
+
 }

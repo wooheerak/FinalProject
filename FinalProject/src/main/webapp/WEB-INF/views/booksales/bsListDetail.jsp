@@ -76,24 +76,22 @@ table th {
 							</div>
 							<div style="margin-left: 150px;">
 								<b>등록날짜</b>&nbsp;
-								<p>2019-11-05</p>
+								<p>${ bs.brRegDate }</p>
 							</div>
 						</div>
 						<div style="display: flex;">
 							<div>
 								<b>가격</b>&nbsp;
-								<p>22,000원</p>
+								<p>${ bs.brPrice }</p>
 							</div>
 							<div style="margin-left: 140px; margin-top: 20px;">
 								<b>품질등급</b>
 								<p>
-									( <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> <i
-										class="fa fa-hand-lizard-o" aria-hidden="true"></i> <i
-										class="fa fa-thumbs-o-down" aria-hidden="true"></i> )
+									${ bs.brCondition }
 								</p>
 							</div>
 							<div style="margin-left: 30px;">
-								<i class="fa fa-thumbs-o-up fa-5x" aria-hidden="true"></i>
+								<!-- <i class="fa fa-thumbs-o-up fa-5x" aria-hidden="true"></i> -->
 							</div>
 						</div>
 						<br>
@@ -103,14 +101,16 @@ table th {
 								<th>품질정보</th>
 							</tr>
 							<tr>
-								<td>책 표지 변색 없고 뒷 표지에 약간의 찢어진 흔적이 있습니다. 책 내부에 낙서나 얼룩도 없고 닳은
-									흔적도 없습니다.</td>
+								<td>
+									${ bs.brComment }
+								</td>
 							</tr>
 						</table>
 						<br>
 					</div>
 					<div class="text-center">
 						<!-- Large modal -->
+						<a href="bslist.bs" class="btn btn-transparent">목록</a>
 						<button type="button" class="btn btn-transparent"
 							style="background-color: white;" data-toggle="modal"
 							data-target=".bd-example-modal-lg">구매하기</button>

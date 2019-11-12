@@ -17,51 +17,50 @@
 <script type="text/javascript"
 	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
 <script>
-	jQuery(function($) {
-		$("#tb").DataTable({
-			// 표시 건수기능 숨기기
-			"lengthChange" : false,
-			// 정보 표시 숨기기
-			"info" : true,
+jQuery(function($) {
+	$("#tb").DataTable({
+		// 표시 건수기능 숨기기
+		"lengthChange" : false,
+		// 정보 표시 숨기기
+		"info" : true,
 
-			// 정렬
-            "order": [],
-			
-			// 페이지 넘기는 방식
-			pagingType : "full_numbers",
+		  // 정렬
+        "order": [],
+        
+		// 페이지 넘기는 방식
+		pagingType : "full_numbers",
 
-			// n번째 항목 넓이를 300px로 설정
-			columnDefs : [ {
-				targets : 0,
-				width : 50
-			}, {
-				targets : 1,
-				width : 500
-			}, {
-				targets : 5,
-				width : 70
-			}],
+		// n번째 항목 넓이를 300px로 설정
+		columnDefs : [ {
+			targets : 0,
+			width : 40
+		}, {
+			targets : 1,
+			width : 400
+		}, {
+			targets : 3,
+			width : 60
+		} ],
 
-			"language" : {
-				"emptyTable" : "데이터가 없어요.",
-				"info" : "현재 _START_ - _END_ / 총_TOTAL_건",
-				"infoEmpty" : "데이터 없음",
-				"infoFiltered" : "( _MAX_건의 데이터에서 필터링됨 )",
-				"search" : "검색: ",
-				"zeroRecords" : "일치하는 데이터가 없어요.",
-				"loadingRecords" : "로딩중...",
-				"processing" : "잠시만 기다려 주세요...",
-				"paginate" : {
-					"first" : "<<",
-					"next" : ">",
-					"previous" : "<",
-					"last" : ">>"
-				}
+		"language" : {
+			"emptyTable" : "데이터가 없어요.",
+			"info" : "현재 _START_ - _END_ / 총_TOTAL_건",
+			"infoEmpty" : "데이터 없음",
+			"infoFiltered" : "( _MAX_건의 데이터에서 필터링됨 )",
+			"search" : "검색: ",
+			"zeroRecords" : "일치하는 데이터가 없어요.",
+			"loadingRecords" : "로딩중...",
+			"processing" : "잠시만 기다려 주세요...",
+			"paginate" : {
+				"first" : "<<",
+				"next" : ">",
+				"previous" : "<",
+				"last" : ">>"
 			}
-		});
+		}
 	});
+});
 </script>
-
 </head>
 
 <body>
@@ -82,9 +81,6 @@
 	</section>
 	<!-- end section -->
 
-	<!-- 공지사항 -->
-
-
 	<section class="section overfree">
 		<div class="icon-center">
 			<i class="fa fa-code"></i>
@@ -104,33 +100,26 @@
 
 					<c:forEach var="br" items="${ list }">
 
-						<tr onclick="document.location = 'bsdetail.bs;">
+						<tr>
 							<td>${ br.brBnumber }</td>
-							<td>
-								<c:url var="bsdetail" value="bsdetail.bs">
-									<c:param name="brBnumber" value="${ br.brBnumber }"/>
-								</c:url>
-								<a href="${ bsdetail }">${ br.originalFileName }a</a>
-							
-								
-							</td>
+							<td><c:url var="bsdetail" value="bsdetail.bs">
+									<c:param name="brBnumber" value="${ br.brBnumber }" />
+								</c:url> <a href="${ bsdetail }">${ br.originalFileName }a</a></td>
 							<td>
 								<div>
 									<p>카테고리: ${ br.brCategory }</p>
 									<p>책제목: ${ br.brName }</p>
 									<p>가 격: ${ br.brPrice } 원</p>
-								</div>	
+								</div>
 							</td>
-							<td>
-								${ br.brCount }
-							</td>
+							<td>${ br.brCount }</td>
 						</tr>
 
 					</c:forEach>
+
 				</tbody>
 			</table>
 		</div>
-
 	</section>
 	<!-- end section -->
 

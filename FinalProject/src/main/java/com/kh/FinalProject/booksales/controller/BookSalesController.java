@@ -50,8 +50,6 @@ public class BookSalesController {
 	@RequestMapping("bsdetail.bs")
 	public ModelAndView bsDetail(@RequestParam("brBnumber") int brBnumber, ModelAndView mv) {
 		BookReg bs = bsService.selectBs(brBnumber);
-
-		System.out.println(bs);
 	
 		if(bs != null) {	
 			mv.addObject("bs", bs).setViewName("bsListDetail");

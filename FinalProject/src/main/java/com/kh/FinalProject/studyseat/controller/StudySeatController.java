@@ -69,12 +69,14 @@ public class StudySeatController {
 			HttpSession session = request.getSession();
 			User user = (User)session.getAttribute("loginUser");
 			String id = "";
+			ArrayList<SeatHistory> sh = new ArrayList<>();
 			
 			if(user != null) {
 				id = user.getMember_Id();
-				ArrayList<SeatHistory> sh = sService.selectHistoryList(id);				
+				sh = sService.selectHistoryList(id);				
 			}
 			
+			System.out.println("sh : " + sh);
 			return "my_studyseatList";
 		}
 		

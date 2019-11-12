@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,7 +92,7 @@
                     <table class="table table-striped table-hover" style = "text-align: center;">
                         <thead >
                             <tr>
-                                <th style = "text-align: center;">번호</th>
+                                <th style = "text-align: center;">예약번호</th>
                                 <th style = "text-align: center;">이용 내역</th>
                                 <th style = "text-align: center;">참여자</th>
                                 <th style = "text-align: center;">예약 시간</th>
@@ -101,46 +102,37 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>4</td>
-                                <td>꽃채운 스터디룸&nbsp;&nbsp;&nbsp;[2층]</td>
-                                <td>이동수,문아람,이혜진,윤동혁,최진호</td>
-                                <td>09:00~11:00</td>
-                                <td>2019-10-30</td>
-                                <td><button class = "btn cancelRev" >예약 취소</button></td>
-                                
-                            </tr>
-
-                            <tr>
-                                <td>3</td>
-                                <td>마루 스터디룸&nbsp;&nbsp;&nbsp;[1층]</td>
-                                <td>이동수,고슬지,최진호</td>
-                                <td>12:00~13:00</td>
-                                <td>2019-10-29</td>
-                                <td></td>
-                               
-                            </tr>
-
-                            <tr>
-                                <td>3</td>
-                                <td>우주 스터디룸&nbsp;&nbsp;&nbsp;[3층]</td>
-                                <td>최진호,최진수,이상은,이수진</td>
-                                <td>10:00~11:00</td>
-                                <td>2019-10-27</td>
-                                <td></td>
-                               
-                            </tr>
-
-                            <tr>
-                                <td>1</td>
-                                <td>다솜 스터디룸&nbsp;&nbsp;&nbsp;[3층]</td>
-                                <td>최진호,우희락,이동수,이성원,이수진,이상은,고슬지,안정식</td>
-                                <td>14:00~16:00</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
-
+                        	<c:forEach var="b" items="${list}">                      	
+	                            <tr>
+	                                <td>${b.so_no}</td>
+	                                <td>${b.so_name} 스터디룸&nbsp;&nbsp;&nbsp;[${b.so_floor}층]</td>
+	                                <td>${b.so_participant}</td>
+	                                <td>${b.so_start_time}:00~${b.so_end_time}:00</td>
+	                                <td>${b.so_date}</td>
+	                                
+	                                <!-- 예약 취소 버튼 -->
+	                                
+	                                <!-- 오늘정보 -->	                                
+                                	<jsp:useBean id="now" class="java.util.Date"/>
+                                	<!-- 현재 날짜 -->
+                                	<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate" />
+                                	<!-- 현재 시간 -->
+                                	<fmt:formatDate value="${now}" pattern="HH" var="nowHour" />
+                                	
+                                	<!-- 예약 일, 시작 시간과 현재를 비교 -->
+                                	<c:choose>
+                                		<c:when test="${b.so_date > nowDate}">
+                                			<td><button class = "btn cancelRev" >예약 취소</button></td>
+                                		</c:when>
+                                		<c:when test="${b.so_date == nowDate && nowHour < b.so_start_time}">
+                                			<td><button class = "btn cancelRev" >예약 취소</button></td>
+                                		</c:when>
+                                		<c:otherwise>
+                                			<td></td>
+                                		</c:otherwise>
+                                	</c:choose>
+	                            </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
 

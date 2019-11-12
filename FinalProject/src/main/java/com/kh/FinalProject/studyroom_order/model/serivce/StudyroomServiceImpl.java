@@ -1,6 +1,7 @@
 package com.kh.FinalProject.studyroom_order.model.serivce;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,15 @@ public class StudyroomServiceImpl implements StudyroomService{
 	public ArrayList<StudyroomOrder> selectOrderList() {
 		return srDao.selectOrderList(sqlSession);
 	}
+
+	@Override
+	public ArrayList<String> selectName(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return srDao.selectName(sqlSession, map);
+	}
+
+	
+
+
 
 }

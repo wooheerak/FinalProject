@@ -1,6 +1,8 @@
 package com.kh.FinalProject.studyroom_order.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,23 +21,68 @@ public class StudyroomContoller {
 	@Autowired
 	private StudyroomService srService;
 	
+	// 내정보 > 스터디룸 예약 조회
 	@RequestMapping("mystudyroomList.sr")
 	public ModelAndView mySeatList(ModelAndView mv) {
 		
 		ArrayList<StudyroomOrder> list = srService.selectOrderList();
+		System.out.println("학번으로 이름 출력전 list : " + list);
 		
-		System.out.println(list);
+		ArrayList<String> hakbunList = new ArrayList<String>();
+		
+		for(StudyroomOrder so : list ) {
+			hakbunList.add(so.getSo_participant());
+			//System.out.println("학번만 뽑은 list"+hakbunList);
+		}
+		//System.out.println(hakbunList + "size : " + hakbunList.size());
+		
+		for(int i=0; i<hakbunList.size(); i++) {		
+			String[] name = hakbunList.get(i).split(",");
+			
+			ArrayList<String> hcnList = new ArrayList<String>();
+			for(int j =0; j<name.length; j++) {
+				hcnList.add(name[j]);
+			}
+			
+			Map<String, Object> map = new HashMap<String , Object>();
+			
+			map.put("list", hcnList);
+			
+			ArrayList<String> uList = srService.selectName(map);
+			
+			//System.out.println("uList : " + uList);
+			
+			String nameList = "";
+			for(int k=0; k<uList.size(); k++) {
+				nameList +=" "+uList.get(k);
+			}
+			list.get(i).setSo_participant(nameList);
+		}
 		
 		if(list != null) {
-			mv.addObject("list",list);
-			
+			mv.addObject("list",list);			
 			mv.setViewName("my_studyroomList");
+			
 		}else {
 			
 		}
 		return mv;
 	}
+	// 스터디룸 조회
+	@RequestMapping("srInfo.sr")
+	public ArrayList<Studyroom> studyroomInfo(ModelAndView mv) {
+		
+		int roomCount = srService.getRoomCount();
+		ArrayList<Studyroom> list = srService.selectRoomList();
+		
+		System.out.println("roomCount : " + roomCount);
+		System.out.println("list : " + list);
+		
+		
+		return list;
+	}
 	
+	// 스터디룸 해당일 예약 전체 조회
 	@RequestMapping("srDay.sr")
 	public ModelAndView dayView(ModelAndView mv) {
 		
@@ -64,11 +111,6 @@ public class StudyroomContoller {
 	public ModelAndView reservView(@RequestParam("sr_name") String sr_name, @RequestParam(value="so_date", required=false) String so_date,
 								@RequestParam(value="so_startTime", required=false) String so_startTime, @RequestParam(value="so_organizer", required=false) String so_organizer,
 								@RequestParam(value="sr_floor", required=false) String sr_floor, ModelAndView mv) {
-//		System.out.println(sr_name);
-//		System.out.println(so_date);
-//		System.out.println(so_startTime);
-//		System.out.println(so_organizer);
-//		System.out.println(sr_floor);
 		
 		// 값 받은후 변경
 		mv.addObject("sr_name",sr_name);
@@ -76,8 +118,17 @@ public class StudyroomContoller {
 		mv.addObject("so_startTime",so_startTime);
 		mv.addObject("so_organizer",so_organizer);
 		mv.addObject("sr_floor",sr_floor);
-		mv.setViewName("studyroomReservation");
 		
+		// 전체 스터디룸 정보
+		ArrayList<Studyroom> studyroomInfo = srService.selectRoomList();
+		System.out.println("studyroomInfo : " + studyroomInfo);
+		
+		if(studyroomInfo != null) {
+			mv.addObject("studyroomInfo",studyroomInfo);
+			mv.setViewName("studyroomReservation");
+		}else {
+			
+		}
 		return mv;
 	}
 	

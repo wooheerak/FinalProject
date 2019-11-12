@@ -28,7 +28,7 @@
         SELECT * 
         FROM NOTICE n
         WHERE nId = #{nId} AND N_STATUS = 'Y'
-     </select>
+    </select>
      
      <!-- 공지사항 조회수 -->
      <update id="addReadCount" parameterType = "_int">

@@ -74,7 +74,7 @@
 														<li><a href="service-06.html">Keyword Research</a></li>
 														<li><a href="service-07.html">SEO Strategy</a></li>
 														<li><a href="service-08.html">Website Design</a></li>
-														<li><a href="service-09.html">Link Building	Services</a></li>
+														<li><a href="requestBook.bk">도서 신청하기</a></li>
 													</ul>
 												</div>
 												<div class="col-md-4">
@@ -83,7 +83,7 @@
 		                                                <li><a href="">Pricing & Plans</a></li>
 		                                                <li><a href="">Our Clients</a></li>
 		                                                <li><a href="">Testimonials</a></li>
-		                                                <li><a href="booksales.bs">중고서적 판매</a></li>
+		                                                <li><a href="bslist.bs">중고서적 판매</a></li>
 		                                                <li><a href="bList.bo">스터디룸 게시판</a></li>
 		                                                <li><a href="bInsertView.bo">스터디룸 게시글 쓰기</a></li>
 													</ul>

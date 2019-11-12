@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -7,243 +7,160 @@
 <meta charset="UTF-8">
 <title>도서 검색</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<style>
+	#tb{margin: auto; width: 700px; border-collapse: collapse;}
+	#tb tr td{padding: 5px;}
+	#buttonTab{border-left: hidden; border-right: hidden;}
+</style>
 </head>
 <body>
-	<c:import url="../common/header.jsp"></c:import>
+   <c:import url="../common/header.jsp"></c:import>
+   
+   <section class="section normalhead lb">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
+               <h2>도서 검색</h2>
+            </div><!-- end col -->
+         </div><!-- end row -->
+      </div><!-- end container -->
+   </section><!-- end section -->
+
+   <section class="section overfree" style="padding: 30px 0px;">
+      <div class="icon-center">
+         <i class="fa fa-code"></i>
+      </div>
+      <div class="container">
+         <form action="selectList.bk" class="calculateform"
+            style="padding-bottom: 35px; background-color: lightblue;">
+            <div class="dorpdown dropdown portfolio-filter"
+               style="display: flex;">
+               <SELECT name='searchOption'> <!-- 검색 컬럼 -->
+                  <OPTION value='title'>제목 검색</OPTION>
+                  <OPTION value='author'>저자 검색</OPTION>
+                  <OPTION value='publisher'>출판사 검색</OPTION>
+                  <OPTION value='ISBN'>ISBN 검색</OPTION>
+               </SELECT>&nbsp;&nbsp; 
+               <input type="text" class="form-control" id="search"
+                  name="search" style="height: 49.33px;" placeholder="검색어를 입력하세요">&nbsp;&nbsp;
+               <input type="submit" name="send" value="검색" class="btn btn-default" />
+            </div>
+         </form>
+      </div>
+   </section>
+
+   <section class="section" style="padding-top: 10px;">
+      <div class="col-md-2" style="margin-left: 135px; border-radius: 30px;">
+         <div class="pricing-box clearfix">
+            <div class="pricing-header firstch">
+               <h4>개인 정보 조회</h4>
+            </div>
+            <div class="pricing-details" style="text-align: center;">
+               <div class="menuContent">내 정보 조회</div>
+               <div class="menuContent">대출 내역 조회</div>
+               <div class="menuContent">열람실/스터디룸 이용내역 조회</div>
+               <div class="menuContent">도서 신청 조회</div>
+               <div class="menuContent">BOOKSALES<br>거래 내역</div>
+            </div>
+         </div>
+      </div>
+      
+   <section class="section" style="padding:0px;">
+         <div class="container" id="bookList">
+            <div class="row" style = " margin-left : -145px;">
+            
+			<c:forEach var="b" items="${ list }" varStatus="status" >
+				<input type="hidden" name="bNo" value="${b.bNo }">
+                  <div class="ebook-details row col-md-5">
+                     <div class="col-md-3">
+                        <img src="resources/BOOK_IMG/${b.bIMG }" alt="" class="img-responsive">
+                     </div>
+                     <div class="col-md-8">
+                        <div class="book-details">
+                           <small>${b.bMainCTG }</small>
+                           <h3>${b.bName}</h3>
+                           <p>저자 : ${b.bWriter } &nbsp;&nbsp;&nbsp;/&nbsp; 출판 : ${b.bPublisher }&nbsp;&nbsp;&nbsp; <br>
+                           	언어 : ${b.bLanguage } </p>
+                           <a class="btn btn-transparent bClick">상세 보기
+                           	<input type="hidden" name="bNo" value="${b.bNo }">
+                           </a>
+                        </div><!-- end details -->
+                     </div><!-- end col -->
+                  </div><!-- end ebook-details -->
+				<c:if test="${status.count / 2 == 0}">
+					<br>
+				</c:if>
+			</c:forEach>
+			
+            </div><!-- end row -->
+         </div><!-- end container -->
+      </section><!-- end section -->
+      <br><br>
+ 		<!-- 페이징 처리 -->
+		<table style="margin-left:43%">
+		<tr style="align:center; height:20px;" id="buttonTab;">
+			<td colspan="6">
+			
+				<!-- [이전] -->
+				<c:if test="${ pi.currentPage <= 1 }">
+					[이전] &nbsp;
+				</c:if>
+				<c:if test="${ pi.currentPage > 1 }">
+					<c:url var="before" value="selectList.bk">
+						<c:param name="page" value="${ pi.currentPage - 1 }"/>
+						<c:param name="search" value="${ search }"/>
+						<c:param name="searchOption" value="${ searchOption }"/>						
+					</c:url>
+					<a href="${ before }">[이전]</a> &nbsp;
+				</c:if>
+				
+				<!-- 페이지 -->
+				<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+					<c:if test="${ p eq pi.currentPage }">
+						<font color="red" size="4"><b>[${ p }]</b></font>
+					</c:if>
+					
+					<c:if test="${ p ne pi.currentPage }">
+						<c:url var="pagination" value="selectList.bk">
+							<c:param name="page" value="${ p }"/>
+							<c:param name="search" value="${ search }"/>
+							<c:param name="searchOption" value="${ searchOption }"/>
+						</c:url>
+						<a href="${ pagination }">${ p }</a> &nbsp;
+					</c:if>
+				</c:forEach>
+				
+				<!-- [다음] -->
+				<c:if test="${ pi.currentPage >= pi.maxPage }">
+					[다음]
+				</c:if>
+				<c:if test="${ pi.currentPage < pi.maxPage }">
+					<c:url var="after" value="selectList.bk">
+						<c:param name="page" value="${ pi.currentPage + 1 }"/>
+						<c:param name="search" value="${ search }"/>
+						<c:param name="searchOption" value="${ searchOption }"/>						
+					</c:url> 
+					<a href="${ after }">[다음]</a>
+				</c:if>
+			</td>
+		</tr>
+	</table>   
+
+     <br><br><br><br>
+     <br><br><br><br>
+     <br><br><br><br>
+   </section>
+   <!-- end section -->
 	
-	<section class="section normalhead lb">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-					<h2>도서 검색</h2>
-				</div>
-				<!-- end col -->
-			</div>
-			<!-- end row -->
-		</div>
-		<!-- end container -->
-	</section>
-	<!-- end section -->
-
-	<section class="section overfree" style="padding: 30px 0px;">
-		<div class="icon-center">
-			<i class="fa fa-code"></i>
-		</div>
-		<div class="container">
-			<form class="calculateform"
-				style="padding-bottom: 35px; background-color: lightblue;">
-
-				<div class="dorpdown dropdown portfolio-filter"
-					style="display: flex;">
-					<SELECT name='col'>
-						<!-- 검색 컬럼 -->
-						<OPTION value='0'>카테고리 선택</OPTION>
-						<OPTION value='1'>경상계열</OPTION>
-						<OPTION value='2'>인문/사회계열</OPTION>
-						<OPTION value='3'>공학계열</OPTION>
-						<OPTION value='4'>어학계열</OPTION>
-						<OPTION value='5'>법학계열</OPTION>
-						<OPTION value='6'>의학/약학계열</OPTION>
-						<OPTION value='7'>사법계열</OPTION>
-						<OPTION value='8'>예체능계열</OPTION>
-						<OPTION value='9'>기타</OPTION>
-					</SELECT>&nbsp;&nbsp; <input type="text" class="form-control" id="searchbar"
-						name="url" style="height: 49.33px;" placeholder="검색어를 입력하세요">&nbsp;&nbsp;
-					<input type="submit" name="send" value="검색" class="btn btn-default" />
-				</div>
-			</form>
-		</div>
-	</section>
-
-	<section class="section" style="padding-top: 10px;">
-		<div class="col-md-2" style="margin-left: 135px; border-radius: 30px;">
-			<div class="pricing-box clearfix">
-				<div class="pricing-header firstch">
-					<h4>개인 정보 조회</h4>
-				</div>
-				<div class="pricing-details" style="text-align: center;">
-					<div class="menuContent">내 정보 조회</div>
-					<div class="menuContent">대출 내역 조회</div>
-					<div class="menuContent">열람실/스터디룸 이용내역 조회</div>
-					<div class="menuContent">도서 신청 조회</div>
-					<div class="menuContent">BOOKSALES<br>거래 내역</div>
-				</div>
-			</div>
-		</div>
-
-	<section class="section" style="padding:0px;">
-			<div class="container">
-				<div class="row" style = " margin-left : -160px;">
-					<div class="col-md-6" >
-						<div class="ebook-details row" >
-							<div class="col-md-3">
-								<img src="resources/upload/book_01.png" alt="" class="img-responsive">
-							</div>
-							<div class="col-md-9">
-								<div class="book-details">
-									<small>자연 과학</small>
-									<h3>아저씨</h3>
-									<p>설명...</p>
-									<a href="detailView.bk" class="btn btn-transparent">상세 보기</a>
-								</div><!-- end details -->
-							</div><!-- end col -->
-						</div><!-- end ebook-details -->
-					</div><!-- end col -->
-
-					<div class="col-md-6">
-						<div class="ebook-details row">
-							<div class="col-md-3">
-								<img src="resources/upload/book_02.png" alt="" class="img-responsive">
-							</div>
-							<div class="col-md-9">
-								<div class="book-details">
-									<small>Free</small>
-									<h3>WordPress SEO</h3>
-									<p>Learn more about WordPress search engine optimization (tips, tricks and plugins)</p>
-									<a href="#" class="btn btn-transparent">상세 보기</a>
-								</div><!-- end details -->
-							</div><!-- end col -->
-						</div><!-- end ebook-details -->
-					</div><!-- end col -->
-
-					<div class="col-md-6">
-						<div class="ebook-details row">
-							<div class="col-md-3">
-								<img src="resources/upload/book_03.png" alt="" class="img-responsive">
-							</div>
-							<div class="col-md-9">
-								<div class="book-details">
-									<small>Free</small>
-									<h3>Google Tricks</h3>
-									<p>Would you like to go up in a week on Google search engine? This book is for your website.</p>
-									<a href="#" class="btn btn-transparent">상세 보기</a>
-								</div><!-- end details -->
-							</div><!-- end col -->
-						</div><!-- end ebook-details -->
-					</div><!-- end col -->
-
-					<div class="col-md-6">
-						<div class="ebook-details row">
-							<div class="col-md-3">
-								<img src="resources/upload/book_04.png" alt="" class="img-responsive">
-							</div>
-							<div class="col-md-9">
-								<div class="book-details">
-									<small>Free</small>
-									<h3>Search Engine Marketing</h3>
-									<p>SEM was once was used as an umbrella term to encompass both SEO and paid search activities. </p>
-									<a href="#" class="btn btn-transparent">상세 보기</a>
-								</div><!-- end details -->
-							</div><!-- end col -->
-						</div><!-- end ebook-details -->
-					</div><!-- end col -->
-
-					<div class="col-md-6">
-						<div class="ebook-details row">
-							<div class="col-md-3">
-								<img src="resources/upload/book_05.png" alt="" class="img-responsive">
-							</div>
-							<div class="col-md-9">
-								<div class="book-details">
-									<small>Free</small>
-									<h3>SEO for Beginners</h3>
-									<p>Are you new to search engine? In this book I have given you some tips. This is useful ebook.</p>
-									<a href="#" class="btn btn-transparent">상세 보기</a>
-								</div><!-- end details -->
-							</div><!-- end col -->
-						</div><!-- end ebook-details -->
-					</div><!-- end col -->
-
-					<div class="col-md-6">
-						<div class="ebook-details row">
-							<div class="col-md-3">
-								<img src="resources/upload/book_06.png" alt="" class="img-responsive">
-							</div>
-							<div class="col-md-9">
-								<div class="book-details">
-									<small>Free</small>
-									<h3>ECommerce SEO</h3>
-									<p>Take advantage of seo to earn higher revenue from your e-commerce sites and make more money.</p>
-									<a href="#" class="btn btn-transparent">Download</a>
-								</div><!-- end details -->
-							</div><!-- end col -->
-						</div><!-- end ebook-details -->
-					</div><!-- end col -->
-
-					<div class="col-md-6">
-						<div class="ebook-details row">
-							<div class="col-md-3">
-								<img src="resources/upload/book_02.png" alt="" class="img-responsive">
-							</div>
-							<div class="col-md-9">
-								<div class="book-details">
-									<small>Free</small>
-									<h3>Why WordPress Best</h3>
-									<p>In this ebook, you can learn why WordPress is one of the best SEO friendly content management system.</p>
-									<a href="#" class="btn btn-transparent">상세 보기</a>
-								</div><!-- end details -->
-							</div><!-- end col -->
-						</div><!-- end ebook-details -->
-					</div><!-- end col -->
-
-					<div class="col-md-6">
-						<div class="ebook-details row">
-							<div class="col-md-3">
-								<img src="resources/upload/book_01.png" alt="" class="img-responsive">
-							</div>
-							<div class="col-md-9">
-								<div class="book-details">
-									<small>Free</small>
-									<h3>High Rank SEO</h3>
-									<p>This ebook ideal for professionals. You can make more powerful website SEO with our tips and tricks.</p>
-									<a href="#" class="btn btn-transparent">상세 보기</a>
-								</div><!-- end details -->
-							</div><!-- end col -->
-						</div><!-- end ebook-details -->
-					</div><!-- end col -->
-
-
-					<div class="col-md-6">
-						<div class="ebook-details row">
-							<div class="col-md-3">
-								<img src="resources/upload/book_04.png" alt="" class="img-responsive">
-							</div>
-							<div class="col-md-9">
-								<div class="book-details">
-									<small>Free</small>
-									<h3>Blogger SEO</h3>
-									<p>Blogger is a most popular free blog source on the web. In the ebook we teach you blog seo.</p>
-									<a href="#" class="btn btn-transparent">상세 보기</a>
-								</div><!-- end details -->
-							</div><!-- end col -->
-						</div><!-- end ebook-details -->
-					</div><!-- end col -->
-
-					<div class="col-md-6">
-						<div class="ebook-details row">
-							<div class="col-md-3">
-								<img src="resources/upload/book_03.png" alt="" class="img-responsive">
-							</div>
-							<div class="col-md-9">
-								<div class="book-details">
-									<small>Free</small>
-									<h3>Affiliate Marketing</h3>
-									<p>If you are an affiliate marketer this ebook ideal for you. With SEO plus affiliate make more..</p>
-									<a href="#" class="btn btn-transparent">상세 보기</a>
-								</div><!-- end details -->
-							</div><!-- end col -->
-						</div><!-- end ebook-details -->
-					</div><!-- end col -->
-				</div><!-- end row -->
-			</div><!-- end container -->
-		</section><!-- end section -->	
-
-		
-	</section>
-	<!-- end section -->
-
-	<jsp:include page="../common/footer.jsp" />
-
+   <jsp:include page="../common/footer.jsp" />
+   
+	<script type="text/javascript">
+			$(".bClick").click(function(){
+				var bNo=$(this).children("input").val();
+				location.href="bookdetail.bk?bNo="+bNo+"&page="+${pi.currentPage};
+			});
+	</script>
 </body>
 
 </html>

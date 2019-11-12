@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -192,6 +193,7 @@ public class BoardController {
 	
 	// 댓글 리스트
 	@RequestMapping("rList.bo")
+	@ResponseBody
 	public void getReplyList(HttpServletResponse response, int bo_number) throws JsonIOException, IOException {
 		
 		ArrayList<Reply> list = sbService.selectReplyList(bo_number);
@@ -209,7 +211,6 @@ public class BoardController {
 		}
 
 	}
-	
 	
 	// 댓글 입력
 	@RequestMapping("addReply.bo")

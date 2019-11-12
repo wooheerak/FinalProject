@@ -1,6 +1,7 @@
 package com.kh.FinalProject.studyroom_board.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -84,16 +85,21 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 	}
 
 	// 댓글 등록
-	@Override
+	/*@Override
 	public int insertReply(Reply r) {
 
 		return sbDAO.insertReply(sqlSession, r);
-	}
+	}*/
 	
 	// 댓글 삭제
 	@Override
 	public int deleteReply(int refBid) {
 		return sbDAO.deleteReply(sqlSession, refBid);
+	}
+
+	@Override
+	public int insertReply(Reply r) {
+		return sbDAO.insertReply(sqlSession, r);
 	}
 
 }

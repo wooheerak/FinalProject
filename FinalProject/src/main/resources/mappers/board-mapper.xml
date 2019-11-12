@@ -88,13 +88,13 @@
         <result property = "rStatus" column = "R_STATUS"/>
      </resultMap>
      
-     <!-- 댓글  -->
+     <!-- 댓글 리스트 -->
      <select id = "selectReplyList" parameterType = "_int" resultMap = "replyResultSet">
         SELECT * 
         FROM STUDYROOM_REPLY R
-        LEFT JOIN STUDYROOM_BOARD B ON (REF_BID = BO_NUMBER)        
+        JOIN STUDYROOM_BOARD B ON (REF_BID = BO_NUMBER)        
         WHERE REF_BID = #{bo_number}
-        ORDER BY REF_BID DESC
+        ORDER BY RID DESC
      </select>
      
      

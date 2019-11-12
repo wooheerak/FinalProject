@@ -1,6 +1,7 @@
 package com.kh.FinalProject.studyroom_order.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -24,7 +25,12 @@ public class StudyroomDao {
 	}
 
 	public ArrayList<StudyroomOrder> selectOrderList(SqlSession sqlSession) {
-		return null;//(ArrayList)sqlSession.selectList("");
+		return (ArrayList)sqlSession.selectList("studyroomMapper.selectOrderList");
+	}
+
+	public ArrayList<String> selectName(SqlSession sqlSession, Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("studyroomMapper.selectName", map);
 	}
 
 }

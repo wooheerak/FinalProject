@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.FinalProject.studyseat.model.dao.SeatDao;
 import com.kh.FinalProject.studyseat.model.vo.Seat;
+import com.kh.FinalProject.studyseat.model.vo.SeatHistory;
 
 @Service("sService")
 public class SeatServiceImpl implements SeatService{
@@ -36,5 +37,19 @@ public class SeatServiceImpl implements SeatService{
 	public int updateResv(Seat seat) {
 	
 		return sDao.updateResv(sqlSession, seat);
+	}
+
+
+	@Override
+	public int checkDup(String id) {
+		
+		return sDao.checkDup(sqlSession, id);
+	}
+
+
+	@Override
+	public ArrayList<SeatHistory> selectHistoryList(String id) {
+
+		return sDao.selectHistoryList(sqlSession , id);
 	}
 }

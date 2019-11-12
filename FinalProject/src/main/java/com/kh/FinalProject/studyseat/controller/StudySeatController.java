@@ -5,7 +5,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -21,6 +23,8 @@ import com.google.gson.GsonBuilder;
 import com.kh.FinalProject.studyseat.model.exception.SeatException;
 import com.kh.FinalProject.studyseat.model.service.SeatService;
 import com.kh.FinalProject.studyseat.model.vo.Seat;
+import com.kh.FinalProject.studyseat.model.vo.SeatHistory;
+import com.kh.FinalProject.user.model.vo.User;
 
 @Controller
 public class StudySeatController {
@@ -60,7 +64,16 @@ public class StudySeatController {
 		}
 		
 		@RequestMapping("myseatList.ss")
-		public String mySeatList() {
+		public String mySeatList(HttpServletRequest request) {
+			
+			HttpSession session = request.getSession();
+			User user = (User)session.getAttribute("loginUser");
+			String id = "";
+			
+			if(user != null) {
+				id = user.getMember_Id();
+				ArrayList<SeatHistory> sh = sService.selectHistoryList(id);				
+			}
 			
 			return "my_studyseatList";
 		}
@@ -70,19 +83,7 @@ public class StudySeatController {
 			return "studyMain";
 		}		
 		
-		@RequestMapping("popResv.ss")
-		public ModelAndView popResv(@RequestParam("ss_no") int ss_no,@RequestParam(value = "floor" , defaultValue = "A") String floor, ModelAndView mv) {
-			
-			mv.addObject("sNo" , ss_no).addObject("floor" , floor).setViewName("popReservation");
-			
-			return mv;
-		}
-		
-		@RequestMapping("popCancel.ss")
-		public String popCancel() {
-			return "popCancelResv";
-		}
-		
+				
 		@RequestMapping("slistAjax.ss")
 		public void selectSeatList(HttpServletResponse response , String floor) throws IOException {
 			
@@ -106,7 +107,7 @@ public class StudySeatController {
 			}
 			
 			
-			//aaassgdsgdag
+			
 			
 			// 열람실 층수에 맞는 좌석을 가져옴
 			ArrayList<Seat> sList = sService.selectSeatList(floor);
@@ -142,14 +143,18 @@ public class StudySeatController {
 		}
 		
 		@RequestMapping("updateR.ss")
-		public ModelAndView updateResv(ModelAndView mv , @RequestParam("sNo") int sNo , @RequestParam("floor") String floor) {
+		public ModelAndView updateResv(ModelAndView mv , @RequestParam("sNo") int sNo , @RequestParam("floor") String floor , HttpServletRequest request) {
 			
 			System.out.println("sNo : " + sNo + ", floor : " + floor);
+			
+			HttpSession session = request.getSession();
+			User user = (User)session.getAttribute("loginUser");
 			
 			Seat seat = new Seat();
 			seat.setSs_no(sNo);
 			seat.setSs_floor(floor);
 			seat.setCert_code(getCertCode());
+			seat.setStudent_id(user.getMember_Id());
 			
 			System.out.println("seat : " + seat);
 			
@@ -194,6 +199,39 @@ public class StudySeatController {
 
 
 			return temp.toString();
+		}
+		
+		
+		@RequestMapping("checkDup.ss")
+		@ResponseBody
+		public String checkDup(HttpServletRequest request) {
+			
+			HttpSession session = request.getSession();
+			
+			User user = (User)session.getAttribute("loginUser");
+			String id = "" ;
+			int result = -1 ;
+			
+			if(user == null) {
+				result = -1 ;
+			}
+			else {
+				id = user.getMember_Id();
+				result = sService.checkDup(id);				
+			}
+			
+			if(result == -1) {
+				return "noUser";
+			}
+			else if(result == 0) {
+				return "notDup";
+			}
+			else {				
+				return "dup";
+			}
+			 
+			
+			
 		}
 
 }

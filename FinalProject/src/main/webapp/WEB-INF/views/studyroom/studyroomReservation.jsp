@@ -131,10 +131,10 @@ input{
 									<c:forEach var="i" begin="9" end="21">
 										<c:if test="${i<10}">
 											<c:if test="${i == so_startTime}">
-												<option value="${i}" selected="selected">0${i}:00</option>				
+												<option value="0${i}" selected="selected">0${i}:00</option>				
 											</c:if>
 											<c:if test="${i != so_startTime}">
-												<option value="${i}">0${i}:00</option>				
+												<option value="0${i}">0${i}:00</option>				
 											</c:if>
 										</c:if>
 										<c:if test="${i>=10}">

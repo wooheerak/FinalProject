@@ -39,19 +39,19 @@
 				<div class="noticeInfo"
 					style="background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b3b3; padding: 20px;">
 					<p class="noticeInfoTitle">
-						<b>${ n.nTitle }</b>
+						<b style="font-size: 24px;">${ n.nTitle }</b>
 					</p>
-					<p class="writeInfo text-right">
+					<p class="writeInfo text-right" style="font-size: 18px;">
 						${ n.nCreateDate }&nbsp;&nbsp;&nbsp;&nbsp;<span>조회&nbsp;${ n.nCount }</span>
 					</p>
 					<dl class="writerInfo text-right">
-						<dd class="writer">
+						<dd class="writer" style="font-size: 18px;">
 							<span>${ n.nWriter }</span>
 						</dd>
 					</dl>
 				</div>
 				<div class="noticeContent"
-					style="background-color: #fff; border: 1px solid #e6e6e6; border-top: none; padding: 20px; font-size: 13px;">
+					style="background-color: #fff; border: 1px solid #e6e6e6; border-top: none; padding: 20px; font-size: 18px;">
 					${ n.nContent }
 				</div>
 				

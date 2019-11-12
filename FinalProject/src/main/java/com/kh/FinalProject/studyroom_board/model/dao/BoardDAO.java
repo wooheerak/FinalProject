@@ -1,6 +1,7 @@
 package com.kh.FinalProject.studyroom_board.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -70,7 +71,5 @@ public class BoardDAO {
 	public int deleteReply(SqlSessionTemplate sqlSession, int refBid) {
 		return sqlSession.update("boardMapper.deleteReply", refBid);
 	}
-
-
 
 }

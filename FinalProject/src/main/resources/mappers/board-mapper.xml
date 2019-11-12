@@ -62,19 +62,19 @@
      </update>
      
      <!-- 그룹 참여  UPDATE 내테이블 SET 컬럼 = 컬럼||'신규값' -->
-     <!-- <update id = "memberJoin" parameterType = "_int" >
+     <update id = "memberJoin" parameterType = "map" >
         UPDATE STUDYROOM_BOARD
-        SET BO_MEMBER = BO_MEMBER + 1 , BO_JOIN = BO_JOIN||'#{(String) join.get("Member_Id")}'
-        WHERE BO_NUMBER = #{(Integer) join.get("bo_number")}
+        SET BO_MEMBER = BO_MEMBER + 1 , BO_JOIN = BO_JOIN||#{Member_Name}||'/'
+        WHERE BO_NUMBER = #{bo_number}
      </update>
      
-     그룹 탈퇴  update [테이블명] set [컬럼명] = replace([컬럼명],’기존데이터’,’바꿀데이터’)
-     <update id = "memberUnjoin" parameterType = "_int" >
+     <!-- 그룹 탈퇴  update [테이블명] set [컬럼명] = replace([컬럼명],’기존데이터’,’바꿀데이터’) -->
+     <update id = "memberUnjoin" parameterType = "map" >
         UPDATE STUDYROOM_BOARD
         SET BO_MEMBER = BO_MEMBER - 1 , 
-        REPLACE([BO_JOIN],'#{(String) join.get("Member_Id")}',"")
-        WHERE BO_NUMBER = #{(Integer) join.get("bo_number")}
-     </update> -->
+        BO_JOIN = REPLACE(BO_JOIN,#{Member_Name},'')
+        WHERE BO_NUMBER = #{bo_number}
+     </update>
      
      <!-- 댓글 -->
      
@@ -88,13 +88,13 @@
         <result property = "rStatus" column = "R_STATUS"/>
      </resultMap>
      
-     <!-- 댓글  -->
+     <!-- 댓글 리스트 -->
      <select id = "selectReplyList" parameterType = "_int" resultMap = "replyResultSet">
         SELECT * 
         FROM STUDYROOM_REPLY R
         JOIN STUDYROOM_BOARD B ON (REF_BID = BO_NUMBER)        
         WHERE REF_BID = #{bo_number}
-        ORDER BY REF_BID DESC
+        ORDER BY RID DESC
      </select>
      
      

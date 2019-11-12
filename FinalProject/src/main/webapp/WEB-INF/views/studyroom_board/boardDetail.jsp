@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +11,8 @@
 <title>BoardDetail</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<!-- <script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
 
 <style type="text/css">
 #boardtable {
@@ -81,7 +82,6 @@ th{
 			<i class="fa fa-code"></i>
 		</div>
 		
-		
 		<table border="1" id="boardtable">
 		<tr>
 			<th width="80px" align="center">번호</th>
@@ -129,13 +129,14 @@ th{
 			<th>현재 인윈 / 모집 인원</th>
 				<c:url var="bJoin" value="bJoin.bo">
 					<c:param name="bo_number" value="${ board.bo_number }"/>
+					<c:param name="Member_Name" value="${ loginUser.member_Name }"/>
 					<c:param name="Member_Id" value="${ loginUser.member_Id }"/>
 					<c:param name="bo_member" value="${ board.bo_member }"/>
 					<c:param name="bo_maxmember" value="${ board.bo_maxmember }"/>
 				</c:url>
 				<c:url var="bUnjoin" value="bUnjoin.bo">
 					<c:param name="bo_number" value="${ board.bo_number }"/>
-					<c:param name="Member_Id" value="${ loginUser.member_Id }"/>
+					<c:param name="Member_Name" value="${ loginUser.member_Name }"/>
 				</c:url>
 				<td style="width: 150px;">${ board.bo_member } / ${ board.bo_maxmember }</td>
 			<td style="width: 150px; background-color: lightblue; font-weight: bold;">참여자 아이디</td>
@@ -146,72 +147,82 @@ th{
 					        	참여자가 없어요
 					    </c:when>
 					    <c:when test="${join != 'NULL'}">
-					       		${ board.bo_name}
+					       		${ board.bo_join}
 					    </c:when>
 					</c:choose>
-			<c:if test="${ loginUser.member_Name != board.bo_name }">
-				<c:if test="${ loginUser.member_Id != board.bo_join }">
+			<c:if test="${ !empty sessionScope.loginUser }">
+				<c:if test="${ board.bo_member < board.bo_maxmember}">
+					<c:if test="${ loginUser.member_Name != board.bo_name }">
+						<c:if test="${ loginUser.member_Name != board.bo_join }">
+							<br>
+							<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join">참여</button>
+							<script type="text/javascript">
+							 $('#join').click(function(){
+								Swal.fire({
+									width: 600,
+									padding: 100,
+								  title: '참여 하시겠습니까?',
+								  text: "다시한번 확인해주세요",
+								  icon: 'warning',
+								  showCancelButton: true,
+								  confirmButtonColor: '#3085d6',
+								  cancelButtonColor: '#d33',
+								  cancelButtonText: '취소',
+								  confirmButtonText: '참여할래요!'
+								}).then((result) => {
+									if (result.value) {
+									    location.href='${ bJoin }'
+								    	 swalWithBootstrapButtons.fire(
+								    		      '참여 완료!',
+								    		      '열심히 공부해요',
+								    		      'success'
+								    		    )
+									  } else {
+									  }
+								  
+								})
+							});  
+							
+							</script>
+						</c:if>
+					</c:if>
 					<br>
-					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join">참여</button>
-					<script type="text/javascript">
-					 $('#join').click(function(){
-						Swal.fire({
-							width: 600,
-							padding: 100,
-						  title: '참여 하시겠습니까?',
-						  text: "다시한번 확인해주세요",
-						  icon: 'warning',
-						  showCancelButton: true,
-						  confirmButtonColor: '#3085d6',
-						  cancelButtonColor: '#d33',
-						  cancelButtonText: '취소',
-						  confirmButtonText: '참여할래요!'
-						}).then((result) => {
-							if (result.value) {
-							    location.href='${ bJoin }'
-						    	 swalWithBootstrapButtons.fire(
-						    		      '참여 완료!',
-						    		      '열심히 공부해요',
-						    		      'success'
-						    		    )
-							  } else {
-							  }
-						  
-						})
-					});  
 					
-					</script>
+					<c:forEach items="${fn:split(board.bo_join,'/') }" var="name">
+					  	<c:if test="${ loginUser.member_Name == name }">
+					  	
+						<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="cancel">탈퇴</button>
+						<script type="text/javascript">
+							$('#cancel').click(function(){
+								Swal.fire({
+									width: 600,
+									padding: 100,
+								  title: '탈퇴 하시겠습니까?',
+								  text: "다시한번 확인해주세요",
+								  icon: 'warning',
+								  showCancelButton: true,
+								  confirmButtonColor: '#3085d6',
+								  cancelButtonColor: '#d33',
+								  cancelButtonText: '취소',
+								  confirmButtonText: '탈퇴할래요!!',
+								}).then((result) => {
+									if (result.value) {
+									    location.href='${ bUnjoin }'
+								    	 swalWithBootstrapButtons.fire(
+								    		      '탈퇴 되었습니다',
+								    		      '탈퇴 완료.',
+								    		      'success'
+								    		    )
+									  } else {
+									  }
+								  
+								})
+							});
+							</script>
+						</c:if>
+					</c:forEach>
 				</c:if>
-				<c:if test="${ loginUser.member_Id == board.bo_join }">
-					<br>
-					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="cancel">탈퇴</button>
-					<script type="text/javascript">
-					$('#cancel').click(function(){
-						Swal.fire({
-							width: 600,
-							padding: 100,
-						  title: '탈퇴 하시겠습니까?',
-						  text: "다시한번 확인해주세요",
-						  icon: 'warning',
-						  showCancelButton: true,
-						  confirmButtonColor: '#3085d6',
-						  cancelButtonColor: '#d33',
-						  cancelButtonText: '취소',
-						  confirmButtonText: '탈퇴할래요!!',
-						}).then((result) => {
-							if (result.value) {
-							    location.href='${ bUnjoin }'
-						    	 swalWithBootstrapButtons.fire(
-						    		      '탈퇴 되었습니다',
-						    		      '탈퇴 완료.',
-						    		      'success'
-						    		    )
-							  } else {
-							  }
-						  
-						})
-					});
-					</script>
+				<c:if test="${ board.bo_member == board.bo_maxmember}">
 				</c:if>
 			</c:if>
 			</td>
@@ -243,26 +254,53 @@ th{
 	
 	<br><br>
 	 <!-- 댓글 -->
-   
-   <table class = "replyTable">
-      <tr>
-         <td>
-            <textarea rows = "3" cols = "55" id ="rContent" ></textarea>
-         </td>
-         <td>
-            <button id = "rSubmit" class="w3-button w3-round-large w3-light-blue w3-hover-green">등록</button>            
-         </td>
-         <c:url var="rdelete" value="rdelete.bo">
-			<c:param name="refBid" value="${ Reply.refBid }"/>
-		</c:url>
-         <c:if test="${ loginUser.member_Id eq Reply.rWriter }">
-			<td colspan="2" align="center">
-				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ rdelete }'">삭제하기</button>
-			</td>
-		</c:if>
-      </tr>
-   </table>
-   
+<%-- <div class="container">
+    <br><br>
+    <form id="rList.bo" method="post">
+        <div>
+            <div>
+                <span><strong>Comments</strong></span> 
+                <span id="comment"></span>
+            </div>
+            <div>
+                <table class="table">                    
+                    <tr>
+                        <td>
+                        	<c:if test="${ !empty sessionScope.loginUser }">
+                            <textarea style="width: 1100px" rows="3" cols="30" id="comment" name="rContent" placeholder="댓글을 입력하세요"></textarea>
+                            <br>
+                            <div>
+                                <button id = "rSubmit" class="btn pull-right btn-success">등록</a>
+                            </div>
+                            </c:if>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <input type="hidden" id="bo_number" name="bo_number" value="${board.bo_number }" />        
+    </form>
+</div>
+<div class="container">
+    <form id="commentListForm" method="post">
+        <div id="result">
+        </div>
+    </form>
+</div> --%>
+
+<span><strong>Comments</strong></span> 
+	<c:if test="${ !empty sessionScope.loginUser }">
+		<table class = "replyTable">
+		   <tr>
+		      <td>
+		         <textarea rows = "3" cols = "55" id ="rContent"></textarea>
+		      </td>
+		      <td>
+		         <button id = "rSubmit" class="w3-button w3-round-large w3-light-blue w3-hover-green" >등록하기</button>            
+		      </td>
+		   </tr>
+		</table>
+	</c:if>
    <table class = "replyTable" id = "rtb">
       <thead>
          <tr>
@@ -271,39 +309,22 @@ th{
       </thead>
       <tbody></tbody>
    </table>
-    
-   <script>
+<script>
       $(function(){
          getReplyList();
          
-         setInterval(function(){
+         /* setInterval(function(){
             getReplyList();
-         } , 10000);
+         } , 10000); */
       });
       
-      $("#rSubmit").on("click" , function(){
-         var rContent = $("#rContent").val();
-         var refBid = ${ board.bo_number } ;
-         
-         $.ajax({
-            url : "addReply.bo" ,
-            data : {rContent : rContent , refBid : refBid} ,
-            type : "post" ,
-            success : function(data){
-               if(data == "success"){
-                  getReplyList();
-                  $("#rContent").val("");
-               }
-            }
-         });
-      })
-      
+      // 댓글 리스트
       function getReplyList(){
-         var bo_number = ${ board.bo_number} ;
+         var bId = ${ board.bo_number } ;
          
          $.ajax({
             url : "rList.bo" ,
-            data : {bo_number : bo_number} ,
+            data : {bo_number : bId } ,
             dataType : "json" ,
             success : function(data){
                $tableBody = $("#rtb tbody");
@@ -327,13 +348,12 @@ th{
                      $tr.append($rContent);
                      $tr.append($rCreateDate);
                      $tableBody.append($tr);
+                     
                   }
-                  
                }
                else{
                   $tr = $("<tr>");
                   $rContent = $("<td colspan = '3'>").text("등록된 댓글이 없습니다.");
-                  
                   $tr.append($rContent);
                   $tableBody.append($tr);
                }
@@ -341,6 +361,24 @@ th{
             
          });
       }
+      
+      // 댓글 등록
+      $("#rSubmit").on("click" , function(){
+          var rContent = $("#rContent").val();
+          var refBid = ${ board.bo_number } ;
+          
+          $.ajax({
+             url : "addReply.bo" ,
+             data : {rContent : rContent , refBid : refBid} ,
+             type : "post" ,
+             success : function(data){
+                if(data == "success"){
+                   getReplyList();
+                   $("#rContent").val("");
+                }
+             }
+          });
+       })
    </script>
 
 	<br><br>
@@ -351,6 +389,7 @@ th{
 		<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ blist }'">게시판으로 가기</button>
 	</p>
 	
+	</section>
 	<!-- footer -->
 	<c:import url="../common/footer.jsp"/>
 	

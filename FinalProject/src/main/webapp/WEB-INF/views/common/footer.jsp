@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 </head>
 <body>
 	<!-- footer는 어느 페이지든 포함하고 있을 테니 여기서 contextPath 변수 값 만들어주자 -->
@@ -30,7 +30,6 @@
         <!-- end primary-footer -->
         
         <!-- jQuery Files -->
-    <script src="resources/js/jquery.min.js "></script>
     <script src="resources/js/bootstrap.min.js "></script>
     <script src="resources/js/parallax.js "></script>
     <script src="resources/js/animate.js "></script>

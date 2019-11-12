@@ -36,15 +36,18 @@ public class NoticeServiceImpl implements NoticeService{
 
 		return n;
 	}
-
+	
+	// 공지사항 작성
 	public int inserNotice(Notice n) {
 		return nDAO.insertNotice(sqlSession, n);
 	}
 
+	// 공지사항 수정
 	public int updateNotice(Notice n) {
 		return nDAO.updateNotice(sqlSession, n);
 	}
 
+	// 공지사항 삭제
 	public int noticeDelete(int nId) {
 		return nDAO.noticeDelete(sqlSession, nId);
 	}

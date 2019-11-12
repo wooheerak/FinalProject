@@ -8,6 +8,7 @@
 	<typeAliases>
 	   	<typeAlias type="com.kh.FinalProject.studyroom_board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.FinalProject.studyroom_board.model.vo.Reply" alias="Reply"/>
+		<typeAlias type="com.kh.FinalProject.book.model.vo.Book" alias="Book"/>
 		<typeAlias type="com.kh.FinalProject.notice.model.vo.Notice" alias="Notice"/>
 		<typeAlias type="com.kh.FinalProject.studyseat.model.vo.Seat" alias="Seat"/>
 	    <typeAlias type="com.kh.FinalProject.user.model.vo.User" alias="User"/>
@@ -24,5 +25,6 @@
 	    <mapper resource="mappers/seat-mapper.xml"/>
 	    <mapper resource="mappers/user-mapper.xml"/>
 	    <mapper resource="mappers/booksales-mapper.xml"/>
+    		<mapper resource="mappers/book-mapper.xml"/>
 	</mappers>
 </configuration>

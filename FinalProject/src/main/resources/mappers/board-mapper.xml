@@ -20,7 +20,7 @@
 	
      <!-- 게시판 리스트 -->
      <select id = "selectList" resultMap="boardResultSet">
-        SELECT * 
+        SELECT *
         FROM STUDYROOM_BOARD
         WHERE BO_ING = 'Y' 
         ORDER BY BO_NUMBER DESC
@@ -43,14 +43,14 @@
      <!-- 게시글 등록 -->
      <insert id = "insertBoard" parameterType = "Board">
         INSERT INTO STUDYROOM_BOARD
-        VALUES(BO_SEQ.NEXTVAL , BO_SEQ.NEXTVAL , #{bo_title} , #{bo_detail} , #{bo_name} , 1 ,
-              #{bo_maxmember} , #{bo_join} , #{bo_reinfo} , 'Y' , SYSDATE , 0 , 'Y')
+        VALUES(SEQ_BOP.NEXTVAL , SEQ_BON.NEXTVAL , #{bo_title} , #{bo_detail} , #{bo_name} , 1 ,
+              #{bo_maxmember} , NULL , #{bo_reinfo} , DEFAULT , TO_CHAR(SYSDATE,'YYYY-MM-DD HH24-MI-SS') , DEFAULT , DEFAULT)
      </insert>
      
      <!-- 게시글 업데이트 -->
      <update id = "updateBoard" parameterType = "Board">
         UPDATE STUDYROOM_BOARD
-        SET BO_TITLE = #{bo_title} , BO_DETAIL = #{bo_detail} , BO_DATE = #{bo_date}, BO_MAXMEMBER = #{bo_maxmember}, BO_REINFO = #{bo_reinfo}
+        SET BO_TITLE = #{bo_title} , BO_DETAIL = #{bo_detail} , BO_DATE = TO_CHAR(SYSDATE,'YYYY-MM-DD HH24-MI-SS') , BO_MAXMEMBER = #{bo_maxmember} , BO_REINFO = #{bo_reinfo}
         WHERE BO_NUMBER = #{bo_number}
      </update>
      
@@ -60,6 +60,21 @@
         SET BO_ING = 'N'
         WHERE BO_NUMBER = #{bo_number}
      </update>
+     
+     <!-- 그룹 참여  UPDATE 내테이블 SET 컬럼 = 컬럼||'신규값' -->
+     <!-- <update id = "memberJoin" parameterType = "_int" >
+        UPDATE STUDYROOM_BOARD
+        SET BO_MEMBER = BO_MEMBER + 1 , BO_JOIN = BO_JOIN||'#{(String) join.get("Member_Id")}'
+        WHERE BO_NUMBER = #{(Integer) join.get("bo_number")}
+     </update>
+     
+     그룹 탈퇴  update [테이블명] set [컬럼명] = replace([컬럼명],’기존데이터’,’바꿀데이터’)
+     <update id = "memberUnjoin" parameterType = "_int" >
+        UPDATE STUDYROOM_BOARD
+        SET BO_MEMBER = BO_MEMBER - 1 , 
+        REPLACE([BO_JOIN],'#{(String) join.get("Member_Id")}',"")
+        WHERE BO_NUMBER = #{(Integer) join.get("bo_number")}
+     </update> -->
      
      <!-- 댓글 -->
      
@@ -86,11 +101,11 @@
      <!-- 댓글 입력 -->
      <insert id = "insertReply" parameterType = "Reply" >
         INSERT INTO STUDYROOM_REPLY
-        VALUES(RNO_SEQ.NEXTVAL , #{rContent} , #{refBid} , #{rWriter} , SYSDATE, SYSDATE,DEFAULT )
+        VALUES(SEQ_RID.NEXTVAL , #{rContent} , #{refBid} , #{rWriter} , SYSDATE, SYSDATE, DEFAULT )
      </insert>
      
      <!-- 댓글 삭제 -->
-     <update id = "deleteReplyBoard" parameterType = "_int">
+     <update id = "deleteReply" parameterType = "_int">
         UPDATE STUDYROOM_REPLY
         SET R_STATUS = 'N'
         WHERE REF_BID = #{refBid}

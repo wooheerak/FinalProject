@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="bsMapper">
+
+	<resultMap type="BookReg" id="brResultSet">
+		<id  property="brBnumber" column="br_BNUMBER"/>
+		<result property="brStudentId" column="br_STUDENT_ID"/>
+		<result property="brName" column="br_NAME"/>
+		<result property="brCategory" column="br_CATEGORY"/>
+		<result property="brWriter" column="br_WRITER"/>
+		<result property="brPublisher" column="br_PUBLISHER"/>
+		<result property="brIssueDate" column="br_ISSUE_DATE"/>	
+		<result property="brCount" column="br_COUNT"/>		
+		<result property="brISBN" column="br_ISBN"/>
+		<result property="brCondition" column="br_CONDITION"/>
+		<result property="brComment" column="br_COMMENT"/>
+		<result property="brPrice" column="br_PRICE"/>
+		<result property="brDate" column="br_DATE"/>
+		<result property="brStatus" column="br_STATUS"/>
+		<result property="brOrderStatus" column="br_ORDER_STATUS"/>
+		<result property="originalFileName" column="ORIGINAL_FILENAME"/>
+		<result property="renameFileName" column="RENAME_FILENAME"/>
+		<result property="brMemberName" column="MEMBER_NAME"/>
+	</resultMap>
+	
+	<!-- 중고서적 리스트 -->
+	<select id="selectList" resultMap="brResultSet">
+		SELECT *
+		FROM BOOK_REG
+		WHERE br_STATUS = 'N'
+		ORDER BY br_BNUMBER DESC
+	</select>
+	
+	<!-- 중고서적 디테일 -->
+  	<select id = "selectBs" parameterType = "_int" resultMap = "brResultSet">
+        SELECT BR_BNUMBER, MEMBER_NAME, BR_NAME, BR_CATEGORY, BR_WRITER, BR_PUBLISHER, BR_ISSUE_DATE, BR_COUNT, BR_ISBN, BR_CONDITION, BR_COMMENT, BR_PRICE, BR_REG_DATE, BR_STATUS, BS_ORDER_STATUS, ORIGINAL_FILENAME, RENAME_FILENAME
+		FROM BOOK_REG
+		INNER JOIN MEMBER
+		ON BOOK_REG.BR_STUDENT_ID = member.member_id
+        WHERE br_BNUMBER = #{brBnumber} AND br_STATUS = 'N'
+    </select>
+ 	
+ 	<!-- 중고서적 조회수 -->
+    <update id="addReadCount" parameterType = "_int">
+        UPDATE BOOK_REG
+        SET br_COUNT = br_COUNT + 1
+        WHERE br_BNUMBER = #{br_BNUMBER}
+    </update>
+    
+    <!-- 중고서적 작성 -->
+    <insert id="insertBs" parameterType="BookReg">
+    	INSERT INTO BOOK_REG
+    	VALUES (SEQ_br_BNUMBER.NEXTVAL, #{brStudentId}, #{brName}, #{brCategory}, #{brWriter}, #{brPublisher}, #{brIssueDate}, #{brCount}, #{brISBN}, #{brCondition}, #{brComment},
+    			#{brPrice}, #{brDate}, #{brStatus}, #{brOrderStatus}, #{originalFileName}, #{renameFileName})
+    </insert>
+    
+    
+</mapper>

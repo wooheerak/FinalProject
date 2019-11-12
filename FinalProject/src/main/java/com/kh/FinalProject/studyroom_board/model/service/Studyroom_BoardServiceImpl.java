@@ -1,6 +1,7 @@
 package com.kh.FinalProject.studyroom_board.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 	@Override
 	public int updateBoard(Board b) {
 		
-		return sbDAO.updateBoard(sqlSession, b);
+		return sbDAO.updateBoard(sqlSession, b);		
 	}
 
 	// 게시글 삭제
@@ -60,11 +61,39 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 		return sbDAO.deleteBoard(sqlSession, bo_number);
 	}
 
+
+	// 그룹 참여
+	@Override
+	public int memberJoin(Map<String, Object> join) {
+	
+		return sbDAO.memberJoin(sqlSession, join);
+	
+	}
+	
+	// 그룹 탈퇴 
+	@Override
+	public int memberUnjoin(Map<String, Object> join) {
+		return sbDAO.memberUnjoin(sqlSession, join);
+	}
+	
 	// 댓글 리스트
 	@Override
 	public ArrayList<Reply> selectReplyList(int bo_number) {
 		
 		return sbDAO.selectReplyList(sqlSession, bo_number);
+	}
+
+	// 댓글 등록
+	@Override
+	public int insertReply(Reply r) {
+
+		return sbDAO.insertReply(sqlSession, r);
+	}
+	
+	// 댓글 삭제
+	@Override
+	public int deleteReply(int refBid) {
+		return sbDAO.deleteReply(sqlSession, refBid);
 	}
 
 }

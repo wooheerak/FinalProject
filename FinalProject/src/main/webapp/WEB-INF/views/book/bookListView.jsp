@@ -68,7 +68,7 @@
       
    <section class="section" style="padding:0px;">
          <div class="container" id="bookList">
-            <div class="row" style = " margin-left : -160px;">
+            <div class="row" style = " margin-left : -145px;">
             
 			<c:forEach var="b" items="${ list }" varStatus="status" >
 				<input type="hidden" name="bNo" value="${b.bNo }">
@@ -107,8 +107,10 @@
 					[이전] &nbsp;
 				</c:if>
 				<c:if test="${ pi.currentPage > 1 }">
-					<c:url var="before" value="blist.bo">
+					<c:url var="before" value="selectList.bk">
 						<c:param name="page" value="${ pi.currentPage - 1 }"/>
+						<c:param name="search" value="${ search }"/>
+						<c:param name="searchOption" value="${ searchOption }"/>						
 					</c:url>
 					<a href="${ before }">[이전]</a> &nbsp;
 				</c:if>
@@ -120,8 +122,10 @@
 					</c:if>
 					
 					<c:if test="${ p ne pi.currentPage }">
-						<c:url var="pagination" value="blist.bo">
+						<c:url var="pagination" value="selectList.bk">
 							<c:param name="page" value="${ p }"/>
+							<c:param name="search" value="${ search }"/>
+							<c:param name="searchOption" value="${ searchOption }"/>
 						</c:url>
 						<a href="${ pagination }">${ p }</a> &nbsp;
 					</c:if>
@@ -132,8 +136,10 @@
 					[다음]
 				</c:if>
 				<c:if test="${ pi.currentPage < pi.maxPage }">
-					<c:url var="after" value="blist.bo">
+					<c:url var="after" value="selectList.bk">
 						<c:param name="page" value="${ pi.currentPage + 1 }"/>
+						<c:param name="search" value="${ search }"/>
+						<c:param name="searchOption" value="${ searchOption }"/>						
 					</c:url> 
 					<a href="${ after }">[다음]</a>
 				</c:if>

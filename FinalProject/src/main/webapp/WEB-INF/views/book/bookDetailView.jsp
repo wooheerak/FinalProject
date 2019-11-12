@@ -55,7 +55,7 @@
 
 				<div class="col-md-6 col-sm-6 col-xs-12">
 					<div class="case-details" style="width:670px; height:330px;">
-						<h3>${book.bName }
+						<h3>${book.bName }<br>
 							<small>${book.bWriter } / ${book.bPublisher }</small>
 						</h3>
 						<p>카테고리 : ${ book.bMainCTG} <br> 언 어 : ${ book.bLanguage}</p>
@@ -119,7 +119,7 @@
 		</div>
 	</div>
 	
-	<button onclick="location.href='selectList.bk'" class="w3-btn w3-white w3-border" style="border-radius: 10px; margin-left:48%; margin-top:-25%">목록으로</button>
+	<button onclick="backBtn()" class="w3-btn w3-white w3-border" style="border-radius: 10px; margin-left:48%; margin-top:-25%">목록으로</button>
 	<br><br>
 	
 
@@ -127,6 +127,10 @@
 		function reservation(){
 			alert('예약이 완료되었습니다.');
 			location.href="reservationBook.bk";
+		}
+		
+		function backBtn(){
+			window.history.back();
 		}
 	</script>	
 

@@ -45,7 +45,7 @@ public class BookController {
 	@RequestMapping("reservationBook.bk")
 	public String reservationBook() {
 
-		return "bookListView";
+		return "reservationBook.bk";
 	}
 
 	@RequestMapping("selectList.bk")
@@ -85,6 +85,8 @@ public class BookController {
 		if(list != null) {
 			mv.addObject("list",list); 
 			mv.addObject("pi", pi);
+			mv.addObject("search", search);
+			mv.addObject("searchOption", searchOption);
 			mv.setViewName("bookListView"); 
 		} else { 
 			  throw new BoardException("도서 조회에 실패하였습니다");

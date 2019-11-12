@@ -57,8 +57,9 @@
 			
 			<button onclick="reservation()" class="w3-btn w3-white w3-border" style="border-radius: 10px; margin-left: 46.5%; margin-bottom: 50px;">
 			목록으로</button>
-			<br>
+			<br><br><br><br><br>
 		</section>
+		<br><br><br><br>
 		
 	</div>
 

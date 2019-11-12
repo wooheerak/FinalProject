@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -136,12 +137,17 @@ public class BoardController {
 	// 그룹 참여
 	@RequestMapping("bJoin.bo")
 	public ModelAndView memberJoin(@RequestParam("bo_number") int bo_number, @RequestParam("bo_member") int bo_member,
-								@RequestParam("bo_maxmember") int bo_maxmember, @RequestParam("member_Id") String Member_Id,
+								@RequestParam("bo_maxmember") int bo_maxmember, @RequestParam("Member_Name") String Member_Name,
+								@RequestParam("Member_Id") String Member_Id,
 							HttpServletRequest request, ModelAndView mv) {
 		
+		System.out.println("1 : " + bo_number);
 		Map<String, Object> join = new HashMap<String, Object>();
-		join.put("bo_number", new Integer("bo_number") );
-		join.put("Member_Id", new String("Member_Id") );
+		join.put("bo_number", bo_number );
+		join.put("Member_Name", Member_Name );
+		join.put("Member_Id", Member_Id );
+		
+		System.out.println("map : " + join);
 		
 		int mem = bo_member;
 		int maxmem = bo_maxmember;
@@ -165,14 +171,16 @@ public class BoardController {
 	
 	// 그룹 탈퇴
 	@RequestMapping("bUnjoin.bo")
-	public ModelAndView memberUnjoin(@RequestParam("bo_number") int bo_number, @RequestParam("member_Id") String Member_Id,
+	public ModelAndView memberUnjoin(@RequestParam("bo_number") int bo_number, @RequestParam("Member_Name") String Member_Name,
 						HttpServletRequest request, ModelAndView mv) {
 		
 		int bNo = bo_number;
 		
 		Map<String, Object> join = new HashMap<String, Object>();
-		join.put("bo_number", new Integer("bo_number") );
-		join.put("Member_Id", new String("Member_Id") );
+		join.put("bo_number",bo_number);
+		join.put("Member_Name",Member_Name);
+		
+		System.out.println("con : " + join);
 		
 		int result = sbService.memberUnjoin(join);
 			
@@ -189,19 +197,23 @@ public class BoardController {
 	
 	// 댓글 리스트
 	@RequestMapping("rList.bo")
+	@ResponseBody
 	public void getReplyList(HttpServletResponse response, int bo_number) throws JsonIOException, IOException {
+		
 		ArrayList<Reply> list = sbService.selectReplyList(bo_number);
 		
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		if(list != null) {
-		
+			
 			for(Reply r : list) {
 				r.setrContent(URLEncoder.encode(r.getrContent(), "utf-8"));
-				}
-			}else{
-				gson.toJson(list, response.getWriter());
+			}
+			
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			gson.toJson(list, response.getWriter());
+		}else {
+			System.out.println("댓글 없음");
 		}
-		
+
 	}
 	
 	// 댓글 입력

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>중고서적 판매</title>
+<title>중고서적</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet"
@@ -72,7 +72,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 text-center">
-					<h2>중고서적 판매</h2>
+					<h2>중고서적</h2>
 				</div>
 				<!-- end col -->
 			</div>
@@ -96,6 +96,7 @@
 						<th>No.</th>
 						<th>이미지</th>
 						<th>정보</th>
+						<th>조회수</th>
 					</tr>
 				</thead>
 
@@ -103,20 +104,28 @@
 
 					<c:forEach var="br" items="${ list }">
 
-						<tr>
+						<tr onclick="document.location = 'bsdetail.bs;">
 							<td>${ br.brBnumber }</td>
 							<td>
-							${ br.brStudentId }
-							${ br.brBnumber }
-							${ br.brBnumber }</td>
-						</tr>
-												<tr>
-							<td>${ br.brBnumber }</td>
+								<c:url var="bsdetail" value="bsdetail.bs">
+									<c:param name="brBnumber" value="${ br.brBnumber }"/>
+								</c:url>
+								<a href="${ bsdetail }">${ br.originalFileName }a</a>
+							
+								
+							</td>
 							<td>
-							${ br.brStudentId }
-							${ br.brBnumber }
-							${ br.brBnumber }</td>
+								<div>
+									<p>카테고리: ${ br.brCategory }</p>
+									<p>책제목: ${ br.brName }</p>
+									<p>가 격: ${ br.brPrice } 원</p>
+								</div>	
+							</td>
+							<td>
+								${ br.brCount }
+							</td>
 						</tr>
+
 					</c:forEach>
 				</tbody>
 			</table>

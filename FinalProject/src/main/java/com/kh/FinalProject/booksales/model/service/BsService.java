@@ -9,6 +9,10 @@ public interface BsService {
 
 	ArrayList<BookReg> selectList();
 
+	BookReg selectBs(int brBnumber);
+
+	int inserBs(BookReg br);
+
 	
 
 

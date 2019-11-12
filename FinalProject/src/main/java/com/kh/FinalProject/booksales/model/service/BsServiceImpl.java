@@ -23,4 +23,25 @@ public class BsServiceImpl implements BsService{
 		return bsDAO.selectList(sqlSession);
 	}
 	
+	// 중고서적 디테일 보기
+	public BookReg selectBs(int brBnumber) {
+		BookReg br = null;
+		
+		int result = bsDAO.addReadCount(sqlSession, brBnumber);
+		
+		if(result > 0) {
+			br = bsDAO.selectBs(sqlSession, brBnumber);
+		}
+		
+		return br;
+	}
+
+	// 중고서적 등록
+	public int inserBs(BookReg br) {
+		return bsDAO.insertBs(sqlSession, br);
+	}
+
+
+
+	
 }

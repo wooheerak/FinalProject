@@ -11,7 +11,7 @@ public class BookReg {
 	private String brWriter;
 	private String brPublisher;
 	private Date brIssueDate;
-	private int brPage;
+	private int brCount;
 	private String brISBN;
 	private String brCondition;
 	private String brComment;
@@ -19,12 +19,16 @@ public class BookReg {
 	private Date brRegDate;
 	private String brStatus;
 	private String brOrderStatus;
+	private String brMemberName;
+	private String originalFileName;
+	private String renameFileName;
 		
 	public BookReg() {}
 
 	public BookReg(String brBnumber, String brStudentId, String brName, String brCategory, String brWriter,
-			String brPublisher, Date brIssueDate, int brPage, String brISBN, String brCondition, String brComment,
-			int brPrice, Date brRegDate, String brStatus, String brOrderStatus) {
+			String brPublisher, Date brIssueDate, int brCount, String brISBN, String brCondition, String brComment,
+			int brPrice, Date brRegDate, String brStatus, String brOrderStatus, String brMemberName,
+			String originalFileName, String renameFileName) {
 		super();
 		this.brBnumber = brBnumber;
 		this.brStudentId = brStudentId;
@@ -33,7 +37,7 @@ public class BookReg {
 		this.brWriter = brWriter;
 		this.brPublisher = brPublisher;
 		this.brIssueDate = brIssueDate;
-		this.brPage = brPage;
+		this.brCount = brCount;
 		this.brISBN = brISBN;
 		this.brCondition = brCondition;
 		this.brComment = brComment;
@@ -41,6 +45,9 @@ public class BookReg {
 		this.brRegDate = brRegDate;
 		this.brStatus = brStatus;
 		this.brOrderStatus = brOrderStatus;
+		this.brMemberName = brMemberName;
+		this.originalFileName = originalFileName;
+		this.renameFileName = renameFileName;
 	}
 
 	public String getBrBnumber() {
@@ -99,12 +106,12 @@ public class BookReg {
 		this.brIssueDate = brIssueDate;
 	}
 
-	public int getBrPage() {
-		return brPage;
+	public int getBrCount() {
+		return brCount;
 	}
 
-	public void setBrPage(int brPage) {
-		this.brPage = brPage;
+	public void setBrCount(int brCount) {
+		this.brCount = brCount;
 	}
 
 	public String getBrISBN() {
@@ -163,15 +170,39 @@ public class BookReg {
 		this.brOrderStatus = brOrderStatus;
 	}
 
+	public String getBrMemberName() {
+		return brMemberName;
+	}
+
+	public void setBrMemberName(String brMemberName) {
+		this.brMemberName = brMemberName;
+	}
+
+	public String getOriginalFileName() {
+		return originalFileName;
+	}
+
+	public void setOriginalFileName(String originalFileName) {
+		this.originalFileName = originalFileName;
+	}
+
+	public String getRenameFileName() {
+		return renameFileName;
+	}
+
+	public void setRenameFileName(String renameFileName) {
+		this.renameFileName = renameFileName;
+	}
+
 	@Override
 	public String toString() {
 		return "BookReg [brBnumber=" + brBnumber + ", brStudentId=" + brStudentId + ", brName=" + brName
 				+ ", brCategory=" + brCategory + ", brWriter=" + brWriter + ", brPublisher=" + brPublisher
-				+ ", brIssueDate=" + brIssueDate + ", brPage=" + brPage + ", brISBN=" + brISBN + ", brCondition="
+				+ ", brIssueDate=" + brIssueDate + ", brCount=" + brCount + ", brISBN=" + brISBN + ", brCondition="
 				+ brCondition + ", brComment=" + brComment + ", brPrice=" + brPrice + ", brRegDate=" + brRegDate
-				+ ", brStatus=" + brStatus + ", brOrderStatus=" + brOrderStatus + "]";
+				+ ", brStatus=" + brStatus + ", brOrderStatus=" + brOrderStatus + ", brMemberName=" + brMemberName
+				+ ", originalFileName=" + originalFileName + ", renameFileName=" + renameFileName + "]";
 	}
 
-	
-	
+
 }

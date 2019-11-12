@@ -138,12 +138,14 @@ public class BoardController {
 	@RequestMapping("bJoin.bo")
 	public ModelAndView memberJoin(@RequestParam("bo_number") int bo_number, @RequestParam("bo_member") int bo_member,
 								@RequestParam("bo_maxmember") int bo_maxmember, @RequestParam("Member_Name") String Member_Name,
+								@RequestParam("Member_Id") String Member_Id,
 							HttpServletRequest request, ModelAndView mv) {
 		
 		System.out.println("1 : " + bo_number);
 		Map<String, Object> join = new HashMap<String, Object>();
 		join.put("bo_number", bo_number );
 		join.put("Member_Name", Member_Name );
+		join.put("Member_Id", Member_Id );
 		
 		System.out.println("map : " + join);
 		
@@ -175,8 +177,10 @@ public class BoardController {
 		int bNo = bo_number;
 		
 		Map<String, Object> join = new HashMap<String, Object>();
-		join.put("bo_number","bo_number");
-		join.put("Member_Name","Member_Name");
+		join.put("bo_number",bo_number);
+		join.put("Member_Name",Member_Name);
+		
+		System.out.println("con : " + join);
 		
 		int result = sbService.memberUnjoin(join);
 			

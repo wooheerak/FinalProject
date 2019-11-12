@@ -15,4 +15,8 @@ public interface BookService {
 
 	Book selectBook(int bNo);
 
+	int selectAllCount(String bISBN);
+
+	int selectYCount(String bISBN);
+
 }

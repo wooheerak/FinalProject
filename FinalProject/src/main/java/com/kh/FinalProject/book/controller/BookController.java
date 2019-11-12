@@ -45,7 +45,7 @@ public class BookController {
 	@RequestMapping("reservationBook.bk")
 	public String reservationBook() {
 
-		return "reservationBook.bk";
+		return "reservationBookView";
 	}
 
 	@RequestMapping("selectList.bk")
@@ -69,8 +69,6 @@ public class BookController {
 
 		int listCount = bService.getListCount(map);
 		
-		System.out.println("listCount : " + listCount);
-		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		  
 		Map<String,Object> searchMap = new HashMap<>(); 
@@ -80,7 +78,6 @@ public class BookController {
 		  
 		  
 		ArrayList<Book> list = bService.selectList(searchMap); 
-		System.out.println("데려온놈 : "+list);
 		  
 		if(list != null) {
 			mv.addObject("list",list); 
@@ -98,15 +95,22 @@ public class BookController {
 	
 	@RequestMapping("bookdetail.bk")
 	public ModelAndView boardDetail(@RequestParam("bNo") int bNo,
-								@RequestParam("page") int page,
-								ModelAndView mv) {
+									@RequestParam("page") int page,
+									ModelAndView mv) {
 		
 		Book book = bService.selectBook(bNo);
 		
+		String bISBN = book.getbISBN();
+		
+		int bCount = bService.selectAllCount(bISBN);
+		
+		int bYCount = bService.selectYCount(bISBN);
+		
 		if(book != null) {
-			//	board, page --> boardDetailView
 			mv.addObject("book", book)
 			.addObject("page", page)
+			.addObject("allCount", bCount)
+			.addObject("yCount", bYCount)
 			.setViewName("bookDetailView");
 		} else {
 			throw new BoardException("상세 게시글 불러오기 실패");

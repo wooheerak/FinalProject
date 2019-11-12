@@ -14,13 +14,10 @@ import com.kh.FinalProject.book.model.vo.PageInfo;
 public class BookDao {	
 
 	public int selectCount(SqlSessionTemplate sqlSession, Map<String, String> map) {
-		System.out.println("map : " + map);
 		return sqlSession.selectOne("bookMapper.selectCount",map);
 	}
 
 	public ArrayList<Book> selectList(SqlSessionTemplate sqlSession, Map<String, Object> searchMap) {
-		System.out.println("DAO : " + searchMap);
-		
 		PageInfo pi = (PageInfo)searchMap.get("pi");
 		
 		int offset = (pi.getCurrentPage() -1) * pi.getBookLimit();
@@ -32,6 +29,14 @@ public class BookDao {
 	public Book selectBook(SqlSessionTemplate sqlSession, int bNo) {
 		
 		return sqlSession.selectOne("bookMapper.selectBook", bNo);
+	}
+
+	public int selectAllCount(SqlSessionTemplate sqlSession, String bISBN) {
+		return sqlSession.selectOne("bookMapper.selectAllCount", bISBN);
+	}
+
+	public int selectYCount(SqlSessionTemplate sqlSession, String bISBN) {
+		return sqlSession.selectOne("bookMapper.selectYCount", bISBN);
 	}
 	
 	

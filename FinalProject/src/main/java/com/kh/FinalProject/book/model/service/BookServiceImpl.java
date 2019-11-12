@@ -40,6 +40,18 @@ public class BookServiceImpl implements BookService{
 		return bDao.selectBook(sqlSession, bNo);
 	}
 
+
+	@Override
+	public int selectAllCount(String bISBN) {
+		return bDao.selectAllCount(sqlSession, bISBN);
+	}
+
+
+	@Override
+	public int selectYCount(String bISBN) {
+		return bDao.selectYCount(sqlSession, bISBN);
+	}
+
 	
 	
 }

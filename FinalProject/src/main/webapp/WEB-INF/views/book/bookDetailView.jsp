@@ -17,14 +17,10 @@
 			<div class="row">
 				<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
 					<h2>도서 검색</h2>
-				</div>
-				<!-- end col -->
-			</div>
-			<!-- end row -->
-		</div>
-		<!-- end container -->
-	</section>
-	<!-- end section -->
+				</div><!-- end col -->
+			</div><!-- end row -->
+		</div><!-- end container -->
+	</section><!-- end section -->
 
 	<section class="section" style="padding-top: 10px;">
 		<div class="col-md-2" style="margin-left: 135px; border-radius: 30px;">
@@ -62,16 +58,11 @@
 						<p>발행 일자 : ${ book.bIssueDate}</p>
 						<a onclick="document.getElementById('id01').style.display='block'" class="btn btn-transparent btn-lg cancel">
 						<i class="fa fa-book"></i>예약하기</a>
-					</div>
-					<!-- end details -->
-				</div>
-				<!-- end col -->
-			</div>
-			<!-- end row -->
-		</div>
-		<!-- end container -->
-	</section>
-	<!-- end section -->
+					</div><!-- end details -->
+				</div><!-- end col -->
+			</div><!-- end row -->
+		</div><!-- end container -->
+	</section><!-- end section -->
 
 	<div class="myTalbles" style="background-color: white;">
 		<table class="myTable" style="border:1px solid black; width:50%; margin-left: 450px;">
@@ -89,10 +80,17 @@
 				<tr>
 					<td>Studyhub.lib</td>
 					<td>종합 자료실</td>
-					<td>EAS0028167433</td>
-					<td>ㄱ192.28.11</td>
-					<td>4 / 5</td>
-					<td>예약 가능</td>
+					<td>${book.bNo }</td>
+					<td>${book.bLocation }</td>
+					<td>${yCount} / ${allCount }</td>
+					<td>
+						<c:if test="${yCount == 0 }">
+							예약 불가능
+						</c:if>
+						<c:if test="${yCount <= allCount }">
+							예약 가능
+						</c:if>						
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -125,6 +123,7 @@
 
 	<script>
 		function reservation(){
+			if()
 			alert('예약이 완료되었습니다.');
 			location.href="reservationBook.bk";
 		}

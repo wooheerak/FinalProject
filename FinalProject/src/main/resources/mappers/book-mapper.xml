@@ -64,5 +64,16 @@
 		from book
 		where (b_status='Y' or b_status= 'R') and b_no = #{bNo}
 	</select>
+	
+	<select id="selectYCount" parameterType="string" resultType="_int">
+		select count(*)
+		from book
+		where b_status='Y' and b_isbn = #{bISBN}
+	</select>
  	
+ 	<select id="selectAllCount" parameterType="string" resultType="_int">
+		select count(*)
+		from book
+		where b_isbn= #{bISBN}
+ 	</select>
 </mapper>

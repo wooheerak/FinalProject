@@ -153,7 +153,9 @@ th{
 			<c:if test="${ !empty sessionScope.loginUser }">
 				<c:if test="${ board.bo_member < board.bo_maxmember}">
 					<c:if test="${ loginUser.member_Name != board.bo_name }">
-						<c:if test="${ loginUser.member_Name != board.bo_join }">
+						<%-- <c:forEach items="${fn:split(board.bo_join,'/') }" var="name"> --%>
+						<c:if test="${ fn:contains() }"></c:if>
+					  		<c:if test="${ loginUser.member_Name != name }">
 							<br>
 							<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join">참여</button>
 							<script type="text/javascript">
@@ -184,43 +186,42 @@ th{
 							});  
 							
 							</script>
-						</c:if>
+							</c:if>
+						<%-- </c:forEach> --%>
+						<c:forEach items="${fn:split(board.bo_join,'/') }" var="name">
+						  	<c:if test="${ loginUser.member_Name == name }">
+							<br>
+							<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="cancel">탈퇴</button>
+							<script type="text/javascript">
+								$('#cancel').click(function(){
+									Swal.fire({
+										width: 600,
+										padding: 100,
+									  title: '탈퇴 하시겠습니까?',
+									  text: "다시한번 확인해주세요",
+									  icon: 'warning',
+									  showCancelButton: true,
+									  confirmButtonColor: '#3085d6',
+									  cancelButtonColor: '#d33',
+									  cancelButtonText: '취소',
+									  confirmButtonText: '탈퇴할래요!!',
+									}).then((result) => {
+										if (result.value) {
+										    location.href='${ bUnjoin }'
+									    	 swalWithBootstrapButtons.fire(
+									    		      '탈퇴 되었습니다',
+									    		      '탈퇴 완료.',
+									    		      'success'
+									    		    )
+										  } else {
+										  }
+									  
+									})
+								});
+								</script>
+							</c:if>
+						</c:forEach>
 					</c:if>
-					<br>
-					
-					<c:forEach items="${fn:split(board.bo_join,'/') }" var="name">
-					  	<c:if test="${ loginUser.member_Name == name }">
-					  	
-						<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="cancel">탈퇴</button>
-						<script type="text/javascript">
-							$('#cancel').click(function(){
-								Swal.fire({
-									width: 600,
-									padding: 100,
-								  title: '탈퇴 하시겠습니까?',
-								  text: "다시한번 확인해주세요",
-								  icon: 'warning',
-								  showCancelButton: true,
-								  confirmButtonColor: '#3085d6',
-								  cancelButtonColor: '#d33',
-								  cancelButtonText: '취소',
-								  confirmButtonText: '탈퇴할래요!!',
-								}).then((result) => {
-									if (result.value) {
-									    location.href='${ bUnjoin }'
-								    	 swalWithBootstrapButtons.fire(
-								    		      '탈퇴 되었습니다',
-								    		      '탈퇴 완료.',
-								    		      'success'
-								    		    )
-									  } else {
-									  }
-								  
-								})
-							});
-							</script>
-						</c:if>
-					</c:forEach>
 				</c:if>
 				<c:if test="${ board.bo_member == board.bo_maxmember}">
 				</c:if>

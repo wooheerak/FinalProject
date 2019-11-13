@@ -54,8 +54,9 @@ table th {
 						<div class="text-right col-md-3">조회수: ${ bs.brCount }</div>
 					</div>
 					<hr>
-					<div class="col-md-3 text-center">
-						<img alt="" src="resources/sale_books/수치해석.PNG">
+					
+					<div class="col-md-3 text-center ebook-details row">
+						<img alt="" src="resources/bsuploadFiles/${ bs.renameFileName }" style="width: 120px; height: 170;">
 					</div>
 					<div class="col-md-9">
 						<div style="display: flex;">
@@ -82,7 +83,7 @@ table th {
 						<div style="display: flex;">
 							<div>
 								<b>가격</b>&nbsp;
-								<p>${ bs.brPrice }</p>
+								<p>${ bs.brPrice } 원</p>
 							</div>
 							<div style="margin-left: 140px; margin-top: 20px;">
 								<b>품질등급</b>
@@ -111,6 +112,10 @@ table th {
 					<div class="text-center">
 						<!-- Large modal -->
 						<a href="bslist.bs" class="btn btn-transparent">목록</a>
+						<c:url var="bsupView" value="bsupView.bs">
+					       <c:param name="brBnumber" value = "${ bs.brBnumber }"/>
+					    </c:url>
+						<a href="${ bsupView }" class="btn btn-transparent">수정</a>
 						<button type="button" class="btn btn-transparent"
 							style="background-color: white;" data-toggle="modal"
 							data-target=".bd-example-modal-lg">구매하기</button>

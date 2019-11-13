@@ -24,7 +24,7 @@ jQuery(function($) {
 		// 정보 표시 숨기기
 		"info" : true,
 
-		  // 정렬
+		// 정렬
         "order": [],
         
 		// 페이지 넘기는 방식
@@ -100,11 +100,12 @@ jQuery(function($) {
 
 					<c:forEach var="br" items="${ list }">
 
-						<tr>
+						<tr style="height: 200px;">
 							<td>${ br.brBnumber }</td>
-							<td><c:url var="bsdetail" value="bsdetail.bs">
+							<td>
+								<c:url var="bsdetail" value="bsdetail.bs">
 									<c:param name="brBnumber" value="${ br.brBnumber }" />
-								</c:url> <a href="${ bsdetail }">${ br.originalFileName }a</a></td>
+								</c:url> <a href="${ bsdetail }"><img src="resources/bsuploadFiles/${ br.renameFileName }" style="width: 120px; height: 170;"></a></td>
 							<td>
 								<div>
 									<p>카테고리: ${ br.brCategory }</p>

@@ -80,7 +80,7 @@
 				<tr>
 					<td>Studyhub.lib</td>
 					<td>종합 자료실</td>
-					<td>${book.bNo }</td>
+					<td name="bookNo">${book.bNo }</td>
 					<td>${book.bLocation }</td>
 					<td>${yCount} / ${allCount }</td>
 					<td>
@@ -94,10 +94,9 @@
 				</tr>
 			</tbody>
 		</table>
-		<br><br><br><br><br><br>
-		<br><br><br><br><br><br>
+	
 	</div>
-
+	<div style="background-color: white; width:100%; height:200px"></div>
 	<div id="id01" class="w3-modal">
 		<div class="w3-modal-content" style="width: 400px; height: 300px;">
 			<div class="w3-container"
@@ -116,16 +115,23 @@
 			</div>
 		</div>
 	</div>
+	<div style="background-color: white;">
+	<button onclick="history.back();" class="w3-btn w3-white w3-border" style="border-radius: 10px; margin-left:48%; background-color: white;">목록으로</button>
+	</div>
+	<div style="background-color: white; width:100%; height:200px"></div>
 	
-	<button onclick="backBtn()" class="w3-btn w3-white w3-border" style="border-radius: 10px; margin-left:48%; margin-top:-25%">목록으로</button>
-	<br><br>
-	
-
+	<input id="yCount" type="hidden" value="${yCount }"/>
+	<input id="allCount" type="hidden" value="${allCount }"/>
+	<input name="bookWriter" type="hidden" value="${book.bWriter }"/>
 	<script>
 		function reservation(){
-			if()
-			alert('예약이 완료되었습니다.');
-			location.href="reservationBook.bk";
+			var yCount = document.getElementById(yCount);
+			if(yCount == 0){
+				alert('예약 가능한 도서가 없습니다.');
+			} else{
+				alert('예약이 완료되었습니다.');
+				location.href="reservationBook.bk";
+			}
 		}
 		
 		function backBtn(){

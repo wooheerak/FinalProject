@@ -6,15 +6,19 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.FinalProject.book.model.exception.BookException;
 import com.kh.FinalProject.book.model.service.BookService;
 import com.kh.FinalProject.book.model.vo.Book;
+import com.kh.FinalProject.book.model.vo.BookReservation;
 import com.kh.FinalProject.book.model.vo.PageInfo;
 import com.kh.FinalProject.common.Pagination;
 import com.kh.FinalProject.studyroom_board.model.exception.BoardException;
+import com.kh.FinalProject.user.model.vo.User;
 
 @Controller
 public class BookController {
@@ -40,12 +44,38 @@ public class BookController {
 	public String requestBook() {
 		return "requestBookView";
 	}
+	
+	@RequestMapping("reservationBookView.bk")
+	public ModelAndView reservationBookView(ModelAndView mv,
+											@ModelAttribute User user) {
+		
+		String userId = user.getMember_Id();
+		ArrayList<BookReservation> list = bService.selectReservationBookList(userId);
+		
+		mv.addObject("list", list);
+		mv.setViewName("reservation");
+		
+		return mv;
+	}
 
 //	location.href='이동주소';
 	@RequestMapping("reservationBook.bk")
-	public String reservationBook() {
-
-		return "reservationBookView";
+	public String reservationBook(@RequestParam("bookNo") int bookNo,
+									@RequestParam("bookWriter") String bookWriter,
+									@ModelAttribute User user
+										) {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("bookNo", bookNo);
+		map.put("bookWriter", bookWriter);
+		map.put("userId", user.getMember_Id());
+		
+		int insertresult = bService.insertRv(map);
+		if(insertresult > 0) {
+			return "redirect: reservationBookView.bk";
+		} else {
+			throw new BookException("도서 예약 실패");
+		}
 	}
 
 	@RequestMapping("selectList.bk")
@@ -112,8 +142,6 @@ public class BookController {
 			.addObject("allCount", bCount)
 			.addObject("yCount", bYCount)
 			.setViewName("bookDetailView");
-		} else {
-			throw new BoardException("상세 게시글 불러오기 실패");
 		}
 		
 		return mv;

@@ -95,50 +95,26 @@
                     <table class="table table-striped table-hover" style = "text-align: center;">
                         <thead >
                             <tr>
-                                <th style = "text-align: center;">번호</th>
-                                <th style = "text-align: center;">이용 내역</th>
-                                <th style = "text-align: center;">처리상태</th>
-                                <th style = "text-align: center;">날짜</th>
-                                <th style = "text-align: center;"></th>
-                               
+                                <th style = "text-align: center;">도서 제목</th>
+                                <th style = "text-align: center;">작 가</th>
+                                <th style = "text-align: center;">예약 날짜</th>
+                                <th style = "text-align: center;">만료 날짜</th>
+                                <th style = "text-align: center;">대출 상황</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
+                        <c:forEach var="r" items="list">
+	                        <tr>
+                                <td>${r. }</td>
                                 <td>A열람실&nbsp;&nbsp;&nbsp;[73번]</td>
                                 <td>예약인증 전</td>
                                 <td>2019-10-30</td>
                                 <td><button class = "btn cancelRev" >예약 취소</button></td>
                                 
-                            </tr>
+                            </tr>                        
+                        </c:forEach>
 
-                            <tr>
-                                <td>2</td>
-                                <td>B열람실&nbsp;&nbsp;&nbsp;[34번]</td>
-                                <td>만료</td>
-                                <td>2019-10-29</td>
-                                <td></td>
-                               
-                            </tr>
 
-                            <tr>
-                                <td>3</td>
-                                <td>C열람실&nbsp;&nbsp;&nbsp;[12번]</td>
-                                <td>만료</td>
-                                <td>2019-10-27</td>
-                                <td></td>
-                               
-                            </tr>
-
-                            <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
 
                         </tbody>
                     </table>

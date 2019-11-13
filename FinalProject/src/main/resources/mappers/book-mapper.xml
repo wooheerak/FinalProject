@@ -76,4 +76,22 @@
 		from book
 		where b_isbn= #{bISBN}
  	</select>
+ 	
+ 	<insert id="insertBv" parameterType="map">
+ 		insert into book_reservation values (SEQ_BVNO.NEXTVAL, bookNo, userId, sysdate, sysdate +1, default)
+ 	</insert>
+ 	
+ 	<update id="updateBS" parameterType="map">
+ 		update book
+ 		set b_status = 'R'
+ 		where b_no = #{bookNo}
+ 	</update>
+ 	
+ 	<select id="selectReservationBookList" parameterType="string">
+ 		select *
+ 		from BOOK_RESERVATION
+ 		where USER_ID = #{userId}
+ 	</select>
+ 	
+ 	
 </mapper>

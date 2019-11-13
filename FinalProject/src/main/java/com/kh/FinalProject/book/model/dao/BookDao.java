@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.FinalProject.book.model.vo.Book;
+import com.kh.FinalProject.book.model.vo.BookReservation;
 import com.kh.FinalProject.book.model.vo.PageInfo;
 
 @Repository("bDao")
@@ -37,6 +38,19 @@ public class BookDao {
 
 	public int selectYCount(SqlSessionTemplate sqlSession, String bISBN) {
 		return sqlSession.selectOne("bookMapper.selectYCount", bISBN);
+	}
+
+	public int insertBv(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		
+		return sqlSession.insert("bookMapper.insertBv", map);
+	}
+
+	public int updateBookStatus(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("bookMapper.updateBS", map);
+	}
+
+	public ArrayList<BookReservation> selectReservationBookList(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("bookMapper.selectReservationBookList", userId);
 	}
 	
 	

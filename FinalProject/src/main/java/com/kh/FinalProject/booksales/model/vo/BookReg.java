@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class BookReg {
 
-	private String brBnumber;
+	private int brBnumber;
 	private String brStudentId;
 	private String brName;
 	private String brCategory;
@@ -17,6 +17,7 @@ public class BookReg {
 	private String brComment;
 	private int brPrice;
 	private Date brRegDate;
+	private Date brModDate;
 	private String brStatus;
 	private String brOrderStatus;
 	private String brMemberName;
@@ -25,9 +26,9 @@ public class BookReg {
 		
 	public BookReg() {}
 
-	public BookReg(String brBnumber, String brStudentId, String brName, String brCategory, String brWriter,
+	public BookReg(int brBnumber, String brStudentId, String brName, String brCategory, String brWriter,
 			String brPublisher, Date brIssueDate, int brCount, String brISBN, String brCondition, String brComment,
-			int brPrice, Date brRegDate, String brStatus, String brOrderStatus, String brMemberName,
+			int brPrice, Date brRegDate, Date brModDate, String brStatus, String brOrderStatus, String brMemberName,
 			String originalFileName, String renameFileName) {
 		super();
 		this.brBnumber = brBnumber;
@@ -43,6 +44,7 @@ public class BookReg {
 		this.brComment = brComment;
 		this.brPrice = brPrice;
 		this.brRegDate = brRegDate;
+		this.brModDate = brModDate;
 		this.brStatus = brStatus;
 		this.brOrderStatus = brOrderStatus;
 		this.brMemberName = brMemberName;
@@ -50,11 +52,11 @@ public class BookReg {
 		this.renameFileName = renameFileName;
 	}
 
-	public String getBrBnumber() {
+	public int getBrBnumber() {
 		return brBnumber;
 	}
 
-	public void setBrBnumber(String brBnumber) {
+	public void setBrBnumber(int brBnumber) {
 		this.brBnumber = brBnumber;
 	}
 
@@ -154,6 +156,14 @@ public class BookReg {
 		this.brRegDate = brRegDate;
 	}
 
+	public Date getbrModDate() {
+		return brModDate;
+	}
+
+	public void setbrModDate(Date brModDate) {
+		this.brModDate = brModDate;
+	}
+
 	public String getBrStatus() {
 		return brStatus;
 	}
@@ -200,9 +210,10 @@ public class BookReg {
 				+ ", brCategory=" + brCategory + ", brWriter=" + brWriter + ", brPublisher=" + brPublisher
 				+ ", brIssueDate=" + brIssueDate + ", brCount=" + brCount + ", brISBN=" + brISBN + ", brCondition="
 				+ brCondition + ", brComment=" + brComment + ", brPrice=" + brPrice + ", brRegDate=" + brRegDate
-				+ ", brStatus=" + brStatus + ", brOrderStatus=" + brOrderStatus + ", brMemberName=" + brMemberName
-				+ ", originalFileName=" + originalFileName + ", renameFileName=" + renameFileName + "]";
+				+ ", brModDate=" + brModDate + ", brStatus=" + brStatus + ", brOrderStatus=" + brOrderStatus
+				+ ", brMemberName=" + brMemberName + ", originalFileName=" + originalFileName + ", renameFileName="
+				+ renameFileName + "]";
 	}
 
-
+		
 }

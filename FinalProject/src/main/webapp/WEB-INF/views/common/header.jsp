@@ -83,7 +83,7 @@
 														<li><a href="srDay.sr">스터디룸 조회</a></li>
 		                                                <li><a href="">Pricing & Plans</a></li>
 		                                                <li><a href="">Our Clients</a></li>
-		                                                <li><a href="">Testimonials</a></li>
+		                                                <li><a href="bsinsertView.bs">중고서적 입력</a></li>
 		                                                <li><a href="bslist.bs">중고서적 판매</a></li>
 		                                                <li><a href="bList.bo">스터디룸 게시판</a></li>
 		                                                <li><a href="bInsertView.bo">스터디룸 게시글 쓰기</a></li>

@@ -43,7 +43,7 @@ public class NoticeController {
 
 	}
 	
-	// 게시글 보기
+	// 공지사항 보기
 	@RequestMapping("ndetail.no")
 	public ModelAndView noticeDetail(@RequestParam("nId") int nId, ModelAndView mv) {
 
@@ -66,7 +66,7 @@ public class NoticeController {
 
 	// 공지사항 등록
 	@RequestMapping("ninsert.no")
-	public String noticeInsert(@ModelAttribute Notice n, 
+	public String noticeInert(@ModelAttribute Notice n, 
 							   @RequestParam("uploadFile") MultipartFile uploadFile,
 							   HttpServletRequest request) {
 
@@ -118,7 +118,7 @@ public class NoticeController {
 		return renameFileName;
 	}
 	
-	// 게시글 업데이트
+	// 공지사항 업데이트
 	@RequestMapping("nupView.no")
 	public ModelAndView noticeUpdateView(@RequestParam("nId") int nId, ModelAndView mv) {
 		

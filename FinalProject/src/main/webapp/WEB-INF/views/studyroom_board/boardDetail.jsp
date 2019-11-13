@@ -162,12 +162,14 @@ th{
 							})
 						</script>
 						</c:if>
+						<c:if test="${ !fn:contains(joinmember,loginUser.member_Name) }">
 						<script>
 							$(function() {
 								$('#join').show();
 								$('#cancel').hide();
 							})
 						</script>
+						</c:if>
 							<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join">참여</button>
 							<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="cancel">탈퇴</button>
 							<script type="text/javascript">
@@ -224,11 +226,11 @@ th{
 								})
 							});  
 							</script>
+						</c:if>
+					</c:if>
+					<c:if test="${ board.bo_member == board.bo_maxmember}">
 					</c:if>
 				</c:if>
-				<c:if test="${ board.bo_member == board.bo_maxmember}">
-				</c:if>
-			</c:if>
 			</td>
 		</tr>
 	
@@ -258,41 +260,7 @@ th{
 	
 	<br><br>
 	 <!-- 댓글 -->
-<%-- <div class="container">
-    <br><br>
-    <form id="rList.bo" method="post">
-        <div>
-            <div>
-                <span><strong>Comments</strong></span> 
-                <span id="comment"></span>
-            </div>
-            <div>
-                <table class="table">                    
-                    <tr>
-                        <td>
-                        	<c:if test="${ !empty sessionScope.loginUser }">
-                            <textarea style="width: 1100px" rows="3" cols="30" id="comment" name="rContent" placeholder="댓글을 입력하세요"></textarea>
-                            <br>
-                            <div>
-                                <button id = "rSubmit" class="btn pull-right btn-success">등록</a>
-                            </div>
-                            </c:if>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <input type="hidden" id="bo_number" name="bo_number" value="${board.bo_number }" />        
-    </form>
-</div>
-<div class="container">
-    <form id="commentListForm" method="post">
-        <div id="result">
-        </div>
-    </form>
-</div> --%>
-
-<span><strong>Comments</strong></span> 
+ 	 
 	<c:if test="${ !empty sessionScope.loginUser }">
 		<table class = "replyTable">
 		   <tr>
@@ -300,7 +268,7 @@ th{
 		         <textarea rows = "3" cols = "55" id ="rContent"></textarea>
 		      </td>
 		      <td>
-		         <button id = "rSubmit" class="w3-button w3-round-large w3-light-blue w3-hover-green" >등록하기</button>            
+		         <button id = "rSubmit" class="w3-button w3-round-large w3-light-blue w3-hover-green" >등록하기</button>    
 		      </td>
 		   </tr>
 		</table>
@@ -308,14 +276,16 @@ th{
    <table class = "replyTable" id = "rtb">
       <thead>
          <tr>
-            <td colspan = "2"><b id = "rCount"></b></td>
+            <td colspan = "2"><b id = "rCount"></b>
+            </td>
          </tr>
       </thead>
       <tbody></tbody>
+      
    </table>
 <script>
       $(function(){
-         getReplyList();
+    	 getReplyList();
          
          /* setInterval(function(){
             getReplyList();
@@ -328,34 +298,39 @@ th{
          
          $.ajax({
             url : "rList.bo" ,
-            data : {bo_number : bId } ,
+            data : {bo_number : bId},
             dataType : "json" ,
             success : function(data){
                $tableBody = $("#rtb tbody");
                $tableBody.html("");
                
                var $tr;
-               var $rWriter ;
-               var $rContent ;
-               var $rCreateDate ;
+               var $rWriter;
+               var $rContent;
+               var $rCreateDate;
+               var $rUpbutton;
+               var $rDebutton;
                
-               $("#rCount").text("댓글 (" + data.length + ")");
+               $("#rCount").text("Comment (" + data.length + ")");
                
-               if(data.length >0){
+               if(data.length > 0){
                   for(var i in data){
                      $tr = $("<tr>");
                      $rWriter = $("<td width = '100'>").text(data[i].rWriter);
                      $rContent = $("<td>").text(decodeURIComponent(data[i].rContent.replace(/\+/g , " ")));
                      $rCreateDate = $("<td width = '100'>").text(data[i].rCreateDate);
-                     
+                     $rUpbutton = $('<a href="javascript:void(0)" onclick="fn_editReply(' + data[i].rId + ',\'' + data[i].rContent + '\' )" style="padding-right:5px">수정</a>');
+                     $rDebutton = $("<a href='javascript:void(0)' onclick='fn_deleteReply(" + data[i].rId + ")'>삭제</a>'");
+
                      $tr.append($rWriter);
                      $tr.append($rContent);
                      $tr.append($rCreateDate);
+                     $tr.append($rUpbutton);
+                     $tr.append($rDebutton);
                      $tableBody.append($tr);
                      
                   }
-               }
-               else{
+               }else{
                   $tr = $("<tr>");
                   $rContent = $("<td colspan = '3'>").text("등록된 댓글이 없습니다.");
                   $tr.append($rContent);
@@ -369,7 +344,7 @@ th{
       // 댓글 등록
       $("#rSubmit").on("click" , function(){
           var rContent = $("#rContent").val();
-          var refBid = ${ board.bo_number } ;
+          var refBid = ${ board.bo_number };
           
           $.ajax({
              url : "addReply.bo" ,
@@ -383,8 +358,142 @@ th{
              }
           });
        })
-   </script>
+       
+       // 댓글 삭제
+       function fn_deleteReply(rId){
+		var refBid = {"refBid": rId};
 
+		$.ajax({
+			url: "${rDelete}",
+			data : refBid ,
+			type : 'POST' ,
+			success: function(result){
+				getReplyList();
+			} 
+		});
+	}
+
+
+
+       
+       
+       
+   </script>
+ 
+<%--    <div class="container">
+        <label for="content">comment</label>
+        <form name="commentInsertForm">
+            <div class="input-group">
+               <input type="hidden" name="bno" value="${board.bo_number}"/>
+               <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
+               <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" name="commentInsertBtn">등록</button>
+               </span>
+              </div>
+        </form>
+    </div>
+    
+    <div class="container">
+        <div class="commentList"></div>
+    </div>
+</div>
+
+ <script>
+var bno = '${board.bo_number}'; //게시글 번호
+ 
+$('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시 
+    var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
+    commentInsert(insertData); //Insert 함수호출(아래)
+});
+ 
+//댓글 목록 
+function commentList(){
+    $.ajax({
+        url : 'rList.bo',
+        type : 'post',
+        data : {'bo_number':bno},
+        success : function(data){
+            var a =''; 
+            $.each(data, function(key, value){ 
+                a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+                a += '<div class="commentInfo'+board.rId+'">'+'댓글번호 : '+board.rId+' / 작성자 : '+board.rWriter;
+                a += '<a onclick="commentUpdate('+board.rId+',\''+board.rContent+'\');"> 수정 </a>';
+                a += '<a onclick="commentDelete('+board.rId+');"> 삭제 </a> </div>';
+                a += '<div class="commentContent'+board.rId+'"> <p> 내용 : '+board.rContent +'</p>';
+                a += '</div></div>';
+            });
+            
+            $(".commentList").html(a);
+        }
+    });
+}
+ 
+//댓글 등록
+function commentInsert(insertData){
+    $.ajax({
+        url : '/comment/insert',
+        type : 'post',
+        data : insertData,
+        success : function(data){
+            if(data == 1) {
+                commentList(); //댓글 작성 후 댓글 목록 reload
+                $('[name=content]').val('');
+            }
+        }
+    });
+}
+ 
+//댓글 수정 - 댓글 내용 출력을 input 폼으로 변경 
+function commentUpdate(cno, content){
+    var a ='';
+    
+    a += '<div class="input-group">';
+    a += '<input type="text" class="form-control" name="content_'+cno+'" value="'+content+'"/>';
+    a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+cno+');">수정</button> </span>';
+    a += '</div>';
+    
+    $('.commentContent'+cno).html(a);
+    
+}
+ 
+//댓글 수정
+function commentUpdateProc(cno){
+    var updateContent = $('[name=content_'+cno+']').val();
+    
+    $.ajax({
+        url : '/comment/update',
+        type : 'post',
+        data : {'content' : updateContent, 'cno' : cno},
+        success : function(data){
+            if(data == 1) commentList(bno); //댓글 수정후 목록 출력 
+        }
+    });
+}
+ 
+//댓글 삭제 
+function commentDelete(cno){
+    $.ajax({
+        url : '/comment/delete/'+cno,
+        type : 'post',
+        success : function(data){
+            if(data == 1) commentList(bno); //댓글 삭제후 목록 출력 
+        }
+    });
+}
+ 
+ 
+ 
+ 
+$(document).ready(function(){
+    commentList(); //페이지 로딩시 댓글 목록 출력 
+});
+ 
+ 
+ 
+</script> --%>
+
+
+ 
 	<br><br>
 	
 	<p align="center">

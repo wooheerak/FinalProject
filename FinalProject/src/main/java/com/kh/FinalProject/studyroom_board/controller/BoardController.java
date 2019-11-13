@@ -208,7 +208,7 @@ public class BoardController {
 				r.setrContent(URLEncoder.encode(r.getrContent(), "utf-8"));
 			}
 			
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			Gson gson = new GsonBuilder().setDateFormat("YYYY-MM-DD HH24-MI-SS").create();
 			gson.toJson(list, response.getWriter());
 		}else {
 			System.out.println("댓글 없음");
@@ -235,7 +235,7 @@ public class BoardController {
 	}
 	
 	// 댓글 삭제
-	@RequestMapping("rdelete.bo")
+	@RequestMapping("rDelete.bo")
 	@ResponseBody
 	public String deleteReply(@RequestParam("refBid") int refBid) {
 		

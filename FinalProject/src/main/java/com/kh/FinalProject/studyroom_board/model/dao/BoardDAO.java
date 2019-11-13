@@ -59,7 +59,7 @@ public class BoardDAO {
 	
 	// 댓글 리스트
 	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int bo_number) {
-		return (ArrayList)sqlSession.selectOne("boardMapper.selectReplyList", bo_number);
+		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList", bo_number);
 	}
 
 	// 댓글 등록

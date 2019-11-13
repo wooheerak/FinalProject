@@ -49,7 +49,7 @@
   		SELECT *
 		FROM SEAT_HISTORY SH
 		JOIN STUDYSEAT S ON (SH.SS_NO = S.SS_NO)
-		WHERE SH.STUDENT_ID = #{id}
+		WHERE SH.STUDENT_ID = #{id} AND SH.SH_STATUS IN ('E','R') 
 		ORDER BY USE_DATE DESC
   	</select>
   
@@ -57,4 +57,16 @@
   		INSERT INTO SEAT_HISTORY
   		VALUES(SEQ_SHNO.NEXTVAL, #{ss_no} , SYSDATE , #{student_id} , 'R')
   	</insert>
+  	
+  	<update id = "cancelResv" parameterType="_int">
+  		UPDATE SEAT_HISTORY
+  		SET SH_STATUS = 'N'
+  		WHERE SS_NO = #{cancelId}
+  	</update>
+  	
+  	<update id  = "resetSeat" parameterType = "_int">
+  		UPDATE STUDYSEAT
+		SET SS_USE = 'N' , CERT_CODE = NULL , STUDENT_ID = NULL
+		WHERE SS_NO = #{cancelId}
+  	</update>
 </mapper>

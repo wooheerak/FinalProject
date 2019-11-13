@@ -22,4 +22,8 @@ public interface SeatService {
 
 	int insertHistory(Seat seat);
 
+	int cancelResv(int cancelId);
+
+	int resetSeat(int cancelId);
+
 }

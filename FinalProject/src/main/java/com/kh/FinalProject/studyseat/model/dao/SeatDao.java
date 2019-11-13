@@ -50,4 +50,18 @@ public class SeatDao {
 		return sqlSession.insert("seatMapper.updateHistory" , seat);
 	}
 
+
+
+	public int cancelResv(SqlSessionTemplate sqlSession, int cancelId) {
+		
+		return sqlSession.update("seatMapper.cancelResv" , cancelId);
+	}
+
+
+
+	public int resetSeat(SqlSessionTemplate sqlSession, int cancelId) {
+		
+		return sqlSession.update("seatMapper.resetSeat" , cancelId);
+	}
+
 }

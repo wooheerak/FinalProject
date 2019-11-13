@@ -59,4 +59,18 @@ public class SeatServiceImpl implements SeatService{
 		
 		return sDao.insertHistory(sqlSession , seat);
 	}
+
+
+	@Override
+	public int cancelResv(int cancelId) {
+		
+		return sDao.cancelResv(sqlSession , cancelId);
+	}
+
+
+	@Override
+	public int resetSeat(int cancelId) {
+		
+		return sDao.resetSeat(sqlSession , cancelId);
+	}
 }

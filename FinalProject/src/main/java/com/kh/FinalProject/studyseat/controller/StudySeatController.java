@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.FinalProject.studyseat.model.exception.SeatException;
 import com.kh.FinalProject.studyseat.model.service.SeatService;
 import com.kh.FinalProject.studyseat.model.vo.Seat;
@@ -152,6 +153,61 @@ public class StudySeatController {
 			
 		}
 		
+		@RequestMapping("cancelResv.ss")
+		public void cancelResv(HttpServletRequest request , @RequestParam("cancelId") int cancelId , HttpServletResponse response) throws JsonIOException, IOException {
+			
+			response.setContentType("application/json; charset=UTF-8");
+			
+			HttpSession session = request.getSession();
+			User user = (User)session.getAttribute("loginUser");
+			
+			String id = "";
+			ArrayList<SeatHistory> shList = null;
+			
+			
+			System.out.println("cancelId " + cancelId);
+			
+			int result1 = sService.cancelResv(cancelId);
+			
+			int result = 0;
+			
+			if(result1 > 0) {
+				result = sService.resetSeat(cancelId);
+			}
+			
+			if(result > 0) {
+				if(user != null) {
+					id = user.getMember_Id();
+					shList = sService.selectHistoryList(id);				
+				}				
+			}
+			
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			gson.toJson(shList , response.getWriter());
+			
+			
+		}
+		
+		@RequestMapping("seatListAjax.ss")
+		public void seatListAjax(HttpServletRequest request , HttpServletResponse response) throws JsonIOException, IOException {
+			
+			response.setContentType("application/json; charset=UTF-8");
+			
+			HttpSession session = request.getSession();
+			User user = (User)session.getAttribute("loginUser");
+			
+			String id = "";
+			ArrayList<SeatHistory> shList = null;
+			
+			if(user != null) {
+				id = user.getMember_Id();
+				shList = sService.selectHistoryList(id);				
+			}	
+			
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			gson.toJson(shList , response.getWriter());
+		}
+		
 		@RequestMapping("updateR.ss")
 		public ModelAndView updateResv(ModelAndView mv , @RequestParam("sNo") int sNo , @RequestParam("floor") String floor , HttpServletRequest request) {
 			
@@ -243,10 +299,12 @@ public class StudySeatController {
 			}
 			else {				
 				return "dup";
-			}
-			 
+			} 
 			
 			
 		}
+		
+		
+		
 
 }

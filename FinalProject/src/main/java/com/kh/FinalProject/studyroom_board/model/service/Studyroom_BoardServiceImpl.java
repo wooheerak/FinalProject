@@ -96,5 +96,11 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 		return sbDAO.deleteReply(sqlSession, rId);
 	}
 
+	// 댓글 수정
+	@Override
+	public int updateReply(Map<String, Object> reply) {
+		return sbDAO.updateReply(sqlSession, reply);
+	}
+
 
 }

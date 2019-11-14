@@ -29,6 +29,8 @@ public interface Studyroom_BoderService {
 	
 	int deleteReply(int rId);
 
+	int updateReply(Map<String, Object> reply);
+
 
 
 }

@@ -170,7 +170,7 @@ th{
 							})
 						</script>
 						</c:if>
-							<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join">참여</button>
+							<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="join" >참여</button>
 							<button class="w3-button w3-round-large w3-light-blue w3-hover-green" id="cancel">탈퇴</button>
 							<script type="text/javascript">
 								$('#cancel').click(function(){
@@ -248,7 +248,7 @@ th{
 		<c:if test="${ loginUser.member_Name eq board.bo_name }">
 			<tr>
 				<td colspan="2" align="center">
-					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bUpView }'">수정하기</button>
+					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bUpView }' "style="padding-right:5px" >수정하기</button>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<button class="w3-button w3-round-large w3-light-blue w3-hover-green" onclick="location.href='${ bdelete }'">삭제하기</button>
 				</td>
@@ -268,7 +268,7 @@ th{
 		         <textarea rows = "3" cols = "55" id ="rContent"></textarea>
 		      </td>
 		      <td>
-		         <button id = "rSubmit" class="w3-button w3-round-large w3-light-blue w3-hover-green" >등록하기</button>    
+		         <button id = "rSubmit" class="w3-button w3-round-large w3-light-blue w3-hover-green" style="padding-right:5px" >등록하기</button>    
 		      </td>
 		   </tr>
 		</table>
@@ -295,6 +295,7 @@ th{
       // 댓글 리스트
       function getReplyList(){
          var bId = ${ board.bo_number } ;
+         var id = ${ loginUser.member_Id };
          
          $.ajax({
             url : "rList.bo" ,
@@ -314,21 +315,24 @@ th{
                $("#rCount").text("Comment (" + data.length + ")");
                
                if(data.length > 0){
+            	   var num = 0;
                   for(var i in data){
                      $tr = $("<tr>");
                      $rWriter = $("<td width = '100'>").text(data[i].rWriter);
-                     $rContent = $("<td>").text(decodeURIComponent(data[i].rContent.replace(/\+/g , " ")));
+                     $rContent = $("<td id='listContent" + num + "'>").text(decodeURIComponent(data[i].rContent.replace(/\+/g , " ")));
                      $rCreateDate = $("<td width = '100'>").text(data[i].rCreateDate);
-                     $rUpbutton = $('<a href="javascript:void(0)" onclick="fn_editReply(' + data[i].rId + ',\'' + data[i].rContent + '\' )" style="padding-right:5px">수정</a>');
-                     $rDebutton = $("<a href='javascript:void(0)' onclick='fn_deleteReply(" + data[i].rId + ")'>삭제</a>'");
+                     $rUpbutton = $('<a href="javascript:void(0)" onclick="fn_editReplyView(listContent' + num + ',' + data[i].rId + ')" style="padding-right:5px">수정</a>');
+                     $rDebutton = $("<a href='javascript:void(0)' onclick='fn_deleteReply(" + data[i].rId + ")'>삭제</a>'"); 
 
                      $tr.append($rWriter);
                      $tr.append($rContent);
                      $tr.append($rCreateDate);
-                     $tr.append($rUpbutton);
-                     $tr.append($rDebutton);
+                     if( id == data[i].rWriter){
+                     	$tr.append($rUpbutton);
+                     	$tr.append($rDebutton);
+                     	}
                      $tableBody.append($tr);
-                     
+                     num++;
                   }
                }else{
                   $tr = $("<tr>");
@@ -369,10 +373,45 @@ th{
 			type : 'POST' ,
 			success: function(result){
 				getReplyList();
-			} 
-		});
-	}
+				} 
+			});
+		}
+      
+        // 댓글 수정 창
+       function fn_editReplyView(contentId, rId){
+    	   
+    	   var htmls = "";                                                                                                         
+		   htmls +='<td>'
+		   htmls +='   <textarea rows = "2" cols = "20" id ="rUpContent"></textarea>'
+		   htmls +='</td>'
+		   htmls +='<td>'
+		   htmls +='<a href="javascript:void(0)" onclick="fn_updateReply(' + rid + ',' + reg_id + ')" style="padding-right:5px">저장</a>';
+		   htmls +='</td>'
+           
+		   var $rUpinput = htmls;
+    	   
+    	   $('#' + contentId.id).html($rUpinput);
+       }
 
+       // 댓글 수정
+       $("#rUpSubmit").on("click" , function(){
+          var rContent = $("#rUpContent").val();
+          var rId = this.rId;
+          
+          console.log(rId);
+          console.log(rContent);
+          
+          $.ajax({
+             url : "rUpdate.bo" ,
+             data : {"rContent" : rContent , "rId" : rId} ,
+             type : "post" ,
+             success : function(data){
+                if(data == "success"){
+                   getReplyList();
+                }
+             }
+          });
+       })
 
 
        

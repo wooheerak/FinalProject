@@ -72,4 +72,9 @@ public class BoardDAO {
 		return sqlSession.update("boardMapper.deleteReply", rId);
 	}
 
+	// 댓글 수정
+	public int updateReply(SqlSessionTemplate sqlSession, Map<String, Object> reply) {
+		return sqlSession.update("boardMapper.updateReply", reply);
+	}
+
 }

@@ -208,7 +208,7 @@ public class BoardController {
 				r.setrContent(URLEncoder.encode(r.getrContent(), "utf-8"));
 			}
 			
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 			gson.toJson(list, response.getWriter());
 		}else {
 			System.out.println("댓글 없음");
@@ -221,10 +221,10 @@ public class BoardController {
 	@ResponseBody
 	public String addReply(Reply r, HttpSession session) {
 		
-		User loginUser = (User)session.getAttribute("loginUser");
-		String rWriter = loginUser.getMember_Id();
+		User loginUser = (User)session.getAttribute("loginUser"); // 세션에 로그인 정보 가져옴
+		String rWriter = loginUser.getMember_Id(); // 세션의 작성자 불러옴
 		
-		r.setrWriter(rWriter);
+		r.setrWriter(rWriter); // reply 에 작성자 넣어줌
 		
 		int result = sbService.insertReply(r);
 		
@@ -246,6 +246,23 @@ public class BoardController {
 			return "success";
 		}else {
 			throw new BoardException("댓글 삭제 실패");
+		}
+	}
+	// 댓글 수정
+	@RequestMapping("rUpdate.bo")
+	@ResponseBody
+	public String updateReply(int rId, String rContent, HttpSession session) {
+		
+		Map<String, Object> reply = new HashMap<String, Object>();
+		reply.put("rId", rId );
+		reply.put("rContent", rContent );
+		
+		int result = sbService.updateReply(reply);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			throw new BoardException("댓글 수정 실패");
 		}
 	}
 	

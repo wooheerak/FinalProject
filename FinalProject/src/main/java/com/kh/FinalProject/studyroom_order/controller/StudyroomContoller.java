@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.FinalProject.studyroom_order.model.serivce.StudyroomService;
@@ -68,17 +69,14 @@ public class StudyroomContoller {
 		}
 		return mv;
 	}
+	
 	// 스터디룸 조회
-	@RequestMapping("srInfo.sr")
-	public ArrayList<Studyroom> studyroomInfo(ModelAndView mv) {
+	@RequestMapping("getSrInfo.sr")
+	@ResponseBody
+	public ArrayList<Studyroom> studyroomInfo(@RequestParam String so_floor) {
 		
-		int roomCount = srService.getRoomCount();
-		ArrayList<Studyroom> list = srService.selectRoomList();
-		
-		System.out.println("roomCount : " + roomCount);
-		System.out.println("list : " + list);
-		
-		
+		ArrayList<Studyroom> list = srService.getSrInfo(so_floor);
+		//System.out.println("getSrInfo : " + list);
 		return list;
 	}
 	
@@ -89,8 +87,8 @@ public class StudyroomContoller {
 		int roomCount = srService.getRoomCount();
 		ArrayList<Studyroom> list = srService.selectRoomList();
 		
-		System.out.println("roomCount : " + roomCount);
-		System.out.println("list : " + list);
+		//System.out.println("roomCount : " + roomCount);
+		//System.out.println("list : " + list);
 		
 		if(list != null) {
 			mv.addObject("list",list);
@@ -107,6 +105,7 @@ public class StudyroomContoller {
 		return "studyroomWeek";
 	}
 	
+	// 스터디룸 예약 페이지
 	@RequestMapping("srReservation.sr")
 	public ModelAndView reservView(@RequestParam("sr_name") String sr_name, @RequestParam(value="so_date", required=false) String so_date,
 								@RequestParam(value="so_startTime", required=false) String so_startTime, @RequestParam(value="so_organizer", required=false) String so_organizer,
@@ -129,9 +128,11 @@ public class StudyroomContoller {
 		}else {
 			
 		}
+		
 		return mv;
 	}
 	
+	// 스터디룸 예약
 	@RequestMapping("reservationStudyroom.sr")
 	public void reservationStudyroom(@ModelAttribute StudyroomOrder sr) {
 		// 값 받은후 변경
@@ -142,5 +143,6 @@ public class StudyroomContoller {
 		
 		
 	}
+	
 	
 }

@@ -19,6 +19,7 @@ import com.kh.FinalProject.booksales.model.service.BsService;
 import com.kh.FinalProject.booksales.model.vo.BookReg;
 
 
+
 @Controller
 public class BookSalesController {
 
@@ -164,5 +165,19 @@ public class BookSalesController {
 		if(f.exists()) {
 			f.delete();
 		}	
+	}
+	
+	// 중고서적 삭제
+	@RequestMapping("bsdelete.bs")
+	public String bsDelete(@RequestParam("brBnumber") int brBnumber) {
+		
+		int result = bsService.bsDelete(brBnumber);
+
+		if(result > 0) {
+			return "redirect:bslist.bs";
+		}else {
+			throw new BSException("중고서적 삭제에 실패하였습니다.");
+		}
+		
 	}
 }

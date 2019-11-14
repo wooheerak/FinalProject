@@ -73,4 +73,22 @@ public class SeatServiceImpl implements SeatService{
 		
 		return sDao.resetSeat(sqlSession , cancelId);
 	}
+
+
+	@Override
+	public SeatHistory selectsId(String id) {
+		
+		return sDao.selectsId(sqlSession , id);
+		
+	}
+
+
+	@Override
+	public int checkCode(Seat seat) {
+		
+		return sDao.checkCode(sqlSession, seat);
+	}
+
+
+
 }

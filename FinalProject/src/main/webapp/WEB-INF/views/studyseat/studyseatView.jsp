@@ -49,9 +49,9 @@
 	<section class="section bt " style="padding: 30px 0px;">
 		<div class="container ">
 			<div class="row" style = "">
-				<div class="col-md-9 col-sm-6" style="height: 700px; display : inline;" >
+				<div class="col-md-9 col-sm-6" style="height: 745px; display : inline;" >
 					<div class="service-box"
-						style="height: 700px; border: 1px solid lightgray; border-radius: 4px; ">
+						style="height: 745px; border: 1px solid lightgray; border-radius: 4px; ">
 						
 						<div class="row window" style = "margin-left : 300px; maring-bottom : 20px;">
 							<p style="margin-top: 10px; font-size: large;">창&nbsp;&nbsp;&nbsp;문</p>
@@ -117,7 +117,7 @@
 					
 				</div>		
 				<div class="col-md-3 col-sm-6" style="display : inline;">
-							<div class="quoteform"	style="border: 1px solid gray; border-radius: 4px; width : 262.5px ; height : 696px;">
+							<div class="quoteform"	style="border: 1px solid gray; border-radius: 4px; width : 262.5px ; height : 745px;">
 								<div class="pricing-header sixch">
 									<b><p id="floor" style="font-size: 35px; color: white; display: inline;">${ floor }</p></b>
 									 <small	style="color: white; display: inline;">열람실</small>
@@ -154,6 +154,10 @@
 							
 							<button type="button" class="btn btn-primary btn-block" onclick = "resvModal();"
 							style="width: 100px; display: inline; margin-top: 0px; margin-left: 10px; padding-left: 35px; border-radius: 0px;">예약</button>
+							
+							<button type="button" class="btn btn-primary btn-block" onclick = "certModal();" style="width: 210px; display: inline; margin-top: 10px; margin-left: 5px; padding-left: 35px; border-radius: 0px;">
+								좌석 예약 인증
+							</button>
 						</div>
 					</div>	
 				
@@ -214,6 +218,39 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-primary" style = "background : #0080FF; color : white; float : left ; margin-left : 130px;" onclick = "resvSeat();">확인</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal" style = "background : lightgray ; margin-right : 115px; ">취소</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+	
+	<div id = "myModal2">
+		<!-- Button trigger modal -->
+		<button type="button" id = "codeModal" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter2" style = "display : none;">
+		  이건 예약 모달
+		</button>
+		
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content" style = "margin-top : 300px; width : 500px;">
+		      <div class="modal-header" style = "width : 500px; text-align : center;" >
+		        <h3 class="modal-title" id="exampleModalLongTitle" style = "display : inline;">예약 인증 Message !</h3>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style = "display : inline;">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body" style = "text-align : center; font-size : 30px;">
+		      	<br>
+		        <b><p id = "certMsg" style = "display : inline; font-size : 30px;"></p></b><small style = "display : inline;"></small>
+		        <br><br>
+		        <input type="text" id = "rCode" style = "width : 200px ; height : 50px;"/>
+		        
+		      </div>
+		      <br>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" data-dismiss="modal" style = "background : #0080FF; color : white; float : left ; margin-left : 130px;" onclick = "certSeat();">확인</button>
 		        <button type="button" class="btn btn-primary" data-dismiss="modal" style = "background : lightgray ; margin-right : 115px; ">취소</button>
 		      </div>
 		    </div>
@@ -489,6 +526,64 @@
 		
 		function resvSeat(){
 			location.href = "updateR.ss?sNo=" + seatNo + "&floor=" + floor ;
+		}
+		
+		function certModal(){
+			$.ajax({
+				url : "selectsId.ss" ,
+				success : function(data){
+					console.log(data);
+					
+					if(data == 0){
+						$("#certMsg").text("예약한 좌석이 없습니다 !");
+						$("#rCode").hide();
+					}
+					else{
+						$("#certMsg").text(data + "번 좌석 예약 인증")
+						$("#rCode").show();
+					}
+					
+					
+					$("#codeModal").trigger("click");
+					
+				} ,
+				error : function(error){
+					console.log(error);
+				}
+			});
+			
+		}
+		
+		function certSeat(){
+			
+			var iCode = $("#rCode").val();
+			
+			$.ajax({
+				
+				url : "checkCode.ss" ,
+				data : { iCode : iCode } ,
+				success : function(data){
+					
+					console.log(data);
+					if(data == "success"){
+						$("mMessage").text("인증되었습니다!");
+						$("#mButton").trigger("click");
+						
+						location.href="seatList.ss";
+					}
+					else{
+						$("mMessage").text("인증코드가 틀립니다!");
+						$("#mButton").trigger("click");
+					}
+					
+					
+				} ,
+				error : function(error){
+					
+					console.log(error);
+				}
+				
+			});
 		}
 		
 	</script>

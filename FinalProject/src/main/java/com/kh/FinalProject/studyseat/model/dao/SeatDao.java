@@ -64,4 +64,21 @@ public class SeatDao {
 		return sqlSession.update("seatMapper.resetSeat" , cancelId);
 	}
 
+
+
+	public SeatHistory selectsId(SqlSessionTemplate sqlSession, String id) {
+		
+		return sqlSession.selectOne("seatMapper.selectsId" , id);
+	}
+
+
+
+	public int checkCode(SqlSessionTemplate sqlSession, Seat seat) {
+		
+		return sqlSession.update("seatMapper.checkCode" , seat);
+	}
+
+
+
+
 }

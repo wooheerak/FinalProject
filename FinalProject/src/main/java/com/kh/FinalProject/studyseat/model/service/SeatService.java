@@ -26,4 +26,10 @@ public interface SeatService {
 
 	int resetSeat(int cancelId);
 
+	SeatHistory selectsId(String id);
+
+	int checkCode(Seat seat);
+
+	
+
 }

@@ -69,4 +69,16 @@
 		SET SS_USE = 'N' , CERT_CODE = NULL , STUDENT_ID = NULL
 		WHERE SS_NO = #{cancelId}
   	</update>
+  	
+  	<select id = "selectsId" parameterType = "string" resultMap = "historyResultSet">
+  		SELECT *
+		FROM SEAT_HISTORY
+		WHERE STUDENT_ID = #{id} AND SH_STATUS = 'R'
+  	</select>
+  	
+  	<update id = "checkCode" parameterType = "Seat">
+  		UPDATE STUDYSEAT 
+		SET SS_USE = 'Y' , SS_CERT = 'Y'
+		WHERE STUDENT_ID = #{student_id} AND CERT_CODE = #{cert_code}
+  	</update>
 </mapper>

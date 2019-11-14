@@ -304,6 +304,65 @@ public class StudySeatController {
 			
 		}
 		
+		@RequestMapping("selectsId.ss")
+		@ResponseBody
+		public int selectsId(HttpServletRequest request) {
+			
+			HttpSession session = request.getSession();
+			
+			User user = (User)session.getAttribute("loginUser");
+			String id = "";
+			int sId = 0 ;
+			SeatHistory sh = null ;
+			
+			
+			if(user != null) {
+				id = user.getMember_Id();
+				sh = sService.selectsId(id);
+			}
+			
+			if(sh != null) {
+				sId = sh.getSeat().getSs_no();
+			}
+			else {
+				sId = 0;
+			}
+		
+			
+			System.out.println("sId : " + sId);
+			
+			return sId;
+		}
+		
+		@RequestMapping("checkCode.ss")
+		@ResponseBody
+		public String checkCode(HttpServletRequest request , @RequestParam("iCode") String iCode) {
+			
+			HttpSession session = request.getSession();
+			
+			User user = (User)session.getAttribute("loginUser");
+			Seat seat = new Seat();
+			
+			if(user != null) {
+				seat.setStudent_id(user.getMember_Id());
+				seat.setCert_code(iCode);
+			}
+			
+			System.out.println("checkseat : " + seat);
+			int result = sService.checkCode(seat);
+			
+			
+			if(result > 0) {
+				return "success";
+			}
+			else {
+				return "fail";
+			}
+			
+			
+			
+			
+		}
 		
 		
 

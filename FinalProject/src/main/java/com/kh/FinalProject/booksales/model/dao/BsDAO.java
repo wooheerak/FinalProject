@@ -30,9 +30,15 @@ public class BsDAO {
 	public int insertBs(SqlSessionTemplate sqlSession, BookReg br) {
 		return sqlSession.insert("bsMapper.insertBs", br);
 	}
-
+	
+	// 중고서적 수정
 	public int updateBs(SqlSessionTemplate sqlSession, BookReg br) {
 		return sqlSession.update("bsMapper.updateBs", br);
+	}
+
+	// 중고서적 삭제
+	public int bsDelete(SqlSessionTemplate sqlSession, int brBnumber) {
+		return sqlSession.update("bsMapper.deleteBs", brBnumber);
 	}
 
 

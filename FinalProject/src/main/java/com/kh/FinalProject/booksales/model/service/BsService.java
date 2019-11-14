@@ -15,6 +15,8 @@ public interface BsService {
 
 	int updateBs(BookReg br);
 
+	int bsDelete(int brBnumber);
+
 	
 
 

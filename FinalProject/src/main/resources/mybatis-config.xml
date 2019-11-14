@@ -15,8 +15,8 @@
 		<typeAlias type="com.kh.FinalProject.studyroom_order.model.vo.Studyroom_orderInfo" alias="Studyroom_orderInfo"/>
 		<typeAlias type="com.kh.FinalProject.studyroom_order.model.vo.Studyroom" alias="Studyroom"/>
 		<typeAlias type="com.kh.FinalProject.studyroom_order.model.vo.StudyroomOrder" alias="StudyroomOrder"/>
-    <typeAlias type="com.kh.FinalProject.booksales.model.vo.BookReg" alias="BookReg"/>
-    <typeAlias type="com.kh.FinalProject.studyseat.model.vo.SeatHistory" alias="SeatHistory"/>
+    	<typeAlias type="com.kh.FinalProject.booksales.model.vo.BookReg" alias="BookReg"/>
+    	<typeAlias type="com.kh.FinalProject.studyseat.model.vo.SeatHistory" alias="SeatHistory"/>
 	</typeAliases>
 	
 	<mappers>

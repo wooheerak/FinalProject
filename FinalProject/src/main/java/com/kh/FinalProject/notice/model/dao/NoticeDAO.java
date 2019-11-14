@@ -35,6 +35,7 @@ public class NoticeDAO {
 		return sqlSession.update("noticeMapper.updateNotice", n);
 	}
 
+	// 공지사항 삭제
 	public int noticeDelete(SqlSessionTemplate sqlSession, int nId) {
 		return sqlSession.update("noticeMapper.deleteNotice", nId);
 	}

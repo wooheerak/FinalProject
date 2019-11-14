@@ -60,11 +60,18 @@
     	UPDATE BOOK_REG
     	SET br_NAME=#{brName}, br_CATEGORY=#{brCategory}, br_STUDENT_ID=#{brStudentId}, 
     		br_WRITER=#{brWriter}, br_PUBLISHER=#{brPublisher}, br_ISSUE_DATE=#{brIssueDate}, 
-    		br_ISBN=#{brISBN}ISBN, br_CONDITION=#{brCondition}, br_PRICE=#{brPrice}, 
+    		br_ISBN=#{brISBN}, br_CONDITION=#{brCondition}, br_PRICE=#{brPrice}, 
     		br_COMMENT=#{brComment}, ORIGINAL_FILENAME=#{originalFileName}, 
     		RENAME_FILENAME=#{renameFileName}, br_MOD_DATE=SYSDATE
-    	WHERE br_BNUMBER = #{br_BNUMBER}
+    	WHERE br_BNUMBER=#{brBnumber}
     </insert>
+    
+    <!-- 중고서적 삭제 -->
+    <update id="deleteBs" parameterType="_int">
+    	UPDATE BOOK_REG
+    	SET BR_STATUS = 'Y'
+    	WHERE br_BNUMBER = #{br_BNUMBER}
+    </update>
     
     
 </mapper>

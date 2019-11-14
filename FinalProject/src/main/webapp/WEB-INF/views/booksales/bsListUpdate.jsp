@@ -45,7 +45,7 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 			<i class="fa fa-code"></i>
 		</div>
 		<div class="container">
-			<form action="bsinsert.bs" method="post" enctype="Multipart/form-data">
+			<form action="bsupdate.bs" method="post" enctype="Multipart/form-data">
 				<table id="booksalesInsertTable" class="table" border="1">
 					<tr>
 						<input type = "hidden" name = "brBnumber" value = "${ br.brBnumber }"/>
@@ -136,18 +136,22 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 						</th>
 						<td>
 							<input type="file" name="reloadFile">
-								<c:if test="${ !empty br.originalFileName }">
-									<br>현재 업로드한 파일 : 
-									<a href="${ contextPath }/resources/bsuploadFiles/${ br.renameFileName }" download="${ br.originalFileName }">
-										${ br.originalFileName }
-									</a>
-								</c:if>
+							<c:if test="${ !empty br.originalFileName }">
+								<br>현재 업로드한 파일 : 
+								<a href="${ contextPath }/resources/bsuploadFiles/${ br.renameFileName }" download="${ br.originalFileName }">
+									${ br.originalFileName }
+								</a>
+							</c:if>
 						</td>
 					</tr>					
 				</table>
 				
 				<div class="text-center">
+					<c:url var="bsdelete" value = "bsdelete.bs">
+						<c:param name="brBnumber" value="${ br.brBnumber }"/>
+					</c:url>
 					<input class="btn btn-transparent" type="submit" value="등록 하기" style="background-color: transparent;"> &nbsp;
+					<button class="btn btn-transparent" style="background-color: transparent;" type = "button" onclick="location.href='${ bsdelete }'">삭제하기</button>
 					<a href="bslist.bs" class="btn btn-transparent">목록</a>
 				</div>
 			</form>
@@ -174,7 +178,7 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 	
 	<!-- 책상테 selected 된 값 가져오기 -->
 	<script>
-		var category = '${ br.brStatus }';
+		var category = '${ br.brCondition }';
 		var str = "";
 		var index = 1;
 		for(var i = 0; i < 3; i++){

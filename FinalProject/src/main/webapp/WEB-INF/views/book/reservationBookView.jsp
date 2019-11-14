@@ -22,8 +22,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-                        <h2>개인정보조회</h2>
-                        <p class="lead">열람실/스터디룸 이용내역 조회</p>
+                        <h2>개인 정보 조회</h2>
+                        <p class="lead">도서 예약 관리</p>
                     </div><!-- end col -->
                 </div><!-- end row -->
             </div><!-- end container -->
@@ -59,35 +59,6 @@
 
            <!-- 공지사항 -->
 	<div class="container col-md-8 col-sm-12" style="margin-left: 20px;">
-		<div class="dropdown portfolio-filter">
-			<button class="btn  dropdown-toggle" type="button"
-				data-toggle="dropdown"
-				style="float: left; border-radius: 2px; width: 160px; text-align: center; background: white; border: 1px solid lightgray;">
-				<p class="isStudy" style="display: inline;">열람실/스터디룸</p>
-				<span class="fa fa-angle-down" style="display: inline;"></span>
-			</button>
-			<ul class="dropdown-menu" style="margin-top: 40px;">
-				<li><a class="seat" href="myseatList.ss" data-filter="*"
-					style="text-align: center;">열람실</a></li>
-				<li>
-					<a class="studyroom" href="mystudyroomList.sr"
-					data-filter=".cat1" style="text-align: center;">스터디룸</a>
-				</li>
-			</ul>
-		</div>
-		<!-- 수정 확인하기 -->
-
-		<!-- end dropdown -->
-
-                <script>
-                    $(".seat").on("click" , function(){
-                        $(".isStudy").text("열람실");
-                    });
-
-                    $(".studyroom").on("click", function(){
-                        $(".isStudy").text("스터디룸");
-                    });
-                </script>
                 <br><br>
                 <hr>
                 <form id="boardForm" name="boardForm" method="post">
@@ -103,19 +74,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="r" items="list">
+                        <c:forEach var="r" items="${ list }">
 	                        <tr>
-                                <td>${r. }</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[73번]</td>
-                                <td>예약인증 전</td>
-                                <td>2019-10-30</td>
-                                <td><button class = "btn cancelRev" >예약 취소</button></td>
-                                
-                            </tr>                        
+                                <td>${r.bName }  </td>
+                                <td>${r.bWriter }</td>
+                                <td>${r.bookReservation.BV_DATE }</td>
+                                <td>${r.bookReservation.BV_RETURN_DATE }</td>
+                                <td>
+                                	<p>대기</p>
+                                	<c:if test="dateCalc() == 1">
+                                		<p>대출 대기</p>
+                                	</c:if>
+        	                        <c:if test="dateCalc() == 0">
+    	                            	<c:if test="${r.bookReservation.BV_STATUS } == 'N'">
+    	                            		<p>기간 만료</p>
+    	                            	</c:if>
+    	                            	<c:if test="${r.bookReservation.BV_STATUS } == 'R'">
+    	                            		<p>대출 완료</p>
+    	                            	</c:if>
+	                                </c:if>
+                                </td>
+                            </tr>
                         </c:forEach>
-
-
-
                         </tbody>
                     </table>
 
@@ -126,6 +106,18 @@
         <!-- end section -->
         </div>
 
+	<script>
+		function dateCalc(){
+			var currentDate = new Date();
+			var finishDate = ${r.bookReservation.BV_RETURN_DATE };
+
+			if(currentDate < finishDate){
+				return 1;
+			} else {
+				return 0;
+			}
+		}
+	</script>
 	
 	<jsp:include page="../common/footer.jsp"/>
 

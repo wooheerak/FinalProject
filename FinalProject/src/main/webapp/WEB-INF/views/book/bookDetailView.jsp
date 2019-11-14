@@ -80,14 +80,14 @@
 				<tr>
 					<td>Studyhub.lib</td>
 					<td>종합 자료실</td>
-					<td name="bookNo">${book.bNo }</td>
+					<td>${book.bNo }</td>
 					<td>${book.bLocation }</td>
 					<td>${yCount} / ${allCount }</td>
 					<td>
-						<c:if test="${yCount == 0 }">
+						<c:if test="${yCount <= 0 }">
 							예약 불가능
 						</c:if>
-						<c:if test="${yCount <= allCount }">
+						<c:if test="${yCount > 0 }">
 							예약 가능
 						</c:if>						
 					</td>
@@ -123,14 +123,19 @@
 	<input id="yCount" type="hidden" value="${yCount }"/>
 	<input id="allCount" type="hidden" value="${allCount }"/>
 	<input name="bookWriter" type="hidden" value="${book.bWriter }"/>
+	<form id="submitForm" action="reservationBook.bk">
+		<input type="hidden" name="bookNo" value="${book.bNo }"/>
+		<input type="hidden" name="bookWriter" value="${book.bWriter }"/>
+	</form>
 	<script>
 		function reservation(){
-			var yCount = document.getElementById(yCount);
-			if(yCount == 0){
+			var yCount = "${yCount}";
+			if(yCount == '0'){
 				alert('예약 가능한 도서가 없습니다.');
+				document.getElementById('id01').style.display='none'
 			} else{
-				alert('예약이 완료되었습니다.');
-				location.href="reservationBook.bk";
+				alert('예약이 완료되었습니다.');	
+				$('#submitForm').submit();
 			}
 		}
 		

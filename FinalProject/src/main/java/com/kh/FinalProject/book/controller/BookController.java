@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,13 +51,16 @@ public class BookController {
 	
 	@RequestMapping("reservationBookView.bk")
 	public ModelAndView reservationBookView(ModelAndView mv,
-											@ModelAttribute User user) {
+											HttpServletRequest request) {
 		
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("loginUser");
 		String userId = user.getMember_Id();
-		ArrayList<BookReservation> list = bService.selectReservationBookList(userId);
 		
+		ArrayList<BookReservation> list = bService.selectReservationBookList(userId);
+
 		mv.addObject("list", list);
-		mv.setViewName("reservation");
+		mv.setViewName("reservationBookView");
 		
 		return mv;
 	}
@@ -61,14 +68,15 @@ public class BookController {
 //	location.href='이동주소';
 	@RequestMapping("reservationBook.bk")
 	public String reservationBook(@RequestParam("bookNo") int bookNo,
-									@RequestParam("bookWriter") String bookWriter,
-									@ModelAttribute User user
-										) {
+								@RequestParam("bookWriter") String bookWriter,
+								HttpServletRequest request) {
 		
+		HttpSession session = request.getSession();
+		String userId = ((User)session.getAttribute("loginUser")).getMember_Id();
 		Map<String, Object> map = new HashMap<>();
 		map.put("bookNo", bookNo);
 		map.put("bookWriter", bookWriter);
-		map.put("userId", user.getMember_Id());
+		map.put("userId", userId);
 		
 		int insertresult = bService.insertRv(map);
 		if(insertresult > 0) {

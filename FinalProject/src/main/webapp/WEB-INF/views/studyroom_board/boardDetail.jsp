@@ -361,11 +361,11 @@ th{
        
        // 댓글 삭제
        function fn_deleteReply(rId){
-		var refBid = {"refBid": rId};
+		var rId = {"rId": rId};
 
 		$.ajax({
-			url: "${rDelete}",
-			data : refBid ,
+			url: "rDelete.bo",
+			data : rId ,
 			type : 'POST' ,
 			success: function(result){
 				getReplyList();

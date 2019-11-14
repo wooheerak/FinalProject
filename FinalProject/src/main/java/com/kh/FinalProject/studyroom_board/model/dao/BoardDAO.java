@@ -68,8 +68,8 @@ public class BoardDAO {
 	}
 
 	// 댓글 삭제
-	public int deleteReply(SqlSessionTemplate sqlSession, int refBid) {
-		return sqlSession.update("boardMapper.deleteReply", refBid);
+	public int deleteReply(SqlSessionTemplate sqlSession, int rId) {
+		return sqlSession.update("boardMapper.deleteReply", rId);
 	}
 
 }

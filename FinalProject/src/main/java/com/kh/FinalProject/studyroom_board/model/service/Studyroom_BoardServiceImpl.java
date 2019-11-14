@@ -92,8 +92,8 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 	
 	// 댓글 삭제
 	@Override
-	public int deleteReply(int refBid) {
-		return sbDAO.deleteReply(sqlSession, refBid);
+	public int deleteReply(int rId) {
+		return sbDAO.deleteReply(sqlSession, rId);
 	}
 
 

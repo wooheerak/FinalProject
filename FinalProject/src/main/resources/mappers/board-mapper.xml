@@ -92,7 +92,7 @@
         SELECT * 
         FROM STUDYROOM_REPLY R
         JOIN STUDYROOM_BOARD B ON (REF_BID = BO_NUMBER)        
-        WHERE REF_BID = #{bo_number}
+        WHERE REF_BID = #{bo_number} AND R_STATUS = 'Y'
         ORDER BY RID DESC
      </select>
      
@@ -107,7 +107,7 @@
      <update id = "deleteReply" parameterType = "_int">
         UPDATE STUDYROOM_REPLY
         SET R_STATUS = 'N'
-        WHERE REF_BID = #{refBid}
+        WHERE RID = #{rId}
      </update>
  	
 </mapper>

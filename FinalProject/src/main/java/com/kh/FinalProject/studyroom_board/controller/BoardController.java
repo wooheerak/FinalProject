@@ -208,7 +208,7 @@ public class BoardController {
 				r.setrContent(URLEncoder.encode(r.getrContent(), "utf-8"));
 			}
 			
-			Gson gson = new GsonBuilder().setDateFormat("YYYY-MM-DD HH24-MI-SS").create();
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			gson.toJson(list, response.getWriter());
 		}else {
 			System.out.println("댓글 없음");
@@ -220,6 +220,7 @@ public class BoardController {
 	@RequestMapping("addReply.bo")
 	@ResponseBody
 	public String addReply(Reply r, HttpSession session) {
+		
 		User loginUser = (User)session.getAttribute("loginUser");
 		String rWriter = loginUser.getMember_Id();
 		
@@ -237,9 +238,9 @@ public class BoardController {
 	// 댓글 삭제
 	@RequestMapping("rDelete.bo")
 	@ResponseBody
-	public String deleteReply(@RequestParam("refBid") int refBid) {
+	public String deleteReply(int rId) {
 		
-		int result = sbService.deleteReply(refBid);
+		int result = sbService.deleteReply(rId);
 		
 		if(result > 0) {
 			return "success";

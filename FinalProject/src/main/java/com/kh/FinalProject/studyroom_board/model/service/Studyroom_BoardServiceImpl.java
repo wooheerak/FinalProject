@@ -85,21 +85,22 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 	}
 
 	// 댓글 등록
-	/*@Override
+	@Override
 	public int insertReply(Reply r) {
-
 		return sbDAO.insertReply(sqlSession, r);
-	}*/
+	}
 	
 	// 댓글 삭제
 	@Override
-	public int deleteReply(int refBid) {
-		return sbDAO.deleteReply(sqlSession, refBid);
+	public int deleteReply(int rId) {
+		return sbDAO.deleteReply(sqlSession, rId);
 	}
 
+	// 댓글 수정
 	@Override
-	public int insertReply(Reply r) {
-		return sbDAO.insertReply(sqlSession, r);
+	public int updateReply(Map<String, Object> reply) {
+		return sbDAO.updateReply(sqlSession, reply);
 	}
+
 
 }

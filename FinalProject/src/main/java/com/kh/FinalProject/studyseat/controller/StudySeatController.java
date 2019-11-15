@@ -349,8 +349,13 @@ public class StudySeatController {
 			}
 			
 			System.out.println("checkseat : " + seat);
-			int result = sService.checkCode(seat);
+			int result1 = sService.checkCode(seat);
 			
+			int result = -1 ;
+			
+			if(result1 > 0) {
+				result = sService.updateHistory(seat);
+			}
 			
 			if(result > 0) {
 				return "success";

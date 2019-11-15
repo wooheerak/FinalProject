@@ -80,5 +80,12 @@ public class SeatDao {
 
 
 
+	public int updateHistory(SqlSessionTemplate sqlSession, Seat seat) {
+		
+		return sqlSession.update("seatMapper.updateHistory" , seat);
+	}
+
+
+
 
 }

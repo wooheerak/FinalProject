@@ -90,5 +90,12 @@ public class SeatServiceImpl implements SeatService{
 	}
 
 
+	@Override
+	public int updateHistory(Seat seat) {
+		
+		return sDao.updateHistory(sqlSession , seat);
+	}
+
+
 
 }

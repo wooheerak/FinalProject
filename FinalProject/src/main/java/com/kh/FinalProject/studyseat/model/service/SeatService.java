@@ -30,6 +30,8 @@ public interface SeatService {
 
 	int checkCode(Seat seat);
 
+	int updateHistory(Seat seat);
+
 	
 
 }

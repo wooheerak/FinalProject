@@ -81,4 +81,10 @@
 		SET SS_USE = 'Y' , SS_CERT = 'Y'
 		WHERE STUDENT_ID = #{student_id} AND CERT_CODE = #{cert_code}
   	</update>
+  	
+  	<update id = "updateHistory" parameterType="Seat">
+  		UPDATE STUDY_HISTORY
+  		SET SH_STATUS = 'U'
+  		WHERE STUDENT_ID = #{student_id} AND SS_NO = #{ss_no}
+  	</update>
 </mapper>

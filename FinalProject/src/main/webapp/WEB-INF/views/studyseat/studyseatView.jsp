@@ -566,13 +566,13 @@
 					
 					console.log(data);
 					if(data == "success"){
-						$("mMessage").text("인증되었습니다!");
+						$("#mMessage").text("인증되었습니다!");
 						$("#mButton").trigger("click");
 						
 						location.href="seatList.ss";
 					}
 					else{
-						$("mMessage").text("인증코드가 틀립니다!");
+						$("#mMessage").text("인증코드가 틀립니다!");
 						$("#mButton").trigger("click");
 					}
 					

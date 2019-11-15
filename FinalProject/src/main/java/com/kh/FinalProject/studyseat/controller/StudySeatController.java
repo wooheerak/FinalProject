@@ -357,8 +357,7 @@ public class StudySeatController {
 			}
 			else {
 				return "fail";
-			}
-			
+			}			
 			
 			
 			

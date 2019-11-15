@@ -73,5 +73,17 @@
     	WHERE br_BNUMBER = #{br_BNUMBER}
     </update>
     
+    <!-- Book_REG 테이블 업데이트 -->
+    <update id="updateComplete" parameterType="_int">
+    	UPDATE BOOK_REG
+    	SET BR_STATUS = 'Y', BS_ORDER_STATUS= 'Y'
+    	WHERE br_BNUMBER = #{brBnumber}
+    </update>
+    
+    <!-- 판매완료 insert -->
+    <insert id="insertBooksale" parameterType="map">
+    	INSERT INTO BOOK_SALE
+    	VALUES (SEQ_BSNO.NEXTVAL, #{bNo}, #{sId}, #{bId}, SYSDATE)
+    </insert>
     
 </mapper>

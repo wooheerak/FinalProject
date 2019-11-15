@@ -3,8 +3,10 @@ package com.kh.FinalProject.booksales.controller;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.FinalProject.booksales.model.exception.BSException;
 import com.kh.FinalProject.booksales.model.service.BsService;
 import com.kh.FinalProject.booksales.model.vo.BookReg;
+import com.kh.FinalProject.user.model.vo.User;
+
 
 
 
@@ -116,7 +120,7 @@ public class BookSalesController {
 		return renameFileName;
 	}
 	
-	// 중고서적 등록 수정
+	// 중고서적 수정
 	@RequestMapping("bsupView.bs")
 	public ModelAndView bsUpdateView(@RequestParam("brBnumber") int brBnumber, ModelAndView mv) {
 		
@@ -181,16 +185,43 @@ public class BookSalesController {
 	}
 	
 	@RequestMapping("complete.bs")
-	public void complete(@RequestParam("brBnumber") int brBnumber) {
-		System.out.println(brBnumber);
-		System.out.println("결제완료!");
+	public String complete(@RequestParam("brBnumber") int brBnumber,
+						 @RequestParam("brStudentId") String brStudentId,
+						 HttpServletRequest request) {
 		
 		// 1. BOOK_REG테이블 업데이트
-		// 필요한 파라미터: BR_BNUMBER , BR_STATUS, BS_ORDER_STATUS 
+		// 필요한 파라미터: BR_BNUMBER , BR_STATUS, BS_ORDER_STATUS 	
+		int result1 = bsService.updateComplete(brBnumber);
+
+		HttpSession session = request.getSession();
 		
+		User user = (User)session.getAttribute("loginUser");
+		String bStudentId = "";
 		
-		// 2. 
+		// 2. BOOK_SALE INSERT
+		// BS_ORDER_NO, HASMAP으로 대려가기:BS_BNUMBER, S_STUDENT_ID, B_STUDENT_ID,// BS_DATE = SYSDATE
+		int result = -1;
 		
+		if(user != null) {
+			bStudentId = user.getMember_Id();
+		}
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("bNo", brBnumber);
+		map.put("sId", brStudentId);
+		map.put("bId", bStudentId);
+		
+		System.out.println(map);
+		
+		if(result1 > 0) {
+			result = bsService.insertBookSale(map);
+		}
+		
+		if(result > 0) {
+			return "bsComplete";
+		} else {
+			throw new BSException("중고서적 구매 실패");
+		}
 		
 	}
 	

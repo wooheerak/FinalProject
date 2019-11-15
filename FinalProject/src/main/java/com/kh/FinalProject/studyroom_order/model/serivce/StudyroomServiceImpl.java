@@ -42,9 +42,14 @@ public class StudyroomServiceImpl implements StudyroomService{
 
 	@Override
 	public ArrayList<String> selectName(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return srDao.selectName(sqlSession, map);
 	}
+
+	@Override
+	public ArrayList<Studyroom> getSrInfo(String so_floor) {
+		return srDao.getSrInfo(sqlSession, so_floor);
+	}
+
 
 	
 

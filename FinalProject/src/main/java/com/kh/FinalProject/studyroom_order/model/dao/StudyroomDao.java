@@ -29,8 +29,11 @@ public class StudyroomDao {
 	}
 
 	public ArrayList<String> selectName(SqlSession sqlSession, Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return (ArrayList)sqlSession.selectList("studyroomMapper.selectName", map);
+	}
+
+	public ArrayList<Studyroom> getSrInfo(SqlSession sqlSession, String so_floor) {
+		return (ArrayList)sqlSession.selectList("studyroomMapper.getSrInfo",so_floor);
 	}
 
 }

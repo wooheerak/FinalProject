@@ -50,6 +50,11 @@ public class StudyroomServiceImpl implements StudyroomService{
 		return srDao.getSrInfo(sqlSession, so_floor);
 	}
 
+	@Override
+	public ArrayList<String> checkId(Map<String, Object> map) {
+		return srDao.checkId(sqlSession,map);
+	}
+
 
 	
 

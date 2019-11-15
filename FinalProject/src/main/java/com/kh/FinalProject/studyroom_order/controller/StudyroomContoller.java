@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -134,15 +136,31 @@ public class StudyroomContoller {
 	
 	// 스터디룸 예약
 	@RequestMapping("reservationStudyroom.sr")
-	public void reservationStudyroom(@ModelAttribute StudyroomOrder sr) {
+	public String reservationStudyroom(@ModelAttribute StudyroomOrder sr) {
 		// 값 받은후 변경
 		
 		System.out.println(sr);
 		
 		int result=srService.reservationStudyroom(sr);
 		
+		return "reservationCheckView";
 		
 	}
+	
+	// 학생체크
+	@RequestMapping("checkId.sr")
+	public ArrayList<String> checkId(@ModelAttribute HttpServletRequest request,String idCheck[]) {
+		
+		Map<String, Object> map = new HashMap<String , Object>();
+		for(int i =0; i<idCheck.length; i++) {
+			map.put("list", idCheck[i]);
+		}
+		
+		ArrayList<String> result= srService.checkId(map);
+		
+		return result;
+	}
+	
 	
 	
 }

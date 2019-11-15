@@ -175,13 +175,14 @@ System.out.println(date);
 										<td>
 										<!--  버튼 클릭시 팝업이 뜨고 팝업에 클릭한 버튼의 시작시간 및 마감 시간을 select할 값으로 전달 -->
 										    
-											<button id="startTime${i}" name="startTime${i}" type="submit" value="${i},${ j.sr_name},${j.sr_floor}" class="btn btn-transparent" onclick="srReservation(this);" style="padding:0px;width:73px;height:38px;">+</button>
+											<button id="startTime${i}" name="startTime${i}" type="submit" value="${i},${ j.sr_name},${j.sr_floor}" class="btn" onclick="srReservation(this);" style="padding:0px;width:73px;height:38px;">+</button>
 										</td>
 									</c:forEach>
 								</tr>				
 							</c:forEach>
 					</table>
 				</div>
+				<input id="userIdCheck" name="userIdCheck" type="hidden" value="${loginUser.member_Id}">
 				
 				<div class="col-md-3">
 					<!-- 날짜 직접 입력하여 날짜 값 변경 -->
@@ -270,40 +271,47 @@ System.out.println(date);
 
 	<script>
 	function srReservation(e){
+		// 예약자 정보(로그인 체크) 
+ 		var so_organizer = $("#userIdCheck").val();
+		console.log(so_organizer);
 		
-		var studyroomValue = $(e).attr("value").split(',');
-		//console.log(studyroomValue);
-		
-		//스터디룸 이름 
-		var sr_name = studyroomValue[1];
-		//console.log(studyroomValue[1])
-		
-		// 스터디룸 층
-		var sr_floor = studyroomValue[2];
-		// console.log(sr_floor);
-		
- 		// 예약일 
-		var so_date = $("#year option:selected").attr("value")
-						+'-'+$("#month option:selected").attr("value")
-						+'-'+$("#day option:selected").attr("value");
-		//console.log(so_date);
- 		
- 		// 예약시작 시간 
-		var so_startTime = studyroomValue[0];
-		// console.log(so_startTime)
- 		
- 		// 예약자 정보 
-//  		var organizer = $("#");
-		var so_organizer = "201132081";
-		
-		var url = "srReservation.sr?sr_name="+sr_name+"&so_date="+so_date+"&so_startTime="+so_startTime+"&so_organizer="+so_organizer+"&sr_floor="+sr_floor;
+		if(so_organizer==""){
+			alert("로그인 후 이용해 주세요.");
+		}
+		else{
 			
-		var srReservation = "srReservation";
-		
-		var specs="width=420px, height=350px, left=20, top=30, toolbar=no, location=no, directories=no";
-		
-		window.open(url,srReservation,specs);
-		
+			var studyroomValue = $(e).attr("value").split(',');
+			//console.log(studyroomValue);
+			
+			//스터디룸 이름 
+			var sr_name = studyroomValue[1];
+			//console.log(studyroomValue[1])
+			
+			// 스터디룸 층
+			var sr_floor = studyroomValue[2];
+			// console.log(sr_floor);
+			
+	 		// 예약일 
+			var so_date = $("#year option:selected").attr("value")
+							+'-'+$("#month option:selected").attr("value")
+							+'-'+$("#day option:selected").attr("value");
+			//console.log(so_date);
+	 		
+	 		// 예약시작 시간 
+			var so_startTime = studyroomValue[0];
+			// console.log(so_startTime)
+	 		
+	 		
+	// 		var so_organizer = "201132081";
+			
+			var url = "srReservation.sr?sr_name="+sr_name+"&so_date="+so_date+"&so_startTime="+so_startTime+"&so_organizer="+so_organizer+"&sr_floor="+sr_floor;
+				
+			var srReservation = "srReservation";
+			
+			var specs="width=420px, height=350px, left=20, top=30, toolbar=no, location=no, directories=no";
+			
+			window.open(url,srReservation,specs);
+		}
 	}
 
 	function daycheck(e){

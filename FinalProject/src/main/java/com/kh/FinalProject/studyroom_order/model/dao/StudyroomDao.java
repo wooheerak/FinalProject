@@ -36,4 +36,8 @@ public class StudyroomDao {
 		return (ArrayList)sqlSession.selectList("studyroomMapper.getSrInfo",so_floor);
 	}
 
+	public ArrayList<String> checkId(SqlSession sqlSession, Map<String, Object> map) {
+		return (ArrayList)sqlSession.selectList("studyroomMapper.checkId", map);
+	}
+
 }

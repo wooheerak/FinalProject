@@ -23,6 +23,8 @@ public interface StudyroomService {
 
 	ArrayList<Studyroom> getSrInfo(String so_floor);
 
+	ArrayList<String> checkId(Map<String, Object> map);
+
 
 	
 

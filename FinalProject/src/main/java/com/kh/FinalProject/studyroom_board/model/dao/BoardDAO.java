@@ -57,6 +57,11 @@ public class BoardDAO {
 		return sqlSession.update("boardMapper.memberUnjoin", join);
 	}
 	
+	// 모집 마감
+	public int completeBoard(SqlSessionTemplate sqlSession, int bo_number) {
+		return sqlSession.update("boardMapper.completeBoard", bo_number);
+	}
+	
 	// 댓글 리스트
 	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int bo_number) {
 		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList", bo_number);
@@ -76,5 +81,6 @@ public class BoardDAO {
 	public int updateReply(SqlSessionTemplate sqlSession, Map<String, Object> reply) {
 		return sqlSession.update("boardMapper.updateReply", reply);
 	}
+
 
 }

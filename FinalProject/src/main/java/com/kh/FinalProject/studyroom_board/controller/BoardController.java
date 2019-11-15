@@ -72,7 +72,6 @@ public class BoardController {
 	// 게시글 등록 폼
 	@RequestMapping("bInsertView.bo")
 	public String boardInsertView() {
-		
 		return "boardInsert";
 	}
 	
@@ -107,8 +106,6 @@ public class BoardController {
 	@RequestMapping("bUpdate.bo")
 	public ModelAndView boardUpdate(@ModelAttribute Board b, ModelAndView mv) {
 		
-		System.out.println("controller : " + b );
-		
 		int result = sbService.updateBoard(b);
 					
 		if(result > 0) {
@@ -134,6 +131,20 @@ public class BoardController {
 		}
 	}
 	
+	// 모집 마감
+	@RequestMapping("bComplete.bo")
+	public String boardComplete(@RequestParam("bo_number") int bo_number) {
+		
+		int result = sbService.completeBoard(bo_number);
+		
+		if(result > 0) {
+			return "redirect:bList.bo";
+			
+		}else {
+			throw new BoardException("모집 마감 실패");
+		}
+	}
+	
 	// 그룹 참여
 	@RequestMapping("bJoin.bo")
 	public ModelAndView memberJoin(@RequestParam("bo_number") int bo_number, @RequestParam("bo_member") int bo_member,
@@ -141,7 +152,6 @@ public class BoardController {
 								@RequestParam("Member_Id") String Member_Id,
 							HttpServletRequest request, ModelAndView mv) {
 		
-		System.out.println("1 : " + bo_number);
 		Map<String, Object> join = new HashMap<String, Object>();
 		join.put("bo_number", bo_number );
 		join.put("Member_Name", Member_Name );
@@ -180,8 +190,6 @@ public class BoardController {
 		join.put("bo_number",bo_number);
 		join.put("Member_Name",Member_Name);
 		
-		System.out.println("con : " + join);
-		
 		int result = sbService.memberUnjoin(join);
 			
 		if(result > 0) {
@@ -208,7 +216,7 @@ public class BoardController {
 				r.setrContent(URLEncoder.encode(r.getrContent(), "utf-8"));
 			}
 			
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			gson.toJson(list, response.getWriter());
 		}else {
 			System.out.println("댓글 없음");

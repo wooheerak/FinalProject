@@ -48,7 +48,7 @@
 				<div class="container-fluid">
 					<div class="navbar-header">
 						<a class="navbar-brand" href="index.jsp"><img
-							src="resources/images/logo.png"/></a>
+							src="resources/images/logo.png" style="width:120px;"/></a>
 					</div>
 					<div id="navbar" class="navbar-collapse collapse">
 						<ul class="nav navbar-nav navbar-right">

@@ -111,7 +111,7 @@
      </update>
      
      <!-- 댓글 수정 -->
-     <update id = "updateReply" parameterType = "_int">
+     <update id = "updateReply" parameterType = "map">
         UPDATE STUDYROOM_REPLY
         SET RCONTENT = #{rContent} , R_MODIFY_DATE = SYSDATE
         WHERE RID = #{rId}

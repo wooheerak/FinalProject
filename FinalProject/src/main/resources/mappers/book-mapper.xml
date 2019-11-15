@@ -17,7 +17,42 @@
 		<result property="bLocation" column="B_LOCATION"/>
 		<result property="status" column="B_STATUS"/>
 		<result property="bIMG" column="B_IMG"/>
+		<association property="bookReservation" javaType="BookReservation">
+			<id property="BV_NO" column="BV_NO"/>
+			<result property="B_NO" column="B_NO"/>
+			<result property="USER_ID" column="USER_ID"/>
+			<result property="BV_DATE" column="BV_DATE"/>
+			<result property="BV_RETURN_DATE" column="BV_RETURN_DATE"/>
+			<result property="BV_STATUS" column="BV_STATUS"/>
+		</association>
 	</resultMap>
+	
+	
+	<resultMap type="BookReservation" id="reservationResultSet">
+		<id property="BV_NO" column="BV_NO"/>
+		<result property="B_NO" column="B_NO"/>
+		<result property="USER_ID" column="USER_ID"/>
+		<result property="BV_DATE" column="BV_DATE"/>
+		<result property="BV_RETURN_DATE" column="BV_RETURN_DATE"/>
+		<result property="BV_STATUS" column="BV_STATUS"/>
+		<association property="book" javaType="Book">
+			<id property="bNo" column="B_NO"/>
+			<result property="bName" column="B_NAME"/>
+			<result property="bWriter" column="B_WRITER"/>
+			<result property="bTrans" column="B_TRANS"/>
+			<result property="bPublisher" column="B_PUBLISHER"/>
+			<result property="bPage" column="B_PAGE"/>
+			<result property="price" column="PRICE"/>
+			<result property="bMainCTG" column="B_MAIN_CTG"/>
+			<result property="bIssueDate" column="B_ISSUE_DATE"/>
+			<result property="bLanguage" column="B_LANGUAGE"/>
+			<result property="bISBN" column="B_ISBN"/>
+			<result property="bLocation" column="B_LOCATION"/>
+			<result property="status" column="B_STATUS"/>
+			<result property="bIMG" column="B_IMG"/>			
+		</association>		
+	</resultMap>
+	
 	
 	<select id="selectCount" resultType="_int" parameterType="map">
 		select count(*)
@@ -76,4 +111,21 @@
 		from book
 		where b_isbn= #{bISBN}
  	</select>
+ 	
+ 	<insert id="insertBv" parameterType="map">
+ 		insert into book_reservation values (SEQ_BVNO.NEXTVAL, #{bookNo}, #{userId}, sysdate, sysdate +1, default)
+ 	</insert>
+ 	
+ 	<update id="updateBS" parameterType="map">
+ 		update book
+ 		set b_status = 'R'
+ 		where b_no = #{bookNo}
+ 	</update>
+ 	
+ 	<select id="selectReservationBookList" resultMap="bookResultSet">
+ 		select b.*, br.*
+ 		from book b join book_reservation br on (b.b_no = br.b_no)
+ 		where USER_ID = #{userId}
+ 	</select>
+	
 </mapper>

@@ -84,20 +84,19 @@
 					<td>${book.bLocation }</td>
 					<td>${yCount} / ${allCount }</td>
 					<td>
-						<c:if test="${yCount == 0 }">
+						<c:if test="${yCount <= 0 }">
 							예약 불가능
 						</c:if>
-						<c:if test="${yCount <= allCount }">
+						<c:if test="${yCount > 0 }">
 							예약 가능
 						</c:if>						
 					</td>
 				</tr>
 			</tbody>
 		</table>
-		<br><br><br><br><br><br>
-		<br><br><br><br><br><br>
+	
 	</div>
-
+	<div style="background-color: white; width:100%; height:200px"></div>
 	<div id="id01" class="w3-modal">
 		<div class="w3-modal-content" style="width: 400px; height: 300px;">
 			<div class="w3-container"
@@ -116,16 +115,28 @@
 			</div>
 		</div>
 	</div>
+	<div style="background-color: white;">
+	<button onclick="history.back();" class="w3-btn w3-white w3-border" style="border-radius: 10px; margin-left:48%; background-color: white;">목록으로</button>
+	</div>
+	<div style="background-color: white; width:100%; height:200px"></div>
 	
-	<button onclick="backBtn()" class="w3-btn w3-white w3-border" style="border-radius: 10px; margin-left:48%; margin-top:-25%">목록으로</button>
-	<br><br>
-	
-
+	<input id="yCount" type="hidden" value="${yCount }"/>
+	<input id="allCount" type="hidden" value="${allCount }"/>
+	<input name="bookWriter" type="hidden" value="${book.bWriter }"/>
+	<form id="submitForm" action="reservationBook.bk">
+		<input type="hidden" name="bookNo" value="${book.bNo }"/>
+		<input type="hidden" name="bookWriter" value="${book.bWriter }"/>
+	</form>
 	<script>
 		function reservation(){
-			if()
-			alert('예약이 완료되었습니다.');
-			location.href="reservationBook.bk";
+			var yCount = "${yCount}";
+			if(yCount == '0'){
+				alert('예약 가능한 도서가 없습니다.');
+				document.getElementById('id01').style.display='none'
+			} else{
+				alert('예약이 완료되었습니다.');	
+				$('#submitForm').submit();
+			}
 		}
 		
 		function backBtn(){

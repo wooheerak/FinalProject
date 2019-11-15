@@ -22,8 +22,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-                        <h2>개인정보조회</h2>
-                        <p class="lead">열람실/스터디룸 이용내역 조회</p>
+                        <h2>개인 정보 조회</h2>
+                        <p class="lead">도서 예약 관리</p>
                     </div><!-- end col -->
                 </div><!-- end row -->
             </div><!-- end container -->
@@ -59,35 +59,6 @@
 
            <!-- 공지사항 -->
 	<div class="container col-md-8 col-sm-12" style="margin-left: 20px;">
-		<div class="dropdown portfolio-filter">
-			<button class="btn  dropdown-toggle" type="button"
-				data-toggle="dropdown"
-				style="float: left; border-radius: 2px; width: 160px; text-align: center; background: white; border: 1px solid lightgray;">
-				<p class="isStudy" style="display: inline;">열람실/스터디룸</p>
-				<span class="fa fa-angle-down" style="display: inline;"></span>
-			</button>
-			<ul class="dropdown-menu" style="margin-top: 40px;">
-				<li><a class="seat" href="myseatList.ss" data-filter="*"
-					style="text-align: center;">열람실</a></li>
-				<li>
-					<a class="studyroom" href="mystudyroomList.sr"
-					data-filter=".cat1" style="text-align: center;">스터디룸</a>
-				</li>
-			</ul>
-		</div>
-		<!-- 수정 확인하기 -->
-
-		<!-- end dropdown -->
-
-                <script>
-                    $(".seat").on("click" , function(){
-                        $(".isStudy").text("열람실");
-                    });
-
-                    $(".studyroom").on("click", function(){
-                        $(".isStudy").text("스터디룸");
-                    });
-                </script>
                 <br><br>
                 <hr>
                 <form id="boardForm" name="boardForm" method="post">
@@ -95,51 +66,37 @@
                     <table class="table table-striped table-hover" style = "text-align: center;">
                         <thead >
                             <tr>
-                                <th style = "text-align: center;">번호</th>
-                                <th style = "text-align: center;">이용 내역</th>
-                                <th style = "text-align: center;">처리상태</th>
-                                <th style = "text-align: center;">날짜</th>
-                                <th style = "text-align: center;"></th>
-                               
+                                <th style = "text-align: center;">도서 제목</th>
+                                <th style = "text-align: center;">작 가</th>
+                                <th style = "text-align: center;">예약 날짜</th>
+                                <th style = "text-align: center;">만료 날짜</th>
+                                <th style = "text-align: center;">대출 상황</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[73번]</td>
-                                <td>예약인증 전</td>
-                                <td>2019-10-30</td>
-                                <td><button class = "btn cancelRev" >예약 취소</button></td>
-                                
+                        <c:forEach var="r" items="${ list }">
+	                        <tr>
+                                <td>${r.bName }  </td>
+                                <td>${r.bWriter }</td>
+                                <td>${r.bookReservation.BV_DATE }</td>
+                                <td>${r.bookReservation.BV_RETURN_DATE }</td>
+                                <td>
+                                	<p>대기</p>
+                                	<c:set var="result" value="-1"/>
+                                	<c:if test="${result == 1 }">
+                                		<p>대출 대기</p>
+                                	</c:if>
+        	                        <c:if test="${result == 0 }">
+    	                            	<c:if test="${r.bookReservation.BV_STATUS } == 'N'">
+    	                            		<p>기간 만료</p>
+    	                            	</c:if>
+    	                            	<c:if test="${r.bookReservation.BV_STATUS } == 'R'">
+    	                            		<p>대출 완료</p>
+    	                            	</c:if>
+	                                </c:if>
+                                </td>
                             </tr>
-
-                            <tr>
-                                <td>2</td>
-                                <td>B열람실&nbsp;&nbsp;&nbsp;[34번]</td>
-                                <td>만료</td>
-                                <td>2019-10-29</td>
-                                <td></td>
-                               
-                            </tr>
-
-                            <tr>
-                                <td>3</td>
-                                <td>C열람실&nbsp;&nbsp;&nbsp;[12번]</td>
-                                <td>만료</td>
-                                <td>2019-10-27</td>
-                                <td></td>
-                               
-                            </tr>
-
-                            <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
-
+                        </c:forEach>
                         </tbody>
                     </table>
 
@@ -150,6 +107,18 @@
         <!-- end section -->
         </div>
 
+	<script>
+		function dateCalc(){
+			var currentDate = new Date();
+			var finishDate = ${r.bookReservation.BV_RETURN_DATE };
+
+			if(currentDate < finishDate){
+				${result} = 1;
+			} else {
+				${result} = 0;
+			}
+		}
+	</script>
 	
 	<jsp:include page="../common/footer.jsp"/>
 

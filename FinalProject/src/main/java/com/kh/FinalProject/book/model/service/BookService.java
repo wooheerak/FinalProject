@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.kh.FinalProject.book.model.vo.Book;
+import com.kh.FinalProject.book.model.vo.BookReservation;
 import com.kh.FinalProject.book.model.vo.PageInfo;
 
 public interface BookService {
@@ -18,5 +19,9 @@ public interface BookService {
 	int selectAllCount(String bISBN);
 
 	int selectYCount(String bISBN);
+
+	int insertRv(Map<String, Object> map);
+
+	ArrayList<BookReservation> selectReservationBookList(String userId);
 
 }

@@ -19,6 +19,8 @@ public class Book {
 	private String status;
 	private String bIMG;
 	
+	private BookReservation bookReservation;
+
 	public Book() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -26,7 +28,7 @@ public class Book {
 
 	public Book(int bNo, String bName, String bWriter, String bTrans, String bPublisher, int bPage, int price,
 			String bMainCTG, Date bIssueDate, String bLanguage, String bISBN, String bLocation, String status,
-			String bIMG) {
+			String bIMG, BookReservation bookReservation) {
 		super();
 		this.bNo = bNo;
 		this.bName = bName;
@@ -42,6 +44,7 @@ public class Book {
 		this.bLocation = bLocation;
 		this.status = status;
 		this.bIMG = bIMG;
+		this.bookReservation = bookReservation;
 	}
 
 	public int getbNo() {
@@ -156,12 +159,21 @@ public class Book {
 		this.bIMG = bIMG;
 	}
 
+	public BookReservation getBookReservation() {
+		return bookReservation;
+	}
+
+	public void setBookReservation(BookReservation bookReservation) {
+		this.bookReservation = bookReservation;
+	}
+
 	@Override
 	public String toString() {
 		return "Book [bNo=" + bNo + ", bName=" + bName + ", bWriter=" + bWriter + ", bTrans=" + bTrans + ", bPublisher="
 				+ bPublisher + ", bPage=" + bPage + ", price=" + price + ", bMainCTG=" + bMainCTG + ", bIssueDate="
 				+ bIssueDate + ", bLanguage=" + bLanguage + ", bISBN=" + bISBN + ", bLocation=" + bLocation
-				+ ", status=" + status + ", bIMG=" + bIMG + "]";
+				+ ", status=" + status + ", bIMG=" + bIMG + ", bookReservation=" + bookReservation + "]";
 	}
+
 	
 }

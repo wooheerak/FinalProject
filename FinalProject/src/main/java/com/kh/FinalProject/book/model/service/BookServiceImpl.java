@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.FinalProject.book.model.dao.BookDao;
 import com.kh.FinalProject.book.model.vo.Book;
+import com.kh.FinalProject.book.model.vo.BookReservation;
 import com.kh.FinalProject.book.model.vo.PageInfo;
 
 @Service("bService")
@@ -51,6 +52,25 @@ public class BookServiceImpl implements BookService{
 	public int selectYCount(String bISBN) {
 		return bDao.selectYCount(sqlSession, bISBN);
 	}
+
+
+	@Override
+	public int insertRv(Map<String, Object> map) {
+		int result = bDao.insertBv(sqlSession, map);
+		
+		int updateresult = 0;
+		if(result > 0) {
+			updateresult =  bDao.updateBookStatus(sqlSession, map);
+		}
+		return updateresult;
+	}
+
+
+	@Override
+	public ArrayList<BookReservation> selectReservationBookList(String userId) {
+		return bDao.selectReservationBookList(sqlSession,userId);
+	}
+
 
 	
 	

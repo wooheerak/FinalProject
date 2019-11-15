@@ -5,6 +5,7 @@
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
+	
 	<typeAliases>
 	  	<typeAlias type="com.kh.FinalProject.studyroom_board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.FinalProject.studyroom_board.model.vo.Reply" alias="Reply"/>
@@ -17,15 +18,16 @@
 		<typeAlias type="com.kh.FinalProject.studyroom_order.model.vo.StudyroomOrder" alias="StudyroomOrder"/>
     	<typeAlias type="com.kh.FinalProject.booksales.model.vo.BookReg" alias="BookReg"/>
     	<typeAlias type="com.kh.FinalProject.studyseat.model.vo.SeatHistory" alias="SeatHistory"/>
+    	<typeAlias type="com.kh.FinalProject.book.model.vo.BookReservation" alias="Bookreservation"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/board-mapper.xml"/>
 		<mapper resource="mappers/notice-mapper.xml"/>
 		<mapper resource="mappers/studyroom-mapper.xml"/>
-	  	<mapper resource="mappers/seat-mapper.xml"/>
-	 	<mapper resource="mappers/user-mapper.xml"/>
-	 	<mapper resource="mappers/booksales-mapper.xml"/>
+		<mapper resource="mappers/seat-mapper.xml"/>
+		<mapper resource="mappers/user-mapper.xml"/>
+		<mapper resource="mappers/booksales-mapper.xml"/>
     	<mapper resource="mappers/book-mapper.xml"/>
 	</mappers>
 </configuration>

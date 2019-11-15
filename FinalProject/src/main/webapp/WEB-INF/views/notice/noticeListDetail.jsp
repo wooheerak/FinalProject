@@ -50,8 +50,8 @@
 						</dd>
 					</dl>
 				</div>
-				<div class="noticeContent"
-					style="background-color: #fff; border: 1px solid #e6e6e6; border-top: none; padding: 20px; font-size: 18px;">
+				<div class="noticeContent text-center"
+					style="border: 1px solid #e6e6e6; border-top: none; padding: 20px; font-size: 18px;">
 					${ n.nContent }
 				</div>
 				
@@ -70,7 +70,11 @@
 			       <c:param name="nId" value = "${ n.nId }"/>
 			    </c:url>
 			    
-				<a href="${ updateView }" class="btn btn-transparent">수정</a>
+ 				<c:if test="${ loginUser.member_Name eq n.nWriter }">
+					<a href="${ updateView }" class="btn btn-transparent">수정</a>
+				</c:if>
+			    
+				
 				<a href="nlist.no" class="btn btn-transparent">목록</a>
 			</div>
 		</div>

@@ -34,6 +34,13 @@ public class Studyroom {
 		this.sr_floor = sr_floor;
 		this.sr_maxPeople = sr_maxPeople;
 	}
+
+	@Override
+	public String toString() {
+		return "Studyroom [sr_name=" + sr_name + ", sr_floor=" + sr_floor + ", sr_maxPeople=" + sr_maxPeople + "]";
+	}
+	
+	
 	
 	
 	

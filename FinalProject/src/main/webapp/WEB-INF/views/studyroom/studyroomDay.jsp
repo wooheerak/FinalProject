@@ -85,6 +85,7 @@ Calendar cr = Calendar.getInstance();
 int year = cr.get(Calendar.YEAR);
 int month = cr.get(Calendar.MONTH);
 int date = cr.get(Calendar.DATE);
+System.out.println(date);
 %>
 	<c:import url="../common/header.jsp" />
 
@@ -215,28 +216,28 @@ int date = cr.get(Calendar.DATE);
 									<select id="day" name="day"  class="studyroom_option2">
 										<!-- 선택된 달의 숫자만큼 일수 반복-->
 										<%
-											if(date == 1 || date == 3 || date == 5 || date == 7 || date == 8 || date == 10 || date == 12){
+											if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
 										      for(int i=1; i<=31; i++){
 										      	String selected = (i == date)?"selected":"";
 										     	String color = (i == date)?"#CCCCCC":"#FFFFFF";
 										    	out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>");       
 										      }
 											}
-											else if(date == 4 || date == 6 || date == 9 || date == 11){
+											else if(month == 4 || month == 6 || month == 9 || month == 11){
 												for(int i=1; i<=30; i++){
 													String selected = (i == date)?"selected":"";
 											     	String color = (i == date)?"#CCCCCC":"#FFFFFF";
 											    	out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>");      
 												}
 											}
-											else if(date == 2 && (year % 4 == 0 && year % 100 != 0) || year % 400 == 0){
+											else if(month == 2 && (year % 4 == 0 && year % 100 != 0) || year % 400 == 0){
 												for(int i=1; i<=29; i++){
 													String selected = (i == date)?"selected":"";
 											     	String color = (i == date)?"#CCCCCC":"#FFFFFF";
 											    	out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>"); 
 												}
 											}
-											else if(date == 2){
+											else if(month == 2){
 												for(int i=1; i<=28; i++){
 													String selected = (i == date)?"selected":"";
 											     	String color = (i == date)?"#CCCCCC":"#FFFFFF";

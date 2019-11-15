@@ -91,11 +91,11 @@ input{
 			<br>
 			<form action="reservationStudyroom.sr" onsubmit="return reservationCheck()">
  				
-					<table class="text-center" id="reservationTable">
+					<table class="text-center" id="reservationTable" name="reservationTable">
 						<tr>
 							<td colspan="2"><b>층</b></td>
 							<td colspan="5">
-								<select id="so_floor" name="so_floor" onchange="studyroomNameChange(this)" style="width:100%;">
+								<select id="so_floor" name="so_floor" onchange="studyroomNameChange(this.value)" style="width:100%;">
 									<!-- 유저가 클린한 방의 층 selected -->
 									<c:forEach var="i" begin="1" end="3">
 										<c:if test="${i==sr_floor}">
@@ -113,7 +113,6 @@ input{
 							<td colspan="2"><b>스터디룸 이름</b></td>
 							<td colspan="5">
 								<select id="so_name" name="so_name" style="width:100%;">
-									<option>${sr_name}</option>
 								</select>
 							</td>
 							<td></td> 
@@ -135,7 +134,7 @@ input{
 											</c:if>
 											<c:if test="${i != so_startTime}">
 												<option value="0${i}">0${i}:00</option>				
-											</c:if>
+											</c:if>  
 										</c:if>
 										<c:if test="${i>=10}">
 											<c:if test="${i == so_startTime}">
@@ -170,16 +169,29 @@ input{
 						</tr>
 						<tr>
 							<td colspan="2"><b>예약자 정보(학번)</b></td>
-							<td colspan="5"><input name="so_organizer" type="text" readonly style="height:24px; background:lightgrey;" value="${so_organizer}"/></td>
+							<td colspan="5"><input name="so_organizer" id="so_organizer" type="text" readonly style="height:24px; background:lightgrey;" value="${so_organizer}"/></td>
 							<td></td>
 						</tr>
-						<tr>
-							<td colspan="2"><b>참여자</b></td>
-							<td colspan="5"><input id="so_participant" name="so_participant"  type="text" style="height:24px;"></td> 
-							<td>
-								<button id="addParticipant" type="button" class="btn btn-transparent addPar" style="width:25px; height:25px;">+</button>
-							</td>
-						</tr>
+						<c:forEach var="i" begin="0" end="3">
+							<tr>
+								<c:if test="${i==0}">
+									<td colspan="2"><b>참여자</b></td>
+								</c:if>
+								<c:if test="${i!=0}">
+									<td colspan="2"></td>
+								</c:if>
+								<td colspan="5"><input id="so_participant" name="so_participant"  type="text" style="height:24px;"></td> 
+								
+								<c:if test="${i!=3}">
+									<td></td>
+								</c:if>
+								<c:if test="${i==3}">
+									<td>
+										<button id="addParticipant" type="button" class="btn btn-transparent addPar" style="width:25px; height:25px;">+</button>
+									</td>
+								</c:if>
+							</tr>
+						</c:forEach>
 					</table>
 				
 				<br>
@@ -209,16 +221,22 @@ input{
 	}
 	
 	function reservationCheck(){
-		// 스터디룸 예약 게시판으로 입력 체크
-		// 참여자 인원수 자동 체크
+		// 스터디룸 예약 게시판으로 입력 체크 는 day에서 체크
 		
 		// 예약 시간 중복 검사
 		
 		// 참여자 실제 학생인지 검사
+		
 		// 참여자에 같은 학번 입력 방지(중복 입력방지)
-		// 참여자와 예약자 같은 학번 입력 방지
-		if($('.addPar').attr('value').contain($('#so_organizer').attr('value'))){
+// 		if(){
 			
+// 			System.out.println("참여자 중복 입력 방지")
+// 			return false;
+// 		}
+		
+		// 참여자와 예약자 같은 학번 입력 방지
+		if($('.so_participant').attr('value').contain($('#so_organizer').attr('value'))){
+			System.out.println("참여자와 예약자 같은 학번 입력 방지")
 			return false;
 		}
 		
@@ -228,47 +246,110 @@ input{
 // 			return false;
 // 		}
 		// 정상 예약후 창 끄기, 부모(원래 페이지 새로고침)
-		else return true;
+		else {
+			System.out.println("예약 성공")
+			return true;
+		}
 		
 	}
 	
-	function studyroomNameChange(e){
-		var target = document.getElementById("so_name");
-		target.options.length = 0;
-		var a = ["글고운","난길","마루","우솔"]
-		var b = ["꽃채운","우리별","나루"]
-		var c = ["미리내","우주","가온","다솜"]
+	// 최초 작동 예약 정보
+	window.onload=function(){
+		var $target = $("select[name='so_name']");
+		var $target2 = $("table[name='reservationTable']");
 		
+		$target.empty();
+		if(${sr_floor} == ""){
+			$target.append('<option value="">선택</option>');
+			return;
+		}
 		
-		if(e.value==1){
-			for(var i in a){			
-				var opt = document.createElement("option");
-			    opt.value = a[i];
-			    opt.innerHTML = a[i];
-			    //if(i==1) opt.selected=true;
-			    target.appendChild(opt);
+		$.ajax({
+			type: "POST",
+			url : "getSrInfo.sr",
+			async: false,
+			data : {so_floor : ${sr_floor} },
+			success: function(jdata){
+				if(jdata.length == 0){
+					$target.append('<option value="">선택</option>');
+				}else{
+					var num=0;
+					$(jdata).each(function(i){
+						if(jdata[i].sr_name == "${sr_name}"){
+							$target.append("<option value="+ jdata[i].sr_name+"selected>"+jdata[i].sr_name+"</option>");
+							num = i;
+						}else{
+							$target.append("<option value="+ jdata[i].sr_name+">"+jdata[i].sr_name+"</option>");
+						}
+					});
+					$("#so_name option:contains('${sr_name}')").prop("selected","selected");
+					
+					// 선택한 select의 value값(스터디룸 이름)을 받고 그 값 의 최대 인원수를 뽑아야 함
+					var studyroom = Math.ceil(jdata[num].sr_maxPeople/2);
+					// console.log(studyroom);
+					
+					
+					for(var i=0; i<studyroom; i++){
+						if(i == 0){
+							$target2.append("<tr><td colspan='2'></td><b>참여자</b><td colspan='5'><input id='so_participant' name='so_participant'  type='text' style='height:24px;'></td><td></td></tr>");
+						}
+						else if(i != 0){
+							$target2.append("<tr><td colspan='2'></td><td colspan='5'><input id='so_participant' name='so_participant'  type='text' style='height:24px;'></td><td></td></tr>");
+						}else if(i == studyroom-1){
+							$target2.append("<tr><td colspan='2'></td><td colspan='5'><input id='so_participant' name='so_participant'  type='text' style='height:24px;'></td><td><button id='addParticipant' type='button' class='btn btn-transparent addPar' style='width:25px; height:25px;'>+</button></td></tr>");
+						}	
+						
+					}
+				}
+			},
+			error:function(xhr){
+				console.log(xhr.responseText);
+				alert("자식 창 값 보내기 실패");
+				return;
 			}
+		});
+ 	}
+
+	// 층 변환 시 작동
+	function studyroomNameChange(so_floor){
+		console.log(so_floor);
+		var selected="";
+		var $target = $("select[name='so_name']");
+		var $target1 = $("select[name='so_name']");
+		
+		$target.empty();
+		if(so_floor == ""){
+			$target.append('<option value="">선택</option>');
+			return;
 		}
-		else if(e.value==2){
-			for(var i in b){			
-				var opt = document.createElement("option");
-			    opt.value = b[i];
-			    opt.innerHTML = b[i];
-			    //if(i==1) opt.selected=true;
-			    target.appendChild(opt);
+		
+		$.ajax({
+			type: "POST",
+			url : "getSrInfo.sr",
+			async: false,
+			data : {so_floor : so_floor },
+			success: function(jdata){
+				if(jdata.length == 0){
+					$target.append('<option value="">선택</option>');
+				}else{
+					$(jdata).each(function(i){
+						if(jdata[i].sr_name == "${sr_name}"){
+							selected="selected";
+						}
+						console.log(selected);
+						$target.append("<option value="+ jdata[i].sr_name+","+jdata[i].sr_maxPeople+"selected:"+selected+">"+jdata[i].sr_name+"</option>");
+					});
+				}
+			},
+			error:function(xhr){
+				console.log(xhr.responseText);
+				alert("ㅁㄴㅇㄹ");
+				return;
 			}
-		}
-		else if(e.value==3){
-			for(var i in c){			
-				var opt = document.createElement("option");
-			    opt.value = c[i];
-			    opt.innerHTML = c[i];
-			    //if(i==1) opt.selected=true;
-			    target.appendChild(opt);
-			}
-		}
+		});
 		
 	}
+	
 	
 	function endTimeChange(e){
 		var target = document.getElementById("endTime");

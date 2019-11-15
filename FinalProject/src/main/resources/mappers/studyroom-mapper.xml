@@ -12,6 +12,12 @@
 		
 	</select>
 	
+	<select id="getSrInfo" parameterType="string" resultMap="studyroomResultSet">
+		SELECT *
+		FROM STUDYROOM
+		WHERE SR_FLOOR=${so_floor}
+	</select>
+	
 	<resultMap type="Studyroom" id="studyroomResultSet">
 		<id property="sr_name" column="SR_NAME"/>
 		<result property="sr_floor" column="SR_FLOOR"/>
@@ -30,18 +36,7 @@
 		FROM STUDYROOM_ORDER
 		ORDER BY SO_NO DESC
 	</select>
-	
-<!-- 	<select id="changeValue" resultType="_"> -->
-<!-- 		SELECT MEMBER_NAME -->
-<!-- 		FROM MEMBER -->
-<!-- 		WHERE member_id in( -->
-<!-- 							<foreach collection=""> -->
-								
-<!-- 							</foreach> -->
-<!-- 		) -->
-<!-- 		ORDER BY SO_NO DESC -->
-<!-- 	</select> -->
-	
+		
 	<select id="selectName" parameterType = "java.util.HashMap" resultType = "string">
 		select member_name 
 		from member

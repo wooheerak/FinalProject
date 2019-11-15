@@ -21,6 +21,9 @@ public interface StudyroomService {
 
 	ArrayList<String> selectName(Map<String, Object> map);
 
+	ArrayList<Studyroom> getSrInfo(String so_floor);
+
+
 	
 
 }

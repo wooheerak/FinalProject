@@ -7,7 +7,7 @@ public class SeatHistory {
 		private int shNo ;
 		private Date useDate ;
 		private String shStatus ;
-		
+	
 		private Seat seat ;
 		
 		public SeatHistory() {

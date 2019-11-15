@@ -20,4 +20,16 @@ public interface SeatService {
 
 	ArrayList<SeatHistory> selectHistoryList(String id);
 
+	int insertHistory(Seat seat);
+
+	int cancelResv(int cancelId);
+
+	int resetSeat(int cancelId);
+
+	SeatHistory selectsId(String id);
+
+	int checkCode(Seat seat);
+
+	
+
 }

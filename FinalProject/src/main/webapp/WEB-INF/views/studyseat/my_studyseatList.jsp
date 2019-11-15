@@ -6,7 +6,70 @@
 <head>
 <meta charset="UTF-8">
 <title>열람실 좌석 조회</title>
-<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> 
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript"
+	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+<script type="text/javascript"
+	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+<script>
+
+	
+
+	jQuery(function($) {
+		$("#seatList").DataTable({
+	         // 표시 건수기능 숨기기
+	         "lengthChange" : true,
+	         // 정보 표시 숨기기
+	         "info" : true,
+			 "ordering": false ,
+			 "filter" : false ,
+			 "lengthChange" : false , 
+	           // 정렬
+	            "order": [],
+	            
+	         // 페이지 넘기는 방식
+	         pagingType : "full_numbers",
+
+	         // n번째 항목 넓이를 300px로 설정
+	         columnDefs : [ {
+	            targets : 0,
+	            width : 40
+	         }, {
+	            targets : 1,
+	            width : 300
+	         } ],
+
+	         "language" : {
+	            "emptyTable" : "데이터가 없어요.",
+	            "lengthMenu" : "페이지당 _MENU_ 개씩 보기",
+	            "info" : "현재 _START_ - _END_ / _TOTAL_건",
+	            "infoEmpty" : "데이터 없음",
+	            "infoFiltered" : "( _MAX_건의 데이터에서 필터링됨 )",
+	            "search" : "검색: ",
+	            "zeroRecords" : "일치하는 데이터가 없어요.",
+	            "loadingRecords" : "로딩중...",
+	            "processing" : "잠시만 기다려 주세요...",
+	            "paginate" : {
+	               "next" : ">",
+	               "previous" : "<" , 
+	               "last" : ">>" ,
+	               "first" : "<<" 
+	            	  
+	            }
+	         }
+	   
+		});
+	});
+	
+
+</script>
+
+
 </head>
 
 <body>
@@ -71,7 +134,7 @@
 				<span class="fa fa-angle-down" style="display: inline;"></span>
 			</button>
 			<ul class="dropdown-menu" style="margin-top: 40px;">
-				<li><a class="seat" href="myseatList.ss" data-filter="*"
+				<li><a class="seat" href="#" data-filter="*"
 					style="text-align: center;">열람실</a></li>
 				<li>
 					<a class="studyroom" href="mystudyroomList.sr"
@@ -83,16 +146,7 @@
 
 		<!-- end dropdown -->
 
-                <script>
-                    
-                    $(".seat").on("click" , function(){
-                        $(".isStudy").text("열람실");
-                    });
-
-                    $(".studyroom").on("click", function(){
-                        $(".isStudy").text("스터디룸");
-                    });
-                </script>
+               
                 
                 <br><br>
                 <hr>
@@ -118,7 +172,7 @@
 					        <br><br>
 					      </div>
 					      <div class="modal-footer">
-					        <button type="button" class="btn btn-primary" style = "background : #0080FF; color : white; float : left ; margin-left : 130px;" onclick = "cancelSeat();">확인</button>
+					        <button type="button" class="btn btn-primary" data-dismiss="modal" style = "background : #0080FF; color : white; float : left ; margin-left : 130px;" onclick = "cancelSeat(this);">확인</button>
 					        <button type="button" class="btn btn-primary" data-dismiss="modal" style = "background : lightgray ; margin-right : 115px; ">취소</button>
 					      </div>
 					    </div>
@@ -126,135 +180,187 @@
 					</div>
                 </div>
                 <form action = "" method="post">
-
-                    <table class="table table-striped table-hover" style = "text-align: center;">
+				<div id = "mySeat">
+                    <table id = "seatList" class="table table-striped table-hover" style = "text-align: center;">
                         <thead >
                             <tr>
                                 <th style = "text-align: center;">번호</th>
                                 <th style = "text-align: center;">이용 내역</th>
                                 <th style = "text-align: center;">처리상태</th>
                                 <th style = "text-align: center;">날짜</th>
-                                <th style = "text-align: center;"></th>
-                               
+                                <th style = "text-align: center;"></th>                               
                             </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[73번]</td>
-                                <td>예약인증 전</td>
-                                <td>2019-10-30</td>
-                                <td><button type = "button" class = "btn cancelRev" onclick = "cancelModal();">예약 취소</button></td>
-                                
-                            </tr>
-
-                            <tr>
-                                <td>2</td>
-                                <td>B열람실&nbsp;&nbsp;&nbsp;[34번]</td>
-                                <td>만료</td>
-                                <td>2019-10-29</td>
-                                <td></td>
-                               
-                            </tr>
-
-                            <tr>
-                                <td>3</td>
-                                <td>C열람실&nbsp;&nbsp;&nbsp;[12번]</td>
-                                <td>만료</td>
-                                <td>2019-10-27</td>
-                                <td></td>
-                               
-                            </tr>
-
-                            <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
-                            
-                             <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
-                            
-                             <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
-                            
-                             <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
-                            
-                             <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
-                            
-                             <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
-                            
-                             <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
-                            
-                             <tr>
-                                <td>4</td>
-                                <td>A열람실&nbsp;&nbsp;&nbsp;[51번]</td>
-                                <td>만료</td>
-                                <td>2019-10-26</td>
-                                <td></td>
-                            
-                            </tr>
-
+                     	</thead>
+                        
+                        
+                        
+                        <tbody id = "sContent">
+                           
+                           <c:forEach var="sh" items="${ list }" varStatus = "status" >
+                           		
+                           		<tr>
+                           			<td>${ status.count }</td>
+                           			<td>${ sh.seat.ss_floor }열람실[ ${ sh.seat.ss_no }번 ]</td>
+                           			<c:if test='${ sh.shStatus eq "E" }'>
+                           				<td>만료</td>
+                           			</c:if>
+                           			
+                           			<c:if test='${ sh.shStatus eq "R" }'>
+                           				<td>예약인증 전</td>
+                           			</c:if>
+                           			
+                           			<td>${ sh.useDate }</td>
+                           			
+                           			<c:if test='${ sh.shStatus eq "E" }'>
+                           				<td></td>
+                           			</c:if>
+                           			
+                           			<c:if test='${ sh.shStatus eq "R" }'>
+                           				<td><button id = "cb${ sh.seat.ss_no }" type = "button" class = "btn cancelRev" onclick = "cancelModal(this);"  value = "${ sh.seat.ss_no }" >예약 취소</button></td>
+                           			</c:if>
+                           			
+                           		</tr>	
+                           </c:forEach>
                         </tbody>
                     </table>
-
+				 </div>
                 </form>
             </div>
 
         </section>
         <!-- end section -->
         </div>
-        
+        	`
         <script>
-		        function cancelSeat(){									
+        		
+       
+		
+        
+        
+        		var cancelId = 0 ;
+        		var str = "";
+        		
+        		
+        		 $(".seat").on("click" , function(){
+                     
+                     
+                     $.ajax({
+ 						url : "seatListAjax.ss" , 				
+ 						success : function(data){
+ 							console.log(data);
+ 							
+ 						
+ 							$(".isStudy").text("열람실");
+ 							
+ 							
+ 	                        
+ 	                        $("#sContent").text("");
+ 								
+ 							for(var i in data){
+ 								
+ 								str +=  '<tr>' ;
+ 								str +=  ('<td>' + (Number(i)+1) + '</td>');
+ 								str +=  ('<td>' + data[i].seat.ss_floor + "열람실" + '[ ' + data[i].seat.ss_no + '번 ]</td>');
+ 								
+ 								if(data[i].shStatus == "E"){
+ 									str += '<td>만료</td>';
+ 								}
+ 								else if(data[i].shStatus == "R"){
+ 									str += '<td>예약인증 전</td>' ;
+ 								}
+ 								
+ 								str += ('<td>' + data[i].useDate + '</td>');
+ 								
+ 								if(data[i].shStatus == "E"){
+ 									str += '<td></td>';
+ 								}
+ 								else if(data[i].shStatus == "R"){
+ 									str += '<td><button id = "cb' + data[i].seat.ss_no +'" type = "button" class = "btn cancelRev" onclick = "cancelModal(this);" value = "' + data[i].seat.ss_no +'" >예약 취소</button></td>' ;
+ 								}
+ 										
+ 								str += '</tr>';
+ 								
+ 							}
+ 							
+ 							
+ 							$("#sContent").append(str);
+ 							
+ 							
+ 												
+ 							
+ 						} ,
+ 						error : function(error){
+ 							console.log(error);
+ 						}
+ 						
+ 					});
+                     
+                     
+                 });
+
+                 $(".studyroom").on("click", function(){
+                     $(".isStudy").text("스터디룸");
+                 });
+                 
+		        function cancelSeat(obj){									
+					console.log(cancelId);
 					
+					$.ajax({
+						url : "cancelResv.ss" ,
+						data : { cancelId : cancelId } ,
+						success : function(data){
+							console.log(data);
+							
+					
+							
+							str = "";
+ 						
+							$("#sContent").text("");
+							
+							for(var i in data){
+								
+								str +=  '<tr>' ;
+								str +=  ('<td>' + (Number(i)+1) + '</td>');
+								str +=  ('<td>' + data[i].seat.ss_floor + "열람실" + '[ ' + data[i].seat.ss_no + '번 ]</td>');
+								
+								if(data[i].shStatus == "E"){
+									str += '<td>만료</td>';
+								}
+								else if(data[i].shStatus == "R"){
+									str += '<td>예약인증 전</td>' ;
+								}
+								
+								str += ('<td>' + data[i].useDate + '</td>');
+								
+								if(data[i].shStatus == "E"){
+									str += '<td></td>';
+								}
+								else if(data[i].shStatus == "R"){
+									str += '<td><button id = "cb' + data[i].seat.ss_no +'" type = "button" class = "btn cancelRev" onclick = "cancelModal(this);" value = "' + data[i].seat.ss_no +'" >예약 취소</button></td>' ;
+								}
+										
+								str += '</tr>';
+								
+							}
+							
+							
+ 							$("#sContent").append(str);
+							
+ 							location.reload();
+ 							
+							
+						} ,
+						error : function(error){
+							console.log(error);
+						}
+						
+					});
 				}
 		        
-		        function cancelModal(){
+		        function cancelModal(obj){
 		        	
+		        	cancelId = $(obj).val();
+		        	$("#seatId1").text($(obj).val());
 		        	$("#cancelModal").trigger("click");
 		        }
         </script>

@@ -44,6 +44,41 @@
   		<result property="shStatus" column="SH_STATUS"/>
   		<collection property="seat" resultMap="seatResultSet"/>
   	</resultMap>
-  
   	
+  	<select id = "selectHistoryList" parameterType="string" resultMap="historyResultSet">
+  		SELECT *
+		FROM SEAT_HISTORY SH
+		JOIN STUDYSEAT S ON (SH.SS_NO = S.SS_NO)
+		WHERE SH.STUDENT_ID = #{id} AND SH.SH_STATUS IN ('E','R') 
+		ORDER BY USE_DATE DESC
+  	</select>
+  
+  	<insert id="updateHistory" parameterType = "Seat">
+  		INSERT INTO SEAT_HISTORY
+  		VALUES(SEQ_SHNO.NEXTVAL, #{ss_no} , SYSDATE , #{student_id} , 'R')
+  	</insert>
+  	
+  	<update id = "cancelResv" parameterType="_int">
+  		UPDATE SEAT_HISTORY
+  		SET SH_STATUS = 'N'
+  		WHERE SS_NO = #{cancelId}
+  	</update>
+  	
+  	<update id  = "resetSeat" parameterType = "_int">
+  		UPDATE STUDYSEAT
+		SET SS_USE = 'N' , CERT_CODE = NULL , STUDENT_ID = NULL
+		WHERE SS_NO = #{cancelId}
+  	</update>
+  	
+  	<select id = "selectsId" parameterType = "string" resultMap = "historyResultSet">
+  		SELECT *
+		FROM SEAT_HISTORY
+		WHERE STUDENT_ID = #{id} AND SH_STATUS = 'R'
+  	</select>
+  	
+  	<update id = "checkCode" parameterType = "Seat">
+  		UPDATE STUDYSEAT 
+		SET SS_USE = 'Y' , SS_CERT = 'Y'
+		WHERE STUDENT_ID = #{student_id} AND CERT_CODE = #{cert_code}
+  	</update>
 </mapper>

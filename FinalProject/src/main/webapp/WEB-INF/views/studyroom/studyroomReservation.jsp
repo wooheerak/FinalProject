@@ -285,18 +285,21 @@ input{
 					$("#so_name option:contains('${sr_name}')").prop("selected","selected");
 					
 					// 선택한 select의 value값(스터디룸 이름)을 받고 그 값 의 최대 인원수를 뽑아야 함
-					//var studyroom = document.
+					var studyroom = Math.ceil(jdata[num].sr_maxPeople/2);
+					// console.log(studyroom);
 					
-// 					for(int i=0; i<jdata[num].sr_maxPeople; i++){
-// 						if(i == 0){
-// 							$target2.append("<tr><td colspan='2'></td><b>참여자</b><td colspan='5'><input id='so_participant' name='so_participant'  type='text' style='height:24px;'></td><td></td></tr>");
-// 						}
-// 						else if(i != 0){
-// 							$target2.append("<tr><td colspan='2'></td><td colspan='5'><input id='so_participant' name='so_participant'  type='text' style='height:24px;'></td><td></td></tr>");
-// 						}else if(){
-// 							$target2.append("<tr><td colspan='2'></td><td colspan='5'><input id='so_participant' name='so_participant'  type='text' style='height:24px;'></td><td><button id='addParticipant' type='button' class='btn btn-transparent addPar' style='width:25px; height:25px;'>+</button></td></tr>");
-// 						}														
-// 					}
+					
+					for(var i=0; i<studyroom; i++){
+						if(i == 0){
+							$target2.append("<tr><td colspan='2'></td><b>참여자</b><td colspan='5'><input id='so_participant' name='so_participant'  type='text' style='height:24px;'></td><td></td></tr>");
+						}
+						else if(i != 0){
+							$target2.append("<tr><td colspan='2'></td><td colspan='5'><input id='so_participant' name='so_participant'  type='text' style='height:24px;'></td><td></td></tr>");
+						}else if(i == studyroom-1){
+							$target2.append("<tr><td colspan='2'></td><td colspan='5'><input id='so_participant' name='so_participant'  type='text' style='height:24px;'></td><td><button id='addParticipant' type='button' class='btn btn-transparent addPar' style='width:25px; height:25px;'>+</button></td></tr>");
+						}	
+						
+					}
 				}
 			},
 			error:function(xhr){

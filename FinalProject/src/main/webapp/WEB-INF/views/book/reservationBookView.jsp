@@ -82,10 +82,11 @@
                                 <td>${r.bookReservation.BV_RETURN_DATE }</td>
                                 <td>
                                 	<p>대기</p>
-                                	<c:if test="dateCalc() == 1">
+                                	<c:set var="result" value="-1"/>
+                                	<c:if test="${result == 1 }">
                                 		<p>대출 대기</p>
                                 	</c:if>
-        	                        <c:if test="dateCalc() == 0">
+        	                        <c:if test="${result == 0 }">
     	                            	<c:if test="${r.bookReservation.BV_STATUS } == 'N'">
     	                            		<p>기간 만료</p>
     	                            	</c:if>
@@ -112,9 +113,9 @@
 			var finishDate = ${r.bookReservation.BV_RETURN_DATE };
 
 			if(currentDate < finishDate){
-				return 1;
+				${result} = 1;
 			} else {
-				return 0;
+				${result} = 0;
 			}
 		}
 	</script>

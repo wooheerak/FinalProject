@@ -209,9 +209,17 @@
                            				<td>예약인증 전</td>
                            			</c:if>
                            			
+                           			<c:if test='${ sh.shStatus eq "U" }'>
+                           				<td>사용중</td>
+                           			</c:if>
+                           			
                            			<td>${ sh.useDate }</td>
                            			
                            			<c:if test='${ sh.shStatus eq "E" }'>
+                           				<td></td>
+                           			</c:if>
+                           			
+                           			<c:if test='${ sh.shStatus eq "U" }'>
                            				<td></td>
                            			</c:if>
                            			

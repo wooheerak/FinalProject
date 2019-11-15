@@ -161,13 +161,18 @@ public class StudySeatController {
 			HttpSession session = request.getSession();
 			User user = (User)session.getAttribute("loginUser");
 			
-			String id = "";
+			
 			ArrayList<SeatHistory> shList = null;
+			Seat seat = new Seat();
+			String id = "";
+			if(user != null) {
+				id = user.getMember_Id();
+				seat.setStudent_id(user.getMember_Id());
+				seat.setSs_no(cancelId);
+			}
+			System.out.println("seat " + seat);
 			
-			
-			System.out.println("cancelId " + cancelId);
-			
-			int result1 = sService.cancelResv(cancelId);
+			int result1 = sService.cancelResv(seat);
 			
 			int result = 0;
 			
@@ -222,7 +227,7 @@ public class StudySeatController {
 			seat.setCert_code(getCertCode());
 			seat.setStudent_id(user.getMember_Id());
 			
-			System.out.println("seat : " + seat);
+			System.out.println("resv seat : " + seat);
 			
 			int result1 = sService.updateResv(seat);
 			int result = 0;
@@ -291,7 +296,16 @@ public class StudySeatController {
 				result = sService.checkDup(id);				
 			}
 			
-			if(result == -1) {
+			int result1 = sService.checkUsing(id);
+			
+			if(result1 > 0) {
+				result = -2;
+			}
+			
+			if(result == -2) {
+				return "using";
+			}
+			else if(result == -1) {
 				return "noUser";
 			}
 			else if(result == 0) {
@@ -336,7 +350,7 @@ public class StudySeatController {
 		
 		@RequestMapping("checkCode.ss")
 		@ResponseBody
-		public String checkCode(HttpServletRequest request , @RequestParam("iCode") String iCode) {
+		public String checkCode(HttpServletRequest request , @RequestParam("iCode") String iCode , @RequestParam("cId") int cId) {
 			
 			HttpSession session = request.getSession();
 			
@@ -346,9 +360,10 @@ public class StudySeatController {
 			if(user != null) {
 				seat.setStudent_id(user.getMember_Id());
 				seat.setCert_code(iCode);
+				seat.setSs_no(cId);
 			}
 			
-			System.out.println("checkseat : " + seat);
+			System.out.println("checkseat : " + seat.getCert_code());
 			int result1 = sService.checkCode(seat);
 			
 			int result = -1 ;
@@ -368,6 +383,37 @@ public class StudySeatController {
 			
 		}
 		
+		@RequestMapping("outSeat.ss")
+		@ResponseBody
+		public String outSeat(HttpServletRequest request ,@RequestParam("cId") int cId) {
+			
+			
+			HttpSession session = request.getSession();
+			
+			User user = (User)session.getAttribute("loginUser");
+			Seat seat = new Seat();
+			
+			if(user != null) {
+				seat.setSs_no(cId);
+				seat.setStudent_id(user.getMember_Id());
+			}
+			
+			System.out.println("cId :" + cId + ", seat : " + seat);
+			
+			int result1 = sService.updateSeat(seat);
+			int result = -1 ;
+			
+			if(result1 > 0) {
+				result = sService.updateOutHistory(seat);
+			}
+			
+			if(result > 0) {
+				return "out";
+			}
+			else {
+				return "fail";
+			}
+		}
 		
 
 }

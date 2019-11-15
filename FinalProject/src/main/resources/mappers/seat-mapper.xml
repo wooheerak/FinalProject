@@ -24,7 +24,13 @@
   	<select id = "checkDup" parameterType = "string" resultType = "_int">
   		SELECT COUNT(*)
   		FROM STUDYSEAT
-  		WHERE STUDENT_ID = #{id}
+  		WHERE STUDENT_ID = #{id} AND SS_USE = 'R'
+  	</select>
+  	
+  	<select id = "checkUsing" parameterType = "string" resultType = "_int">
+  		SELECT COUNT(*)
+  		FROM STUDYSEAT
+  		WHERE STUDENT_ID = #{id} AND SS_USE = 'Y'
   	</select>
   	
   	<resultMap id = "seatResultSet" type = "Seat">
@@ -49,19 +55,22 @@
   		SELECT *
 		FROM SEAT_HISTORY SH
 		JOIN STUDYSEAT S ON (SH.SS_NO = S.SS_NO)
-		WHERE SH.STUDENT_ID = #{id} AND SH.SH_STATUS IN ('E','R') 
+		WHERE SH.STUDENT_ID = #{id} AND SH.SH_STATUS IN ('E','R','U') 
 		ORDER BY USE_DATE DESC
   	</select>
   
-  	<insert id="updateHistory" parameterType = "Seat">
+  	<insert id="insertHistory" parameterType = "Seat">
   		INSERT INTO SEAT_HISTORY
   		VALUES(SEQ_SHNO.NEXTVAL, #{ss_no} , SYSDATE , #{student_id} , 'R')
   	</insert>
   	
-  	<update id = "cancelResv" parameterType="_int">
+  	<update id = "cancelResv" parameterType="Seat">
   		UPDATE SEAT_HISTORY
   		SET SH_STATUS = 'N'
-  		WHERE SS_NO = #{cancelId}
+  		WHERE SS_NO = #{ss_no}  AND STUDENT_ID = #{student_id} 
+			  AND USE_DATE = (SELECT MAX(USE_DATE)
+                			  FROM SEAT_HISTORY
+                			  WHERE STUDENT_ID = #{student_id})
   	</update>
   	
   	<update id  = "resetSeat" parameterType = "_int">
@@ -73,7 +82,7 @@
   	<select id = "selectsId" parameterType = "string" resultMap = "historyResultSet">
   		SELECT *
 		FROM SEAT_HISTORY
-		WHERE STUDENT_ID = #{id} AND SH_STATUS = 'R'
+		WHERE STUDENT_ID = #{id} AND (SH_STATUS = 'R' OR  SH_STATUS = 'U')
   	</select>
   	
   	<update id = "checkCode" parameterType = "Seat">
@@ -83,8 +92,20 @@
   	</update>
   	
   	<update id = "updateHistory" parameterType="Seat">
-  		UPDATE STUDY_HISTORY
+  		UPDATE SEAT_HISTORY
   		SET SH_STATUS = 'U'
   		WHERE STUDENT_ID = #{student_id} AND SS_NO = #{ss_no}
+  	</update>
+  	
+  	<update id = "updateSeat" parameterType="Seat">
+		UPDATE STUDYSEAT
+		SET SS_USE = 'N' , SS_CERT = 'N' , CERT_CODE = NULL , STUDENT_ID = NULL , START_TIME = NULL , END_TIME = NULL
+		WHERE SS_NO = #{ss_no} AND STUDENT_ID = #{student_id}
+  	</update>
+  	
+  	<update id = "updateOutHistory" parameterType="Seat">
+  		UPDATE SEAT_HISTORY 
+		SET SH_STATUS = 'E'
+		WHERE SS_NO = #{ss_no} AND STUDENT_ID = #{student_id}
   	</update>
 </mapper>

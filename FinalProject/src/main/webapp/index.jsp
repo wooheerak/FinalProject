@@ -97,7 +97,7 @@
 				<div class="owl-carousel owl-theme lightcasestudies withhover">
 					<div class="item-carousel">
 						<div class="case-box ">
-							<img src="resources/sale_books/FASHION.PNG " alt=" "
+							<img src="resources/BOOK_IMG/18세기 조선 인물지.jpg" alt=" "
 								class="img-respive">
 							<div class="magnifier ">
 								<a href="case-studies-single.html "><i class="fa fa-link "></i></a>
@@ -109,7 +109,7 @@
 
 					<div class="item-carousel ">
 						<div class="case-box ">
-							<img src="resources/sale_books/JAVA.PNG " alt=" "
+							<img src="resources/BOOK_IMG/2001싸이버스페이스오디쎄이.jpg" alt=" "
 								class="img-responsive ">
 							<div class="magnifier ">
 								<a href="case-studies-single.html "><i class="fa fa-link "></i></a>
@@ -121,7 +121,7 @@
 
 					<div class="item-carousel ">
 						<div class="case-box ">
-							<img src="resources/sale_books/기술경영.PNG" alt=" "
+							<img src="resources/BOOK_IMG/2003년 유홍준의 문화유산달력.jpg" alt=" "
 								class="img-responsive ">
 							<div class="magnifier ">
 								<a href="case-studies-single.html "><i class="fa fa-link "></i></a>
@@ -133,7 +133,7 @@
 
 					<div class="item-carousel ">
 						<div class="case-box ">
-							<img src="resources/sale_books/수치해석.PNG" alt=" "
+							<img src="src/main/webapp/resources/BOOK_IMG/2500년과학사를움직인인물들.jpg" alt=" "
 								class="img-responsive ">
 							<div class="magnifier ">
 								<a href="case-studies-single.html "><i class="fa fa-link "></i></a>

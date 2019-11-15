@@ -46,7 +46,7 @@
 								name="member_Password" placeholder="password" required>
 						</div>
 
-						<input type="submit" class="btn btn-transparent" value="로그인"/>
+						<input type="submit" class="btn btn-transparent" value="로그인" style="background:white;"/>
 						<a class="btn btn-transparent" onclick="location='userpassword.up'">비밀번호찾기</a>
 					</form>
 				</div>

@@ -17,4 +17,14 @@
 	<result property="Member_Sep" column="MEMBER_SEP"/>
 	<result property="Member_Email" column="MEMBER_EMAIL"/>
 	</resultMap>
+	
+	<!-- 회원정보수정 -->
+     <update id = "update" parameterType = "map">
+        UPDATE MEMBER
+        SET PHONE = #{Phone} , MEMBER_EMAIL = #{Member_Email} , Address = #{address}
+        WHERE MEMBER_ID = #{student_number}
+     </update>
+     
+
+	
 </mapper>

@@ -6,8 +6,8 @@ public class BookReservation {
 	private int BV_NO;
 	private int B_NO;
 	private String USER_ID;
-	private Date BV_DATE;
-	private Date BV_RETURN_DATE;
+	private String BV_DATE;
+	private String BV_RETURN_DATE;
 	private String BV_STATUS;
 	
 	private Book book;
@@ -17,7 +17,7 @@ public class BookReservation {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BookReservation(int bV_NO, int b_NO, String uSER_ID, Date bV_DATE, Date bV_RETURN_DATE, String bV_STATUS,
+	public BookReservation(int bV_NO, int b_NO, String uSER_ID, String bV_DATE, String bV_RETURN_DATE, String bV_STATUS,
 			Book book) {
 		super();
 		BV_NO = bV_NO;
@@ -53,19 +53,19 @@ public class BookReservation {
 		USER_ID = uSER_ID;
 	}
 
-	public Date getBV_DATE() {
+	public String getBV_DATE() {
 		return BV_DATE;
 	}
 
-	public void setBV_DATE(Date bV_DATE) {
+	public void setBV_DATE(String bV_DATE) {
 		BV_DATE = bV_DATE;
 	}
 
-	public Date getBV_RETURN_DATE() {
+	public String getBV_RETURN_DATE() {
 		return BV_RETURN_DATE;
 	}
 
-	public void setBV_RETURN_DATE(Date bV_RETURN_DATE) {
+	public void setBV_RETURN_DATE(String bV_RETURN_DATE) {
 		BV_RETURN_DATE = bV_RETURN_DATE;
 	}
 

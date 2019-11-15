@@ -123,8 +123,15 @@
  	</update>
  	
  	<select id="selectReservationBookList" resultMap="bookResultSet">
- 		select b.*, br.*
+		select b.*, br.BV_NO, br.B_NO, br.USER_ID, to_char(bv_date,'YYYY-MM-DD HH24:MI') as BV_DATE, to_char(bv_return_date,'YYYY-MM-DD HH24:MI') as BV_RETURN_DATE, br.BV_STATUS
  		from book b join book_reservation br on (b.b_no = br.b_no)
+ 		where USER_ID = #{userId}
+ 		order by BV_DATE desc
+ 	</select>
+ 	
+ 	<select id="selectReservationCount" resultType="_int">
+ 		select count(*)
+ 		from book_reservation
  		where USER_ID = #{userId}
  	</select>
 	

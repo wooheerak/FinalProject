@@ -67,8 +67,14 @@ public class BookServiceImpl implements BookService{
 
 
 	@Override
-	public ArrayList<BookReservation> selectReservationBookList(String userId) {
-		return bDao.selectReservationBookList(sqlSession,userId);
+	public ArrayList<BookReservation> selectReservationBookList(Map<String, Object> reservationMap) {
+		return bDao.selectReservationBookList(sqlSession,reservationMap);
+	}
+
+
+	@Override
+	public int getReservationCount(String userId) {
+		return bDao.getReservationCount(sqlSession,userId);
 	}
 
 

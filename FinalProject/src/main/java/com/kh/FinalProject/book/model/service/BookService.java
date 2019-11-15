@@ -22,6 +22,8 @@ public interface BookService {
 
 	int insertRv(Map<String, Object> map);
 
-	ArrayList<BookReservation> selectReservationBookList(String userId);
+	ArrayList<BookReservation> selectReservationBookList(Map<String, Object> reservationMap);
+
+	int getReservationCount(String userId);
 
 }

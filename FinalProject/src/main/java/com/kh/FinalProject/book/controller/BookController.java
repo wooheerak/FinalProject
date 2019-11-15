@@ -50,16 +50,33 @@ public class BookController {
 	}
 	
 	@RequestMapping("reservationBookView.bk")
-	public ModelAndView reservationBookView(ModelAndView mv,
+	public ModelAndView reservationBookView(@RequestParam(value = "page", required = false) Integer page,
+											ModelAndView mv,
 											HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("loginUser");
 		String userId = user.getMember_Id();
 		
-		ArrayList<BookReservation> list = bService.selectReservationBookList(userId);
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = page;
+		}
 
+		int listCount = bService.getReservationCount(userId);
+		System.out.println("listCount : " + listCount);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		  
+		Map<String,Object> reservationMap = new HashMap<>(); 
+		reservationMap.put("pi", pi);
+		reservationMap.put("userId",userId);
+		
+		
+		ArrayList<BookReservation> list = bService.selectReservationBookList(reservationMap);
+		System.out.println("list" + list);
 		mv.addObject("list", list);
+		mv.addObject("pi", pi);
 		mv.setViewName("reservationBookView");
 		
 		return mv;
@@ -92,13 +109,10 @@ public class BookController {
 								  @RequestParam(value = "search", required = false) String search, 
 								  ModelAndView mv) {
 
-		System.out.println("searchOption : " + searchOption + ", searchbar : " + search);
 		Map<String, String> map = new HashMap<>();
 
 		map.put("searchOption", searchOption);
 		map.put("search", search);
-
-		System.out.println("컨트롤러 controller : " + map.get("searchOption"));
 
 		int currentPage = 1;
 		if (page != null) {

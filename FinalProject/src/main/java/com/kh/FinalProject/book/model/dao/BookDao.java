@@ -49,8 +49,17 @@ public class BookDao {
 		return sqlSession.update("bookMapper.updateBS", map);
 	}
 
-	public ArrayList<BookReservation> selectReservationBookList(SqlSessionTemplate sqlSession, String userId) {
-		return (ArrayList)sqlSession.selectList("bookMapper.selectReservationBookList", userId);
+	public ArrayList<BookReservation> selectReservationBookList(SqlSessionTemplate sqlSession, Map<String, Object> reservationMap) {
+		PageInfo pi = (PageInfo)reservationMap.get("pi");
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getBookLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBookLimit());
+		
+		return (ArrayList)sqlSession.selectList("bookMapper.selectReservationBookList", reservationMap, rowBounds);
+	}
+
+	public int getReservationCount(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("bookMapper.selectReservationCount", userId);
 	}
 	
 	

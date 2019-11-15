@@ -14,7 +14,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-					<h2>개인 정보 조회</h2>
+					<h2>회원 정보 조회</h2>
 				</div>
 				<!-- end col -->
 			</div>
@@ -24,79 +24,58 @@
 	</section>
 	<!-- end section -->
 
-	<!-- 메뉴바 -->
-	<section class="section overfree" style="padding: 30px 0px;">
+	<section class="section overfree">
 		<div class="icon-center">
 			<i class="fa fa-code"></i>
 		</div>
 		<div class="container">
-			<div class="col-md-3" style="border-radius: 30px;">
-				<div class="pricing-box clearfix">
-					<div class="pricing-header firstch">
-						<h4>개인 정보 조회</h4>
-					</div>
-					<!-- end pricing-header -->
-
-					<!-- end pricing-top -->
-					<div class="pricing-details" style="text-align: center;">
-						<div class="menuContent">내 정보 조회</div>
-						<div class="menuContent">대출 내역 조회</div>
-						<div class="menuContent">열람실/스터디룸 이용내역 조회</div>
-						<div class="menuContent">도서 신청 조회</div>
-						<div class="menuContent">BOOKSALES<br>거래 내역</div>
-					</div>
-					<!-- end pricing-details -->
+			<div class="row">
+				<div class="col-md-3">
 				</div>
-				<!-- end pricing-box -->
-			</div>
+		
+				<div class="col-md-5 text-left">
+					<form role="form" class="contactform" action="userUpdate.ul">
+						<div class="form-group">
+							<p>학번</p>
+							<input type="text" class="form-control" name="member_number" readonly value="${ loginUser.member_Id }" style="background: rightgray;">
+						</div>
+						<div class="form-group">
+							<p>이름</p>
+							<input type="text" class="form-control" name="member_name" readonly value="${ loginUser.member_Name }" style="background: rightgray;">
+						</div>
+						<div class="form-group">
+							<p>비밀번호</p>
+							<input type="text" class="form-control" name="mamber_password" readonly value="${ loginUser.member_Password }" style="background: rightgray;">
+						</div>
+						<div class="form-group">
+							<p>핸드폰 번호</p>
+							<input type="text" class="form-control" name="Phone" readonly value="${ loginUser.phone }" style="background: rightgray;">
+						</div>
+						<div class="form-group">
+							<p>이메일</p>
+							<input type="text" class="form-control" name="member_Email" readonly value="${ loginUser.member_Email }" style="background: rightgray;">
+						</div>
+						<div class="form-group">
+							<p>주소</p>
+							<input type="text" class="form-control"	name="address" readonly value="${ loginUser.address }" style="background: rightgray;"/>
+						</div>
+					</form>
+				</div>
+				
+				
+				<!-- end col -->
 
-			<div class="container col-md-7">
-				<form id="boardForm" name="boardForm" method="post">
-					<h2>회원정보조회</h2>
-					<table class="table">
-						<thead>
-							<tr>
-								<td>학번</td>
-								<td><input type="text" class="form-control" id="id"
-									name="id" placeholder="151113" required></td>
-							</tr>
-							<tr>
-								<td>성명</td>
-								<td><input type="text" class="form-control" id="name"
-									name="name" placeholder="정우민" required></td>
-							</tr>
-							<tr>
-								<td>생년월일</td>
-								<td><input type="text" class="form-control" id="number"
-									name="number" placeholder="111212" required></td>
-							</tr>
-							<tr>
-								<td>이메일</td>
-								<td><input type="text" class="form-control" id="email"
-									name="email" placeholder="losix0504@naver.com" required></td>
-							</tr>
-							<tr>
-								<td>전화번호</td>
-								<td><input type="text" class="form-control" id="phone"
-									name="phone" placeholder="01051547252" required></td>
-							</tr>
-							<tr>
-								<td>주소</td>
-								<td><input type="text" class="form-control" id="address"
-									name="address" placeholder="경기도 구리시 인창동 건영아파트" required></td>
-							</tr>
-						</thead>
-					</table>
-					<a class="btn btn-transparent"
-						onclick="location='userpassword2.up2'">회원정보수정</a>
-				</form>
+				<div class="col-md-4">
+				</div>
+				<!-- end col -->
 			</div>
-			<div class="container col-md-2">
-			</div>
+			<!-- end row -->
 		</div>
+		<!-- end container -->
 	</section>
+	<!-- end section -->
 
 	<jsp:include page="../common/footer.jsp" />
-
+	
 </body>
 </html>

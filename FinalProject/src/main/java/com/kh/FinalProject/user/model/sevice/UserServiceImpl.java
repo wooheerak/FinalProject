@@ -1,5 +1,7 @@
 package com.kh.FinalProject.user.model.sevice;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,12 @@ public class UserServiceImpl implements UserService{
 	public User userlogin(User u) {
 		
 		return uDAO.userlogin(sqlSession, u);
+	}
+
+	@Override
+	public int userUpdate(Map<String, String> map) {
+		
+		return uDAO.userUpdate(sqlSession, map);
 	}
 
 }

@@ -18,20 +18,27 @@ public class BsDAO {
 	
 	// 중고서적 디테일
 	public BookReg selectBs(SqlSessionTemplate sqlSession, int brBnumber) {
-		System.out.println(brBnumber);
-		BookReg br = sqlSession.selectOne("bsMapper.selectBs", brBnumber);
-		System.out.println(br);
-		return br;
+		return sqlSession.selectOne("bsMapper.selectBs", brBnumber);
 	}
-
 
 	// 중고서적 조회수
 	public int addReadCount(SqlSessionTemplate sqlSession, int brBnumber) {
 		return sqlSession.update("bsMapper.addReadCount", brBnumber);
 	}
 
+	// 중고서적 등록
 	public int insertBs(SqlSessionTemplate sqlSession, BookReg br) {
 		return sqlSession.insert("bsMapper.insertBs", br);
+	}
+	
+	// 중고서적 수정
+	public int updateBs(SqlSessionTemplate sqlSession, BookReg br) {
+		return sqlSession.update("bsMapper.updateBs", br);
+	}
+
+	// 중고서적 삭제
+	public int bsDelete(SqlSessionTemplate sqlSession, int brBnumber) {
+		return sqlSession.update("bsMapper.deleteBs", brBnumber);
 	}
 
 

@@ -41,73 +41,74 @@
 </head>
 <body>
 <c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
-   <header class="header site-header">
-      <div class="container">
-         <nav class="navbar navbar-default yamm">
-            <div class="container-fluid">
-               <div class="navbar-header">
-                  <a class="navbar-brand" href="index.jsp"><img
-                     src="resources/images/logo.png" alt="Linda"></a>
-               </div>
-               <div id="navbar" class="navbar-collapse collapse">
-                  <ul class="nav navbar-nav navbar-right">
-                     <li><a href="index.jsp">Home</a></li>
-                              <li><a href="selectList.bk">자료검색</a></li>
-                              <li><a href="">도서관 서비스</a></li>
-                              <li><a href="">도서관 안내</a></li>
-                              <li><a href="">마이라이브러리</a></li>
-                     <li class="dropdown yamm-fw hasmenu"><a href="#"
-                        class="dropdown-toggle" data-toggle="dropdown" role="button"
-                        aria-haspopup="true" aria-expanded="false">더보기 <span
-                           class="fa fa-angle-down"></span></a>
-                        <ul class="dropdown-menu">
-                           <li>
-                              <div class="yamm-content">
-                                 <div class="row">
-                                    <div class="col-md-4">
-                                       <ul>
-                                          <li><a href="service-01.html">SEO Consultants</a></li>
-                                          <li><a href="service-02.html">SEO Audits</a></li>
-                                          <li><a href="service-03.html">SEO Packages & Plans</a></li>
-                                          <li><a href="service-04.html">Web Copywriting</a></li>
-                                          <li><a href="service-05.html">SEO Copywriting</a></li>
-                                          <li><a href="service-06.html">Keyword Research</a></li>
-                                          <li><a href="service-07.html">SEO Strategy</a></li>
-                                          <li><a href="service-08.html">Website Design</a></li>
-                                          <li><a href="service-09.html">Link Building   Services</a></li>
-                                       </ul>
-                                    </div>
-                                    <div class="col-md-4">
-                                       <ul>
-                                          <li><a href="srDay.sr">스터디룸 조회</a></li>
-                                                      <li><a href="">Pricing & Plans</a></li>
-                                                      <li><a href="">Our Clients</a></li>
-                                                      <li><a href="">Testimonials</a></li>
-                                                      <li><a href="booksales.bs">중고서적 판매</a></li>
-                                                      <li><a href="bList.bo">스터디룸 게시판</a></li>
-                                                      <li><a href="bInsertView.bo">스터디룸 게시글 쓰기</a></li>
-                                       </ul>
-                                    </div>
-                                    <div class="col-md-4">
-                                       <ul>
-                                          <li><a href="">Blog & News</a></li>
-                                                      <li><a href="">Blog Alternative</a></li>
-                                                      <li><a href="">Single Blog</a></li>
-                                                      <li><a href="noticeinsert.no">공지사항 작성</a></li>
-                                                      <li><a href="notice.no">공지사항</a></li>
-                                                      <li><a href="myseatList.ss">나의 열람실</a></li>
-                                                      <li><a href="">Contact Alternative</a></li>
-                                                      <li><a href="">FAQ's Page</a></li>
-                                                      <li><a href="">404 Not Found</a></li>
-                                       </ul>
-                                    </div>
-                                 </div>
-                              </div>
-                           </li>
-                        </ul>
-                     </li>
-                     <li>
-                        <div class="loginArea" align="right">
+
+	<header class="header site-header">
+		<div class="container">
+			<nav class="navbar navbar-default yamm">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="index.jsp"><img
+							src="resources/images/logo.png" alt="Linda"></a>
+					</div>
+					<div id="navbar" class="navbar-collapse collapse">
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="index.jsp">Home</a></li>
+                           	<li><a href="selectList.bk">자료검색</a></li>
+                           	<li><a href="">도서관 서비스</a></li>
+                           	<li><a href="">도서관 안내</a></li>
+                           	<li><a href="">마이라이브러리</a></li>
+							<li class="dropdown yamm-fw hasmenu"><a href="#"
+								class="dropdown-toggle" data-toggle="dropdown" role="button"
+								aria-haspopup="true" aria-expanded="false">더보기 <span
+									class="fa fa-angle-down"></span></a>
+								<ul class="dropdown-menu">
+									<li>
+										<div class="yamm-content">
+											<div class="row">
+												<div class="col-md-4">
+													<ul>
+														<li><a href="service-01.html">SEO Consultants</a></li>
+														<li><a href="service-02.html">SEO Audits</a></li>
+														<li><a href="service-03.html">SEO Packages & Plans</a></li>
+														<li><a href="service-04.html">Web Copywriting</a></li>
+														<li><a href="service-05.html">SEO Copywriting</a></li>
+														<li><a href="service-06.html">Keyword Research</a></li>
+														<li><a href="service-07.html">SEO Strategy</a></li>
+														<li><a href="service-08.html">Website Design</a></li>
+														<li><a href="requestBook.bk">도서 신청하기</a></li>
+													</ul>
+												</div>
+												<div class="col-md-4">
+													<ul>
+														<li><a href="srDay.sr">스터디룸 조회</a></li>
+		                                                <li><a href="">Pricing & Plans</a></li>
+		                                                <li><a href="">Our Clients</a></li>
+		                                                <li><a href="bsinsertView.bs">중고서적 입력</a></li>
+		                                                <li><a href="bslist.bs">중고서적 판매</a></li>
+		                                                <li><a href="bList.bo">스터디룸 게시판</a></li>
+		                                                <li><a href="bInsertView.bo">스터디룸 게시글 쓰기</a></li>
+													</ul>
+												</div>
+												<div class="col-md-4">
+													<ul>
+														<li><a href="">Blog & News</a></li>
+		                                                <li><a href="">Blog Alternative</a></li>
+		                                                <li><a href="">Single Blog</a></li>
+		                                                <li><a href="ninsertView.no">공지사항 작성</a></li>
+		                                                <li><a href="nlist.no">공지사항</a></li>
+		                                                <li><a href="myseatList.ss">나의 열람실</a></li>
+		                                                <li><a href="">Contact Alternative</a></li>
+		                                                <li><a href="">FAQ's Page</a></li>
+		                                                <li><a href="">404 Not Found</a></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<div class="loginArea" align="right">
                            <c:if test="${ empty sessionScope.loginUser }">
                               <form action="userlogin.ul" method="post">
                                  <table id="loginTable" style="text-align:center;">
@@ -151,21 +152,18 @@
                            </c:if>
                            
                         </div>
-                     </li>   
-                  </ul>
-               </div>
-               <!--/.nav-collapse -->
-            </div>
-            <!--/.container-fluid -->
-         </nav>
-         <!-- end nav -->
-      </div>
-      <!-- end container -->
-   </header>
-   <!-- end header -->
-
-
-
+							</li>	
+						</ul>
+					</div>
+					<!--/.nav-collapse -->
+				</div>
+				<!--/.container-fluid -->
+			</nav>
+			<!-- end nav -->
+		</div>
+		<!-- end container -->
+	</header>
+	<!-- end header -->
 
 
 </body>

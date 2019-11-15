@@ -17,8 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.FinalProject.booksales.model.exception.BSException;
 import com.kh.FinalProject.booksales.model.service.BsService;
 import com.kh.FinalProject.booksales.model.vo.BookReg;
-import com.kh.FinalProject.notice.model.exception.NoticeException;
-import com.kh.FinalProject.notice.model.vo.Notice;
 
 
 
@@ -50,8 +48,6 @@ public class BookSalesController {
 	@RequestMapping("bsdetail.bs")
 	public ModelAndView bsDetail(@RequestParam("brBnumber") int brBnumber, ModelAndView mv) {
 		BookReg bs = bsService.selectBs(brBnumber);
-
-		System.out.println(bs);
 	
 		if(bs != null) {	
 			mv.addObject("bs", bs).setViewName("bsListDetail");
@@ -62,11 +58,17 @@ public class BookSalesController {
 		return mv;
 	}
 	
+	// 중고서적 등록 페이지
+	@RequestMapping("bsinsertView.bs")
+	public String bsIncert() {
+		return "bsInsert";
+	}
+	
 	// 중고서적 등록
 	@RequestMapping("bsinsert.bs")
 	public String bsInsert(@ModelAttribute BookReg br, 
-			   @RequestParam("uploadFile") MultipartFile uploadFile,
-			   HttpServletRequest request) {
+						   @RequestParam("uploadFile") MultipartFile uploadFile,
+						   HttpServletRequest request) {
 		if (uploadFile != null && !uploadFile.isEmpty()) {
 
 			String renameFileName = saveFile(uploadFile, request);
@@ -112,5 +114,70 @@ public class BookSalesController {
 		} 
 		
 		return renameFileName;
+	}
+	
+	// 중고서적 등록 수정
+	@RequestMapping("bsupView.bs")
+	public ModelAndView bsUpdateView(@RequestParam("brBnumber") int brBnumber, ModelAndView mv) {
+		
+		BookReg br = bsService.selectBs(brBnumber);
+		
+		mv.addObject("br", br)
+		  .setViewName("bsListUpdate");
+		
+		return mv;
+	}
+	
+	
+	@RequestMapping("bsupdate.bs")
+	public ModelAndView bsUpdate(@ModelAttribute BookReg br,
+									 @RequestParam("reloadFile") MultipartFile reloadFile,
+									 HttpServletRequest request,
+									 ModelAndView mv) {
+
+		if(reloadFile != null && !reloadFile.isEmpty()) {
+			deleteFile(br.getRenameFileName(), request);
+		}
+
+		String renameFileName = saveFile(reloadFile, request);
+		
+		if(renameFileName != null) {
+			br.setOriginalFileName(reloadFile.getOriginalFilename());
+			br.setRenameFileName(renameFileName);
+		}
+		
+		int result = bsService.updateBs(br);
+		if(result > 0) {
+			mv.setViewName("redirect:bsdetail.bs?brBnumber=" + br.getBrBnumber());
+		}else {
+			throw new BSException("중고서적 수정에 실패하였습니다.");
+		}
+		
+		return mv;
+	}
+	
+	public void deleteFile(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\bsuploadFiles";
+		
+		File f = new File(savePath + "\\" + fileName);
+		
+		if(f.exists()) {
+			f.delete();
+		}	
+	}
+	
+	// 중고서적 삭제
+	@RequestMapping("bsdelete.bs")
+	public String bsDelete(@RequestParam("brBnumber") int brBnumber) {
+		
+		int result = bsService.bsDelete(brBnumber);
+
+		if(result > 0) {
+			return "redirect:bslist.bs";
+		}else {
+			throw new BSException("중고서적 삭제에 실패하였습니다.");
+		}
+		
 	}
 }

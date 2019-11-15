@@ -8,14 +8,10 @@
 <title>공지사항</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet"
-	href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript"
-	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
-<script type="text/javascript"
-	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
 <script>
 	jQuery(function($) {
 		$("#tb").DataTable({
@@ -125,6 +121,7 @@
 							</td>
 						</tr>
 					</c:forEach>
+					
 				</tbody>
 			</table>
 		</div>

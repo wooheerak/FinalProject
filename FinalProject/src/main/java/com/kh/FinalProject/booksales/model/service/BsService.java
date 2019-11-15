@@ -13,6 +13,10 @@ public interface BsService {
 
 	int inserBs(BookReg br);
 
+	int updateBs(BookReg br);
+
+	int bsDelete(int brBnumber);
+
 	
 
 

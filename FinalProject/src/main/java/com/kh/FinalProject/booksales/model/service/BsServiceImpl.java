@@ -41,6 +41,18 @@ public class BsServiceImpl implements BsService{
 		return bsDAO.insertBs(sqlSession, br);
 	}
 
+	// 중고서적 수정
+	public int updateBs(BookReg br) {
+		return bsDAO.updateBs(sqlSession, br);
+	}
+
+	// 중고서적 삭제
+	public int bsDelete(int brBnumber) {
+		return bsDAO.bsDelete(sqlSession, brBnumber);
+	}
+	
+	
+
 
 
 	

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -7,7 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 
 <!-- Basic -->
 <meta charset="utf-8">
@@ -21,18 +22,18 @@
 
 <!-- Site Icons -->
 <link rel="shortcut icon" href="resources/images/favicon.ico"
-   type="image/x-icon" />
+	type="image/x-icon" />
 <link rel="apple-touch-icon"
-   href="resources/images/apple-touch-icon.png">
+	href="resources/images/apple-touch-icon.png">
 
 <!-- Google Fonts -->
 <link
-   href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700"
-   rel="stylesheet">
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700"
+	rel="stylesheet">
 
 <!-- Custom & Default Styles -->
 <link rel="stylesheet" href="resources/css/font-awesome.min.css"
-   type="text/css">
+	type="text/css">
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="resources/css/animate.css">
 <link rel="stylesheet" href="resources/css/carousel.css">
@@ -41,7 +42,6 @@
 </head>
 <body>
 <c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
-
 	<header class="header site-header">
 		<div class="container">
 			<nav class="navbar navbar-default yamm">
@@ -83,8 +83,8 @@
 														<li><a href="srDay.sr">스터디룸 조회</a></li>
 		                                                <li><a href="">Pricing & Plans</a></li>
 		                                                <li><a href="">Our Clients</a></li>
-		                                                <li><a href="bsinsertView.bs">중고서적 입력</a></li>
-		                                                <li><a href="bslist.bs">중고서적 판매</a></li>
+		                                                <li><a href="bsinsertView.bs">중고서적 등록</a></li>
+		                                                <li><a href="bslist.bs">중고서적</a></li>
 		                                                <li><a href="bList.bo">스터디룸 게시판</a></li>
 		                                                <li><a href="bInsertView.bo">스터디룸 게시글 쓰기</a></li>
 													</ul>
@@ -152,6 +152,8 @@
                            </c:if>
                            
                         </div>
+                
+                
 							</li>	
 						</ul>
 					</div>
@@ -164,7 +166,6 @@
 		<!-- end container -->
 	</header>
 	<!-- end header -->
-
-
 </body>
+
 </html>

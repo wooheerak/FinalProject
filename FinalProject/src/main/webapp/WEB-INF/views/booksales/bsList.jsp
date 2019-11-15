@@ -102,15 +102,15 @@ jQuery(function($) {
 
 						<tr style="height: 200px;">
 							<td>${ br.brBnumber }</td>
-							<td>
+							<td class="ebook-details">
 								<c:url var="bsdetail" value="bsdetail.bs">
 									<c:param name="brBnumber" value="${ br.brBnumber }" />
 								</c:url> <a href="${ bsdetail }"><img src="resources/bsuploadFiles/${ br.renameFileName }" style="width: 120px; height: 170;"></a></td>
 							<td>
 								<div>
-									<p>카테고리: ${ br.brCategory }</p>
-									<p>책제목: ${ br.brName }</p>
-									<p>가 격: ${ br.brPrice } 원</p>
+									<p><b>카테고리:</b> ${ br.brCategory }</p>
+									<p><b>책제목:</b> ${ br.brName }</p>
+									<p><b>가 격:</b> ${ br.brPrice } 원</p>
 								</div>
 							</td>
 							<td>${ br.brCount }</td>

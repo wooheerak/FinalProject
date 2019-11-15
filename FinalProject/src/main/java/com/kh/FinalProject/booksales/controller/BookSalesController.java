@@ -178,6 +178,23 @@ public class BookSalesController {
 		}else {
 			throw new BSException("중고서적 삭제에 실패하였습니다.");
 		}
+	}
+	
+	@RequestMapping("complete.bs")
+	public void complete(@RequestParam("brBnumber") int brBnumber) {
+		System.out.println(brBnumber);
+		System.out.println("결제완료!");
+		
+		// 1. BOOK_REG테이블 업데이트
+		// 필요한 파라미터: BR_BNUMBER , BR_STATUS, BS_ORDER_STATUS 
+		
+		
+		// 2. 
+		
 		
 	}
+	
+	
+	
+	
 }

@@ -213,6 +213,10 @@
                            				<td>사용중</td>
                            			</c:if>
                            			
+                           			<c:if test='${ sh.shStatus eq "C" }'>
+                           				<td>예약 취소</td>
+                           			</c:if>
+                           			
                            			<td>${ sh.useDate }</td>
                            			
                            			<c:if test='${ sh.shStatus eq "E" }'>
@@ -220,6 +224,10 @@
                            			</c:if>
                            			
                            			<c:if test='${ sh.shStatus eq "U" }'>
+                           				<td></td>
+                           			</c:if>
+                           			
+                           			<c:if test='${ sh.shStatus eq "C" }'>
                            				<td></td>
                            			</c:if>
                            			
@@ -276,12 +284,27 @@
  								else if(data[i].shStatus == "R"){
  									str += '<td>예약인증 전</td>' ;
  								}
+ 								else if(data[i].shStatus == "U"){
+ 									str += '<td>사용중</td>' ;
+ 								}
+ 								else if(data[i].shStatus == "C"){
+ 									str += '<td>예약 취소</td>' ;
+ 								}
  								
  								str += ('<td>' + data[i].useDate + '</td>');
  								
  								if(data[i].shStatus == "E"){
  									str += '<td></td>';
  								}
+ 								
+ 								else if(data[i].shStatus == "U"){
+ 									str += '<td></td>';
+ 								}
+ 								
+ 								else if(data[i].shStatus == "C"){
+ 									str += '<td></td>';
+ 								}
+ 								
  								else if(data[i].shStatus == "R"){
  									str += '<td><button id = "cb' + data[i].seat.ss_no +'" type = "button" class = "btn cancelRev" onclick = "cancelModal(this);" value = "' + data[i].seat.ss_no +'" >예약 취소</button></td>' ;
  								}
@@ -337,12 +360,26 @@
 								else if(data[i].shStatus == "R"){
 									str += '<td>예약인증 전</td>' ;
 								}
+								else if(data[i].shStatus == "U"){
+ 									str += '<td>사용중</td>' ;
+ 								}
+ 								else if(data[i].shStatus == "C"){
+ 									str += '<td>예약 취소</td>' ;
+ 								}
+								
 								
 								str += ('<td>' + data[i].useDate + '</td>');
 								
 								if(data[i].shStatus == "E"){
 									str += '<td></td>';
 								}
+								else if(data[i].shStatus == "U"){
+ 									str += '<td></td>';
+ 								}
+ 								
+ 								else if(data[i].shStatus == "C"){
+ 									str += '<td></td>';
+ 								}
 								else if(data[i].shStatus == "R"){
 									str += '<td><button id = "cb' + data[i].seat.ss_no +'" type = "button" class = "btn cancelRev" onclick = "cancelModal(this);" value = "' + data[i].seat.ss_no +'" >예약 취소</button></td>' ;
 								}

@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -33,6 +34,7 @@ public class StudySeatController {
 		@Autowired
 		private SeatService sService ;
 		
+		// 좌석리스트 가져오기
 		@RequestMapping("seatList.ss")
 		public ModelAndView selectSeatList(ModelAndView mv , @RequestParam(value = "floor" , defaultValue = "A") String floor) {
 			
@@ -64,6 +66,7 @@ public class StudySeatController {
 			 
 		}
 		
+		// 나의 열람실 사용내역 
 		@RequestMapping("myseatList.ss")
 		public ModelAndView mySeatList(HttpServletRequest request , ModelAndView mv) {
 			
@@ -89,12 +92,13 @@ public class StudySeatController {
 			
 		}
 		
+		// 메인페이지로 이동
 		@RequestMapping("studymain.ss")
 		public String studyMain() {
 			return "studyMain";
 		}		
 		
-				
+		// ajax로 좌석리스트 
 		@RequestMapping("slistAjax.ss")
 		public void selectSeatList(HttpServletResponse response , String floor) throws IOException {
 			
@@ -153,6 +157,7 @@ public class StudySeatController {
 			
 		}
 		
+		// 예약 취소 (ajax)
 		@RequestMapping("cancelResv.ss")
 		public void cancelResv(HttpServletRequest request , @RequestParam("cancelId") int cancelId , HttpServletResponse response) throws JsonIOException, IOException {
 			
@@ -193,6 +198,55 @@ public class StudySeatController {
 			
 		}
 		
+		
+		// 예약취소 (cookie)
+		@RequestMapping("cancelRC.ss")
+		public ModelAndView cancelResvC(ModelAndView mv ,HttpServletRequest request , @RequestParam("cancelId") int cancelId , HttpServletResponse response) {
+			
+			HttpSession session = request.getSession();
+			User user = (User)session.getAttribute("loginUser");
+			
+			
+			ArrayList<SeatHistory> shList = null;
+			Seat seat = new Seat();
+			String id = "";
+			if(user != null) {
+				id = user.getMember_Id();
+				seat.setStudent_id(user.getMember_Id());
+				seat.setSs_no(cancelId);
+			}
+			System.out.println("seat " + seat);
+			
+			int result1 = sService.cancelResv(seat);
+			
+			int result = 0;
+			
+			if(result1 > 0) {
+				result = sService.resetSeat(cancelId);
+			}
+			
+			if(result > 0) {
+				if(user != null) {
+					id = user.getMember_Id();
+					shList = sService.selectHistoryList(id);				
+				}
+				user.setRseatNo(0);
+				session.setAttribute("loginUser", user);			
+			}
+			
+			if(shList != null) {
+				mv.addObject("list" , shList).setViewName("my_studyseatList");
+				
+				return mv;
+			}
+			else {
+				throw new SeatException("쿠키로 좌석취소 실패 !");
+			}
+		}
+		
+		
+		
+		// ajax로 나의 열람실 사용내역
 		@RequestMapping("seatListAjax.ss")
 		public void seatListAjax(HttpServletRequest request , HttpServletResponse response) throws JsonIOException, IOException {
 			
@@ -213,11 +267,16 @@ public class StudySeatController {
 			gson.toJson(shList , response.getWriter());
 		}
 		
+		
+		// 좌석 예약 
 		@RequestMapping("updateR.ss")
-		public ModelAndView updateResv(ModelAndView mv , @RequestParam("sNo") int sNo , @RequestParam("floor") String floor , HttpServletRequest request) {
+		public void updateResv(@RequestParam("sNo") int sNo , @RequestParam("floor") String floor , HttpServletRequest request ,HttpServletResponse response) throws IOException {
 			
 			System.out.println("sNo : " + sNo + ", floor : " + floor);
 			
+			if(floor.equals("")) {
+				floor = "A";
+			}
 			HttpSession session = request.getSession();
 			User user = (User)session.getAttribute("loginUser");
 			
@@ -238,9 +297,63 @@ public class StudySeatController {
 			
 			if(result > 0) {
 				
-				mv.addObject("floor" , floor).setViewName("redirect:seatList.ss");
+				Cookie cookie = new Cookie("certTimer" , "CERT_TIMER");
+				cookie.setMaxAge(10);
+				response.addCookie(cookie);
 				
-				return mv;
+				user.setRseatNo(sNo);
+				session.setAttribute("loginUser", user);
+				
+				// A , B , C 열람실의 좌석을 먼저 가져옴
+				ArrayList<Integer> countList = sService.countSeat();
+				
+				JSONArray countArr = new JSONArray();
+				
+				for(int i : countList) {
+					JSONObject jCount = new JSONObject();
+					
+					jCount.put("count", i);
+					countArr.add(jCount);
+				}
+				
+				System.out.println("countList : " + countList);
+				if(countList == null) {
+					throw new SeatException("열람실별 좌석갯수 불러오기 실패!");
+				}
+				
+				
+				
+				
+				// 열람실 층수에 맞는 좌석을 가져옴
+				ArrayList<Seat> sList = sService.selectSeatList(floor);
+				
+				JSONArray seatArr = new JSONArray();
+				
+				for(Seat s : sList) {
+					JSONObject jSeat = new JSONObject();
+					
+					jSeat.put("no", s.getSs_no());
+					jSeat.put("floor", s.getSs_floor());
+					jSeat.put("use", s.getSs_use());
+					
+					seatArr.add(jSeat);
+				}
+				
+				Gson gson = new GsonBuilder().create(); 
+							
+				if(countList != null && sList != null) {
+					JSONObject sendJson = new JSONObject();
+					sendJson.put("cList", countArr);
+					sendJson.put("sList", seatArr);
+					
+					PrintWriter out = response.getWriter();
+					out.print(sendJson);
+					out.flush();
+					out.close();
+				}
+				else {
+					throw new SeatException("열람실 층에 맞는 좌석가져오기 실패!");
+				}
 			}
 			else {
 				throw new SeatException("좌석 예약하기 실패!");
@@ -250,7 +363,7 @@ public class StudySeatController {
 			
 		}
 		
-		
+		// 예약 시 인증코드 생성
 		public String getCertCode() {
 			
 			StringBuffer temp = new StringBuffer();
@@ -278,6 +391,7 @@ public class StudySeatController {
 		}
 		
 		
+		// 사용자가 열람실을 사용 or 예약 했는지 확인
 		@RequestMapping("checkDup.ss")
 		@ResponseBody
 		public String checkDup(HttpServletRequest request) {
@@ -318,6 +432,7 @@ public class StudySeatController {
 			
 		}
 		
+		// 현재 사용중인 좌석번호
 		@RequestMapping("selectsId.ss")
 		@ResponseBody
 		public int selectsId(HttpServletRequest request) {
@@ -348,9 +463,10 @@ public class StudySeatController {
 			return sId;
 		}
 		
+		// 예약 인증코드 체크
 		@RequestMapping("checkCode.ss")
 		@ResponseBody
-		public String checkCode(HttpServletRequest request , @RequestParam("iCode") String iCode , @RequestParam("cId") int cId) {
+		public String checkCode(HttpServletRequest request , @RequestParam("iCode") String iCode , @RequestParam("cId") int cId ,HttpServletResponse response) {
 			
 			HttpSession session = request.getSession();
 			
@@ -365,10 +481,37 @@ public class StudySeatController {
 			
 			System.out.println("checkseat : " + seat.getCert_code());
 			int result1 = sService.checkCode(seat);
-			
+
 			int result = -1 ;
 			
 			if(result1 > 0) {
+				user.setRseatNo(0);
+				session.setAttribute("loginUser", user);
+				
+				// 인증완료 후 인증타이머 죽이기
+				Cookie[] cookies = request.getCookies();
+				
+				if(cookies != null){
+					for(Cookie c : cookies){
+						System.out.println("쿠키 : " + c.getName());
+						if(c.getName().equals("certTimer")){
+							c.setMaxAge(0);
+							response.addCookie(c);
+							System.out.println("인증 되었으니 인증타이머 쿠키 죽이기!");
+							break;
+						}				
+						
+					}
+				}
+				
+				// 인증완료 후 퇴실타이머 생성
+				Cookie cookie = new Cookie("outTimer" , "OUT_TIMER");
+				cookie.setMaxAge(30);
+				response.addCookie(cookie);
+				
+				user.setUseatNo(cId);
+				session.setAttribute("loginUser", user);
+				
 				result = sService.updateHistory(seat);
 			}
 			
@@ -383,6 +526,7 @@ public class StudySeatController {
 			
 		}
 		
+		// 퇴실처리 
 		@RequestMapping("outSeat.ss")
 		@ResponseBody
 		public String outSeat(HttpServletRequest request ,@RequestParam("cId") int cId) {
@@ -414,6 +558,54 @@ public class StudySeatController {
 				return "fail";
 			}
 		}
+		
+		// 쿠키로 퇴실처리
+		@RequestMapping("outSeatCoo.ss")
+		public ModelAndView outSeatCoo(HttpServletRequest request ,@RequestParam("outNo") int outNo ,ModelAndView mv) {
+		
+			HttpSession session = request.getSession();
+			
+			User user = (User)session.getAttribute("loginUser");
+			Seat seat = new Seat();
+			
+			if(user != null) {
+				seat.setSs_no(outNo);
+				seat.setStudent_id(user.getMember_Id());
+			}
+			
+			System.out.println("outNo :" + outNo + ", seat : " + seat);
+			
+			int result1 = sService.updateSeat(seat);
+			int result = -1 ;
+			
+			if(result1 > 0) {
+				result = sService.updateOutHistory(seat);
+			}
+			
+			String id = "";
+			ArrayList<SeatHistory> shList = null;
+			
+			if(result > 0) {
+				if(user != null) {
+					id = user.getMember_Id();
+					shList = sService.selectHistoryList(id);				
+				}
+				user.setUseatNo(0);
+				session.setAttribute("loginUser", user);
+			}
+			
+			if(shList != null) {
+				mv.addObject("list" , shList).setViewName("my_studyseatList");
+				
+				return mv;
+			}
+			else {
+				throw new SeatException("쿠키로 좌석퇴실 실패 !");
+			}
+			
+			
+		}
+		
 		
 
 }

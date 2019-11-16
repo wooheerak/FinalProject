@@ -211,7 +211,7 @@
 		    <div class="modal-content" style = "margin-top : 300px; width : 500px;">
 		      <div class="modal-header" style = "width : 500px; text-align : center;" >
 		        <h3 class="modal-title" id="exampleModalLongTitle" style = "display : inline;">예약 확인 Message !</h3>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style = "display : inline;">
+		        <button type="button" id = "rClose" class="close" data-dismiss="modal" aria-label="Close" style = "display : inline;">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
 		      </div>
@@ -269,6 +269,11 @@
 		var check2 = 0;
 		var floor = "";
 
+		/* $(function(){
+			testHeader();
+			console.log(h_str);
+		}); */
+		
 		/* function clickSeat(obj) {
 			if (check == 0) {
 				if ($(obj).hasClass('available')) {
@@ -444,14 +449,17 @@
 						}
 					}
 					else if (data == "noUser"){
+						$("#mB").attr("onclick" , "");
 						$("#mMessage").text("로그인 후 이용해주세요 !");
 						$("#mButton").trigger("click");
 					}
 					else if(data == "using"){
+						$("#mB").attr("onclick" , "");
 						$("#mMessage").text("이미 사용중입니다 !");
 						$("#mButton").trigger("click");
 					}
 					else {
+						$("#mB").attr("onclick" , "");
 						$("#mMessage").text("한 ID당 예약은 한번 가능합니다!");
 						$("#mButton").trigger("click");
 					}
@@ -532,8 +540,94 @@
 			
 		}
 		
+		
+		
 		function resvSeat(){
-			location.href = "updateR.ss?sNo=" + seatNo + "&floor=" + floor ;
+			
+					
+			$.ajax({
+				url : "updateR.ss" ,
+				data : { sNo : seatNo , floor : floor } ,
+				dataType : "json" ,
+				success : function(data){
+					
+					$("#rClose").trigger("click");
+					check2 = 0 ;
+					
+					console.log(data);
+					$("#a-floor").text(data.cList[0].count);
+					$("#b-floor").text(data.cList[1].count);
+					$("#c-floor").text(data.cList[2].count);
+					
+					$("#seatList").text("");
+					
+					var str = "";
+					
+					for(var i in data.sList){
+						var no = data.sList[i].no;
+						var floor = data.sList[i].floor;
+						var use = data.sList[i].use;
+						
+						if(i % 20 == 0){
+							str += '<div class="row" style="margin-left: 20px; margin-right: 10px; margin-top: 5px;">';							
+						}	
+						
+						if(i % 10 == 0){
+							if(i % 20 == 0){
+								str += '<div class="seatCharts-row" style="display: inline;">';									
+							}
+							if(i % 20 != 0){
+								str += '<div class="seatCharts-row" style="display: inline; float : right;">';								
+							}
+						}
+						
+						
+						if(data.sList[i].use == "Y"){
+							str  += '<div id="s'+ data.sList[i].no +'" role="checkbox"  aria-checked="false" focusable="true" tabindex="-1" class="seatCharts-seat seatCharts-cell appendSeat unavailable">'+ data.sList[i].no + '</div>';							
+						}						
+						else if(data.sList[i].use == "N"){
+							str += '<div id="s' + data.sList[i].no +'" role="checkbox"  aria-checked="false" focusable="true" tabindex="-1" class="seatCharts-seat seatCharts-cell appendSeat available">' +  data.sList[i].no  + '</div>';							
+						}
+						else if(data.sList[i].use == "R"){
+							str += '<div id="s' + data.sList[i].no +'" role="checkbox" 	aria-checked="false" focusable="true" tabindex="-1" class="seatCharts-seat seatCharts-cell appendSeat reserved">' + data.sList[i].no +'</div>';
+						}
+						
+						
+						
+						if( i != 0 && i % 10 == 9){							
+							str += '</div>';							
+						}
+						
+						if( i != 0 && i % 20 == 19){							
+							str += '</div>';							
+						}
+						
+						if( i != 0 && i % 40 == 39 && i < 159){							
+							str += '<br>';							
+						}
+						
+					}
+					
+					$("#seatList").append(str);
+					
+					$("#mMessage").text("");
+					$("#mMessage").append("좌석 예약 완료 ! <br><br> ( 좌석번호 : " + seatNo + "번  )");
+					$("#mButton").trigger("click");
+					$("#mB").attr("onclick" , "");
+					
+				
+				
+					
+				} ,
+				error : function(data){
+					
+					console.log(data);
+				}
+				
+				
+				
+			});
+			
 		}
 		
 		var cId = 0 ;
@@ -587,6 +681,7 @@
 						$("#mMessage").text("인증코드가 틀립니다!");
 						$("#mButton").trigger("click");
 						$("#rCode").val("");
+						$("#mB").attr("onclick" , "location.reload();");
 					}
 					
 					

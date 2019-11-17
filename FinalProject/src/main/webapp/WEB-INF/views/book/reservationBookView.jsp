@@ -143,9 +143,9 @@
 								<c:param name="page" value="${ pi.currentPage - 1 }" />
 							</c:url>
 							<a href="${ before }">[이전]</a> &nbsp;
-						</c:if> 
+						</c:if>
 						
-						<!-- 페이지 --> 
+						<!-- 페이지 -->
 						<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 							<c:if test="${ p eq pi.currentPage }">
 								<font color="red" size="4"><b>[${ p }]</b></font>

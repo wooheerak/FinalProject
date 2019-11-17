@@ -47,14 +47,14 @@ public class SeatDao {
 
 	public int insertHistory(SqlSessionTemplate sqlSession, Seat seat) {
 		
-		return sqlSession.insert("seatMapper.updateHistory" , seat);
+		return sqlSession.insert("seatMapper.insertHistory" , seat);
 	}
 
 
 
-	public int cancelResv(SqlSessionTemplate sqlSession, int cancelId) {
+	public int cancelResv(SqlSessionTemplate sqlSession, Seat seat) {
 		
-		return sqlSession.update("seatMapper.cancelResv" , cancelId);
+		return sqlSession.update("seatMapper.cancelResv" , seat);
 	}
 
 
@@ -76,6 +76,34 @@ public class SeatDao {
 	public int checkCode(SqlSessionTemplate sqlSession, Seat seat) {
 		
 		return sqlSession.update("seatMapper.checkCode" , seat);
+	}
+
+
+
+	public int updateHistory(SqlSessionTemplate sqlSession, Seat seat) {
+		
+		return sqlSession.update("seatMapper.updateHistory" , seat);
+	}
+
+
+
+	public int checkUsing(SqlSessionTemplate sqlSession, String id) {
+		
+		return sqlSession.selectOne("seatMapper.checkUsing" , id);
+	}
+
+
+
+	public int updateSeat(SqlSessionTemplate sqlSession, Seat seat) {
+	
+		return sqlSession.update("seatMapper.updateSeat" , seat);
+	}
+
+
+
+	public int updateOutHistory(SqlSessionTemplate sqlSession, Seat seat) {
+		
+		return sqlSession.update("seatMapper.updateOutHistory" , seat);
 	}
 
 

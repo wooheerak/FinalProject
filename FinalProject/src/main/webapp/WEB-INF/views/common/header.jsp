@@ -1,3 +1,4 @@
+<%@page import="com.kh.FinalProject.user.model.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -165,6 +166,68 @@
 		<!-- end container -->
 	</header>
 	<!-- end header -->
+	
+	<!-- 수진쓰 추가부분 -->
+	<script>
+		
+	<% 
+		Cookie[] cookies = request.getCookies();
+		
+		int check = 0 ;
+		int rNo = 0;
+		int uNo = 0;
+		
+		User user = (User)session.getAttribute("loginUser");
+		if(user != null){
+		 	rNo = user.getRseatNo();
+		 	uNo = user.getUseatNo();
+		}
+		if(cookies != null){
+			for(Cookie c : cookies){
+				System.out.println("쿠키 : " + c.getName());
+				if(c.getName().equals("certTimer")){
+					System.out.println("인증 타이머 쿠키가 살아있다");
+					check = 1 ;
+				}
+				else if(c.getName().equals("outTimer")){
+					System.out.println("퇴실 타이머 쿠키가 살아있다");
+					check = 2 ;
+				}
+				
+			}
+		}
+		
+		if(check == 0){
+			if(rNo == 0){
+	%>
+			
+				console.log("없으");
+	<%
+			}
+			else{
+	%>
+				console.log(<%=rNo %> + "취소할게");
+				location.href="cancelRC.ss?cancelId=" + <%=rNo %>;
+	<%
+			}
+			
+			if(uNo == 0){
+	%>
+						
+				console.log("없으");
+	<%
+			}
+			else{
+	%>
+				console.log(<%=uNo %> + "퇴실할게");
+				location.href="outSeatCoo.ss?outNo=" + <%=uNo %>;
+	<%
+			}
+		}
+	%>
+	
+	</script>
+	<!-- 요기까지 -->
 </body>
 
 

@@ -186,7 +186,7 @@ input{
 				<br>
 				<div class="btnbox">
 					<!-- 예약 완료시 이 창은 꺼지고 부모창 refresh -->
-					<input class="btn btn-transparent" style="padding:0px" onclick="reservationCheck()" type="button" value="예약"/>
+					<input class="btn btn-transparent" style="padding:0px" onclick="reservationCheck()" type="submit" value="예약"/>
 					<input class="btn btn-transparent" style="padding:0px"  type="button" onclick="window.close()" value="취소"/>
 				</div>
 			</form>
@@ -213,7 +213,6 @@ input{
 	}
 	
 	function reservationCheck(){
-		console.log(123);
 		console.log(document.getElementsByName("so_participant"));
 		console.log("#so_organizer" + $('#so_organizer').val());
 		
@@ -221,25 +220,36 @@ input{
 		var participants = document.getElementsByName("so_participant");
 		// 스터디룸 예약 게시판에서의 입력 체크 는 day에서 체크
 		
-		// 예약 시간 중복 검사
+		var myData = new Array();
+		for(var i = 0; i < participants.length; i++){
+			myData[i] = participants[i].value;
+		}
+		
+		console.log(myData);
+		
+		// < 예약 시간 중복 검사 >
 		
 		// 참여자 실제 학생인지 검사
-// 		$.ajax({
-// 			type 	: "POST",
-// 			url		: "checkId.sr",
-// 			async	: false,
-// 			data	: {idList:participants},
-// 			success	: function(data){
-// // 				$(data).each(function(i){
-// // 					console.log(data);
-// // 					//if(idList[i])
-// // 				});
-// 				console.log(data);
-// 			},
-// 			error:{
-				
-// 			}
-// 		});	
+		var check = {"idCheck":myData};
+		console.log(check);
+		
+		jQuery.ajaxSettings.traditional = true;
+		
+		$.ajax({
+			type 	: "POST",
+			url		: "checkId.sr",
+			data	: check,
+			success	: function(data){
+				if(participants.length > $(data).length){
+					alert("학번을 정확히 입력해 주십시오.");
+					return false;
+				}
+			},
+			error:function(){
+				alert("학번을 정확히 입력해 주십시오.");
+				return false;
+			}
+		});	
 		
 		for(var i=0; i<participants.length; i++){
 			// 참여자에 같은 학번 입력 방지(중복 입력방지)
@@ -263,9 +273,7 @@ input{
 		
 		// 정상 예약
 		return true;
-		
-		
-	}
+	}                                                         
 	
 	// 최초 작동 - 예약 정보 불러오기
 	window.onload=function(){
@@ -291,7 +299,7 @@ input{
 					selectRoomInfo = jdata;
 					$(jdata).each(function(i){
 						if(jdata[i].sr_name == "${sr_name}"){
-							$target.append("<option value="+ jdata[i].sr_name+"selected>"+jdata[i].sr_name+"</option>");
+							$target.append("<option value="+ jdata[i].sr_name+">"+jdata[i].sr_name+"</option>");
 							num = i;
 						}else{
 							$target.append("<option value="+ jdata[i].sr_name+">"+jdata[i].sr_name+"</option>");
@@ -411,7 +419,7 @@ input{
 	
 	
 	function endTimeChange(e){
-		var target = document.getElementById("endTime");
+		var target = document.getElementById("so_end_time");
 		
 		target.options.length = 0;
 		

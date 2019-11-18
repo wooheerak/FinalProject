@@ -1,10 +1,9 @@
 package com.kh.FinalProject.studyroom_order.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -84,17 +83,37 @@ public class StudyroomContoller {
 	
 	// 스터디룸 해당일 예약 전체 조회
 	@RequestMapping("srDay.sr")
-	public ModelAndView dayView(ModelAndView mv) {
+	public ModelAndView dayView(ModelAndView mv,@RequestParam(value="year", required=false)Integer year,
+								@RequestParam(value="month", required=false)Integer month,@RequestParam(value="day", required=false)Integer date) {
 		
 		int roomCount = srService.getRoomCount();
-		ArrayList<Studyroom> list = srService.selectRoomList();
+		ArrayList<Studyroom> roomlist = srService.selectRoomList();
+		
+		if(year==null) {
+			//최초입력 시 오늘 날짜 정보 
+			Calendar cr = Calendar.getInstance();
+			year = cr.get(Calendar.YEAR);
+			month = cr.get(Calendar.MONTH)+1;
+			date = cr.get(Calendar.DATE);
+		}
+		String dateInfo = Integer.toString(year) + Integer.toString(month) + Integer.toString(date);
+		System.out.println("dateInfo : " +dateInfo);
+		//Map<String, Object> map = new HashMap<String,Object>();
+		
+		
+		ArrayList<Studyroom> reservationInfo = srService.reservationInfo(dateInfo);
+		
 		
 		//System.out.println("roomCount : " + roomCount);
 		//System.out.println("list : " + list);
 		
-		if(list != null) {
-			mv.addObject("list",list);
+		if(roomlist != null) {
+			mv.addObject("year",year);
+			mv.addObject("month",month);
+			mv.addObject("date",date);
+			mv.addObject("list",roomlist);
 			mv.addObject("roomCount",roomCount);
+			mv.addObject("reservationInfo",reservationInfo);
 			mv.setViewName("studyroomDay");
 		}else {
 			
@@ -149,12 +168,14 @@ public class StudyroomContoller {
 	
 	// 학생체크
 	@RequestMapping("checkId.sr")
-	public ArrayList<String> checkId(@ModelAttribute HttpServletRequest request,String idCheck[]) {
+	@ResponseBody
+	public ArrayList<String> checkId(@RequestParam(value="idCheck"/*, required=false*/)ArrayList<String> idCheck) {
+//		System.out.println("학생체크매핑됨");
+//		System.out.println(idCheck);
+//		System.out.println(idCheck.size());
 		
 		Map<String, Object> map = new HashMap<String , Object>();
-		for(int i =0; i<idCheck.length; i++) {
-			map.put("list", idCheck[i]);
-		}
+		map.put("list", idCheck);
 		
 		ArrayList<String> result= srService.checkId(map);
 		

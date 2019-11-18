@@ -40,4 +40,11 @@ public class StudyroomDao {
 		return (ArrayList)sqlSession.selectList("studyroomMapper.checkId", map);
 	}
 
+	public ArrayList<Studyroom> reservationInfo(SqlSession sqlSession, String dateInfo) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("studyroomMapper.reservationInfo", dateInfo);
+	}
+
+	
+
 }

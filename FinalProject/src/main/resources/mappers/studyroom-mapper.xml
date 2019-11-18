@@ -65,6 +65,12 @@
 		</choose>
 	</select>
 	
+	<select id="reservationInfo" parameterType="string" resultType="string">
+		select *
+		from studyroom_order
+		where to_char(SO_DATE,'yyyymmdd') = ${dateInfo}
+	</select>
+	
 	<resultMap type="StudyroomOrder" id="studyroomOrderResultSet">
 		<id property="so_no" column="SO_NO"/>
 		<result property="sr_floor" column="SR_FLOOR"/>

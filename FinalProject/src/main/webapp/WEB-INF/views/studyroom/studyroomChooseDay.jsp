@@ -40,13 +40,6 @@
 }
 .btn-transparent{
 	padding : 0px;
-	
-}
-.srbtn{
-	background-color:transparent !important;
-	border-color:transparent !important;
-	border:none;
-	/*color:#FFFFFF;*/
 }
 .floor_th{
 	border-left: 1px solid #000000;
@@ -89,11 +82,11 @@
 <body>
 <%
 //현재 날짜 정보 
-// Calendar cr = Calendar.getInstance();
-// int year = cr.get(Calendar.YEAR);
-// int month = cr.get(Calendar.MONTH);
-// int date = cr.get(Calendar.DATE);
-// System.out.println(date);
+Calendar cr = Calendar.getInstance();
+int year = cr.get(Calendar.YEAR);
+int month = cr.get(Calendar.MONTH);
+int date = cr.get(Calendar.DATE);
+System.out.println(date);
 %>
 	<c:import url="../common/header.jsp" />
 
@@ -117,7 +110,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-9">
-					<table class="studyroom_main table-hover">
+					<table class="studyroom_main">
 						<!-- rowspan을 사용하기 위해 예약시간 없으면 없는 수만큼 for문에서 차감 하는 식의 2중포문 제작-->
 						<!-- 방갯수만큼 for문 -->
 						<tr>
@@ -166,15 +159,12 @@
 									</c:if>
 									
 									<c:forEach var="j"  begin="0" end="${roomCount}" items="${list}">
+										<td>
 											<c:if test="${i<22}">
-												<td>
-												<!--  버튼 클릭시 팝업이 뜨고 팝업에 클릭한 버튼의 시작시간 및 마감 시간을 select할 값으로 전달 -->
-													<button id="startTime${i}" name="startTime${i}" type="submit" value="${i},${ j.sr_name},${j.sr_floor}" class="srbtn" onclick="srReservation(this);" style="padding:0px;width:73px;height:38px;">+</button>
-												</td>
+											<!--  버튼 클릭시 팝업이 뜨고 팝업에 클릭한 버튼의 시작시간 및 마감 시간을 select할 값으로 전달 -->
+												<button id="startTime${i}" name="startTime${i}" type="submit" value="${i},${ j.sr_name},${j.sr_floor}" class="btn" onclick="srReservation(this);" style="padding:0px;width:73px;height:38px;">+</button>
 											</c:if>
-											<c:if test="${i==22}">
-												<td style="background-color:lightgray;"></td>
-											</c:if>
+										</td>
 									</c:forEach>
 								</tr>				
 							</c:forEach>
@@ -189,96 +179,61 @@
 							<h3>Date</h3>
 						</div>
 						<div>
-							<form action="srDay.sr">
+							<form>
 								<div>
 									<select id="year" name="year"  class="studyroom_option2">
 										<!-- 오늘 년도 기본 선택-->
-										<c:forEach var="i" begin="${year-1}" end="${year+2}">
-											<c:if test="${i == year}">
-												<option value="${i}" selected>${i}</option>
-											</c:if>
-											<c:if test="${i != year}">
-												<option value="${i}">${i}</option>
-											</c:if>
-										</c:forEach>
-										
 										<%
-// 									      for(int i=year-1; i<year+3; i++){
-// 									       String selected = (i == year)?"selected":"";
-// 									       String color = (i == year)?"#CCCCCC":"#FFFFFF";
-// 									         out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>");       
-// 									      }
+									      for(int i=year-1; i<year+3; i++){
+									       String selected = (i == year)?"selected":"";
+									       String color = (i == year)?"#CCCCCC":"#FFFFFF";
+									         out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>");       
+									      }
 									      %>
-									      
 									</select> 
-									
 									<select id="month" name="month"  class="studyroom_option2" onchange="daycheck(this)">
 										<!--  -->
 										<!-- 오늘 달 기본 선택-->
-										<c:forEach var="i" begin="1" end="12">
-											<c:if test="${i == month}">
-												<c:if test="${i<=9}">
-													<option value="0${i}" selected>${i}</option>
-												</c:if>
-												<c:if test="${i>9}">
-													<option value="${i}" selected>${i}</option>
-												</c:if>
-											</c:if>
-											<c:if test="${i != month}">
-												<c:if test="${i<=9}">
-													<option value="0${i}">${i}</option>
-												</c:if>
-												<c:if test="${i>9}">
-													<option value="${i}">${i}</option>
-												</c:if>
-											</c:if>
-										</c:forEach>
+										 <%
+									      for(int i=1; i<=12; i++){
+									       String selected = (i == month+1)?"selected":"";
+									       String color = (i == month+1)?"#CCCCCC":"#FFFFFF";
+									         out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>");       
+									      }
+									      %>
 									</select> 
-									
 									<select id="day" name="day"  class="studyroom_option2">
 										<!-- 선택된 달의 숫자만큼 일수 반복-->
-										<c:choose>
-											<c:when test="${month==1 or month ==3 or month==5 or month == 7 or month == 8 or month == 10 or month == 12}">
-												<c:forEach var="i" begin="1" end="31">
-													<c:if test="${i == date}">
-														<option value="${i}" selected>${i}</option>
-													</c:if>
-													<c:if test="${i != date}">
-														<option value="${i}">${i}</option>
-													</c:if>
-												</c:forEach>
-											</c:when>
-											<c:when test="${month==4 or month ==6 or month==9 or month == 11}">
-												<c:forEach var="i" begin="1" end="30">
-													<c:if test="${i == date}">
-														<option value="${i}" selected>${i}</option>
-													</c:if>
-													<c:if test="${i != date}">
-														<option value="${i}">${i}</option>
-													</c:if>
-												</c:forEach>
-											</c:when>
-											<c:when test="${month==2 and (year % 4 ==0 and year%100 !=0) or year %400==0}">
-												<c:forEach var="i" begin="1" end="31">
-													<c:if test="${i == date}">
-														<option value="${i}" selected>${i}</option>
-													</c:if>
-													<c:if test="${i != date}">
-														<option value="${i}">${i}</option>
-													</c:if>
-												</c:forEach>
-											</c:when>
-											<c:when test="${month==2}">
-												<c:forEach var="i" begin="1" end="28">
-													<c:if test="${i == date}">
-														<option value="${i}" selected>${i}</option>
-													</c:if>
-													<c:if test="${i != date}">
-														<option value="${i}">${i}</option>
-													</c:if>
-												</c:forEach>
-											</c:when>
-										</c:choose>
+										<%
+											if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
+										      for(int i=1; i<=31; i++){
+										      	String selected = (i == date)?"selected":"";
+										     	String color = (i == date)?"#CCCCCC":"#FFFFFF";
+										    	out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>");       
+										      }
+											}
+											else if(month == 4 || month == 6 || month == 9 || month == 11){
+												for(int i=1; i<=30; i++){
+													String selected = (i == date)?"selected":"";
+											     	String color = (i == date)?"#CCCCCC":"#FFFFFF";
+											    	out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>");      
+												}
+											}
+											else if(month == 2 && (year % 4 == 0 && year % 100 != 0) || year % 400 == 0){
+												for(int i=1; i<=29; i++){
+													String selected = (i == date)?"selected":"";
+											     	String color = (i == date)?"#CCCCCC":"#FFFFFF";
+											    	out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>"); 
+												}
+											}
+											else if(month == 2){
+												for(int i=1; i<=28; i++){
+													String selected = (i == date)?"selected":"";
+											     	String color = (i == date)?"#CCCCCC":"#FFFFFF";
+											    	out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>");
+												}
+											}
+									      %>
 									</select>
 								</div>
 								<div>

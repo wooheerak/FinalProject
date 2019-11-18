@@ -165,34 +165,13 @@ int count = 0;
    	<input class="calbtn" type="button" value="◁" onClick="monthDown(this.form)">
    </td>
    <td align="center">
-<!--       <select name="year" onchange="selectCheck(this.form)"> -->
-<%--       <% --%>
-<!--       for(int i=year-10;i<year+10;i++){ -->
-<!--         String selected = (i == year)?"selected":""; -->
-<!--         String color = (i == year)?"#CCCCCC":"#FFFFFF"; -->
-<!--           out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>");        -->
-<!--        } -->
-<%--       %> --%>
-<!--       </select> -->
 		<%= year%>
       </td>
       <td>
-<!--       <select name="month" onchange="selectCheck(this.form)"> -->
-<%--       <% --%>
-<!--       for(int i=1;i<=12;i++){ -->
-<!--        String selected = (i == month+1)?"selected":""; -->
-<!--        String color = (i == month+1)?"#CCCCCC":"#FFFFFF"; -->
-<!--          out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>");        -->
-<!--        } -->
-<%--       %> --%>
-<!--       </select> -->
 		<%= month+1 %>
       </td>
       <td><input  class="calbtn"  type="button" value="▷" onClick="monthUp(this.form)"></td>
     </tr>
-<!--     <tr> -->
-<%--       <td align="right" colspan="3"><a href="calendar.jsp"><font size="2">오늘 :  <%=today %></font></a></td> --%>
-<!--     </tr> -->
 </table>
 </form>        
 <table width="400" cellpadding="2" cellspacing="0" border="1" align="center">

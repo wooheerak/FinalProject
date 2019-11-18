@@ -22,8 +22,8 @@
 }
 th{
  text-align: center !important;
- background: linear-gradient(20deg, #3ac5c8 50%, #887af3 100%);
- color: white;
+ background: #bbd1f9;
+ color: #806464;
  width: 150px;
  height: 50px;
 }

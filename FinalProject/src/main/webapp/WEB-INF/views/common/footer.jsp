@@ -6,7 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+<style type="text/css">
+p{
+font-size: 20px;
+font-weight: bold;
+}
+</style>
 </head>
 <body>
 	<!-- footer는 어느 페이지든 포함하고 있을 테니 여기서 contextPath 변수 값 만들어주자 -->

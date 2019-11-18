@@ -72,6 +72,15 @@
 					</div>
 					<!-- end home-service -->
 				</div>
+				
+				<div class="col-md-3 col-sm-6 nopad">
+					<div class="home-service c3" style="background-color: #dfe8ea;"
+						onclick="location.href='bList.bo'">
+						<i class="flaticon-chat"></i>
+						<p>스터디룸 게시판</p>
+					</div>
+					<!-- end home-service -->
+				</div>
 				<!-- end col -->
 
 				<div class="col-md-3 col-sm-6 nopad last">

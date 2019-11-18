@@ -22,13 +22,21 @@ public interface SeatService {
 
 	int insertHistory(Seat seat);
 
-	int cancelResv(int cancelId);
+	int cancelResv(Seat seat);
 
 	int resetSeat(int cancelId);
 
 	SeatHistory selectsId(String id);
 
 	int checkCode(Seat seat);
+
+	int updateHistory(Seat seat);
+
+	int checkUsing(String id);
+
+	int updateSeat(Seat seat);
+
+	int updateOutHistory(Seat seat);
 
 	
 

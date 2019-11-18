@@ -11,13 +11,17 @@ public class User {
 	private String Member_Sep;
 	private String Member_Email;
 	
+	//수진쓰가 추가한 부분
+	private int rseatNo ; // 예약한 자리 번호
+	private int useatNo ; // 현재 사용중인 죄석번호
+	
 	public User() {
 		super();
 		
 	}
 
 	public User(String member_Id, String member_Password, String member_Name, String member_No, String phone,
-			String address, String member_Sep, String member_Email) {
+			String address, String member_Sep, String member_Email, int rseatNo, int useatNo) {
 		super();
 		Member_Id = member_Id;
 		Member_Password = member_Password;
@@ -27,12 +31,8 @@ public class User {
 		Address = address;
 		Member_Sep = member_Sep;
 		Member_Email = member_Email;
-	}
-
-	public User(String member_Id, String member_Password) {
-		super();
-		Member_Id = member_Id;
-		Member_Password = member_Password;
+		this.rseatNo = rseatNo;
+		this.useatNo = useatNo;
 	}
 
 	public String getMember_Id() {
@@ -99,13 +99,31 @@ public class User {
 		Member_Email = member_Email;
 	}
 
+	public int getRseatNo() {
+		return rseatNo;
+	}
+
+	public void setRseatNo(int rseatNo) {
+		this.rseatNo = rseatNo;
+	}
+
+	
+
+	public int getUseatNo() {
+		return useatNo;
+	}
+
+	public void setUseatNo(int useatNo) {
+		this.useatNo = useatNo;
+	}
+
 	@Override
 	public String toString() {
 		return "User [Member_Id=" + Member_Id + ", Member_Password=" + Member_Password + ", Member_Name=" + Member_Name
 				+ ", Member_No=" + Member_No + ", Phone=" + Phone + ", Address=" + Address + ", Member_Sep="
-				+ Member_Sep + ", Member_Email=" + Member_Email + "]";
+				+ Member_Sep + ", Member_Email=" + Member_Email + ", rseatNo=" + rseatNo + ", useatNo=" + useatNo + "]";
 	}
-	
+
 	
 	
 

@@ -52,5 +52,10 @@ public class BsDAO {
 		return sqlSession.insert("bsMapper.insertBooksale", map);
 	}
 
+	public ArrayList<BookReg> selectTopList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("bsMapper.selectTopList");
+		
+	}
+
 
 }

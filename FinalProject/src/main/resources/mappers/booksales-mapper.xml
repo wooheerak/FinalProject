@@ -86,4 +86,16 @@
     	VALUES (SEQ_BSNO.NEXTVAL, #{bNo}, #{sId}, #{bId}, SYSDATE)
     </insert>
     
+    <!-- 중고서적 index top 리스트 -->
+    <select id="selectTopList" resultMap="brResultSet">
+    	<![CDATA[
+    	SELECT *
+    	FROM (SELECT *
+    		  FROM BOOK_REG
+    		  WHERE BR_STATUS='N'
+    		  ORDER BY BR_REG_DATE DESC)
+    	WHERE ROWNUM <= 5
+    	]]>    
+    </select>
+    
 </mapper>

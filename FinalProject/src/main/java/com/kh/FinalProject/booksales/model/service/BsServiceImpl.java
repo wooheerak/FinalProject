@@ -61,6 +61,11 @@ public class BsServiceImpl implements BsService{
 	public int insertBookSale(HashMap<String, Object> map) {
 		return bsDAO.insertBookSale(sqlSession, map);
 	}
+
+	// 중고서적 TOP 리스트
+	public ArrayList<BookReg> selectTopList() {
+		return bsDAO.selectTopList(sqlSession);
+	}
 	
 	
 

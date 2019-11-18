@@ -20,20 +20,17 @@
 				<form action="selectList.bk" class="calculateform"
 					style="height: 120px; padding-top: 33px; background-color: rgb(19, 19, 94);">
 					<div class="dorpdown dropdown" style="display: flex;">
-               			<SELECT name='searchOption'>
-                  			<!-- 검색 컬럼 -->
-			                  <OPTION value='title'>제목 검색</OPTION>
-			                  <OPTION value='author'>저자 검색</OPTION>
-			                  <OPTION value='publisher'>출판사 검색</OPTION>
-			                  <OPTION value='ISBN'>ISBN 검색</OPTION>
-			               </SELECT>
-						&nbsp;&nbsp; 
-						<input type="text" class="form-control"
-							id="searchbar" name="search" style="height: 49.33px; width: 450px;"
-							placeholder="검색어를 입력하세요">
-						&nbsp;&nbsp; <input
-							type="submit" name="send" value="검색" class="btn btn-default"
-							style="height: 49.33px; width: 150px;" />
+						<SELECT name='searchOption'>
+							<!-- 검색 컬럼 -->
+							<OPTION value='title'>제목 검색</OPTION>
+							<OPTION value='author'>저자 검색</OPTION>
+							<OPTION value='publisher'>출판사 검색</OPTION>
+							<OPTION value='ISBN'>ISBN 검색</OPTION>
+						</SELECT> &nbsp;&nbsp; <input type="text" class="form-control"
+							id="searchbar" name="search"
+							style="height: 49.33px; width: 450px;" placeholder="검색어를 입력하세요">
+						&nbsp;&nbsp; <input type="submit" name="send" value="검색"
+							class="btn btn-default" style="height: 49.33px; width: 150px;" />
 					</div>
 				</form>
 			</div>
@@ -98,77 +95,68 @@
 	</section>
 	<!-- end section -->
 
-	<!-- 신착도서 -->
+<!-- 신착도서 -->
 	<section class="section bt">
 		<div class="container  text-center">
 			<div style="width: 330px;">
-				신착도서
-				<div class="owl-carousel owl-theme lightcasestudies withhover">
-					<div class="item-carousel">
-						<div class="case-box ">
-							<img src="resources/BOOK_IMG/18세기 조선 인물지.jpg" alt=" "
-								class="img-respive">
-							<div class="magnifier ">
-								<a href="case-studies-single.html "><i class="fa fa-link "></i></a>
-							</div>
-						</div>
-						<!-- end case-box -->
-					</div>
-					<!-- end col -->
-
-					<div class="item-carousel ">
-						<div class="case-box ">
-							<img src="resources/BOOK_IMG/2001싸이버스페이스오디쎄이.jpg" alt=" "
-								class="img-responsive ">
-							<div class="magnifier ">
-								<a href="case-studies-single.html "><i class="fa fa-link "></i></a>
-							</div>
-						</div>
-						<!-- end case-box -->
-					</div>
-					<!-- end col -->
-
-					<div class="item-carousel ">
-						<div class="case-box ">
-							<img src="resources/BOOK_IMG/2003년 유홍준의 문화유산달력.jpg" alt=" "
-								class="img-responsive ">
-							<div class="magnifier ">
-								<a href="case-studies-single.html "><i class="fa fa-link "></i></a>
-							</div>
-						</div>
-						<!-- end case-box -->
-					</div>
-					<!-- end col -->
-
-					<div class="item-carousel ">
-						<div class="case-box ">
-							<img src="src/main/webapp/resources/BOOK_IMG/2500년과학사를움직인인물들.jpg" alt=" "
-								class="img-responsive ">
-							<div class="magnifier ">
-								<a href="case-studies-single.html "><i class="fa fa-link "></i></a>
-							</div>
-						</div>
-						<!-- end case-box -->
-					</div>
-					<!-- end col -->
-
-					<div class="item-carousel ">
-						<div class="case-box ">
-							<img src="resources/sale_books/FASHION.PNG" alt=" "
-								class="img-responsive ">
-							<div class="magnifier ">
-								<a href="case-studies-single.html "><i class="fa fa-link "></i></a>
-							</div>
-						</div>
-						<!-- end case-box -->
-					</div>
-					<!-- end col -->
+				중고서적
+				<div id="d" class="owl-carousel owl-theme lightcasestudies withhover">
+					<!-- 중고서적 이미지 -->
 				</div>
 			</div>
 		</div>
 	</section>
 	<!-- end section -->
 
+
+
+				<script>
+					function topList(){
+						
+						$.ajax({
+						url: "topList.bs",
+						dataType: "json" ,
+						success: function(data){
+							
+							console.log(data);
+							
+							$("#d").text("");
+					
+							var str = "";
+							
+							for (var i in data){
+
+								str +='<div class="item-carousel">';
+								str +='<div class="case-box">';
+								str +='<img alt="" src="resources/bsuploadFiles/'+ data[i].renameFileName +'"';
+								str +=' style="width: 60px; height: 100;" class="img-respive">';
+								str +='<div class="magnifier">';
+								str +='<a href="'+ "bsdetail.bs?brBnumber=" + data[i].brBnumber +'"><i class="fa fa-link"></i></a>';
+								str +='</div>';
+								str +='</div>';
+								str +='</div>';
+
+							}
+														
+							console.log(str);
+							$("#d").append(str);
+							$('.item-carousel').first().addClass('active');
+						
+							}
+						});
+					}
+					
+					
+					$(function(){
+						topList();
+						
+						setInterval(function(){
+							topList().carousel(options);
+						}, 15000);
+					});
+					
+				</script>
+				
 	<c:import url="WEB-INF/views/common/footer.jsp"></c:import>
 </body>
 </html>

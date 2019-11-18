@@ -1,11 +1,14 @@
 package com.kh.FinalProject.booksales.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.FinalProject.booksales.model.exception.BSException;
 import com.kh.FinalProject.booksales.model.service.BsService;
 import com.kh.FinalProject.booksales.model.vo.BookReg;
@@ -132,7 +138,7 @@ public class BookSalesController {
 		return mv;
 	}
 	
-	
+	// 중고서적 판매 업데이트
 	@RequestMapping("bsupdate.bs")
 	public ModelAndView bsUpdate(@ModelAttribute BookReg br,
 									 @RequestParam("reloadFile") MultipartFile reloadFile,
@@ -160,6 +166,7 @@ public class BookSalesController {
 		return mv;
 	}
 	
+	// 중고서적 파일 삭제
 	public void deleteFile(String fileName, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "\\bsuploadFiles";
@@ -184,6 +191,7 @@ public class BookSalesController {
 		}
 	}
 	
+	// 중고서적 판매 완료
 	@RequestMapping("complete.bs")
 	public String complete(@RequestParam("brBnumber") int brBnumber,
 						 @RequestParam("brStudentId") String brStudentId,
@@ -225,6 +233,19 @@ public class BookSalesController {
 		
 	}
 	
+	// 중고서적 최신 리스트
+	@RequestMapping("topList.bs")
+	public void bsTopList(ModelAndView mv, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		ArrayList<BookReg> tlist = bsService.selectTopList();
+	
+		
+		Gson gson = new Gson();
+		gson.toJson(tlist, response.getWriter());
+		
+
+	
+	}
 	
 	
 	

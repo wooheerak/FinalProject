@@ -22,6 +22,8 @@ public interface BsService {
 
 	int insertBookSale(HashMap<String, Object> map);
 
+	ArrayList<BookReg> selectTopList();
+
 	
 
 

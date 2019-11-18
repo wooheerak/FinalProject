@@ -6,8 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>BoardInsert</title>
+<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
 
 <style type="text/css">
+* { font-family: 'Spoqa Han Sans'; }
 #boardInsertTable {
 	margin: auto;
 	width: 80% !important;
@@ -19,10 +21,11 @@
 	margin-top: 10px !important;
 }
 th{
-width: 80px !important;
-text-align: center !important;
- background: #82c8a0;
- color: black;
+ text-align: center !important;
+ background: #bbd1f9;
+ color: #806464;
+ width: 150px;
+ height: 50px;
 }
 /* 버튼 */
 * {

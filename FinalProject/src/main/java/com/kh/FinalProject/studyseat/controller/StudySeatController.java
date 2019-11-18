@@ -306,9 +306,12 @@ public class StudySeatController {
 			
 			if(result > 0) {
 				
-				sendMsg(seat,request);
+				// 문자 전송 
+				//sendMsg(seat,request);
+				
 				Cookie cookie = new Cookie("certTimer" , "CERT_TIMER");
-				cookie.setMaxAge(20);
+				// 인증타이머 시간 설정
+				cookie.setMaxAge(60);
 				response.addCookie(cookie);
 				
 				user.setRseatNo(sNo);
@@ -566,12 +569,14 @@ public class StudySeatController {
 				
 				// 인증완료 후 퇴실타이머 생성
 				Cookie cookie = new Cookie("outTimer" , "OUT_TIMER");
-				cookie.setMaxAge(30);
+				// 퇴실타이머 시간 설정
+				cookie.setMaxAge(60);
 				response.addCookie(cookie);
 				
 				user.setUseatNo(cId);
 				session.setAttribute("loginUser", user);
 				
+				// 사용자 이용내역 업데이트
 				result = sService.updateHistory(seat);
 			}
 			

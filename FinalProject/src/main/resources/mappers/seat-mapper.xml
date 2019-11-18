@@ -48,6 +48,8 @@
   		<id property="shNo" column="SH_NO"/>
   		<result property="useDate" column = "USE_DATE"/>
   		<result property="shStatus" column="SH_STATUS"/>
+  		<result property = "startTime" column = "START_TIME"/>
+  		<result property = "endTime" column = "END_TIME"/>
   		<collection property="seat" resultMap="seatResultSet"/>
   	</resultMap>
   	
@@ -61,7 +63,7 @@
   
   	<insert id="insertHistory" parameterType = "Seat">
   		INSERT INTO SEAT_HISTORY
-  		VALUES(SEQ_SHNO.NEXTVAL, #{ss_no} , SYSDATE , #{student_id} , 'R')
+  		VALUES(SEQ_SHNO.NEXTVAL, #{ss_no} , SYSDATE , #{student_id} , 'R', NULL, NULL)
   	</insert>
   	
   	<update id = "cancelResv" parameterType="Seat">
@@ -87,13 +89,13 @@
   	
   	<update id = "checkCode" parameterType = "Seat">
   		UPDATE STUDYSEAT 
-		SET SS_USE = 'Y' , SS_CERT = 'Y'
+		SET SS_USE = 'Y' , SS_CERT = 'Y' , START_TIME = TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:MI') , END_TIME =  TO_CHAR((SYSDATE + 2/24),'YYYY/MM/DD HH24:MI')
 		WHERE STUDENT_ID = #{student_id} AND CERT_CODE = #{cert_code}
   	</update>
   	
   	<update id = "updateHistory" parameterType="Seat">
   		UPDATE SEAT_HISTORY
-  		SET SH_STATUS = 'U'
+  		SET SH_STATUS = 'U' , START_TIME = TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:MI') , END_TIME =  TO_CHAR((SYSDATE + 2/24),'YYYY/MM/DD HH24:MI')
   		WHERE STUDENT_ID = #{student_id} AND SS_NO = #{ss_no}
   	</update>
   	
@@ -105,7 +107,7 @@
   	
   	<update id = "updateOutHistory" parameterType="Seat">
   		UPDATE SEAT_HISTORY 
-		SET SH_STATUS = 'E'
+		SET SH_STATUS = 'E' , END_TIME = TO_CHAR(SYSDATE,'YYYY/MM/DD HH24:MI')
 		WHERE SS_NO = #{ss_no} AND STUDENT_ID = #{student_id}
   	</update>
 </mapper>

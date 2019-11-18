@@ -157,8 +157,6 @@ public class BoardController {
 		join.put("Member_Name", Member_Name );
 		join.put("Member_Id", Member_Id );
 		
-		System.out.println("map : " + join);
-		
 		int mem = bo_member;
 		int maxmem = bo_maxmember;
 		int bNo = bo_number;

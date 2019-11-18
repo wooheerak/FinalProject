@@ -6,23 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>BoardUpdate</title>
+<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
 
 <style type="text/css">
+* { font-family: 'Spoqa Han Sans'; }
 #boardUpdateTable {
 	margin: auto;
 	width: 80% !important;
 	min-height: 600px;
-}
-
-#w3 {
-	margin: auto;
-	width: 700px;
-	border-collapse: collapse;
-}
-
-#w3-sidebar {
-	margin-top: 138px;
-	height: 356px !important;
 }
 
 .col-sm-7 {
@@ -31,8 +22,10 @@
 }
 th{
  text-align: center !important;
- background: lightblue;
- color: black;
+ background: linear-gradient(20deg, #3ac5c8 50%, #887af3 100%);
+ color: white;
+ width: 150px;
+ height: 50px;
 }
 /* 버튼 */
 * {

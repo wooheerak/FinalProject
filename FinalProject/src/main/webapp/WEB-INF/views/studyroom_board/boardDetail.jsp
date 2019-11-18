@@ -9,8 +9,10 @@
 <meta charset="UTF-8">
 <title>BoardDetail</title>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
 
 <style type="text/css">
+* { font-family: 'Spoqa Han Sans'; }
 #boardtable {
 	margin: auto;
 	width: 80% !important;
@@ -31,11 +33,21 @@
 #rContent {
 	margin: auto;
 }
+
 th{
  text-align: center !important;
- background: lightblue;
- color: black;
+ background: linear-gradient(20deg, #3ac5c8 50%, #887af3 100%);
+ color: white;
+ width: 150px;
+ height: 50px;
 }
+.aa{background: #e3ebf9;}
+.bb{background: #;}
+.cc{background: #e3ebf9;}
+.dd{background: #;}
+.ee{background: #e3ebf9;}
+.ff{background: #;}
+
 .swal2-popup {
   font-size: 20px !important;
 }
@@ -458,24 +470,38 @@ button[class*="btn"] {border: 0;}
 		<table border="1" id="boardtable">
 		<tr>
 			<th width="80px" align="center">번호</th>
-			<td>${ board.bo_number }</td>
+			<td class="aa">${ board.bo_number }</td>
 		
-			<td style="width: 150px; background-color: lightblue; font-weight: bold;">제목</td>
-			<td>${ board.bo_title }</td>
+			<th>제목</th>
+			<td class="aa">${ board.bo_title }</td>
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td colspan="3" >${ board.bo_name }</td>
+			<td colspan="3" class="bb">${ board.bo_name }</td>
 		</tr>
 		<tr>
 			<th>작성날짜</th>
-			<td colspan="3">
+			<td colspan="3" class="cc">
 				${ board.bo_date }
 			</td>
 		</tr>
 		<tr>
+		
+			<th>상태</th>
+			<td class="dd">
+				<c:set var="com" value="${ board.bo_complete }" />
+				<c:choose>
+				    <c:when test="${com eq 'N'}">
+				        	모집중
+				    </c:when>
+				    <c:when test="${com eq 'Y'}">
+				       		마감!!
+				    </c:when>
+				</c:choose>
+			</td>
+			
 			<th>모집유형</th>
-			<td colspan="3">
+			<td class="dd">
 				<c:set var="rei" value="${ board.bo_reinfo }" />
 				<c:choose>
 				    <c:when test="${rei eq 'N'}">
@@ -486,6 +512,7 @@ button[class*="btn"] {border: 0;}
 				    </c:when>
 				</c:choose>
 			</td>
+			
 		</tr>
 		<tr>
 			<th>내용</th>
@@ -496,7 +523,7 @@ button[class*="btn"] {border: 0;}
 			-->
 			
 			<% pageContext.setAttribute("newLineChar", "\r\n"); %> <!-- \r\n 말고 그냥 \n도, \r도 가능하다 -->
-			<td colspan="3" style="height: 500px; text-align: left;">${ fn:replace(board.bo_detail, newLineChar, "<br>") }<br></td>
+			<td colspan="3" style="height: 400px; text-align: left;" class="ee">${ fn:replace(board.bo_detail, newLineChar, "<br>") }<br></td>
 		</tr>
 		<tr>
 			<th>현재 인윈 / 모집 인원</th>
@@ -511,9 +538,9 @@ button[class*="btn"] {border: 0;}
 					<c:param name="bo_number" value="${ board.bo_number }"/>
 					<c:param name="Member_Name" value="${ loginUser.member_Name }"/>
 				</c:url>
-				<td style="width: 150px;">${ board.bo_member } / ${ board.bo_maxmember }</td>
-			<td style="width: 150px; background-color: lightblue; font-weight: bold;">참여자 아이디</td>
-			<td>
+				<td style="width: 150px;" class="ff">${ board.bo_member } / ${ board.bo_maxmember }</td>
+			<th>참여자 아이디</th>
+			<td class="ff">
 				<c:set var="join" value="${ board.bo_join }" />
 					<c:choose>
 					    <c:when test="${join eq NULL}">
@@ -750,8 +777,8 @@ button[class*="btn"] {border: 0;}
                      $rWriter = $("<td>").text(data[i].rWriter);
                      $rContent = $("<td id='listContent" + num + "'>").text(decodeURIComponent(data[i].rContent.replace(/\+/g , " ")));
                      $rCreateDate = $("<td>").text(data[i].rCreateDate);
-                     $rUpbutton = $('<a href="javascript:void(0)" class="btn-gradient yellow" onclick="fn_editReplyView(listContent' + num + ',' + data[i].rId + ')">수정</a>');
-                     $rDebutton = $("<a href='javascript:void(0)' class='btn-gradient red' onclick='fn_deleteReply(" + data[i].rId + ")'>삭제</a>'"); 
+                     $rUpbutton = $('<a href="javascript:void(0)" class="btn-gradient mini yellow" onclick="fn_editReplyView(listContent' + num + ',' + data[i].rId + ')">수정</a>');
+                     $rDebutton = $("<a href='javascript:void(0)' class='btn-gradient mini red' onclick='fn_deleteReply(" + data[i].rId + ")'>삭제</a>'"); 
 
                      $tr.append($rWriter);
                      $tr.append($rContent);
@@ -814,7 +841,7 @@ button[class*="btn"] {border: 0;}
 		   htmls +='   <textarea rows = "2" cols = "20" id ="rUpContent"></textarea>'
 		   htmls +='</td>'
 		   htmls +='<td>'
-		   htmls +='<a href="javascript:void(0)" onclick="fn_updateReply(' + rId + ')" style="padding-right:5px">저장</a>';
+		   htmls +='<a href="javascript:void(0)" class="btn-gradient mini blue" onclick="fn_updateReply(' + rId + ')">저장</a>';
 		   htmls +='</td>'
            
 		   var $rUpinput = htmls;

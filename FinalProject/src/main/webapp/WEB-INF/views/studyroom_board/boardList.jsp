@@ -13,6 +13,8 @@
 	src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript"
 	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
+
 <script>
 	jQuery(function($) {
 		$("#tb").DataTable({
@@ -62,6 +64,7 @@
 <style type="text/css">
 /* 	#tb{margin: auto; width: 700px; border-collapse: collapse; width: 1000px !important;}
 	#tb tr td{padding: 5px;} */
+* { font-family: 'Spoqa Han Sans'; }
 #buttonTab {
 	border-left: hidden;
 	border-right: hidden;

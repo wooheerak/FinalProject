@@ -1,6 +1,7 @@
 package com.kh.FinalProject.booksales.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -39,6 +40,22 @@ public class BsDAO {
 	// 중고서적 삭제
 	public int bsDelete(SqlSessionTemplate sqlSession, int brBnumber) {
 		return sqlSession.update("bsMapper.deleteBs", brBnumber);
+	}
+
+	// 판매완료 업데이트
+	public int updateComplete(SqlSessionTemplate sqlSession, int brBnumber) {
+		return sqlSession.update("bsMapper.updateComplete", brBnumber);
+	}
+
+	// 판매 완료 insert
+	public int insertBookSale(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.insert("bsMapper.insertBooksale", map);
+	}
+
+	// 중고서적 탑 리스트
+	public ArrayList<BookReg> selectTopList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("bsMapper.selectTopList");
+		
 	}
 
 

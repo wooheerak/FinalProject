@@ -122,30 +122,44 @@ table th {
 					<br>
 				</div>
 				<div class="text-center">
-					<!-- Large modal -->
-					<a href="bslist.bs" class="btn btn-transparent">목록</a>
-					<c:url var="bsupView" value="bsupView.bs">
-						<c:param name="brBnumber" value="${ bs.brBnumber }" />
-					</c:url>
-					
-					<c:url var="complete" value="complete.bs">
-						<c:param name="brBnumber" value="${ bs.brBnumber }" />
-					</c:url>
+					<!-- 로그인 아이디 소유자가 NO 작성 시 -->
+					<c:if test="${ loginUser.member_Name ne bs.brMemberName }">
+						<a href="bslist.bs" class="btn btn-transparent" style="margin-left:100px;">목록</a>
+						<c:url var="bsupView" value="bsupView.bs">
+							<c:param name="brBnumber" value="${ bs.brBnumber }" />
+						</c:url>
 
-					<c:if test="${ loginUser.member_Name eq bs.brMemberName }">
-						<a href="${ bsupView }" class="btn btn-transparent"
-							style="margin-left: 30px;">수정</a>
+						<c:url var="complete" value="complete.bs">
+							<c:param name="brBnumber" value="${ bs.brBnumber }" />
+						</c:url>
+						<button type="button" class="btn btn-transparent"
+							style="background-color: white; margin-left: 150px;"
+							data-toggle="modal" data-target=".bd-example-modal-lg">구매하기</button>
 					</c:if>
-					<button type="button" class="btn btn-transparent"
-						style="background-color: white; margin-left: 150px;"
-						data-toggle="modal" data-target=".bd-example-modal-lg">구매하기</button>
+
+					<!-- 로그인 아이디 소유자가 작성했을 시 -->
+					<c:if test="${ loginUser.member_Name eq bs.brMemberName }">
+						<c:url var="bsupView" value="bsupView.bs">
+							<c:param name="brBnumber" value="${ bs.brBnumber }" />
+						</c:url>
+						<a href="${ bsupView }" class="btn btn-transparent" style="color:red;">수정</a>
+						<a href="bslist.bs" class="btn btn-transparent" style="margin-left: 30px;">목록</a>
+
+						<c:url var="complete" value="complete.bs">
+							<c:param name="brBnumber" value="${ bs.brBnumber }" />
+						</c:url>
+
+						<button type="button" class="btn btn-transparent"
+							style="background-color: white; margin-left: 150px;"
+							data-toggle="modal" data-target=".bd-example-modal-lg">구매하기</button>
+					</c:if>
 				</div>
 
 
 
 				<!-- Modal -->
-				<div class="modal fade bd-example-modal-lg" tabindex="-1"
-					role="dialog" aria-labelledby="myLargeModalLabel"
+				<div id="buymodal" class="modal fade bd-example-modal-lg"
+					tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 					aria-hidden="true">
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content" style="margin-top: 200px;">
@@ -153,8 +167,8 @@ table th {
 								style="background-color: skyblue; border-radius: 4px;">
 								<h3 class="modal-title" id="exampleModalLabel"
 									style="color: white;">[주문하기]</h3>
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
+								<button type="button" id="close" class="close"
+									data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
@@ -170,10 +184,12 @@ table th {
 												value="${ loginUser.member_Id }">
 										</p>
 										<p>
-											<label>Phone</label> <input class="w3-input" type="text" value="${ loginUser.phone }">
+											<label>Phone</label> <input class="w3-input" type="text"
+												value="${ loginUser.phone }">
 										</p>
 										<p>
-											<label>E-mail</label> <input class="w3-input" type="email" value="${ loginUser.member_Email }">
+											<label>E-mail</label> <input class="w3-input" type="email"
+												value="${ loginUser.member_Email }">
 										</p>
 									</form>
 								</div>
@@ -223,42 +239,51 @@ table th {
 			src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 		<script>
-		
-		$('#checkout').click(function(){
-					
-			var IMP = window.IMP; // 생략가능.
-	  		IMP.init("imp57445042"); // 발급받은 "가맹점 식별코드"
-	  		
-	  		IMP.request_pay({
-			    pg : ' html5_inicis', // version 1.1.0부터 지원.
-			    pay_method : 'card',
-			    merchant_uid : 'merchant_' + new Date().getTime(),
-			    name : 'StudyHub.lib 중고서적:  ${ bs.brName }',
-			    amount : '${ bs.brPrice }', //판매 가격
-			    buyer_email : '${ loginUser.member_Email }',
-			    buyer_name : '${ loginUser.member_Name }',
-			    buyer_tel : '${ loginUser.phone }',
-			}, function(rsp) {
-			    if ( rsp.success ) {
-			        var msg = '결제가 완료되었습니다.\n'; 
-			        msg += '고유ID : ' + rsp.imp_uid + '\n';
-			        msg += '상점 거래ID : ' + rsp.merchant_uid + '\n';
-			        msg += '결제 금액 : ' + rsp.paid_amount + '\n';
-			        msg += '카드 승인번호 : ' + rsp.apply_num;
-			        
-			        alert(msg);
-			        
-				    location.href= "complete.bs?brBnumber=" + ${ bs.brBnumber };
-			    } else {
-			        var msg = '결제에 실패하였습니다. \n';
-			        msg += '에러내용 : ' + rsp.error_msg;
-			    }
-			    	alert(msg);
-			   
-			    
+			$('#checkout').click(function() {
+
+				var IMP = window.IMP; // 생략가능.
+				IMP.init("imp57445042"); // 발급받은 "가맹점 식별코드"
+
+				IMP.request_pay({
+					pg : ' html5_inicis', // version 1.1.0부터 지원.
+					pay_method : 'card',
+					merchant_uid : 'merchant_' + new Date().getTime(),
+					name : 'StudyHub.lib 중고서적:  ${ bs.brName }',
+					amount : '${ bs.brPrice }', //판매 가격
+					buyer_email : '${ loginUser.member_Email }',
+					buyer_name : '${ loginUser.member_Name }',
+					buyer_tel : '${ loginUser.phone }',
+				}, function(rsp) {
+					if (rsp.success) {
+						var msg = '결제가 완료되었습니다.\n';
+						msg += '고유ID : ' + rsp.imp_uid + '\n';
+						msg += '상점 거래ID : ' + rsp.merchant_uid + '\n';
+						msg += '결제 금액 : ' + rsp.paid_amount + '\n';
+
+						$("#close").trigger("click");
+						alert(msg);
+						location.href = "complete.bs?brBnumber=" + $
+						{
+							bs.brBnumber
+						}
+						+"&brStudentId=" + $
+						{
+							bs.brStudentId
+						}
+						;
+					} else {
+						var msg = '결제에 실패하였습니다. \n';
+						msg += '에러내용 : ' + rsp.error_msg;
+
+						alert(msg);
+
+						$("#close").trigger("click");
+
+					}
+
+				});
 			});
-		});
-  		</script>
+		</script>
 		<!-- END 아임포트 -->
 
 	</section>

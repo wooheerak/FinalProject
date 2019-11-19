@@ -61,6 +61,13 @@
         WHERE BO_NUMBER = #{bo_number}
      </update>
      
+     <!-- 모집 마감 -->
+     <update id = "completeBoard" parameterType = "_int" >
+        UPDATE STUDYROOM_BOARD
+        SET BO_COMPLETE = 'Y'
+        WHERE BO_NUMBER = #{bo_number}
+     </update>
+     
      <!-- 그룹 참여  UPDATE 내테이블 SET 컬럼 = 컬럼||'신규값' -->
      <update id = "memberJoin" parameterType = "map" >
         UPDATE STUDYROOM_BOARD

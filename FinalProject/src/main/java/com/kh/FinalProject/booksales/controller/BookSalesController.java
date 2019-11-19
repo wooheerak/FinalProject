@@ -1,10 +1,15 @@
 package com.kh.FinalProject.booksales.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.FinalProject.booksales.model.exception.BSException;
 import com.kh.FinalProject.booksales.model.service.BsService;
 import com.kh.FinalProject.booksales.model.vo.BookReg;
+import com.kh.FinalProject.user.model.vo.User;
+
 
 
 
@@ -116,7 +126,7 @@ public class BookSalesController {
 		return renameFileName;
 	}
 	
-	// 중고서적 등록 수정
+	// 중고서적 수정
 	@RequestMapping("bsupView.bs")
 	public ModelAndView bsUpdateView(@RequestParam("brBnumber") int brBnumber, ModelAndView mv) {
 		
@@ -128,7 +138,7 @@ public class BookSalesController {
 		return mv;
 	}
 	
-	
+	// 중고서적 판매 업데이트
 	@RequestMapping("bsupdate.bs")
 	public ModelAndView bsUpdate(@ModelAttribute BookReg br,
 									 @RequestParam("reloadFile") MultipartFile reloadFile,
@@ -156,6 +166,7 @@ public class BookSalesController {
 		return mv;
 	}
 	
+	// 중고서적 파일 삭제
 	public void deleteFile(String fileName, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "\\bsuploadFiles";
@@ -180,20 +191,58 @@ public class BookSalesController {
 		}
 	}
 	
+	// 중고서적 판매 완료
 	@RequestMapping("complete.bs")
-	public void complete(@RequestParam("brBnumber") int brBnumber) {
-		System.out.println(brBnumber);
-		System.out.println("결제완료!");
+	public String complete(@RequestParam("brBnumber") int brBnumber,
+						 @RequestParam("brStudentId") String brStudentId,
+						 HttpServletRequest request) {
 		
 		// 1. BOOK_REG테이블 업데이트
-		// 필요한 파라미터: BR_BNUMBER , BR_STATUS, BS_ORDER_STATUS 
+		// 필요한 파라미터: BR_BNUMBER , BR_STATUS, BS_ORDER_STATUS 	
+		int result1 = bsService.updateComplete(brBnumber);
+
+		HttpSession session = request.getSession();
 		
+		User user = (User)session.getAttribute("loginUser");
+		String bStudentId = "";
 		
-		// 2. 
+		// 2. BOOK_SALE INSERT
+		// BS_ORDER_NO, HASMAP으로 대려가기:BS_BNUMBER, S_STUDENT_ID, B_STUDENT_ID,// BS_DATE = SYSDATE
+		int result = -1;
 		
+		if(user != null) {
+			bStudentId = user.getMember_Id();
+		}
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("bNo", brBnumber);
+		map.put("sId", brStudentId);
+		map.put("bId", bStudentId);
+		
+		System.out.println(map);
+		
+		if(result1 > 0) {
+			result = bsService.insertBookSale(map);
+		}
+		
+		if(result > 0) {
+			return "bsComplete";
+		} else {
+			throw new BSException("중고서적 구매 실패");
+		}
 		
 	}
 	
+	// 중고서적 최신 리스트
+	@RequestMapping("topList.bs")
+	public void bsTopList(ModelAndView mv, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		ArrayList<BookReg> tlist = bsService.selectTopList();
+	
+		
+		Gson gson = new Gson();
+		gson.toJson(tlist, response.getWriter());
+	}
 	
 	
 	

@@ -62,9 +62,9 @@ public class SeatServiceImpl implements SeatService{
 
 
 	@Override
-	public int cancelResv(int cancelId) {
+	public int cancelResv(Seat seat) {
 		
-		return sDao.cancelResv(sqlSession , cancelId);
+		return sDao.cancelResv(sqlSession , seat);
 	}
 
 
@@ -87,6 +87,34 @@ public class SeatServiceImpl implements SeatService{
 	public int checkCode(Seat seat) {
 		
 		return sDao.checkCode(sqlSession, seat);
+	}
+
+
+	@Override
+	public int updateHistory(Seat seat) {
+		
+		return sDao.updateHistory(sqlSession , seat);
+	}
+
+
+	@Override
+	public int checkUsing(String id) {
+		
+		return sDao.checkUsing(sqlSession, id);
+	}
+
+
+	@Override
+	public int updateSeat(Seat seat) {
+
+		return sDao.updateSeat(sqlSession , seat);
+	}
+
+
+	@Override
+	public int updateOutHistory(Seat seat) {
+		
+		return sDao.updateOutHistory(sqlSession , seat);
 	}
 
 

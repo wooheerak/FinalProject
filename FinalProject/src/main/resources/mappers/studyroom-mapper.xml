@@ -50,6 +50,27 @@
 			</when>
 		</choose>
 	</select>
+		
+	<select id="checkId" parameterType = "java.util.HashMap" resultType = "string">
+		select member_id 
+		from member
+		where 
+		<choose>
+			<when test = "list.size != 0">
+				member_id in
+				<foreach collection="list" item = "item" index = "index" separator = "," open = "(" close = ")">
+					#{item}
+				</foreach>
+			</when>
+		</choose>
+	</select>
+	
+	<select id="reservationInfo" parameterType="string" resultType="string">
+		select *
+		from studyroom_order
+		where to_char(SO_DATE,'yyyymmdd') = ${dateInfo}
+	</select>
+	
 	<resultMap type="StudyroomOrder" id="studyroomOrderResultSet">
 		<id property="so_no" column="SO_NO"/>
 		<result property="sr_floor" column="SR_FLOOR"/>

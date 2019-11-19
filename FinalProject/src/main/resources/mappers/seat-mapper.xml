@@ -24,7 +24,13 @@
   	<select id = "checkDup" parameterType = "string" resultType = "_int">
   		SELECT COUNT(*)
   		FROM STUDYSEAT
-  		WHERE STUDENT_ID = #{id}
+  		WHERE STUDENT_ID = #{id} AND SS_USE = 'R'
+  	</select>
+  	
+  	<select id = "checkUsing" parameterType = "string" resultType = "_int">
+  		SELECT COUNT(*)
+  		FROM STUDYSEAT
+  		WHERE STUDENT_ID = #{id} AND SS_USE = 'Y'
   	</select>
   	
   	<resultMap id = "seatResultSet" type = "Seat">
@@ -42,6 +48,8 @@
   		<id property="shNo" column="SH_NO"/>
   		<result property="useDate" column = "USE_DATE"/>
   		<result property="shStatus" column="SH_STATUS"/>
+  		<result property = "startTime" column = "START_TIME"/>
+  		<result property = "endTime" column = "END_TIME"/>
   		<collection property="seat" resultMap="seatResultSet"/>
   	</resultMap>
   	
@@ -49,19 +57,22 @@
   		SELECT *
 		FROM SEAT_HISTORY SH
 		JOIN STUDYSEAT S ON (SH.SS_NO = S.SS_NO)
-		WHERE SH.STUDENT_ID = #{id} AND SH.SH_STATUS IN ('E','R') 
+		WHERE SH.STUDENT_ID = #{id} AND SH.SH_STATUS IN ('E','R','U','C') 
 		ORDER BY USE_DATE DESC
   	</select>
   
-  	<insert id="updateHistory" parameterType = "Seat">
+  	<insert id="insertHistory" parameterType = "Seat">
   		INSERT INTO SEAT_HISTORY
-  		VALUES(SEQ_SHNO.NEXTVAL, #{ss_no} , SYSDATE , #{student_id} , 'R')
+  		VALUES(SEQ_SHNO.NEXTVAL, #{ss_no} , SYSDATE , #{student_id} , 'R', NULL, NULL)
   	</insert>
   	
-  	<update id = "cancelResv" parameterType="_int">
+  	<update id = "cancelResv" parameterType="Seat">
   		UPDATE SEAT_HISTORY
-  		SET SH_STATUS = 'N'
-  		WHERE SS_NO = #{cancelId}
+  		SET SH_STATUS = 'C'
+  		WHERE SS_NO = #{ss_no}  AND STUDENT_ID = #{student_id} 
+			  AND USE_DATE = (SELECT MAX(USE_DATE)
+                			  FROM SEAT_HISTORY
+                			  WHERE STUDENT_ID = #{student_id})
   	</update>
   	
   	<update id  = "resetSeat" parameterType = "_int">
@@ -73,12 +84,30 @@
   	<select id = "selectsId" parameterType = "string" resultMap = "historyResultSet">
   		SELECT *
 		FROM SEAT_HISTORY
-		WHERE STUDENT_ID = #{id} AND SH_STATUS = 'R'
+		WHERE STUDENT_ID = #{id} AND (SH_STATUS = 'R' OR  SH_STATUS = 'U')
   	</select>
   	
   	<update id = "checkCode" parameterType = "Seat">
   		UPDATE STUDYSEAT 
-		SET SS_USE = 'Y' , SS_CERT = 'Y'
+		SET SS_USE = 'Y' , SS_CERT = 'Y' , START_TIME = TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:MI') , END_TIME =  TO_CHAR((SYSDATE + 2/24),'YYYY/MM/DD HH24:MI')
 		WHERE STUDENT_ID = #{student_id} AND CERT_CODE = #{cert_code}
+  	</update>
+  	
+  	<update id = "updateHistory" parameterType="Seat">
+  		UPDATE SEAT_HISTORY
+  		SET SH_STATUS = 'U' , START_TIME = TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:MI') , END_TIME =  TO_CHAR((SYSDATE + 2/24),'YYYY/MM/DD HH24:MI')
+  		WHERE STUDENT_ID = #{student_id} AND SS_NO = #{ss_no}
+  	</update>
+  	
+  	<update id = "updateSeat" parameterType="Seat">
+		UPDATE STUDYSEAT
+		SET SS_USE = 'N' , SS_CERT = 'N' , CERT_CODE = NULL , STUDENT_ID = NULL , START_TIME = NULL , END_TIME = NULL
+		WHERE SS_NO = #{ss_no} AND STUDENT_ID = #{student_id}
+  	</update>
+  	
+  	<update id = "updateOutHistory" parameterType="Seat">
+  		UPDATE SEAT_HISTORY 
+		SET SH_STATUS = 'E' , END_TIME = TO_CHAR(SYSDATE,'YYYY/MM/DD HH24:MI')
+		WHERE SS_NO = #{ss_no} AND STUDENT_ID = #{student_id}
   	</update>
 </mapper>

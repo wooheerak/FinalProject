@@ -77,6 +77,12 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 		return sbDAO.memberUnjoin(sqlSession, join);
 	}
 	
+	// 모집 마감
+	@Override
+	public int completeBoard(int bo_number) {
+		return sbDAO.completeBoard(sqlSession, bo_number);
+	}
+	
 	// 댓글 리스트
 	@Override
 	public ArrayList<Reply> selectReplyList(int bo_number) {
@@ -101,6 +107,7 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 	public int updateReply(Map<String, Object> reply) {
 		return sbDAO.updateReply(sqlSession, reply);
 	}
+
 
 
 }

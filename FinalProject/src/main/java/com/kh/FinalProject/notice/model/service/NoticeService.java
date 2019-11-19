@@ -16,4 +16,6 @@ public interface NoticeService {
 
 	int noticeDelete(int nId);
 
+	ArrayList<Notice> selectTopList();
+
 }

@@ -40,4 +40,9 @@ public class NoticeDAO {
 		return sqlSession.update("noticeMapper.deleteNotice", nId);
 	}
 
+	// 공지사항 탑 리스트
+	public ArrayList<Notice> selectTopList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("noticeMapper.selectTopList");
+	}
+
 }

@@ -45,8 +45,6 @@
 
 </head>
 <body>
-
-
 <c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 	<header class="header site-header">
 		<div class="container">
@@ -54,7 +52,7 @@
 				<div class="container-fluid">
 					<div class="navbar-header">
 						<a class="navbar-brand" href="index.jsp"><img
-							src="resources/images/logo.png" alt="Linda"></a>
+							src="resources/images/logo.png" style="width:120px;"/></a>
 					</div>
 					<div id="navbar" class="navbar-collapse collapse">
 						<ul class="nav navbar-nav navbar-right">
@@ -92,8 +90,7 @@
 		                                                <li><a href="bsinsertView.bs">중고서적 등록</a></li>
 		                                                <li><a href="bslist.bs">중고서적</a></li>
 		                                                <li><a href="bList.bo">스터디룸 게시판</a></li>
-		                                                <li><a href="bInsertView.bo">스터디룸 게시글 쓰기</a></li>
-		                                                <%
+                                                    <%
 		                                                	if(loginUser != null){
 		                                                		if(loginUser.getMember_Sep().equals("A")){
 		                                                %>
@@ -178,7 +175,71 @@
 		<!-- end container -->
 	</header>
 	<!-- end header -->
+	
+	<!-- 수진쓰 추가부분 -->
 	<script>
+		
+	<% 
+		Cookie[] cookies = request.getCookies();
+		
+		int check = 0 ;
+		int rNo = 0;
+		int uNo = 0;
+		
+		User user = (User)session.getAttribute("loginUser");
+		if(user != null){
+		 	rNo = user.getRseatNo();
+		 	uNo = user.getUseatNo();
+		}
+		if(cookies != null){
+			for(Cookie c : cookies){
+				System.out.println("쿠키 : " + c.getName());
+				if(c.getName().equals("certTimer")){
+					System.out.println("인증 타이머 쿠키가 살아있다");
+					check = 1 ;
+				}
+				else if(c.getName().equals("outTimer")){
+					System.out.println("퇴실 타이머 쿠키가 살아있다");
+					check = 2 ;
+				}
+				
+			}
+		}
+		
+		if(check == 0){
+			if(rNo == 0){
+	%>
+			
+				console.log("없으");
+	<%
+			}
+			else{
+	%>
+				console.log(<%=rNo %> + "취소할게");
+				location.href="cancelRC.ss?cancelId=" + <%=rNo %>;
+	<%
+			}
+			
+			if(uNo == 0){
+	%>
+						
+				console.log("없으");
+	<%
+			}
+			else{
+	%>
+				console.log(<%=uNo %> + "퇴실할게");
+				location.href="outSeatCoo.ss?outNo=" + <%=uNo %>;
+	<%
+			}
+		}
+	%>
+	
+	</script>
+	<!-- 요기까지 -->
+  
+  <!-- 동수파트 -->
+  	<script>
 		window.onload = setInterval(function(){
 			
 			$.ajax({
@@ -189,7 +250,7 @@
 			});
 		},60000);
 	</script>
+  	<!-- 요기까지 -->
 </body>
-
 
 </html>

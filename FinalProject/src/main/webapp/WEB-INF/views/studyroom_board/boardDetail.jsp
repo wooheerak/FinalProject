@@ -438,14 +438,11 @@ button[class*="btn"] {border: 0;}
 .btn-gradient.yellow:active {background: #DBC05B;}
 .btn-gradient.green:active  {background: #72B08E;}
 
-
-
 </style>
 </head>
 <body>
 	<!-- 헤더 -->
 	<c:import url="../common/header.jsp" />
-
 
 	<section class="section normalhead lb">
 		<div class="container">
@@ -460,8 +457,6 @@ button[class*="btn"] {border: 0;}
 		</div>
 	</section>
 	<!-- end section -->
-
-
 	<section class="section overfree">
 		<div class="icon-center">
 			<i class="fa fa-code"></i>
@@ -486,7 +481,6 @@ button[class*="btn"] {border: 0;}
 			</td>
 		</tr>
 		<tr>
-		
 			<th>상태</th>
 			<td class="dd">
 				<c:set var="com" value="${ board.bo_complete }" />
@@ -499,7 +493,6 @@ button[class*="btn"] {border: 0;}
 				    </c:when>
 				</c:choose>
 			</td>
-			
 			<th>모집유형</th>
 			<td class="dd">
 				<c:set var="rei" value="${ board.bo_reinfo }" />
@@ -512,16 +505,13 @@ button[class*="btn"] {border: 0;}
 				    </c:when>
 				</c:choose>
 			</td>
-			
 		</tr>
 		<tr>
 			<th>내용</th>
-			
 			<!-- 
 				이렇게만 두면 엔터가 먹지 않음. 
 				DB에는 엔터가 \r\n으로 들어가서 이를 치환해주는 작업 필요
 			-->
-			
 			<% pageContext.setAttribute("newLineChar", "\r\n"); %> <!-- \r\n 말고 그냥 \n도, \r도 가능하다 -->
 			<td colspan="3" style="height: 400px; text-align: left;" class="ee">${ fn:replace(board.bo_detail, newLineChar, "<br>") }<br></td>
 		</tr>
@@ -537,6 +527,7 @@ button[class*="btn"] {border: 0;}
 				<c:url var="bUnjoin" value="bUnjoin.bo">
 					<c:param name="bo_number" value="${ board.bo_number }"/>
 					<c:param name="Member_Name" value="${ loginUser.member_Name }"/>
+					<c:param name="Member_Id" value="${ loginUser.member_Id }"/>
 				</c:url>
 				<td style="width: 150px;" class="ff">${ board.bo_member } / ${ board.bo_maxmember }</td>
 			<th>참여자 아이디</th>
@@ -551,136 +542,139 @@ button[class*="btn"] {border: 0;}
 					    </c:when>
 					</c:choose>
 				<br>
-			<c:set var="joinmember" value="${ board.bo_join }"/>
-			<c:if test="${ !empty sessionScope.loginUser }">
-				<c:if test="${ board.bo_member < board.bo_maxmember}">
-					<c:if test="${ loginUser.member_Name != board.bo_name }">
-						<c:if test="${ fn:contains(joinmember,loginUser.member_Name) }">
-						<script>
-							$(function() {
-								$('#join').hide();
-								$('#cancel').show();
-							})
-						</script>
-						</c:if>
-						<c:if test="${ !fn:contains(joinmember,loginUser.member_Name) }">
-						<script>
-							$(function() {
-								$('#join').show();
-								$('#cancel').hide();
-							})
-						</script>
-						</c:if>
-							<button class="btn-gradient blue" id="join">참여</button>
-							<button class="btn-gradient red" id="cancel">탈퇴</button>
-							<script type="text/javascript">
-								$('#cancel').click(function(){
-									Swal.fire({
-										width: 600,
-										padding: 100,
-									  title: '탈퇴 하시겠습니까?',
-									  text: "다시한번 확인해주세요",
-									  icon: 'warning',
-									  showCancelButton: true,
-									  confirmButtonColor: '#3085d6',
-									  cancelButtonColor: '#d33',
-									  cancelButtonText: '취소',
-									  confirmButtonText: '탈퇴할래요!!',
-									}).then((result) => {
-									if (result.value) {
-									    location.href='${ bUnjoin }'
-								    	 swalWithBootstrapButtons.fire(
-								    		      '탈퇴 되었습니다',
-								    		      '탈퇴 완료.',
-								    		      'success'
-								    		    )
-									  } else {
-									  }
-								  
-								})
-							});
-							</script>
-							<script type="text/javascript">
-							 $('#join').click(function(){
-								Swal.fire({
-									width: 600,
-									padding: 100,
-								  title: '참여 하시겠습니까?',
-								  text: "다시한번 확인해주세요",
-								  icon: 'warning',
-								  showCancelButton: true,
-								  confirmButtonColor: '#3085d6',
-								  cancelButtonColor: '#d33',
-								  cancelButtonText: '취소',
-								  confirmButtonText: '참여할래요!'
-								}).then((result) => {
-									if (result.value) {
-									    location.href='${ bJoin }'
-								    	 swalWithBootstrapButtons.fire(
-								    		      '참여 완료!',
-								    		      '열심히 공부해요',
-								    		      'success'
-								    		    )
-									  } else {
-									  }
-								  
-								})
-							});  
-							</script>
-						</c:if>
-					</c:if>
-					<c:if test="${ board.bo_member == board.bo_maxmember}">
-					</c:if>
-					<c:if test="${ board.bo_complete == 'N' }">
-					<c:if test="${ loginUser.member_Name eq board.bo_name }">
-						<c:if test="${ board.bo_member == board.bo_maxmember }">
-								<script>
-								$(function() {
-									$('#complete').show();
-								})
-								</script>
-						</c:if>
-						
-						<c:if test="${ board.bo_member < board.bo_maxmember }">
+			<c:if test="${ board.bo_complete == 'N' }">
+				<c:set var="joinmember" value="${ board.bo_join }"/>
+				<c:if test="${ !empty sessionScope.loginUser }">
+					<c:if test="${ board.bo_member < board.bo_maxmember}">
+						<c:if test="${ loginUser.member_Name != board.bo_name }">
+							<c:if test="${ fn:contains(joinmember,loginUser.member_Id) }">
 							<script>
-							$(function() {
-								$('#complete').hide();
-							})
+								$(function() {
+									$('#join').hide();
+									$('#cancel').show();
+								})
 							</script>
-						</c:if>
-						<c:url var="bComplete" value="bComplete.bo">
-							<c:param name="bo_number" value="${ board.bo_number }"/>
-						</c:url>
-						<button id="complete" class="btn-gradient green">마감하기</button>
-						<script type="text/javascript">
-								$('#complete').click(function(){
+							</c:if>
+							<c:if test="${ !fn:contains(joinmember,loginUser.member_Id) }">
+							<script>
+								$(function() {
+									$('#join').show();
+									$('#cancel').hide();
+								})
+							</script>
+							</c:if>
+								<button class="btn-gradient blue" id="join">참여</button>
+								<button class="btn-gradient red" id="cancel">탈퇴</button>
+								<script type="text/javascript">
+									$('#cancel').click(function(){
+										Swal.fire({
+											width: 600,
+											padding: 100,
+										  title: '탈퇴 하시겠습니까?',
+										  text: "다시한번 확인해주세요",
+										  icon: 'warning',
+										  showCancelButton: true,
+										  confirmButtonColor: '#3085d6',
+										  cancelButtonColor: '#d33',
+										  cancelButtonText: '취소',
+										  confirmButtonText: '탈퇴할래요!!',
+										}).then((result) => {
+										if (result.value) {
+										    location.href='${ bUnjoin }'
+									    	 swalWithBootstrapButtons.fire(
+									    		      '탈퇴 되었습니다',
+									    		      '탈퇴 완료.',
+									    		      'success'
+									    		    )
+										  } else {
+										  }
+									})
+								});
+								</script>
+								<script type="text/javascript">
+								 $('#join').click(function(){
 									Swal.fire({
 										width: 600,
 										padding: 100,
-									  title: '마감 하시겠습니까?',
+									  title: '참여 하시겠습니까?',
 									  text: "다시한번 확인해주세요",
 									  icon: 'warning',
 									  showCancelButton: true,
 									  confirmButtonColor: '#3085d6',
 									  cancelButtonColor: '#d33',
 									  cancelButtonText: '취소',
-									  confirmButtonText: '마감 할래요!!',
+									  confirmButtonText: '참여할래요!'
 									}).then((result) => {
-									if (result.value) {
-									    location.href='${ bComplete }'
-								    	 swalWithBootstrapButtons.fire(
-								    		      '마감 되었습니다',
-								    		      '마감 완료.',
-								    		      'success'
-								    		    )
-									  } else {
-									  }
-								  
-								})
-							});
-							</script>
+										if (result.value) {
+										    location.href='${ bJoin }'
+									    	 swalWithBootstrapButtons.fire(
+									    		      '참여 완료!',
+									    		      '열심히 공부해요',
+									    		      'success'
+									    		    )
+										  } else {
+										  }
+									})
+								});  
+								</script>
+							</c:if>
+						</c:if>
+							<c:if test="${ board.bo_member == board.bo_maxmember}">
+							</c:if>
+							<c:if test="${ board.bo_complete == 'N' }">
+								<c:if test="${ loginUser.member_Name eq board.bo_name }">
+									<c:if test="${ board.bo_member == board.bo_maxmember }">
+											<script>
+											$(function() {
+												$('#complete').show();
+											})
+											</script>
+									</c:if>
+									<c:if test="${ board.bo_member < board.bo_maxmember }">
+										<script>
+										$(function() {
+											$('#complete').hide();
+										})
+										</script>
+									</c:if>
+									<c:url var="bComplete" value="bComplete.bo">
+										<c:param name="bo_number" value="${ board.bo_number }"/>
+									</c:url>
+									<button id="complete" class="btn-gradient green">마감하기</button>
+									<script type="text/javascript">
+											$('#complete').click(function(){
+												Swal.fire({
+													width: 600,
+													padding: 100,
+												  title: '마감 하시겠습니까?',
+												  text: "다시한번 확인해주세요",
+												  icon: 'warning',
+												  showCancelButton: true,
+												  confirmButtonColor: '#3085d6',
+												  cancelButtonColor: '#d33',
+												  cancelButtonText: '취소',
+												  confirmButtonText: '마감 할래요!!',
+												}).then((result) => {
+												if (result.value) {
+												    location.href='${ bComplete }'
+											    	 swalWithBootstrapButtons.fire(
+											    		      '마감 되었습니다',
+											    		      '마감 완료.',
+											    		      'success'
+											    		    )
+												  } else {
+												  }
+											})
+										});
+										</script>
+								</c:if>
+							</c:if>
+						</c:if>
 					</c:if>
-				</c:if>
+				<c:if test="${ board.bo_complete == 'Y' }">
+				
+					<%-- ${ }강의실 ${ }시부터 ${ }시까지 예약 되었습니다 --%>
+					
 				</c:if>
 			</td>
 		</tr>
@@ -698,7 +692,7 @@ button[class*="btn"] {border: 0;}
 		</c:url>
 		
 		<br><br>
-		
+		<!--  -->
 		<p align="center">
 		<c:if test="${ loginUser.member_Name eq board.bo_name }">
 			<tr>

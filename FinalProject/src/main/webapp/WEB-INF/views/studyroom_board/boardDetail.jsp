@@ -692,7 +692,7 @@ button[class*="btn"] {border: 0;}
 		</c:url>
 		
 		<br><br>
-		
+		<!--  -->
 		<p align="center">
 		<c:if test="${ loginUser.member_Name eq board.bo_name }">
 			<tr>

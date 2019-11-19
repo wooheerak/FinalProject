@@ -7,18 +7,21 @@ public class SeatHistory {
 		private int shNo ;
 		private Date useDate ;
 		private String shStatus ;
-	
+		private String startTime ;
+		private String endTime; 
 		private Seat seat ;
 		
 		public SeatHistory() {
 			
 		}
 
-		public SeatHistory(int shNo, Date useDate, String shStatus, Seat seat) {
+		public SeatHistory(int shNo, Date useDate, String shStatus, String startTime, String endTime, Seat seat) {
 			super();
 			this.shNo = shNo;
 			this.useDate = useDate;
 			this.shStatus = shStatus;
+			this.startTime = startTime;
+			this.endTime = endTime;
 			this.seat = seat;
 		}
 
@@ -46,6 +49,22 @@ public class SeatHistory {
 			this.shStatus = shStatus;
 		}
 
+		public String getStartTime() {
+			return startTime;
+		}
+
+		public void setStartTime(String startTime) {
+			this.startTime = startTime;
+		}
+
+		public String getEndTime() {
+			return endTime;
+		}
+
+		public void setEndTime(String endTime) {
+			this.endTime = endTime;
+		}
+
 		public Seat getSeat() {
 			return seat;
 		}
@@ -56,12 +75,11 @@ public class SeatHistory {
 
 		@Override
 		public String toString() {
-			return "SEAT_HISTORY [shNo=" + shNo + ", useDate=" + useDate + ", shStatus=" + shStatus + ", seat=" + seat
-					+ "]";
+			return "SeatHistory [shNo=" + shNo + ", useDate=" + useDate + ", shStatus=" + shStatus + ", startTime="
+					+ startTime + ", endTime=" + endTime + ", seat=" + seat + "]";
 		}
-		
-		
 
+		
 		
 		
 }

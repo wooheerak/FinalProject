@@ -187,7 +187,8 @@
                                 <th style = "text-align: center;">번호</th>
                                 <th style = "text-align: center;">이용 내역</th>
                                 <th style = "text-align: center;">처리상태</th>
-                                <th style = "text-align: center;">날짜</th>
+                                <th style = "text-align: center;">입실시간</th>
+                                <th style = "text-align: center;">퇴실시간</th>
                                 <th style = "text-align: center;"></th>                               
                             </tr>
                      	</thead>
@@ -217,7 +218,8 @@
                            				<td>예약 취소</td>
                            			</c:if>
                            			
-                           			<td>${ sh.useDate }</td>
+                           			<td>${ sh.startTime }</td>
+                           			<td>${ sh.endTime }</td>
                            			
                            			<c:if test='${ sh.shStatus eq "E" }'>
                            				<td></td>
@@ -315,7 +317,7 @@
  							
  							
  							$("#sContent").append(str);
- 							
+ 							location.reload();
  							
  												
  							

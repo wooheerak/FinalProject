@@ -242,9 +242,6 @@ public class BookSalesController {
 		
 		Gson gson = new Gson();
 		gson.toJson(tlist, response.getWriter());
-		
-
-	
 	}
 	
 	

@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-p{
+#footer {
 font-size: 20px;
 font-weight: bold;
 }
@@ -24,7 +24,7 @@ font-weight: bold;
                     </div>
                     <!-- end col -->
                     <div class="col-md-6 col-sm-6 col-xs-12 text-center ">
-                        <p>2019 &copy;The StudyHub.lib All rights reserved.</p>
+                        <p id="footer">2019 &copy;The StudyHub.lib All rights reserved.</p>
                     </div>
                     <!-- end col -->
                 </div>

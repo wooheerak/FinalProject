@@ -1,6 +1,5 @@
 package com.kh.FinalProject.book.model.vo;
 
-import java.sql.Date;
 
 public class BookReservation {
 	private int BV_NO;

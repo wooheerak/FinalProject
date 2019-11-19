@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.FinalProject.book.model.vo.Book;
+import com.kh.FinalProject.book.model.vo.BookRequest;
 import com.kh.FinalProject.book.model.vo.BookReservation;
 import com.kh.FinalProject.book.model.vo.PageInfo;
 
@@ -60,6 +61,22 @@ public class BookDao {
 
 	public int getReservationCount(SqlSessionTemplate sqlSession, String userId) {
 		return sqlSession.selectOne("bookMapper.selectReservationCount", userId);
+	}
+
+	public int insertRequest(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.insert("bookMapper.insertRequest", map);
+	}
+
+	public ArrayList<BookRequest> selectRequestList(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("bookMapper.selectRequestList", userId);
+	}
+
+	public int checkBook(SqlSessionTemplate sqlSession) {
+		return sqlSession.update("bookMapper.checkBook");
+	}
+
+	public ArrayList<BookRequest> requestBookmasterPage(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("bookMapper.requestBookListmaster");
 	}
 	
 	

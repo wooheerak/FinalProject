@@ -1,5 +1,6 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.FinalProject.book.model.vo.BookReservation, java.util.ArrayList"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
@@ -50,8 +51,7 @@
 							<!-- <span><i class="fa fa-check"></i></span> -->
 							<div class="menuContent" focusable="true">내 정보 조회</div>
 							<div class="menuContent" focusable="true">대출 내역 조회</div>
-							<div class="menuContent" focusable="true"
-								onclick="location.href='myseatList.ss'">열람실/스터디룸 이용내역 조회</div>
+							<div class="menuContent" focusable="true" onclick="location.href='myseatList.ss'">열람실/스터디룸 이용내역 조회</div>
 							<div class="menuContent" focusable="true">도서 신청 조회</div>
 							<div class="menuContent" focusable="true">
 								BOOKSALES<br>거래 내역
@@ -85,31 +85,31 @@
 							</tr>
 						</thead>
 						<tbody>
+							<%
+								java.util.Date today = new java.util.Date();
+								SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+								String tt = sdf.format(today);
+							%>
 							<c:forEach var="r" items="${ list }">
 								<tr>
 									<td>${r.bName }</td>
 									<td>${r.bWriter }</td>
 									<c:set var="bvDate">
-										<fmt:parseDate value="${r.bookReservation.BV_DATE }" pattern="yyyy-MM-dd HH:mm"/>
+										<fmt:setLocale value="ko"/>
+										<fmt:parseDate value="${r.bookReservation.BV_DATE }" pattern="yyyy/MM/dd HH:mm"/>
 									</c:set>
 									<c:set var="returnDate">
-										<fmt:parseDate value="${r.bookReservation.BV_RETURN_DATE }" pattern="yyyy-MM-dd HH:mm"/>
+									    <fmt:setLocale value="ko"/>
+										<fmt:parseDate value="${r.bookReservation.BV_RETURN_DATE }" pattern="yyyy/MM/dd HH:mm"/>
 									</c:set>
-									<td>${bvDate }</td>
-									<td>${returnDate }</td>
+									<td>${ r.bookReservation.BV_DATE }</td>
+									<td>${ r.bookReservation.BV_RETURN_DATE }</td>
 									<td>
-										<c:set var="today" value="<%= new java.util.Date() %>" />
-										<c:set var="current">
-											<fmt:formatDate value="${ today }" pattern="yyyy-MM-dd HH:mm" />
-										</c:set> 
-										<c:set var="finish">
-											<fmt:parseDate value="${ r.bookReservation.BV_RETURN_DATE }" pattern="yyyy-MM-dd HH:mm"/>
-										</c:set>
-										 
-										<c:if test="${ current < finish }">
+										<c:set var="today" value="<%= tt %>" />
+										<c:if test="${ today < r.bookReservation.BV_RETURN_DATE }">
 											<c:set var="result" value="1" />
 										</c:if> 
-										<c:if test="${ current >= finish }">
+										<c:if test="${ today >= r.bookReservation.BV_RETURN_DATE }">
 											<c:set var="result" value="0" />
 										</c:if> 
 										
@@ -181,7 +181,9 @@
 		</section>
 		<!-- end section -->
 	</div>
-
+	<div style="width:100%; height:200px; background-color: white;">
+	
+	</div>
 	<jsp:include page="../common/footer.jsp" />
 
 </body>

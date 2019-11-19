@@ -1,13 +1,14 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+	pageEncoding="UTF-8" import="com.kh.FinalProject.book.model.vo.BookReservation, java.util.ArrayList"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>BoardList</title>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<title>책 예약현황</title>
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet"
 	href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
 <script type="text/javascript"
@@ -38,13 +39,13 @@
 			} ],
 
 			"language" : {
-				"emptyTable" : "데이터가 없어요.",
+				"emptyTable" : "데이터가 없습니다.",
 				"lengthMenu" : "페이지당 _MENU_ 개씩 보기",
 				"info" : "현재 _START_ - _END_ / _TOTAL_건",
 				"infoEmpty" : "데이터 없음",
 				"infoFiltered" : "( _MAX_건의 데이터에서 필터링됨 )",
 				"search" : "검색: ",
-				"zeroRecords" : "일치하는 데이터가 없어요.",
+				"zeroRecords" : "일치하는 데이터가 없습니다.",
 				"loadingRecords" : "로딩중...",
 				"processing" : "잠시만 기다려 주세요...",
 				"paginate" : {
@@ -85,71 +86,86 @@
 	min-height: 600px;
 }
 </style>
-
-
 </head>
+
 <body>
 
-	<c:import url="../common/header.jsp" />
 
 
-	<!-- 왼쪽 사이드 바 https://www.w3schools.com/w3css/w3css_sidebar.asp -->
-	<!-- <div id="w3-sidebar"class="w3-sidebar w3-bar-block w3-light-blue" style="width:200px" >
-		<a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 1</a>
-		<a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 2</a>
-        <a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 3</a>
-        <a href="#" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">링크 4</a>
-        <img src="resources/images/logo.JPG" height="200px" width="200px"/>
-	</div> -->
+	<c:import url="../common/header.jsp"></c:import>
 
-
-
-	<section class="section normalhead lb">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-					<h2>스터디룸 게시판</h2>
+		<section class="section normalhead">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
+						<h2>도서 관리 페이지</h2>
+						<p class="lead">신청 도서 관리</p>
+					</div>
 					<!-- end col -->
 				</div>
 				<!-- end row -->
 			</div>
 			<!-- end container -->
-		</div>
-	</section>
-	<!-- end section -->
+		</section>
+		<!-- end section -->
 
+		<!-- 메뉴바 -->
+		<section class="section">
+			<div class="col-md-2 col-sm-12 "
+				style="margin-left: 135px; border-radius: 30px;">
+				<div class="pricing-box clearfix">
+					<div class="pricing-header firstch">
+						<h4>도서 관리</h4>
+					</div>
+					<!-- end pricing-header -->
 
-	<section class="section overfree" style="padding: 30px 0px;">
-		<div class="icon-center">
-			<i class="fa fa-code"></i>
-		</div>
+					<!-- end pricing-top -->
+					<div class="pricing-details" style="text-align: center;">
+						<ul>
+							<div class="menuContent" focusable="true" onclick="location.href='requestBookMaster.bk'">신청 도서 관리</div>
+							<div class="menuContent" focusable="true" onclick="location.href='reservationBookMaster.bk'">대출 예약 도서 관리</div>
+							<div class="menuContent" focusable="true" onclick="location.href='loanBookMaster.bk'">대출 도서 관리</div>
+							<div class="menuContent" focusable="true" onclick="location.href='bookManagement.bk'">도서 관리</div>
+							<div class="menuContent" focusable="true" onclick="location.href=''">...</div>
+						</ul>
+					</div>
+					<!-- end pricing-details -->
+				</div>
+				<!-- end pricing-box -->
+			</div>
+			
+			<!-- 테이블 -->
 	<table id="tb" class="table">
         <thead>
             <tr>
             	<th>번호</th>
-            	<th>제목</th>
-            	<th>작성자</th>
-            	<th>모집인원</th>
-            	<th>모집유형</th>
-            	<th>모집상태</th>
-            	<th>작성시간</th>
-            	<th>조회수</th>
+            	<th>신청자 아이디</th>
+            	<th>도서 제목</th>
+            	<th>작 가</th>
+            	<th>역 자</th>
+            	<th>출판사</th>
+            	<th>ISBN</th>
+            	<th>도서 가격</th>
+            	<th>요청 사항</th>
+            	<th>요청 날짜</th>
+            	<th>상 태</th>
+            	<th></th>
           	</tr>
         </thead>
 
         <tbody align="center">
         
             <!-- 번호, 제목, 작성자, 현재인원/최대인원, 예약상태, 모집상태, 작성시간, 조회수 -->
-            <c:forEach var="b" items="${ list }">
+            <c:forEach var="r" items="${ list }">
             <tr>
-            	<td>${ b.bo_number }</td>
+            	<td>${ r.BQ_NO }</td>
      
             
             	<td>
-						<c:url var="bDetail" value="bDetail.bo">
-							<c:param name="bo_number" value="${ b.bo_number }"/>
-						</c:url>
-						<a href="${ bDetail }">${ b.bo_title }</a>
+					<c:url var="bDetail" value="bDetail.bo">
+						<c:param name="bo_number" value="${ b.bo_number }"/>
+					</c:url>
+					<a href="${ bDetail }">${ b.bo_title }</a>
 				</td>
             
             
@@ -193,25 +209,15 @@
             
             
         </tbody>
-    </table>
-    
-		<hr>
-		
-		<tr>
-			<td colspan="6" align="right" id="buttonTab">
-				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" style="margin-left: 80%;"  onclick="location.href='index.jsp';">뒤로가기</button>				
-			</td>
-		</tr>
-		
-		<tr>
-			<td colspan="6" align="right" id="buttonTab">
-				<c:if test="${ !empty loginUser }">
-					&nbsp; &nbsp; &nbsp;
-				<button class="w3-button w3-round-large w3-light-blue w3-hover-green" style="margin-left: 80%;"  onclick="location.href='bUpView.bo';">글쓰기</button>				
-				</c:if>
-			</td>
-		</tr>
-	<!-- footer -->
-	<c:import url="../common/footer.jsp"/>
+    </table>			
+		</section>
+		<!-- end section -->
+	<div style="width:100%; height:200px; background-color: white;"></div>
+	
+	
+	
+	<jsp:include page="../common/footer.jsp" />
+
 </body>
+
 </html>

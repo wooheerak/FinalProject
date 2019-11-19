@@ -133,7 +133,7 @@
 			if(yCount == '0'){
 				alert('예약 가능한 도서가 없습니다.');
 				document.getElementById('id01').style.display='none'
-			} else{
+			} else {
 				alert('예약이 완료되었습니다.');	
 				$('#submitForm').submit();
 			}

@@ -2,6 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	User loginUser = (User)session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,7 +78,7 @@
 														<li><a href="service-05.html">SEO Copywriting</a></li>
 														<li><a href="service-06.html">Keyword Research</a></li>
 														<li><a href="service-07.html">SEO Strategy</a></li>
-														<li><a href="service-08.html">Website Design</a></li>
+														<li><a href="selectRequestBook.bk">신청 목록</a></li>
 														<li><a href="requestBook.bk">도서 신청하기</a></li>
 													</ul>
 												</div>
@@ -87,6 +90,12 @@
 		                                                <li><a href="bsinsertView.bs">중고서적 등록</a></li>
 		                                                <li><a href="bslist.bs">중고서적</a></li>
 		                                                <li><a href="bList.bo">스터디룸 게시판</a></li>
+                                                    <%
+		                                                	if(loginUser != null){
+		                                                		if(loginUser.getMember_Sep().equals("A")){
+		                                                %>
+		                                                <li><a href="masterPage.bk">관리자 페이지</a></li>
+		                                                <% }}%>
 													</ul>
 												</div>
 												<div class="col-md-4">
@@ -228,7 +237,20 @@
 	
 	</script>
 	<!-- 요기까지 -->
+  
+  <!-- 동수파트 -->
+  	<script>
+		window.onload = setInterval(function(){
+			
+			$.ajax({
+				url : "checkBook.bk",
+				success: function(data){
+				}, error : function(data){
+				}
+			});
+		},60000);
+	</script>
+  	<!-- 요기까지 -->
 </body>
-
 
 </html>

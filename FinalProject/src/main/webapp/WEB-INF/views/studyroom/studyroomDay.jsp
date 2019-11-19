@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,7 +64,9 @@
 	height: 40px;
 	text-align: center;
 }
-
+#sotd{
+	color: white;
+}
 .studyroom_main th {
 	width: 45px;
 	height: 40px;
@@ -165,12 +168,54 @@
 										<th class="studyroom_time">${i}:00</th>				
 									</c:if>
 									
-									<c:forEach var="j"  begin="0" end="${roomCount}" items="${list}">
+									<c:forEach var="j" varStatus="k"  begin="0" end="${roomCount}" items="${list}">
 											<c:if test="${i<22}">
-												<td>
-												<!--  버튼 클릭시 팝업이 뜨고 팝업에 클릭한 버튼의 시작시간 및 마감 시간을 select할 값으로 전달 -->
-													<button id="startTime${i}" name="startTime${i}" type="submit" value="${i},${ j.sr_name},${j.sr_floor}" class="srbtn" onclick="srReservation(this);" style="padding:0px;width:73px;height:38px;">+</button>
-												</td>
+											<c:set var="contains" value="false"/>
+											<c:set var="containsEnd" value="false"/>
+											<c:set var="countCheck"/>
+											<!-- i시간에 예약된 방이 있는지  체크 -->
+											<c:forEach var="c" items="${reservationInfo}">
+												<c:if test="${!empty c }">
+													<c:if test="${c.so_name eq j.sr_name }">
+														<fmt:parseNumber var="cac" integerOnly="true" type="number" value="${c.so_start_time}"/>
+														<fmt:parseNumber var="cace" integerOnly="true" type="number" value="${c.so_end_time}"/>
+														<fmt:parseNumber var="cai" type="number" value="${i}"/>
+														<c:if test="${cac eq cai}">
+															<c:set var="contains" value="true"/>
+															<c:set var="org" value="${c}"/>
+														</c:if>
+														<c:if test="${cace-1 eq cai}">
+															<c:set var="containsEnd" value="true"/>
+														</c:if>
+													</c:if>
+												</c:if>
+											</c:forEach>
+											
+												<!-- 예약정보 있을 시 -->
+												<c:if test="${contains eq true}">
+													<td rowspan="${org.so_end_time - org.so_start_time }" id="sotd" style="background-color:${org.so_bColor}">
+													${org.so_end_time - org.so_start_time} hour
+													${org.so_organizer}
+													</td>
+												</c:if>
+												
+												
+												<!-- 예약정보 없을 시  -->
+												<c:if test="${contains eq false}">
+													<c:if test="${containsEnd eq true}">
+													
+													</c:if>
+													<c:if test="${containsEnd eq false}">
+														<td>
+														<!--  버튼 클릭시 팝업이 뜨고 팝업에 클릭한 버튼의 시작시간 및 마감 시간을 select할 값으로 전달 -->
+															<button id="startTime" name="startTime" type="submit" 
+																value="${i},${ j.sr_name},${j.sr_floor}" class="srbtn" onclick="srReservation(this);" 
+																style="padding:0px;width:73px;height:38px;">+</button>
+														</td>
+													</c:if>
+																									
+													
+												</c:if>
 											</c:if>
 											<c:if test="${i==22}">
 												<td style="background-color:lightgray;"></td>
@@ -303,6 +348,7 @@
 	</section>
 
 	<script>
+	
 	function srReservation(e){
 		// 예약자 정보(로그인 체크) 
  		var so_organizer = $("#userIdCheck").val();

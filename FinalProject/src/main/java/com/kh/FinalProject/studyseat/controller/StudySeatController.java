@@ -31,12 +31,6 @@ import com.kh.FinalProject.user.model.vo.User;
 
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
-
-import java.util.HashMap;
-
-import org.json.simple.JSONObject;
-import net.nurigo.java_sdk.api.Message;
-import net.nurigo.java_sdk.exceptions.CoolsmsException;
 @Controller
 public class StudySeatController {
 
@@ -594,7 +588,7 @@ public class StudySeatController {
 		// 퇴실처리 
 		@RequestMapping("outSeat.ss")
 		@ResponseBody
-		public String outSeat(HttpServletRequest request ,@RequestParam("cId") int cId) {
+		public String outSeat(HttpServletRequest request ,@RequestParam("cId") int cId , HttpServletResponse response) {
 			
 			
 			HttpSession session = request.getSession();
@@ -614,6 +608,25 @@ public class StudySeatController {
 			
 			if(result1 > 0) {
 				result = sService.updateOutHistory(seat);
+				
+				// 퇴실완료 후 퇴실타이머 죽이기
+				Cookie[] cookies = request.getCookies();
+				
+				if(cookies != null){
+					for(Cookie c : cookies){
+						System.out.println("쿠키 : " + c.getName());
+						if(c.getName().equals("outTimer")){
+							c.setMaxAge(0);
+							response.addCookie(c);
+							System.out.println("퇴실 되었으니 퇴실타이머 쿠키 죽이기!");
+							break;
+						}				
+						
+					}
+				}
+				
+				user.setUseatNo(0);
+				session.setAttribute("loginUser", user);
 			}
 			
 			if(result > 0) {

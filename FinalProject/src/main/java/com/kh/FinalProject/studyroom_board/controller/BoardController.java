@@ -179,7 +179,9 @@ public class BoardController {
 	
 	// 그룹 탈퇴
 	@RequestMapping("bUnjoin.bo")
-	public ModelAndView memberUnjoin(@RequestParam("bo_number") int bo_number, @RequestParam("Member_Name") String Member_Name,
+	public ModelAndView memberUnjoin(@RequestParam("bo_number") int bo_number, 
+						@RequestParam("Member_Name") String Member_Name,
+						@RequestParam("Member_Id") String Member_Id,
 						HttpServletRequest request, ModelAndView mv) {
 		
 		int bNo = bo_number;
@@ -187,6 +189,7 @@ public class BoardController {
 		Map<String, Object> join = new HashMap<String, Object>();
 		join.put("bo_number",bo_number);
 		join.put("Member_Name",Member_Name);
+		join.put("Member_Id", Member_Id );
 		
 		int result = sbService.memberUnjoin(join);
 			

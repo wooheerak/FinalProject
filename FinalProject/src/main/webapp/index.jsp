@@ -7,7 +7,9 @@
 <meta charset="UTF-8">
 <title>StudyHub.lib</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 </head>
+
 
 <body style="overflow-X: hidden">
 
@@ -46,7 +48,7 @@
 	<section class="section nopad">
 		<div class="container-fluid">
 			<div class="row text-center">
-				<div class="col-md-3 col-sm-6 nopad first">
+				<div class="col-md-2 col-sm-6 nopad first">
 					<div class="home-service c1" style="background-color: #dfe8ea;">
 						<i class="flaticon-competition"></i>
 						<p>대출/연장</p>
@@ -55,7 +57,7 @@
 				</div>
 				<!-- end col -->
 
-				<div class="col-md-3 col-sm-6 nopad">
+				<div class="col-md-2 col-sm-6 nopad">
 					<div class="home-service c2" style="background-color: #dfe8ea;">
 						<i class="flaticon-chat"></i>
 						<p>자료 요청</p>
@@ -64,7 +66,7 @@
 				</div>
 				<!-- end col -->
 
-				<div class="col-md-3 col-sm-6 nopad">
+				<div class="col-md-2 col-sm-6 nopad">
 					<div class="home-service c3" style="background-color: #dfe8ea;"
 						onclick="location.href='studymain.ss'">
 						<i class="flaticon-medal"></i>
@@ -73,7 +75,7 @@
 					<!-- end home-service -->
 				</div>
 				
-				<div class="col-md-3 col-sm-6 nopad">
+				<div class="col-md-2 col-sm-6 nopad">
 					<div class="home-service c3" style="background-color: #dfe8ea;"
 						onclick="location.href='bList.bo'">
 						<i class="flaticon-chat"></i>
@@ -83,7 +85,7 @@
 				</div>
 				<!-- end col -->
 
-				<div class="col-md-3 col-sm-6 nopad last">
+				<div class="col-md-2 col-sm-6 nopad last">
 					<div class="home-service c4" style="background-color: #dfe8ea;">
 						<i class="flaticon-medal"></i>
 						<p>시설 안내</p>

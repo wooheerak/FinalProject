@@ -95,7 +95,7 @@
 	</section>
 	<!-- end section -->
 
-<!-- 신착도서 -->
+	<!-- 신착도서 -->
 	<section class="section bt">
 		<div class="container  text-center">
 			<div style="width: 330px;">
@@ -107,8 +107,6 @@
 		</div>
 	</section>
 	<!-- end section -->
-
-
 
 				<script>
 					function topList(){
@@ -151,7 +149,7 @@
 						topList();
 						
 						setInterval(function(){
-							topList().carousel(options);
+							topList();
 						}, 15000);
 					});
 					

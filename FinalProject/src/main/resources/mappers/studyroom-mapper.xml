@@ -28,11 +28,11 @@
 	<insert id="reservationStudyroom" parameterType="StudyroomOrder">
 		INSERT INTO STUDYROOM_ORDER
 		VALUES (SEQ_SONO.NEXTVAL, #{so_floor}, #{so_name}, #{so_maxpeople},
-				#{so_organizer},#{so_participant}, #{so_start_time}, #{so_end_time},#{so_date},'Y')
+				#{so_organizer},#{so_participant}, #{so_start_time}, #{so_end_time},#{so_bColor},#{so_date},'Y')
 	</insert>
 	
 	<select id="selectOrderList" resultMap="studyroomOrderResultSet">
-		SELECT * 
+		SELECT *
 		FROM STUDYROOM_ORDER
 		ORDER BY SO_NO DESC
 	</select>
@@ -65,8 +65,10 @@
 		</choose>
 	</select>
 	
-	<select id="reservationInfo" parameterType="string" resultType="string">
-		select *
+	<select id="reservationInfo" parameterType="string" resultType="StudyroomOrder">
+		select so_no, so_floor, so_name, so_maxpeople,
+			(select member_name from member where member_id = so_organizer)as so_organizer,so_participant,so_start_time,
+			so_end_time,so_bcolor,so_date,so_status 
 		from studyroom_order
 		where to_char(SO_DATE,'yyyymmdd') = ${dateInfo}
 	</select>

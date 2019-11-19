@@ -56,7 +56,7 @@ public class StudyroomServiceImpl implements StudyroomService{
 	}
 
 	@Override
-	public ArrayList<Studyroom> reservationInfo(String dateInfo) {
+	public ArrayList<StudyroomOrder> reservationInfo(String dateInfo) {
 		return srDao.reservationInfo(sqlSession,dateInfo);
 	}
 

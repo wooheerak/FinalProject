@@ -194,23 +194,32 @@ input{
 	</div>
 	
 <script>
-	var count = 0;
+	var count=0;
+	var num=0;
+	// 인원수 추가
 	$(document).on("click","#addParticipant",function (){
-// 		if(count>9){
-			$('#reservationTable > tbody:last').append(
+		if(selectRoomInfo[num].sr_maxPeople-1>count){
+			$('#reservationTable2 > tbody:last').append(
 					'<tr id = "t'+ count +'"><td colspan="2"></td><td colspan="5"><input id="so_participant" name="so_participant" type="text" style="height:24px;"></td><td><button type="button" onclick="deleteParticipant(this);" class="btn btn-transparent addPar" style="width:25px; height:25px;" id = "b'+ count +'">-</button></td></tr>');
 			count++;
-// 		}eles{
-// 			alert("최대 인원수 입니다.");
-// 		}
+		}else{
+			alert("최대 인원수 입니다.");
+		}
 					
 	});
 	
+	// 인원수 축소
 	function deleteParticipant(obj){
 		var tId = "#" + $(obj).parent('td').parent('tr').attr('id');
 		$(tId).remove();
 		count--;
 	}
+	
+	// 랜덤 배경색상 지정
+	var so_bColor='#';
+	var letters = ['f6c9cc','a8c0c0','FEBF36','FF7838','6478A0','acc7bf','5e5f67','c37070','eae160','bf7aa3','d7d967'];
+	so_bColor += letters[Math.floor(Math.random() * letters.length)];
+	//document.getElementById('sotd').style.background = color;
 	
 	function reservationCheck(){
 		console.log(document.getElementsByName("so_participant"));
@@ -295,7 +304,7 @@ input{
 				if(jdata.length == 0){
 					$target.append('<option value="">선택</option>');
 				}else{
-					var num=0;
+					num=0;
 					selectRoomInfo = jdata;
 					$(jdata).each(function(i){
 						if(jdata[i].sr_name == "${sr_name}"){
@@ -308,17 +317,23 @@ input{
 					$("#so_name option:contains('${sr_name}')").prop("selected","selected");
 					
 					// 선택한 select의 value값(스터디룸 이름)을 받고 그 값 의 최대 인원수를 뽑아야 함
-					var studyroom = Math.ceil(jdata[num].sr_maxPeople/2);
+					var studyroom = Math.floor((jdata[num].sr_maxPeople-1)/2);
 					// console.log(studyroom);
 					
 					
 					for(var i=0; i<studyroom; i++){
-						if(i == 0){
+						if(studyroom==1&&i==0){
+							$target2.append("<tr><td colspan='2'><b>참여자</b></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td><button id='addParticipant' name='addParticipant' type='button' class='btn btn-transparent so_participant' style='width:25px; height:25px;'>+</button></td></tr>");
+							count++;
+						}else if(i == 0){
 							$target2.append("<tr><td colspan='2'><b>참여자</b></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td></td></tr>");
+							count++;
 						}else if(i == (studyroom-1)){
 							$target2.append("<tr><td colspan='2'></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td><button id='addParticipant' name='addParticipant' type='button' class='btn btn-transparent so_participant' style='width:25px; height:25px;'>+</button></td></tr>");
+							count++;
 						}else{
 							$target2.append("<tr><td colspan='2'></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td></td></tr>");
+							count++;
 						}	
 						
 					}
@@ -335,6 +350,7 @@ input{
 	var selectRoomInfo ="";
 	// 층 변환 시 작동
 	function studyroomNameChange(so_floor){
+		count =0;
 		console.log(so_floor);
 		var $target = $("select[name='so_name']");
 		var $target2 = $("table[name='reservationTable2']");
@@ -354,7 +370,7 @@ input{
 				if(jdata.length == 0){
 					$target.append('<option value="">선택</option>');
 				}else{
-					var num=0;
+					num=0;
 					selectRoomInfo = jdata;
 					console.log(selectRoomInfo);
 					$(jdata).each(function(i){
@@ -366,17 +382,24 @@ input{
 						}
 					});
 					
-					var studyroom = Math.ceil(jdata[num].sr_maxPeople/2);
+					var studyroom = Math.floor((jdata[num].sr_maxPeople-1)/2);
+					console.log(studyroom);
 					
 					$('#reservationTable2 tr:not(:first)' ).remove();
 					
 					for(var i=0; i<studyroom; i++){
-							if(i == 0){
+							if(studyroom==1&&i == 0){
+								$target2.append("<tr><td colspan='2'><b>참여자</b></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td><button id='addParticipant' name='addParticipant' type='button' class='btn btn-transparent so_participant' style='width:25px; height:25px;'>+</button></td></tr>");
+								count++;
+							}else if(i == 0){
 								$target2.append("<tr><td colspan='2'><b>참여자</b></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td></td></tr>");
+								count++;
 							}else if(i == (studyroom-1)){
 								$target2.append("<tr><td colspan='2'></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td><button id='addParticipant' name='addParticipant' type='button' class='btn btn-transparent so_participant' style='width:25px; height:25px;'>+</button></td></tr>");
+								count++;
 							}else{
 								$target2.append("<tr><td colspan='2'></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td></td></tr>");
+								count++;
 							}	
 						}
 				}
@@ -391,6 +414,7 @@ input{
 	
 	// 스터디룸 변환 시 작동
 	function organizerNumChange(so_name){
+		count=0;
 		console.log(so_name);
 		console.log(selectRoomInfo);
 		var $target2 = $("table[name='reservationTable2']");
@@ -409,10 +433,13 @@ input{
 		for(var i=0; i<studyroom; i++){
 				if(i == 0){
 					$target2.append("<tr><td colspan='2'><b>참여자</b></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td></td></tr>");
+					count++;
 				}else if(i == (studyroom-1)){
 					$target2.append("<tr><td colspan='2'></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td><button id='addParticipant' name='addParticipant' type='button' class='btn btn-transparent so_participant' style='width:25px; height:25px;'>+</button></td></tr>");
+					count++;
 				}else{
 					$target2.append("<tr><td colspan='2'></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td></td></tr>");
+					count++;
 				}	
 			}
 	}

@@ -97,12 +97,13 @@ public class StudyroomContoller {
 			date = cr.get(Calendar.DATE);
 		}
 		String dateInfo = Integer.toString(year) + Integer.toString(month) + Integer.toString(date);
-		System.out.println("dateInfo : " +dateInfo);
+		//System.out.println("dateInfo : " +dateInfo);
 		//Map<String, Object> map = new HashMap<String,Object>();
 		
 		
-		ArrayList<Studyroom> reservationInfo = srService.reservationInfo(dateInfo);
-		
+		ArrayList<StudyroomOrder> reservationInfo = srService.reservationInfo(dateInfo);
+		System.out.println("reservationInfo: "+reservationInfo);
+		//System.out.println("roomlist: "+roomlist);
 		
 		//System.out.println("roomCount : " + roomCount);
 		//System.out.println("list : " + list);
@@ -141,7 +142,7 @@ public class StudyroomContoller {
 		
 		// 전체 스터디룸 정보
 		ArrayList<Studyroom> studyroomInfo = srService.selectRoomList();
-		System.out.println("studyroomInfo : " + studyroomInfo);
+		//System.out.println("studyroomInfo : " + studyroomInfo);
 		
 		if(studyroomInfo != null) {
 			mv.addObject("studyroomInfo",studyroomInfo);

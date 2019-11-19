@@ -25,7 +25,7 @@ public interface StudyroomService {
 
 	ArrayList<String> checkId(Map<String, Object> map);
 
-	ArrayList<Studyroom> reservationInfo(String dateInfo);
+	ArrayList<StudyroomOrder> reservationInfo(String dateInfo);
 
 
 	

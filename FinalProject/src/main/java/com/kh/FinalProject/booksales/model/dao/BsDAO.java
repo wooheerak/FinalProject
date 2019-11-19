@@ -52,6 +52,7 @@ public class BsDAO {
 		return sqlSession.insert("bsMapper.insertBooksale", map);
 	}
 
+	// 중고서적 탑 리스트
 	public ArrayList<BookReg> selectTopList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("bsMapper.selectTopList");
 		

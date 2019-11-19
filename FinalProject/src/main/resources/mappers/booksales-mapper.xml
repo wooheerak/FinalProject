@@ -94,7 +94,7 @@
     		  FROM BOOK_REG
     		  WHERE BR_STATUS='N'
     		  ORDER BY BR_REG_DATE DESC)
-    	WHERE ROWNUM <= 5
+    	WHERE ROWNUM <= 4
     	]]>    
     </select>
     

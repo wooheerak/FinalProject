@@ -7,53 +7,7 @@
 <meta charset="UTF-8">
 <title>StudyHub.lib</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-<style>
-/*공지사항*/
-.notice {
-	position: relative;
-	float: left;
-	width: 462px;
-}
-
-.notice>ul {
-	border-top: 1px solid #878787;
-}
-
-.notice>ul>li {
-	height: 43px;
-	line-height: 44px;
-	border-bottom: 1px solid #dedede;
-	overflow: hidden;
-}
-
-.notice>ul>li>a {
-	display: block;
-	padding-left: 13px;
-	margin-right: 10px;
-	font-size: 15px;
-	color: #666;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.notice>ul>li>a:hover {
-	color: #00529c;
-}
-
-.notice .type2 {
-	display: block;
-	margin-top: 12px;
-	margin-right: 10px;
-	float: left;
-	line-height: 19px;
-	color: #fff;
-	font-size: 13px;
-	padding: 0 14px;
-	background-color: #00529c;
-}
-
-</style>
+<link rel="stylesheet" type="text/css" href="resources/css/heerak.css">
 
 </head>
 
@@ -170,7 +124,7 @@
 					var str = "";
 
 					for ( var i in data) {
-						str += '<li><span class="type2">일반</span>';
+						str += '<li><span class="type2">NEW</span>';
 						str += '<a href="ndetail.no?nId='
 								+ data[i].nId
 								+ '">'
@@ -197,64 +151,141 @@
 	<!-- 공지사항 인덱스 리스트 끝 -->
 
 	<!-- 중고 신착 도서 리스트 -->
-	<section class="section" style="padding-top:0px;">
+	<section class="section" style="padding-top: 0px;">
 		<div class="col-md-1"></div>
 		<div class="col-md-3 nopad">
 			<div style="width: 330px;">
 				<b style="padding-left: 15px;">중고서적</b>
-				<div id="d" style="display:flex;">
+				<div id="d" style="display: flex;">
 					<!-- 중고서적 이미지 -->
 				</div>
 			</div>
 		</div>
 	</section>
-	
-				<!-- 중고서적 탑 리스트 -->
-				<script>
-					function topList1(){
-						
-						$.ajax({
-						url: "topList.bs",
-						dataType: "json" ,
-						success: function(data){
-							
+
+	<!-- 중고서적 탑 리스트 -->
+	<script>
+		function topList1() {
+
+			$
+					.ajax({
+						url : "topList.bs",
+						dataType : "json",
+						success : function(data) {
+
 							console.log(data);
-							
+
 							$("#d").text("");
-					
+
 							var str = "";
-							
-							for (var i in data){
-								str +='<div  style="padding-left: 10px;">';
-								str +='<a href="'+ "bsdetail.bs?brBnumber=" + data[i].brBnumber +'"><span class="img"><span class="bookKind" style="position: absolute; background: url(resources/images/신착도서.png); background-size: 100%; z-index: 100; width: 30px; height: 316px; color: #fff; font-size: 13px; padding-top: 5px; background-repeat: no-repeat; text-align: center;">신착</span>';
-								str +='<div class="imgBox ebook-details nopad">';
-								str +='<img alt="" src="resources/bsuploadFiles/'+ data[i].renameFileName +'"';
+
+							for ( var i in data) {
+								str += '<div style="padding-left: 10px;">';
+								str += '<a href="'
+										+ "bsdetail.bs?brBnumber="
+										+ data[i].brBnumber
+										+ '"><span class="img"><span class="bookKind" style="position: absolute; background: url(resources/images/신착도서.png); background-size: 100%; z-index: 100; width: 30px; height: 316px; color: #fff; font-size: 13px; padding-top: 5px; background-repeat: no-repeat; text-align: center;">신착</span>';
+								str += '<div class="imgBox ebook-details nopad">';
+								str += '<img alt="" src="resources/bsuploadFiles/'+ data[i].renameFileName +'"';
 								str +=' style="width: 100px; height: 140; padding-left:10px;" class="img-respive">';
-								str +='</a>';
-								str +='</div>';
-								str +='</span>';
-								str +='</div>';
+								str += '<div style="padding-left:25px; padding-top: 9px;">'
+										+ data[i].brPrice + '원</div>';
+								str += '</a>';
+								str += '</div>';
+								str += '</span>';
+								str += '</div>';
 
 							}
-														
 							console.log(str);
 							$("#d").append(str);
-						
-							}
-						});
-					}
-					
-					
-					$(function(){
-						topList1();
-						
-						setInterval(function(){
-							topList1();
-						}, 15000);
+						}
 					});
-					
-				</script>
-	
+		}
+
+		$(function() {
+			topList1();
+
+			setInterval(function() {
+				topList1();
+			}, 15000);
+		});
+	</script>
+
+	<section>
+		<!-- 유용한 싸이트 링크 슬라이드 -->
+		<section style="background-color: white;">
+			<div id="logoSlider">
+				<div class="MS-content">
+					<div class="item">
+						<a href="http://www.nl.go.kr/nl/" target="_blank" title="국립중앙도서관">
+							<img src="resources/images/국림중앙도서관.jpg" alt="국립중앙도서관"
+							onmouseover="bannerMouse('resources/images/국림중앙도서관2.jpg', this);"
+							onmouseout="bannerMouse('resources/images/국림중앙도서관.jpg', this);">
+						</a>
+					</div>
+					<div class="item">
+						<a href="http://scholar.ndsl.kr" target="_blank" title="NDSL">
+							<img src="resources/images/NDSL.jpg" alt="NDSL"
+							onmouseover="bannerMouse('resources/images/NDSL2.jpg', this);"
+							onmouseout="bannerMouse('resources/images/NDSL.jpg', this);">
+						</a>
+					</div>
+					<div class="item">
+						<a href="http://lib.dankook.ac.kr/dcollection/" target="_blank"
+							title="전국대학학위논문"> <img src="resources/images/전국대학학위논문.jpg"
+							alt="전국대학학위논문"
+							onmouseover="bannerMouse('resources/images/전국대학학위논문2.jpg', this);"
+							onmouseout="bannerMouse('resources/images/전국대학학위논문.jpg', this);">
+						</a>
+					</div>
+					<div class="item">
+						<a href="http://www.fric.kr" target="_blank"
+							title="FRIC 외국학술지지원센터"> <img
+							src="resources/images/RISSFRIC.jpg" alt="FRIC 외국학술지지원센터"
+							onmouseover="bannerMouse('resources/images/RISSFRIC2.jpg', this);"
+							onmouseout="bannerMouse('resources/images/RISSFRIC.jpg', this);">
+						</a>
+					</div>
+					<div class="item">
+						<a href="https://www.nanet.go.kr/main.do" target="_blank"
+							target="_blank" title="국회도서관"> <img
+							src="resources/images/국회도서관.jpg" alt="국회도서관"
+							onmouseover="bannerMouse('resources/images/국회도서관2.jpg', this);"
+							onmouseout="bannerMouse('resources/images/국회도서관.jpg', this);">
+						</a>
+					</div>
+					<div class="item">
+						<a href="http://www.nl.go.kr/nl/" target="_blank" title="국립중앙도서관">
+							<img src="resources/images/국림중앙도서관.jpg" alt="국립중앙도서관"
+							onmouseover="bannerMouse('resources/images/국림중앙도서관2.jpg', this);"
+							onmouseout="bannerMouse('resources/images/국림중앙도서관.jpg', this);">
+						</a>
+					</div>
+				</div>
+				<!-- .slider-content -->
+			</div>
+			<!-- #logoSlider -->
+		</section>
+
+		<!-- Include jQuery -->
+		<script src="resources/js/jquery-2.2.4.min.js"></script>
+		<!-- Include Multislider -->
+		<script src="resources/js/multislider.min.js"></script>
+
+		<!-- Initialize element with Multislider -->
+		<script>
+	    $('#logoSlider').multislider({
+	    	duration: 750,
+			interval: 3000
+	    });
+	    
+	    function bannerMouse(imgPath,obj){
+	    	$(obj).prop('src', imgPath);
+	    }
+	    </script>
+	</section>
+
+
 	<c:import url="WEB-INF/views/common/footer.jsp"></c:import>
 </body>
 </html>

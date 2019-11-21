@@ -53,6 +53,26 @@
 	background-color: #00529c;
 }
 
+/*열람실 좌석현황*/
+.readingR{position: relative; margin-top: 22px;}
+.readingR > ul{overflow: hidden;padding: 3px 9px 2px 12px;border: 1px solid #dedede;background-color: #f5f5f5;}
+.readingR > ul li{float: left; line-height: 31px;}
+.readingR > ul h3{float: left;width: 45px;text-align: left;font-size: 13px;color: #6d6d6d;}
+.readingR > ul p{float: right;font-size: 13px; color: #6d6d6d;}
+.readingR > ul p .num{color: #ff1857;}
+.readingR .flr{float: right;}
+.readingR .book p{padding-left: 28px;background: url(../../../../image/ko/local/main/readingIcon2.png) no-repeat 10px 7px;background-size:13px 16px;text-align: left;min-width: 52px;}
+.readingR .com p{padding-left: 29px; background: url(../../../../image/ko/local/main/readingIcon1.png) no-repeat 6px 8px; background-size:19px 14px;}
+.readingR .more{position: absolute; right: 0; top: 0;}
+.readingR .more img{width: 13px; height: 13px;}
+@media screen and (max-width:1116px){
+	.readingR > ul{padding: 3px 8px 2px 8px;}
+	.readingR .book p{padding-left: 24px;background: url(../../../../image/ko/local/main/readingIcon2.png) no-repeat 5px 7px;background-size:13px 16px;}
+	.readingR .com p{padding-left: 25px; background: url(../../../../image/ko/local/main/readingIcon1.png) no-repeat 3px 8px; background-size:19px 14px;}
+}
+
+
+
 </style>
 
 </head>
@@ -254,6 +274,39 @@
 					});
 					
 				</script>
+		<section class="section" style="padding-top:0px;">
+		<div class="col-md-4">
+			<div class="readingR">
+	   			 <h2>열람실 좌석현황</h2>
+	   			 <ul id="seatStat" style="">
+	     			   <li class="book">
+	           			 <h3>1열람실</h3>
+	          		     <p title="1열람실 : 344석"><span class="num">344</span>/<span class="total">344</span></p>
+	   			       </li>
+	     			   <li class="book flr">
+	         		     <h3>2열람실</h3>
+	    	        	 <p title="2열람실 : 176석"><span class="num">46</span>/<span class="total">176</span></p>
+	      			   </li>
+				       <li class="com">
+				           <h3>3열람실</h3>
+				           <p title="3열람실 : 148석, 노트북 사용가능"><span class="num">29</span>/<span class="total">148</span></p>
+				       </li>
+				       <li class="book flr">
+				           <h3>4열람실</h3>
+				           <p title="4열람실 : 278석"><span class="num">185</span>/<span class="total">278</span></p>
+				       </li>
+				       <li class="com">
+				           <h3>6열람실</h3>
+				           <p title="6열람실 : 54석, 노트북 사용가능"><span class="num">35</span>/<span class="total">54</span></p>
+				       </li>
+				       <li class="com flr">
+				           <h3>법&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;학</h3>
+				           <p title="법학열람실 : 133석, 노트북 사용가능"><span class="num">105</span>/<span class="total">133</span></p>
+				       </li>
+				 </ul>
+			</div>
+		</div>
+		</section>
 	
 	<c:import url="WEB-INF/views/common/footer.jsp"></c:import>
 </body>

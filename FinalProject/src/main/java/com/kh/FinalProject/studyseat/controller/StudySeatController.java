@@ -25,6 +25,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.kh.FinalProject.studyseat.model.exception.SeatException;
 import com.kh.FinalProject.studyseat.model.service.SeatService;
+import com.kh.FinalProject.studyseat.model.vo.CookieIs;
 import com.kh.FinalProject.studyseat.model.vo.Seat;
 import com.kh.FinalProject.studyseat.model.vo.SeatHistory;
 import com.kh.FinalProject.user.model.vo.User;
@@ -189,6 +190,27 @@ public class StudySeatController {
 			}
 			
 			if(result > 0) {
+				
+				// 예약취소 후 인증타이머 죽이기
+				Cookie[] cookies = request.getCookies();
+				
+				if(cookies != null){
+					for(Cookie c : cookies){
+						System.out.println("쿠키 : " + c.getName());
+						if(c.getName().equals("certTimer")){
+							c.setMaxAge(0);
+							response.addCookie(c);
+							System.out.println("예약취소 되었으니 인증타이머 쿠키 죽이기!");
+							break;
+						}				
+						
+					}
+				}
+				
+				user.setcStatus("No");
+				user.setRseatNo(0);
+				session.setAttribute("loginUser", user);
+				
 				if(user != null) {
 					id = user.getMember_Id();
 					shList = sService.selectHistoryList(id);				
@@ -233,6 +255,8 @@ public class StudySeatController {
 					id = user.getMember_Id();
 					shList = sService.selectHistoryList(id);				
 				}
+				
+							
 				user.setRseatNo(0);
 				session.setAttribute("loginUser", user);			
 			}
@@ -305,9 +329,10 @@ public class StudySeatController {
 				
 				Cookie cookie = new Cookie("certTimer" , "CERT_TIMER");
 				// 인증타이머 시간 설정
-				cookie.setMaxAge(60);
+				cookie.setMaxAge(30);
 				response.addCookie(cookie);
 				
+				user.setcStatus("cert");
 				user.setRseatNo(sNo);
 				session.setAttribute("loginUser", user);
 				
@@ -542,8 +567,6 @@ public class StudySeatController {
 			int result = -1 ;
 			
 			if(result1 > 0) {
-				user.setRseatNo(0);
-				session.setAttribute("loginUser", user);
 				
 				// 인증완료 후 인증타이머 죽이기
 				Cookie[] cookies = request.getCookies();
@@ -561,12 +584,17 @@ public class StudySeatController {
 					}
 				}
 				
+				user.setRseatNo(0);
+				user.setcStatus(null);
+				session.setAttribute("loginUser", user);
+				
 				// 인증완료 후 퇴실타이머 생성
 				Cookie cookie = new Cookie("outTimer" , "OUT_TIMER");
 				// 퇴실타이머 시간 설정
-				cookie.setMaxAge(60);
+				cookie.setMaxAge(120);
 				response.addCookie(cookie);
 				
+				user.setcStatus("out");
 				user.setUseatNo(cId);
 				session.setAttribute("loginUser", user);
 				
@@ -625,6 +653,7 @@ public class StudySeatController {
 					}
 				}
 				
+				user.setcStatus(null);
 				user.setUseatNo(0);
 				session.setAttribute("loginUser", user);
 			}
@@ -668,6 +697,7 @@ public class StudySeatController {
 					id = user.getMember_Id();
 					shList = sService.selectHistoryList(id);				
 				}
+				user.setcStatus(null);
 				user.setUseatNo(0);
 				session.setAttribute("loginUser", user);
 			}
@@ -684,6 +714,56 @@ public class StudySeatController {
 			
 		}
 		
+		// 쿠키 생존 확인 
+		@RequestMapping("checkCookie.ss")		
+		public void checkCoookie(HttpServletRequest request , HttpServletResponse response) throws JsonIOException, IOException {
+			
+			response.setContentType("application/json; charset=UTF-8");
+			
+			HttpSession session = request.getSession();
+			User user = (User)session.getAttribute("loginUser");
+			CookieIs ci = new CookieIs();
+			
+			int sNo = 0;
+			
+			Cookie[] cookies = request.getCookies();
+			if(user != null) {
+				if(user.getRseatNo() != 0) {
+					sNo = user.getRseatNo();
+				}
+				else if(user.getUseatNo() != 0) {
+					sNo = user.getUseatNo();
+				}
+				if(cookies != null) {
+					for(Cookie c : cookies) {
+						if(c.getName().equals("certTimer")) {
+							System.out.println("인증 타이머 쿠키가 살아있다");
+							user.setcStatus("cert");
+							sNo = user.getRseatNo();
+							ci.setcName("cert");							
+						}
+						else if(c.getName().equals("outTimer")) {
+							System.out.println("퇴실 타이머 쿠키가 살아있다");
+							user.setcStatus("out");
+							sNo = user.getUseatNo();
+							ci.setcName("out");							
+						}
+						else {
+							ci.setcName("No");							
+						}
+					}
+					
+				}
+				ci.setsNo(sNo);
+				ci.setcStatus(user.getcStatus());
+			}
+			
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			gson.toJson(ci , response.getWriter());
+			
+			
+			
+		}
 		
 
 }

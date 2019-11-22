@@ -25,13 +25,14 @@
         WHERE MEMBER_ID = #{student_number}
      </update>
      
-     <!-- 비밀번호 변경 -->
+     <!-- 비밀번호 업데이트 -->
      <update id="pwdUpdate" parameterType="User">
 		update member
 		set MEMBER_PASSWORD = #{member_Password}
 		where MEMBER_ID = #{member_Id}
 	</update>
 	
+	<!-- 비밀번호 찾기 -->
 	<select id="pwdfind" parameterType="map" resultMap="userResultSet">
 		select *
 		from MEMBER

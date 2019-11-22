@@ -36,14 +36,7 @@ public class UserController {
 
 	@Autowired
 	private UserService uService;
-	
-	
-	@RequestMapping("login.ul")
-	public String login() {
-		
-		return "userlogin";
-	}
-	
+
 	// 로그인 로그인 실패
 	@RequestMapping("userlogin.ul")
 	public String userlogin(User u, Model model) {
@@ -124,8 +117,15 @@ public class UserController {
 		return mv;
 	}
 	
+	@RequestMapping("upview.ul")
+	public String upview(@ModelAttribute User u) {
+		
+		return "userpassword";
+		
+	}
+	
 	// 비밀번호 수정
-	@RequestMapping("newupdatepwd.ul")
+	@RequestMapping("userpassword.ul")
 	public String pwdUpdate(@ModelAttribute User u) {
 		
 		System.out.println(u);
@@ -140,7 +140,7 @@ public class UserController {
 		
 	}
 	
-	// 비밀번호 찾기
+	/*// 비밀번호 찾기
 	@RequestMapping(value = "usercheck.ul", method = {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public String findPwd(User u, String inputCode,
@@ -168,11 +168,11 @@ public class UserController {
 		MailUtil.sendMail(u.getMember_Email(), subject, msg);
 		
 		return "redirect:userpassword2.ul";
-	}
+	}*/
 	
 	
 
-		// 비밀번호 찾기 폼
+		// 비밀번호 찾기 
 		@RequestMapping(value = "userpasswordfind.ul")
 		public ModelAndView userpasswordfind(ModelAndView mv) throws Exception{
 			int check = 1;
@@ -231,6 +231,7 @@ public class UserController {
 				return mv;
 			}
 				
+			
 			
 	
 	

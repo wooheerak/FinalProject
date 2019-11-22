@@ -60,8 +60,8 @@
 						<c:url var="myinfo" value="userinformationcheck.ul"/>
 						<input id="update" type="submit" class="btn btn-transparent" value="수정하기" style="background:white" onclick="location.href='${myinfo}'"/>
 						
-						<c:url var="userpwd" value="userpassword.ul"/>
-						<a  class="btn btn-transparent" onclick="location.href='${userpwd}'">비밀번호 수정하기 </a>
+						<c:url var="upview" value="upview.ul"/>
+						<a  class="btn btn-transparent" onclick="location.href='${upview}'">비밀번호 수정하기 </a>
 						
 					</form>
 				</div>

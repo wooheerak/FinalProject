@@ -34,23 +34,19 @@
 				<div class="col-md-4"></div>
 
 				<div class="col-md-4">
-					<form action="newupdatepwd.ul" role="form" class="contactform">
+					<form action="userpassword.ul" role="form" class="contactform">
 						<input type="hidden" name="member_Id"
-							value="${ loginUser.member_Id }">
+							value="${ loginUser.member_Id }"/>
 						<div class="form-group">
-							<input type="text" class="form-control" id="password"
-								placeholder="현재 비밀번호를 입력해주세요." required>
+							<input type="text" class="form-control" id="password" placeholder="현재 비밀번호를 입력해주세요." required/>
 								<div class="alert alert-success" id="alert-success1">비밀번호가 일치합니다.</div>
 								<div class="alert alert-danger" id="alert-danger1">비밀번호가 일치하지 않습니다.</div>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" id="password1"
-								name="member_Password" placeholder="새 비밀번호를 입력해주세요." required>
+							<input type="text" class="form-control" id="password1" name="member_Password" placeholder="새 비밀번호를 입력해주세요." required/>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" id="password2"
-								name="member_Password1" placeholder="새 비밀번호를 다시 입력해주세요."
-								required>
+							<input type="text" class="form-control" id="password2" name="member_Password1" placeholder="새 비밀번호를 다시 입력해주세요." required/>
 								<div class="alert alert-success" id="alert-success2">비밀번호가 일치합니다.</div>
 								<div class="alert alert-danger" id="alert-danger2">비밀번호가 일치하지 않습니다.</div>
 						</div>
@@ -60,7 +56,7 @@
 								$("#alert-danger1").hide();
 								$("input").keyup(function(){
 									var pwd1 = $("#password").val();
-									var pwd2 = ${ loginUser.member_Password };
+									var pwd2 = "${ loginUser.member_Password }";
 									if(pwd1 != "" || pwd2 != ""){
 										if(pwd1 == pwd2){
 											$("#alert-success1").show();
@@ -95,14 +91,8 @@
 									}
 								});
 							});
-								
-							
 						</script>
-
-
-						<c:url var="myinfo" value="userinformationcheck.ul" />
-						<input type="submit" id="check" class="btn btn-transparent"
-							value="수정하기" style="background: white;" />
+						<input type="submit" id="check" class="btn btn-transparent" value="수정하기" style="background: white;"/>
 					</form>
 				</div>
 				

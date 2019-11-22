@@ -74,6 +74,7 @@ public class BookController {
 		
 		
 		ArrayList<BookReservation> list = bService.selectReservationBookList(reservationMap);
+		System.out.println("brlist : " + list);
 		System.out.println("list" + list);
 		mv.addObject("list", list);
 		mv.addObject("pi", pi);
@@ -220,7 +221,6 @@ public class BookController {
 		int result = bService.checkBook();
 		
 		if(result >= 0) {
-			System.out.println("업데이트 성공");
 			return "success";
 		} else {
 			return "error";
@@ -239,6 +239,46 @@ public class BookController {
 		
 		mv.addObject("list", list);
 		mv.setViewName("requestBookmasterPage");
+		
+		return mv;
+	}
+	
+	// 신청도서 수락기능
+	@RequestMapping("allowRequset.bk")
+	public String allowRequest(@RequestParam("BQ_NO") String bq_no) {
+		
+		int result = bService.allowRequest(bq_no);
+		
+		if(result > 0) {
+			return "redirect: requestBookMaster.bk";
+		} else {
+			throw new BookException("신청도서 수락 실패");
+		}
+		
+	}
+	
+	// 신청도서 거절기능
+	@RequestMapping("rejactRequset.bk")
+	public String rejactRequest(@RequestParam("BQ_NO") String bq_no) {
+		
+		int result = bService.rejactRequest(bq_no);
+		
+		if(result > 0) {
+			return "redirect: requestBookMaster.bk";
+		} else {
+			throw new BookException("신청도서 거절 실패");
+		}
+		
+	}	
+	
+	// 대출 예약 리스트
+	@RequestMapping("reservationBookMaster.bk")
+	public ModelAndView reservationBookMaster(ModelAndView mv) {
+		
+		ArrayList<BookReservation> list = bService.selectReservationList();
+		System.out.println("list : " + list);
+		mv.addObject("list", list);
+		mv.setViewName("reservationBookmasterPage");
 		
 		return mv;
 	}

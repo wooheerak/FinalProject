@@ -103,6 +103,24 @@ public class BookServiceImpl implements BookService{
 	}
 
 
+	@Override
+	public int allowRequest(String bq_no) {
+		return bDao.allowRequest(sqlSession, bq_no);
+	}
+
+
+	@Override
+	public int rejactRequest(String bq_no) {
+		return bDao.rejactRequest(sqlSession, bq_no);
+	}
+
+
+	@Override
+	public ArrayList<BookReservation> selectReservationList() {
+		return bDao.selectReservationList(sqlSession);
+	}
+
+
 	
 	
 }

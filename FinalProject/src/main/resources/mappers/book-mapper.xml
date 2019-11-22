@@ -18,23 +18,23 @@
 		<result property="status" column="B_STATUS"/>
 		<result property="bIMG" column="B_IMG"/>
 		<association property="bookReservation" javaType="BookReservation">
-			<id property="BV_NO" column="BV_NO"/>
-			<result property="B_NO" column="B_NO"/>
-			<result property="USER_ID" column="USER_ID"/>
-			<result property="BV_DATE" column="BV_DATE"/>
-			<result property="BV_RETURN_DATE" column="BV_RETURN_DATE"/>
-			<result property="BV_STATUS" column="BV_STATUS"/>
+			<id property="bv_no" column="BV_NO"/>
+			<result property="b_no" column="B_NO"/>
+			<result property="user_id" column="USER_ID"/>
+			<result property="bv_date" column="BV_DATE"/>
+			<result property="bv_return_date" column="BV_RETURN_DATE"/>
+			<result property="bv_status" column="BV_STATUS"/>
 		</association>
 	</resultMap>
 	
 	
-	<resultMap type="BookReservation" id="reservationResultSet">
-		<id property="BV_NO" column="BV_NO"/>
-		<result property="B_NO" column="B_NO"/>
-		<result property="USER_ID" column="USER_ID"/>
-		<result property="BV_DATE" column="BV_DATE"/>
-		<result property="BV_RETURN_DATE" column="BV_RETURN_DATE"/>
-		<result property="BV_STATUS" column="BV_STATUS"/>
+	<resultMap type="Bookreservation" id="reservationResultSet">
+		<id property="bv_no" column="BV_NO"/>
+		<result property="b_no" column="B_NO"/>
+		<result property="user_id" column="USER_ID"/>
+		<result property="bv_date" column="BV_DATE"/>
+		<result property="bv_return_date" column="BV_RETURN_DATE"/>
+		<result property="bv_status" column="BV_STATUS"/>
 		<association property="book" javaType="Book">
 			<id property="bNo" column="B_NO"/>
 			<result property="bName" column="B_NAME"/>
@@ -137,7 +137,7 @@
  	
  	<insert id="insertRequest" parameterType="map">
  		insert into book_request
- 		values(SEQ_BQNO.NEXTVAL, #{userId}, #{name}, #{writer}, null, #{publisher}, #{isbn}, #{price}, #{message}, sysdate, 'N')
+ 		values(SEQ_BQNO.NEXTVAL, #{userId}, #{name}, #{writer}, null, #{publisher}, #{isbn}, #{price}, #{message}, sysdate, 'W')
  	</insert>
  	
  	<select id="selectRequestList" parameterType="string" resultType="BookRequest">
@@ -159,6 +159,24 @@
  		select *
  		from book_request
  		order by bq_no desc
+ 	</select>
+ 	
+ 	<update id="allowRequest">
+ 		update BOOK_REQUEST
+ 		set bq_status = 'Y'
+ 		where bq_no = #{bq_no}
+ 	</update>
+ 	
+ 	<update id="rejactRequest">
+ 		update BOOK_REQUEST
+ 		set bq_status = 'N'
+ 		where bq_no = #{bq_no}
+ 	</update> 	
+ 	
+ 	<select id="reservationBookListmaster" resultMap="reservationResultSet">
+ 		select *
+ 		from book_reservation
+ 		order by bv_no desc
  	</select>
 	
 </mapper>

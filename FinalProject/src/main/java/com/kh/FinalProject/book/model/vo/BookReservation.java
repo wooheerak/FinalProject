@@ -2,78 +2,77 @@ package com.kh.FinalProject.book.model.vo;
 
 
 public class BookReservation {
-	private int BV_NO;
-	private int B_NO;
-	private String USER_ID;
-	private String BV_DATE;
-	private String BV_RETURN_DATE;
-	private String BV_STATUS;
+	private int bv_no;
+	private int b_no;
+	private String user_id;
+	private String bv_date;
+	private String bv_return_date;
+	private String bv_status;
 	
 	private Book book;
 
 	public BookReservation() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public BookReservation(int bV_NO, int b_NO, String uSER_ID, String bV_DATE, String bV_RETURN_DATE, String bV_STATUS,
+	public BookReservation(int bv_no, int b_no, String user_id, String bv_date, String bv_return_date, String bv_status,
 			Book book) {
 		super();
-		BV_NO = bV_NO;
-		B_NO = b_NO;
-		USER_ID = uSER_ID;
-		BV_DATE = bV_DATE;
-		BV_RETURN_DATE = bV_RETURN_DATE;
-		BV_STATUS = bV_STATUS;
+		this.bv_no = bv_no;
+		this.b_no = b_no;
+		this.user_id = user_id;
+		this.bv_date = bv_date;
+		this.bv_return_date = bv_return_date;
+		this.bv_status = bv_status;
 		this.book = book;
 	}
 
-	public int getBV_NO() {
-		return BV_NO;
+	public int getBv_no() {
+		return bv_no;
 	}
 
-	public void setBV_NO(int bV_NO) {
-		BV_NO = bV_NO;
+	public void setBv_no(int bv_no) {
+		this.bv_no = bv_no;
 	}
 
-	public int getB_NO() {
-		return B_NO;
+	public int getB_no() {
+		return b_no;
 	}
 
-	public void setB_NO(int b_NO) {
-		B_NO = b_NO;
+	public void setB_no(int b_no) {
+		this.b_no = b_no;
 	}
 
-	public String getUSER_ID() {
-		return USER_ID;
+	public String getUser_id() {
+		return user_id;
 	}
 
-	public void setUSER_ID(String uSER_ID) {
-		USER_ID = uSER_ID;
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 
-	public String getBV_DATE() {
-		return BV_DATE;
+	public String getBv_date() {
+		return bv_date;
 	}
 
-	public void setBV_DATE(String bV_DATE) {
-		BV_DATE = bV_DATE;
+	public void setBv_date(String bv_date) {
+		this.bv_date = bv_date;
 	}
 
-	public String getBV_RETURN_DATE() {
-		return BV_RETURN_DATE;
+	public String getBv_return_date() {
+		return bv_return_date;
 	}
 
-	public void setBV_RETURN_DATE(String bV_RETURN_DATE) {
-		BV_RETURN_DATE = bV_RETURN_DATE;
+	public void setBv_return_date(String bv_return_date) {
+		this.bv_return_date = bv_return_date;
 	}
 
-	public String getBV_STATUS() {
-		return BV_STATUS;
+	public String getBv_status() {
+		return bv_status;
 	}
 
-	public void setBV_STATUS(String bV_STATUS) {
-		BV_STATUS = bV_STATUS;
+	public void setBv_status(String bv_status) {
+		this.bv_status = bv_status;
 	}
 
 	public Book getBook() {
@@ -86,8 +85,8 @@ public class BookReservation {
 
 	@Override
 	public String toString() {
-		return "BookReservation [BV_NO=" + BV_NO + ", B_NO=" + B_NO + ", USER_ID=" + USER_ID + ", BV_DATE=" + BV_DATE
-				+ ", BV_RETURN_DATE=" + BV_RETURN_DATE + ", BV_STATUS=" + BV_STATUS + ", book=" + book + "]";
+		return "BookReservation [bv_no=" + bv_no + ", b_no=" + b_no + ", user_id=" + user_id + ", bv_date=" + bv_date
+				+ ", bv_return_date=" + bv_return_date + ", bv_status=" + bv_status + ", book=" + book + "]";
 	}
 
 	

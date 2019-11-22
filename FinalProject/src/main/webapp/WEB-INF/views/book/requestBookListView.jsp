@@ -82,6 +82,7 @@
 								<th style="text-align: center;">신청 날짜</th>
 								<th style="text-align: center;">요청 사항</th>
 								<th style="text-align: center;">신청 현황</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -94,11 +95,20 @@
 									<td>${r.BQ_MESSAGE }</td>
 									<td>
 										<c:if test='${r.BQ_STATUS == "N"}'>
-											<p>신청 대기</p>
+											<p>요청 거절됨</p>
 										</c:if>
 										<c:if test='${r.BQ_STATUS == "Y"}'>
 											<p>요청 수락됨</p>
 										</c:if>
+										<c:if test='${r.BQ_STATUS == "W"}'>
+											<p>요청 대기중</p>
+										</c:if>
+										<c:if test='${r.BQ_STATUS == "C"}'>
+											<p>요청 취소됨</p>
+										</c:if>
+									</td>
+									<td>
+										
 									</td>
 								</tr>
 							</c:forEach>

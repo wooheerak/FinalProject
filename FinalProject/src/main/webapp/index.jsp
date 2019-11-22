@@ -98,9 +98,10 @@
 	<!-- end section -->
 
 	<!-- 공지사항 -->
-	<section class="section" style="padding-top: 80px;">
+	<section class="section"
+		style="padding-top: 80px; padding-bottom: 20px;">
 		<div class="col-md-1"></div>
-		<div class="col-md-3 notice nopad">
+		<div class="col-md-4 notice nopad">
 			<b style="padding-left: 15px;">공지사항</b>
 			<ul id="t" style="padding-left: 0px;">
 				<!-- li 태그로 공지사항 제목 들어가는 부분 -->
@@ -187,7 +188,7 @@
 										+ '"><span class="img"><span class="bookKind" style="position: absolute; background: url(resources/images/신착도서.png); background-size: 100%; z-index: 100; width: 30px; height: 316px; color: #fff; font-size: 13px; padding-top: 5px; background-repeat: no-repeat; text-align: center;">신착</span>';
 								str += '<div class="imgBox ebook-details nopad">';
 								str += '<img alt="" src="resources/bsuploadFiles/'+ data[i].renameFileName +'"';
-								str +=' style="width: 100px; height: 140; padding-left:10px;" class="img-respive">';
+								str +=' style="width: 120px; height: 160; padding-left:10px;" class="img-respive">';
 								str += '<div style="padding-left:25px; padding-top: 9px;">'
 										+ data[i].brPrice + '원</div>';
 								str += '</a>';
@@ -214,7 +215,7 @@
 	<section>
 		<!-- 유용한 싸이트 링크 슬라이드 -->
 		<section style="background-color: white;">
-			<div id="logoSlider">
+			<div id="logoSlider" style="border-top: 1px solid #dadada; border-bottom: 1px solid #dadada;">
 				<div class="MS-content">
 					<div class="item">
 						<a href="http://www.nl.go.kr/nl/" target="_blank" title="국립중앙도서관">
@@ -255,10 +256,11 @@
 						</a>
 					</div>
 					<div class="item">
-						<a href="http://www.nl.go.kr/nl/" target="_blank" title="국립중앙도서관">
-							<img src="resources/images/국림중앙도서관.jpg" alt="국립중앙도서관"
-							onmouseover="bannerMouse('resources/images/국림중앙도서관2.jpg', this);"
-							onmouseout="bannerMouse('resources/images/국림중앙도서관.jpg', this);">
+						<a href="http://www.medlis.kr/index.do" target="_blank"
+							title="MEDLIS"> <img src="resources/images/MEDLIS.jpg"
+							alt="MEDLIS"
+							onmouseover="bannerMouse('resources/images/MEDLIS2.jpg', this);"
+							onmouseout="bannerMouse('resources/images/MEDLIS.jpg', this);">
 						</a>
 					</div>
 				</div>
@@ -274,15 +276,15 @@
 
 		<!-- Initialize element with Multislider -->
 		<script>
-	    $('#logoSlider').multislider({
-	    	duration: 750,
-			interval: 3000
-	    });
-	    
-	    function bannerMouse(imgPath,obj){
-	    	$(obj).prop('src', imgPath);
-	    }
-	    </script>
+			$('#logoSlider').multislider({
+				continuous: true,
+	            duration: 4000
+			});
+
+			function bannerMouse(imgPath, obj) {
+				$(obj).prop('src', imgPath);
+			}
+		</script>
 	</section>
 
 

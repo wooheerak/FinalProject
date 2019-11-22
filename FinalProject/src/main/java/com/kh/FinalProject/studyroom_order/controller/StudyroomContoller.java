@@ -1,5 +1,7 @@
 package com.kh.FinalProject.studyroom_order.controller;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -82,12 +85,14 @@ public class StudyroomContoller {
 	}
 	
 	// 스터디룸 해당일 예약 전체 조회
-	@RequestMapping("srDay.sr")
+	@RequestMapping(value="srDay.sr", method= {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView dayView(ModelAndView mv,@RequestParam(value="year", required=false)Integer year,
 								@RequestParam(value="month", required=false)Integer month,@RequestParam(value="day", required=false)Integer date) {
 		
 		int roomCount = srService.getRoomCount();
 		ArrayList<Studyroom> roomlist = srService.selectRoomList();
+
+		System.out.println("변경전 : " + month);
 		
 		if(year==null) {
 			//최초입력 시 오늘 날짜 정보 
@@ -96,6 +101,9 @@ public class StudyroomContoller {
 			month = cr.get(Calendar.MONTH)+1;
 			date = cr.get(Calendar.DATE);
 		}
+		System.out.println(year);
+		System.out.println(month);
+		System.out.println(date);
 		String dateInfo = Integer.toString(year) + Integer.toString(month) + Integer.toString(date);
 		//System.out.println("dateInfo : " +dateInfo);
 		//Map<String, Object> map = new HashMap<String,Object>();
@@ -159,7 +167,7 @@ public class StudyroomContoller {
 	public String reservationStudyroom(@ModelAttribute StudyroomOrder sr) {
 		// 값 받은후 변경
 		
-		System.out.println(sr);
+		//System.out.println(sr);
 		
 		int result=srService.reservationStudyroom(sr);
 		
@@ -182,6 +190,67 @@ public class StudyroomContoller {
 		
 		return result;
 	}
+	
+	// 학생 시간 중복체크
+	@RequestMapping("checkTime.sr")
+	@ResponseBody
+	public int checkTime(@RequestParam(value="so_participant")String so_participant, @RequestParam(value="so_date", required=false) String so_date,
+							@RequestParam(value="so_start_time", required=false) String so_start_time, @RequestParam(value="so_end_time", required=false) String so_end_time,
+							@RequestParam(value="so_organizer", required=false) String so_organizer) {
+//		System.out.println("학생체크매핑됨");
+		SimpleDateFormat tf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date=Date.valueOf(so_date);
+		
+		StudyroomOrder sro = new StudyroomOrder();
+			sro.setSo_participant(so_participant);
+			sro.setSo_start_time(so_start_time);
+			sro.setSo_end_time(so_end_time);
+			sro.setSo_organizer(so_organizer);
+			sro.setSo_date(date);
+		
+		
+		// 참여자 쪼갤 배열
+		String[] partici = so_participant.split(",");
+		
+		// 참여자별 조회 결과 저장을 위한 변수
+		int count =0;
+		// 참여자 숫자만큼 검색
+		for(int i =0; i<partici.length; i++) {
+			System.out.println("partici : "+partici[i]);
+			sro.setSo_participant(partici[i]);
+			System.out.println("sro: " + sro);
+			ArrayList<StudyroomOrder> result= srService.checkTime(sro);
+			if(result != null){
+				count++;
+				break;
+			}
+		}
+		return count;
+	}
+	
+	@RequestMapping("monthDown.sr")
+	public String monthDown(String year,String month, String day) {
+		int tempYear =0;
+		int tempMonth =0;
+		int tempDay =0;
+		
+		if(month == "01"){
+			tempYear = Integer.parseInt(year)-1;
+			month="12";
+		}else{
+			tempMonth = Integer.parseInt(month)-1;
+		}
+		
+		return "";
+	}
+	
+	@RequestMapping("monthUp.sr")
+	public String monthUp(int Month) {
+			
+		return "";
+	}
+	
+	
 	
 	
 	

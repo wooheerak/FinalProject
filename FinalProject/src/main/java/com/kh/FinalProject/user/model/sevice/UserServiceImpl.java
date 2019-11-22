@@ -29,5 +29,24 @@ public class UserServiceImpl implements UserService{
 		
 		return uDAO.userUpdate(sqlSession, map);
 	}
+	
+	@Override
+	public int pwdUpdate(User u) {
+		
+		return uDAO.userpwdUpdate(sqlSession, u);
+	}
+
+	@Override
+	public int changePwd(Map<String, String> map2) {
+		
+		return uDAO.changePwd(sqlSession, map2);
+		
+	}
+
+	@Override
+	public User userpasswordfind(Map<String, Object> map) {
+		
+		return uDAO.userpasswordfind(sqlSession, map);
+	}
 
 }

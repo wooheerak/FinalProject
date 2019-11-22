@@ -60,4 +60,9 @@ public class StudyroomServiceImpl implements StudyroomService{
 		return srDao.reservationInfo(sqlSession,dateInfo);
 	}
 
+	@Override
+	public ArrayList<StudyroomOrder> checkTime(StudyroomOrder sro) {
+		return srDao.checkTime(sqlSession,sro);
+	}
+
 }

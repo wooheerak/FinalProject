@@ -186,7 +186,7 @@ input{
 				<br>
 				<div class="btnbox">
 					<!-- 예약 완료시 이 창은 꺼지고 부모창 refresh -->
-					<input class="btn btn-transparent" style="padding:0px" onclick="reservationCheck()" type="submit" value="예약"/>
+					<input class="btn btn-transparent" style="padding:0px" onclick="reservationCheck()" type="button" value="예약"/>
 					<input class="btn btn-transparent" style="padding:0px"  type="button" onclick="window.close()" value="취소"/>
 				</div>
 			</form>
@@ -221,12 +221,17 @@ input{
 	so_bColor += letters[Math.floor(Math.random() * letters.length)];
 	//document.getElementById('sotd').style.background = color;
 	
+	// 예약 전 체크 사항들
 	function reservationCheck(){
-		console.log(document.getElementsByName("so_participant"));
-		console.log("#so_organizer" + $('#so_organizer').val());
 		
+		// 예약자
 		var organizer = $('#so_organizer');
+		// console.log("#so_organizer" + $('#so_organizer').val());
+		
+		// 참여자 배열
 		var participants = document.getElementsByName("so_participant");
+		// console.log(document.getElementsByName("so_participant"));
+		
 		// 스터디룸 예약 게시판에서의 입력 체크 는 day에서 체크
 		
 		var myData = new Array();
@@ -234,13 +239,13 @@ input{
 			myData[i] = participants[i].value;
 		}
 		
-		console.log(myData);
+		//console.log(myData);
 		
-		// < 예약 시간 중복 검사 >
+		
 		
 		// 참여자 실제 학생인지 검사
 		var check = {"idCheck":myData};
-		console.log(check);
+		//console.log(check);
 		
 		jQuery.ajaxSettings.traditional = true;
 		
@@ -260,8 +265,42 @@ input{
 			}
 		});	
 		
+		// 참여자 또는 예약자가 동일 시간대에 다른곳에 예약 되었는지 체크
+		
+		// 참여자 배열 String 으로 변환
+		var participant ="";
 		for(var i=0; i<participants.length; i++){
-			// 참여자에 같은 학번 입력 방지(중복 입력방지)
+			participant+=participants[i].value;
+			if(i != participants.length-1) participant+=",";
+		}
+		console.log(participant);
+		
+		
+		$.ajax({
+			type 	: "POST",
+			url		: "checkTime.sr",
+			data	: {
+				so_organizer: organizer.val(),
+				so_participant: participant,
+				so_start_time: $('#so_start_time').val(),
+				so_end_time: $('#so_end_time').val(),
+				so_date: $('#so_date').val()
+			},
+			success	: function(data){
+				if($(data)!=0){
+					alert("중복 예약은 불가능 합니다.");
+					return false;
+				}
+			},
+			error:function(){
+				alert("중복 예약은 불가능 합니다.");
+				return false;
+			}
+		});
+		
+		
+		// 참여자에 같은 학번 입력 방지(중복 입력방지)
+		for(var i=0; i<participants.length; i++){
 			for(var j=0; j<i; j++){
 		 		if(participants[i].value == participants[j].value){
 		 			alert("참여자가 중복 되었습니다.")

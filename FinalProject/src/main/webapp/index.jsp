@@ -7,7 +7,28 @@
 <meta charset="UTF-8">
 <title>StudyHub.lib</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+/*열람실 좌석현황*/
+.readingR{position: relative; margin-top: 22px;}
+.readingR > ul{overflow: hidden;padding: 3px 9px 2px 12px;border: 1px solid #dedede;background-color: #f5f5f5;}
+.readingR > ul li{float: left; line-height: 31px;}
+.readingR > ul h3{float: left;width: 45px;text-align: left;font-size: 13px;color: #6d6d6d;}
+.readingR > ul p{float: right;font-size: 13px; color: #6d6d6d;}
+.readingR > ul p .num{color: #ff1857;}
+.readingR .flr{float: right;}
+.readingR .book p{padding-left: 28px;background: url(../../../../image/ko/local/main/readingIcon2.png) no-repeat 10px 7px;background-size:13px 16px;text-align: left;min-width: 52px;}
+.readingR .com p{padding-left: 29px; background: url(../../../../image/ko/local/main/readingIcon1.png) no-repeat 6px 8px; background-size:19px 14px;}
+.readingR .more{position: absolute; right: 0; top: 0;}
+.readingR .more img{width: 13px; height: 13px;}
+@media screen and (max-width:1116px){
+	.readingR > ul{padding: 3px 8px 2px 8px;}
+	.readingR .book p{padding-left: 24px;background: url(../../../../image/ko/local/main/readingIcon2.png) no-repeat 5px 7px;background-size:13px 16px;}
+	.readingR .com p{padding-left: 25px; background: url(../../../../image/ko/local/main/readingIcon1.png) no-repeat 3px 8px; background-size:19px 14px;}
+}
+</style>
+
 <link rel="stylesheet" type="text/css" href="resources/css/heerak.css">
+
 
 </head>
 
@@ -102,10 +123,8 @@
 		style="padding-top: 80px; padding-bottom: 20px;">
 		<div class="col-md-1"></div>
 		<div class="col-md-4 notice nopad">
-			<b style="padding-left: 15px; font-size: 20px;">공지사항</b><a
-				href="nlist.no"><img alt="" src="resources/images/more.gif"
-				style="float: right; width: 15px; padding-top: 5px;"></a>
-			<ul id="t" style="padding-left: 15px;">
+			<b style="padding-left: 15px;">공지사항</b>
+			<ul id="t" style="padding-left: 0px;">
 				<!-- li 태그로 공지사항 제목 들어가는 부분 -->
 			</ul>
 		</div>
@@ -154,15 +173,15 @@
 	<!-- 공지사항 인덱스 리스트 끝 -->
 
 	<!-- 중고 신착 도서 리스트 -->
-	<section class="section" style="padding-top: 15px;">
+	<section class="section" style="padding-top: 0px;">
 		<div class="col-md-1"></div>
-		<div class="col-md-4 nopad">
-			<b style="padding-left: 15px; font-size: 20px;">중고서적</b>
-			<a href="bslist.bs"><img alt="" src="resources/images/more.gif"
-				style="float: right; width: 15px; padding-top: 5px;"></a>
-			<ul id="d" style="display: flex; padding-left: 0px; border-top: 1px solid #878787;">
-				<!-- 중고서적 이미지 -->
-			</ul>
+		<div class="col-md-3 nopad">
+			<div style="width: 330px;">
+				<b style="padding-left: 15px;">중고서적</b>
+				<div id="d" style="display: flex;">
+					<!-- 중고서적 이미지 -->
+				</div>
+			</div>
 		</div>
 	</section>
 
@@ -183,26 +202,26 @@
 							var str = "";
 
 							for ( var i in data) {
-								str += '<ul style="list-style-type:none; padding-left: 10px; padding-top: 10px;">';
+								str += '<div style="padding-left: 10px;">';
 								str += '<a href="'
 										+ "bsdetail.bs?brBnumber="
 										+ data[i].brBnumber
 										+ '"><span class="img"><span class="bookKind" style="position: absolute; background: url(resources/images/신착도서.png); background-size: 100%; z-index: 100; width: 30px; height: 316px; color: #fff; font-size: 13px; padding-top: 5px; background-repeat: no-repeat; text-align: center;">신착</span>';
-								str += '<li class="imgBox ebook-details nopad">';
+								str += '<div class="imgBox ebook-details nopad">';
 								str += '<img alt="" src="resources/bsuploadFiles/'+ data[i].renameFileName +'"';
-								str +=' style="max-width: 120px; height: auto; class="img-respive">';
-								str += '<li style="padding-left:35px; padding-top: 9px;">'
+								str +=' style="width: 120px; height: 160; padding-left:10px;" class="img-respive">';
+								str += '<div style="padding-left:25px; padding-top: 9px;">'
 										+ data[i].brPrice + '원</div>';
 								str += '</a>';
-								str += '</li>';
+								str += '</div>';
 								str += '</span>';
-								str += '</ul>';
+								str += '</div>';
 
 							}
 							console.log(str);
 							$("#d").append(str);
 						}
-					});
+					});		
 		}
 
 		$(function() {
@@ -214,11 +233,47 @@
 		});
 	</script>
 
+  <section class="section" style="padding-top:0px;">
+		<div class="col-md-4">
+			<div class="readingR">
+	   			 <h2>열람실 좌석현황</h2>
+	   			 <ul id="seatStat" style="">
+	     			   <li class="book">
+	           			 <h3>1열람실</h3>
+	          		     <p title="1열람실 : 344석"><span class="num">344</span>/<span class="total">344</span></p>
+	   			       </li>
+	     			   <li class="book flr">
+	         		     <h3>2열람실</h3>
+	    	        	 <p title="2열람실 : 176석"><span class="num">46</span>/<span class="total">176</span></p>
+	      			   </li>
+				       <li class="com">
+				           <h3>3열람실</h3>
+				           <p title="3열람실 : 148석, 노트북 사용가능"><span class="num">29</span>/<span class="total">148</span></p>
+				       </li>
+				       <li class="book flr">
+				           <h3>4열람실</h3>
+				           <p title="4열람실 : 278석"><span class="num">185</span>/<span class="total">278</span></p>
+				       </li>
+				       <li class="com">
+				           <h3>6열람실</h3>
+				           <p title="6열람실 : 54석, 노트북 사용가능"><span class="num">35</span>/<span class="total">54</span></p>
+				       </li>
+				       <li class="com flr">
+				           <h3>법&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;학</h3>
+				           <p title="법학열람실 : 133석, 노트북 사용가능"><span class="num">105</span>/<span class="total">133</span></p>
+				       </li>
+				 </ul>
+			</div>
+		</div>
+		</section>
+  
+  
+  
+  
 	<section>
 		<!-- 유용한 싸이트 링크 슬라이드 -->
 		<section style="background-color: white;">
-			<div id="logoSlider"
-				style="border-top: 1px solid #dadada; border-bottom: 1px solid #dadada;">
+			<div id="logoSlider" style="border-top: 1px solid #dadada; border-bottom: 1px solid #dadada;">
 				<div class="MS-content">
 					<div class="item">
 						<a href="http://www.nl.go.kr/nl/" target="_blank" title="국립중앙도서관">
@@ -280,8 +335,8 @@
 		<!-- Initialize element with Multislider -->
 		<script>
 			$('#logoSlider').multislider({
-				continuous : true,
-				duration : 4000
+				continuous: true,
+	            duration: 4000
 			});
 
 			function bannerMouse(imgPath, obj) {
@@ -290,7 +345,7 @@
 		</script>
 	</section>
 
-
 	<c:import url="WEB-INF/views/common/footer.jsp"></c:import>
 </body>
+
 </html>

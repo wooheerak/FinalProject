@@ -74,7 +74,7 @@
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
 						<h2>도서 관리 페이지</h2>
-						<p class="lead">신청 도서 관리</p>
+						<p class="lead">예약 도서 관리</p>
 					</div>
 					<!-- end col -->
 				</div>
@@ -116,46 +116,32 @@
 		            <tr>
 		            	<th>번호</th>
 		            	<th>신청자 아이디</th>
-		            	<th>도서 제목</th>
-		            	<th>작 가</th>
-		            	<th>역 자</th>
-		            	<th>출판사</th>
-		            	<th>ISBN</th>
-		            	<th>도서 가격</th>
-		            	<th>요청 사항</th>
-		            	<th>요청 날짜</th>
-		            	<th>상 태</th>
+		            	<th>도서 번호</th>
+		            	<th>예약 날짜</th>
+		            	<th>만료 날짜</th>
+		            	<th>예약 상황</th>
 		          	</tr>
 		        </thead>
 		
 		        <tbody>
 		            <c:forEach var="r" items="${ list }">
-		            	<c:url var="allow" value="allowRequset.bk">
-							<c:param name="BQ_NO" value="${ r.BQ_NO }"/>					
+		            	<c:url var="allow" value="allowReservation.bk">
+							<c:param name="BV_NO" value="${ r.b_no }"/>					
 						</c:url>
-						<c:url var="rejact" value="rejactRequset.bk">
-							<c:param name="BQ_NO" value="${ r.BQ_NO }"/>					
-						</c:url>  
 		            <tr>
-		            	<td>${ r.BQ_NO }</td>
-		            	<td>${ r.BQ_STUDENT_ID }</td>
-		            	<td>${ r.BQ_NAME }</td>
-		            	<td>${ r.BQ_WRITER }</td>
-		            	<td>${ r.BQ_TRANS }</td>
-		            	<td>${ r.BQ_PUBLISHER }</td>
-		            	<td>${ r.BQ_ISBN }</td>
-		            	<td>${ r.BQ_PRICE }</td>
-		            	<td style='width:130px; overflow:hidden; text-overflow:ellipsis'>${ r.BQ_MESSAGE }</td>
-		            	<td>${ r.BQ_DATE }</td>
+		            	<td>${ r.bv_no }</td>
+		            	<td>${ r.user_id }</td>
+		            	<td>${ r.b_no }</td>
+		            	<td>${ r.bv_date }</td>
+		            	<td>${ r.bv_return_date }</td>
 		            	<td>
-		            		<c:if test="${r.BQ_STATUS eq 'W' }">
-			            		<input id="" type="button" onclick="location.href='${allow}'" value="수락" style="background-color: white; color: black; border: 2px solid blue;"/>&nbsp;
-			            		<input type="button" onclick="location.href='${rejact}'" value="거절" style="background-color: white; color: black; border: 2px solid red;"/>
+		            		<c:if test="${r.bv_status eq 'W' }">
+			            		<input id="" type="button" onclick="location.href='${allow}'" value="대출" style="background-color: white; color: black; border: 2px solid blue;"/>&nbsp;
 			            	</c:if>
-			            	<c:if test="${r.BQ_STATUS eq 'N' }">
-			            		<p>요청 거절됨</p>
+			            	<c:if test="${r.bv_status eq 'N' }">
+			            		<p>기간 만료됨</p>
 			            	</c:if>
-			            	<c:if test="${r.BQ_STATUS eq 'Y' }">
+			            	<c:if test="${r.bv_status eq 'Y' }">
 			            		<p>요청 승인됨</p>
 			            	</c:if>
 		            	</td>

@@ -10,6 +10,12 @@ public interface UserService {
 
 	int userUpdate(Map<String, String> map);
 
+	int pwdUpdate(User u);
+	
+	User userpasswordfind(Map<String, Object> map);
+
+	int changePwd(Map<String, String> map);
+
 
 	}
 

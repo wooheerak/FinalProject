@@ -96,20 +96,20 @@
 									<td>${r.bWriter }</td>
 									<c:set var="bvDate">
 										<fmt:setLocale value="ko"/>
-										<fmt:parseDate value="${r.bookReservation.BV_DATE }" pattern="yyyy/MM/dd HH:mm"/>
+										<fmt:parseDate value="${r.bookReservation.bv_date }" pattern="yyyy/MM/dd HH:mm"/>
 									</c:set>
 									<c:set var="returnDate">
 									    <fmt:setLocale value="ko"/>
-										<fmt:parseDate value="${r.bookReservation.BV_RETURN_DATE }" pattern="yyyy/MM/dd HH:mm"/>
+										<fmt:parseDate value="${r.bookReservation.bv_return_date }" pattern="yyyy/MM/dd HH:mm"/>
 									</c:set>
-									<td>${ r.bookReservation.BV_DATE }</td>
-									<td>${ r.bookReservation.BV_RETURN_DATE }</td>
+									<td>${ r.bookReservation.bv_date }</td>
+									<td>${ r.bookReservation.bv_return_date }</td>
 									<td>
 										<c:set var="today" value="<%= tt %>" />
-										<c:if test="${ today < r.bookReservation.BV_RETURN_DATE }">
+										<c:if test="${ today < r.bookReservation.bv_return_date }">
 											<c:set var="result" value="1" />
 										</c:if> 
-										<c:if test="${ today >= r.bookReservation.BV_RETURN_DATE }">
+										<c:if test="${ today >= r.bookReservation.bv_return_date }">
 											<c:set var="result" value="0" />
 										</c:if> 
 										
@@ -117,12 +117,16 @@
 											<p>대출 대기</p>
 										</c:if> 
 										<c:if test="${result == 0 }">
-											<c:if test='${r.bookReservation.BV_STATUS == "N" }'>
+											<c:if test='${r.bookReservation.bv_status == "N" }'>
 												<p>기간 만료</p>
 											</c:if>
-											<c:if test='${r.bookReservation.BV_STATUS  == "R" }'>
+											<c:if test='${r.bookReservation.bv_status  == "R" }'>
 												<p>대출 완료</p>
 											</c:if>
+											
+										</c:if>
+										<c:if test='${ r.bookReservation.bv_status == "C" }'>
+											<p>예약 취소</p>
 										</c:if>
 									</td>
 								</tr>

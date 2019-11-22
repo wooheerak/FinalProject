@@ -117,7 +117,7 @@
 								</ul>
 							</li>
 							<li>
-								<div class="loginArea" align="right">
+								 <div class="loginArea" align="right">
                            <c:if test="${ empty sessionScope.loginUser }">
                               <form action="userlogin.ul" method="post">
                                  <table id="loginTable" style="text-align:center;">
@@ -136,11 +136,7 @@
                                        <td colspan="3">
                                           <button type="button" style="color: black;">비밀번호 찾기</button>
                                        </td>
-                                       
-                                       <td>
-                                          <a href="login.ul">로그인</a>
-                                		  <a href="">비밀번호찾기</a>
-                                       </td>
+                                    
                                     </tr>
                                  </table>
                               </form>
@@ -152,88 +148,61 @@
                                  </td>
                                  <c:url var="myinfo" value="userinformationcheck.ul"/>
                                  <c:url var="logout" value="logout.ul"/>
-                                 <c:url var="mUpdate" value="mUpdate.ul"/>
+                          
+						
                                  <a style="cursor:pointer" onclick="location.href='${myinfo}'">정보보기/</a>
-                                 <a style="cursor:pointer" onclick="location.href='${logout}'">로그아웃/</a>
-                                 <a style="cursor:pointer" onclick="location.href='${mUpdate}'">정보수정</a>
+                                 <a style="cursor:pointer" onclick="location.href='${logout}'">로그아웃</a>
+                                 
                                  
                               <tr>
                            </c:if>
                            
                         </div>
-                
-                
-							</li>	
-						</ul>
-					</div>
-					<!--/.nav-collapse -->
-				</div>
-				<!--/.container-fluid -->
-			</nav>
-			<!-- end nav -->
-		</div>
-		<!-- end container -->
-	</header>
-	<!-- end header -->
+                     </li>   
+                  </ul>
+               </div>
+               <!--/.nav-collapse -->
+            </div>
+            <!--/.container-fluid -->
+         </nav>
+         <!-- end nav -->
+      </div>
+      <!-- end container -->
+   </header>
+   <!-- end header -->
 	
 	<!-- 수진쓰 추가부분 -->
 	<script>
 		
-	<% 
-		Cookie[] cookies = request.getCookies();
-		
-		int check = 0 ;
-		int rNo = 0;
-		int uNo = 0;
-		
-		User user = (User)session.getAttribute("loginUser");
-		if(user != null){
-		 	rNo = user.getRseatNo();
-		 	uNo = user.getUseatNo();
-		}
-		if(cookies != null){
-			for(Cookie c : cookies){
-				System.out.println("쿠키 : " + c.getName());
-				if(c.getName().equals("certTimer")){
-					System.out.println("인증 타이머 쿠키가 살아있다");
-					check = 1 ;
+	function checkCookie(){
+		/* location.href="cancelRC.ss?cancelId=" ;
+		location.href="outSeatCoo.ss?outNo=" ; */
+			$.ajax({
+				url : "checkCookie.ss" ,
+				success : function(data){
+					console.log(data);
+					if(data.cName == "No"){
+						if(data.sNo != 0){
+							if(data.cStatus == "cert"){
+								location.href="cancelRC.ss?cancelId=" + data.sNo ;					
+							}
+							else if(data.cStatus == "out"){
+								location.href="outSeatCoo.ss?outNo=" + data.sNo;						
+							}
+						}
+					}
+					
+				} ,
+				error : function(data){
+					console.log(data);
 				}
-				else if(c.getName().equals("outTimer")){
-					System.out.println("퇴실 타이머 쿠키가 살아있다");
-					check = 2 ;
-				}
-				
-			}
-		}
-		
-		if(check == 0){
-			if(rNo == 0){
-	%>
-			
-				console.log("없으");
-	<%
-			}
-			else{
-	%>
-				console.log(<%=rNo %> + "취소할게");
-				location.href="cancelRC.ss?cancelId=" + <%=rNo %>;
-	<%
-			}
-			
-			if(uNo == 0){
-	%>
-						
-				console.log("없으");
-	<%
-			}
-			else{
-	%>
-				console.log(<%=uNo %> + "퇴실할게");
-				location.href="outSeatCoo.ss?outNo=" + <%=uNo %>;
-	<%
-			}
-		}
-	%>
+			});
+	}
+	
+	
+	window.onload = setInterval(function(){
+		checkCookie();
+	}, 5000);
 	
 	</script>
 	<!-- 요기까지 -->
@@ -252,5 +221,4 @@
 	</script>
   	<!-- 요기까지 -->
 </body>
-
 </html>

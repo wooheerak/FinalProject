@@ -35,4 +35,10 @@ public interface BookService {
 
 	ArrayList<BookRequest> selectRequestList();
 
+	int allowRequest(String bq_no);
+
+	int rejactRequest(String bq_no);
+
+	ArrayList<BookReservation> selectReservationList();
+
 }

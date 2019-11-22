@@ -64,6 +64,13 @@
 			</when>
 		</choose>
 	</select>
+	<select id="checkTime" parameterType="StudyroomOrder" resultType="StudyroomOrder">
+		SELECT *
+		FROM STUDYROOM_ORDER
+		WHERE to_char(SO_DATE,'yyyymmdd') = #{so_date} 
+    		and (so_organizer=#{so_organizer} OR so_participant=#{so_participant} OR so_organizer=#{so_participant} OR so_participant=#{so_organizer})
+    		and (so_start_time = #{so_start_time} OR so_end_time=#{so_end_time})
+	</select>
 	
 	<select id="reservationInfo" parameterType="string" resultType="StudyroomOrder">
 		select so_no, so_floor, so_name, so_maxpeople,

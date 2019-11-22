@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 #footer {
-font-size: 20px;
+font-size: 15px;
 font-weight: bold;
 }
 </style>

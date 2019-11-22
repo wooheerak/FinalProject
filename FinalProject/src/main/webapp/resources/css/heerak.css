@@ -1,0 +1,111 @@
+/* index 페이지 공지사항 및 유용한 링크 슬라이드 CSS */
+/*공지사항*/
+.notice {
+	position: relative;
+	float: left;
+	width: 462px;
+}
+
+.notice>ul {
+	border-top: 1px solid #878787;
+}
+
+.notice>ul>li {
+	height: 43px;
+	line-height: 44px;
+	border-bottom: 1px solid #dedede;
+	overflow: hidden;
+}
+
+.notice>ul>li>a {
+	display: block;
+	padding-left: 13px;
+	margin-right: 10px;
+	font-size: 15px;
+	color: #666;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.notice>ul>li>a:hover {
+	color: #00529c;
+}
+
+.notice .type2 {
+	display: block;
+	margin-top: 12px;
+	margin-right: 10px;
+	float: left;
+	line-height: 19px;
+	color: #fff;
+	font-size: 13px;
+	padding: 0 14px;
+	background-color: #00529c;
+}
+
+/* 로고 슬라이더 */
+#logoSlider {
+	position: relative;
+}
+
+#logoSlider .MS-content {
+	white-space: nowrap;
+	overflow: hidden;
+	margin: 0 5%;
+	height: 80px;
+}
+
+#logoSlider .MS-content .item {
+	display: inline-block;
+	width: 20%;
+	position: relative;
+	vertical-align: top;
+	overflow: hidden;
+	height: 100%;
+	white-space: normal;
+	line-height: 80px;
+	vertical-align: middle;
+}
+
+@media ( max-width : 991px) {
+	#logoSlider .MS-content .item {
+		width: 25%;
+	}
+}
+
+@media ( max-width : 767px) {
+	#logoSlider .MS-content .item {
+		width: 35%;
+	}
+}
+
+@media ( max-width : 500px) {
+	#logoSlider .MS-content .item {
+		width: 50%;
+	}
+}
+
+#logoSlider .MS-content .item a {
+	line-height: 50px;
+	vertical-align: middle;
+}
+
+#logoSlider .MS-controls button {
+	position: absolute;
+}
+
+#logoSlider .MS-controls .MS-left {
+	top: 35px;
+	left: 10px;
+}
+
+#logoSlider .MS-controls .MS-right {
+	top: 35px;
+	right: 10px;
+}
+
+#logoSlider img{
+	height: 50px; 
+	vertical-align: middle;
+	}

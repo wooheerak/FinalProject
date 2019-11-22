@@ -117,7 +117,7 @@
 								</ul>
 							</li>
 							<li>
-								<div class="loginArea" align="right">
+								 <div class="loginArea" align="right">
                            <c:if test="${ empty sessionScope.loginUser }">
                               <form action="userlogin.ul" method="post">
                                  <table id="loginTable" style="text-align:center;">
@@ -136,11 +136,7 @@
                                        <td colspan="3">
                                           <button type="button" style="color: black;">비밀번호 찾기</button>
                                        </td>
-                                       
-                                       <td>
-                                          <a href="login.ul">로그인</a>
-                                		  <a href="">비밀번호찾기</a>
-                                       </td>
+                                    
                                     </tr>
                                  </table>
                               </form>
@@ -152,29 +148,28 @@
                                  </td>
                                  <c:url var="myinfo" value="userinformationcheck.ul"/>
                                  <c:url var="logout" value="logout.ul"/>
-                                 <c:url var="mUpdate" value="mUpdate.ul"/>
+                          
+						
                                  <a style="cursor:pointer" onclick="location.href='${myinfo}'">정보보기/</a>
-                                 <a style="cursor:pointer" onclick="location.href='${logout}'">로그아웃/</a>
-                                 <a style="cursor:pointer" onclick="location.href='${mUpdate}'">정보수정</a>
+                                 <a style="cursor:pointer" onclick="location.href='${logout}'">로그아웃</a>
+                                 
                                  
                               <tr>
                            </c:if>
                            
                         </div>
-                
-                
-							</li>	
-						</ul>
-					</div>
-					<!--/.nav-collapse -->
-				</div>
-				<!--/.container-fluid -->
-			</nav>
-			<!-- end nav -->
-		</div>
-		<!-- end container -->
-	</header>
-	<!-- end header -->
+                     </li>   
+                  </ul>
+               </div>
+               <!--/.nav-collapse -->
+            </div>
+            <!--/.container-fluid -->
+         </nav>
+         <!-- end nav -->
+      </div>
+      <!-- end container -->
+   </header>
+   <!-- end header -->
 	
 	<!-- 수진쓰 추가부분 -->
 	<script>
@@ -226,5 +221,4 @@
 	</script>
   	<!-- 요기까지 -->
 </body>
-
 </html>

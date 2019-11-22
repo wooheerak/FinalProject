@@ -238,7 +238,6 @@ public class BookSalesController {
 	public void bsTopList(ModelAndView mv, HttpServletResponse response) throws JsonIOException, IOException {
 		
 		ArrayList<BookReg> tlist = bsService.selectTopList();
-	
 		
 		Gson gson = new Gson();
 		gson.toJson(tlist, response.getWriter());

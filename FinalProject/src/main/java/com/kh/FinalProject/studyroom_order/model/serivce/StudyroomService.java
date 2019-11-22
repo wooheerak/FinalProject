@@ -27,6 +27,8 @@ public interface StudyroomService {
 
 	ArrayList<StudyroomOrder> reservationInfo(String dateInfo);
 
+	ArrayList<StudyroomOrder> checkTime(StudyroomOrder sro);
+
 
 	
 

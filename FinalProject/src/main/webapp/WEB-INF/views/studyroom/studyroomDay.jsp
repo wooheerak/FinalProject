@@ -194,7 +194,7 @@
 												<!-- 예약정보 있을 시 -->
 												<c:if test="${contains eq true}">
 													<td rowspan="${org.so_end_time - org.so_start_time }" id="sotd" style="background-color:${org.so_bColor}">
-													${org.so_end_time - org.so_start_time} hour
+													${org.so_end_time - org.so_start_time} hour <br>
 													${org.so_organizer}
 													</td>
 												</c:if>

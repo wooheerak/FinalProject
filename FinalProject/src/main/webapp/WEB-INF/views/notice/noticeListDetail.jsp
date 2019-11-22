@@ -50,7 +50,7 @@
 						</dd>
 					</dl>
 				</div>
-				<div class="noticeContent text-center"
+				<div class="noticeContent"
 					style="border: 1px solid #e6e6e6; border-top: none; padding: 20px; font-size: 18px;">
 					${ n.nContent }
 				</div>

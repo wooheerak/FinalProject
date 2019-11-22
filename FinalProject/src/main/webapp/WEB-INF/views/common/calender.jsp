@@ -1,31 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>jsp를 이용한 달력</title>
 <script type="text/javascript">
+var year = $('#year');
+var month = $('#month');
+var day = $('#day');
+
+
+
 function selectCheck(form){
 	form.submit();
 }
-function monthDown(form){
- if(form.month.value>1){
-	 form.month.value--;
- }else {
-	 form.month.value=12;
-	 form.year.value--;
- }
- form.submit();
+function monthDown(){
+	
+	
 }
 function monthUp(form){
- if(form.month.value<12){
-	 form.month.value++;
- }else {
-	 form.month.value=1;
-	 form.year.value++;
- }
- form.submit();
+ 
 }
 </script>
 
@@ -125,12 +121,12 @@ table {
 <%
 //현재 날짜 정보 
 Calendar cr = Calendar.getInstance();
-int year = cr.get(Calendar.YEAR);
-int month = cr.get(Calendar.MONTH);
-int date = cr.get(Calendar.DATE);
+ int year = cr.get(Calendar.YEAR);
+ int month = cr.get(Calendar.MONTH);
+ int date = cr.get(Calendar.DATE);
  
 //오늘 날짜
-String today = year + ":" +(month+1)+ ":"+date; 
+ String today = year + ":" +(month+1)+ ":"+date; 
  
 //선택한 연도 / 월
 String input_year = request.getParameter("year");
@@ -158,43 +154,47 @@ int startDay = cr.get(Calendar.DAY_OF_WEEK);
  
 int count = 0;
 %>
-<form method="post" action="calendar.jsp" name="change">
-<table id="studyroomCal" cellpadding="2" cellspacing="0" border="0" align="center">
+<table id="studyroomCal" name="studyroomCal" cellpadding="2" cellspacing="0" border="0" align="center">
  <tr>
    <td align="right">
-   	<input class="calbtn" type="button" value="◁" onClick="monthDown(this.form)">
+	<form method="post" action="srDay.sr" name="change">
+   		<input class="calbtn" type="submit" value="◁">
+   			<c:if test="${month==1}">
+	   		<input type="hidden" id="year" name="year" value="${year-1}" />
+	   		<input type="hidden" id="month" name="month" value="12" />
+   			</c:if>
+   			<c:if test="${month!=1}">
+	   		<input type="hidden" id="year" name="year" value="${year}" />
+	   		<input type="hidden" id="month" name="month" value="${month-1}" />
+   			</c:if>
+	   		<input type="hidden" id="day" name="day" value="1"/>
+	</form>        
    </td>
-   <td align="center">
-<!--       <select name="year" onchange="selectCheck(this.form)"> -->
-<%--       <% --%>
-<!--       for(int i=year-10;i<year+10;i++){ -->
-<!--         String selected = (i == year)?"selected":""; -->
-<!--         String color = (i == year)?"#CCCCCC":"#FFFFFF"; -->
-<!--           out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>");        -->
-<!--        } -->
-<%--       %> --%>
-<!--       </select> -->
-		<%= year%>
+   <td align="center">   		
+   		<input class="calbtn" id="year" name="year"  type="hidden" value="${year}" />
+		<label id="year" name="year" value="${year}"><%= year%></label>
+		 
       </td>
       <td>
-<!--       <select name="month" onchange="selectCheck(this.form)"> -->
-<%--       <% --%>
-<!--       for(int i=1;i<=12;i++){ -->
-<!--        String selected = (i == month+1)?"selected":""; -->
-<!--        String color = (i == month+1)?"#CCCCCC":"#FFFFFF"; -->
-<!--          out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>");        -->
-<!--        } -->
-<%--       %> --%>
-<!--       </select> -->
-		<%= month+1 %>
+   		<input class="calbtn" id="month" name="month"  type="hidden" value="${month}" />
+		<label id="month" name="month" value="${month}"><%= month+1 %> </label>
       </td>
-      <td><input  class="calbtn"  type="button" value="▷" onClick="monthUp(this.form)"></td>
+      <td>
+      <form method="post" action="srDay.sr" name="change">
+      <input  class="calbtn"  type="submit" value="▷">
+   			<c:if test="${month==12}">
+	   		<input type="hidden" id="year" name="year" value="${year+1}" />
+	   		<input type="hidden" id="month" name="month" value="1" />
+   			</c:if>
+   			<c:if test="${month!=12}">
+	   		<input type="hidden" id="year" name="year" value="${year}" />
+	   		<input type="hidden" id="month" name="month" value="${month+1}" />
+   			</c:if>
+	   		<input type="hidden" id="day" name="day" value="1"/>
+	</form> 
+      </td>
     </tr>
-<!--     <tr> -->
-<%--       <td align="right" colspan="3"><a href="calendar.jsp"><font size="2">오늘 :  <%=today %></font></a></td> --%>
-<!--     </tr> -->
 </table>
-</form>        
 <table width="400" cellpadding="2" cellspacing="0" border="1" align="center">
  <tr height="30">
   <td><font size="2"></font></td>
@@ -226,7 +226,10 @@ for (int i=startDate;i<=endDate;i++){
 	 i--;
  }else{
 %> 
-  <td><font size="2" color=<%=color %>><a href="srDay.sr" style="color:<%=color %>"><%=i %></a></font></td>
+  <td><font size="2" color=<%=color %>>
+  <input id="day" name="day" type="hidden" value="<%=i %>"/>
+  <a href="srDay.sr?year=<%=year %>&month=<%=month+1 %>&day=<%=i %>" style="color:<%=color %>"><%=i %></a>
+  </font></td>
 <%}
   if(count%8 == 0 && i < endDate){
 %> 

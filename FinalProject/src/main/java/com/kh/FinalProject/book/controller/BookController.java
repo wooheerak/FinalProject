@@ -4,17 +4,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.FinalProject.book.model.exception.BookException;
 import com.kh.FinalProject.book.model.service.BookService;
 import com.kh.FinalProject.book.model.vo.Book;
+import com.kh.FinalProject.book.model.vo.BookRequest;
+import com.kh.FinalProject.book.model.vo.BookReservation;
 import com.kh.FinalProject.book.model.vo.PageInfo;
 import com.kh.FinalProject.common.Pagination;
 import com.kh.FinalProject.studyroom_board.model.exception.BoardException;
+import com.kh.FinalProject.user.model.vo.User;
 
 @Controller
 public class BookController {
@@ -40,12 +48,59 @@ public class BookController {
 	public String requestBook() {
 		return "requestBookView";
 	}
+	
+	@RequestMapping("reservationBookView.bk")
+	public ModelAndView reservationBookView(@RequestParam(value = "page", required = false) Integer page,
+											ModelAndView mv,
+											HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("loginUser");
+		String userId = user.getMember_Id();
+		
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = page;
+		}
+
+		int listCount = bService.getReservationCount(userId);
+		System.out.println("listCount : " + listCount);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		  
+		Map<String,Object> reservationMap = new HashMap<>(); 
+		reservationMap.put("pi", pi);
+		reservationMap.put("userId",userId);
+		
+		
+		ArrayList<BookReservation> list = bService.selectReservationBookList(reservationMap);
+		System.out.println("list" + list);
+		mv.addObject("list", list);
+		mv.addObject("pi", pi);
+		mv.setViewName("reservationBookView");
+		
+		return mv;
+	}
 
 //	location.href='이동주소';
 	@RequestMapping("reservationBook.bk")
-	public String reservationBook() {
-
-		return "reservationBookView";
+	public String reservationBook(@RequestParam("bookNo") int bookNo,
+								@RequestParam("bookWriter") String bookWriter,
+								HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		String userId = ((User)session.getAttribute("loginUser")).getMember_Id();
+		Map<String, Object> map = new HashMap<>();
+		map.put("bookNo", bookNo);
+		map.put("bookWriter", bookWriter);
+		map.put("userId", userId);
+		
+		int insertresult = bService.insertRv(map);
+		if(insertresult > 0) {
+			return "redirect: reservationBookView.bk";
+		} else {
+			throw new BookException("도서 예약 실패");
+		}
 	}
 
 	@RequestMapping("selectList.bk")
@@ -54,13 +109,10 @@ public class BookController {
 								  @RequestParam(value = "search", required = false) String search, 
 								  ModelAndView mv) {
 
-		System.out.println("searchOption : " + searchOption + ", searchbar : " + search);
 		Map<String, String> map = new HashMap<>();
 
 		map.put("searchOption", searchOption);
 		map.put("search", search);
-
-		System.out.println("컨트롤러 controller : " + map.get("searchOption"));
 
 		int currentPage = 1;
 		if (page != null) {
@@ -112,10 +164,82 @@ public class BookController {
 			.addObject("allCount", bCount)
 			.addObject("yCount", bYCount)
 			.setViewName("bookDetailView");
-		} else {
-			throw new BoardException("상세 게시글 불러오기 실패");
 		}
 		
 		return mv;
 	}	
+	
+	@RequestMapping("insertRequest.bk")
+	public String insertBookRequest(@RequestParam("name") String name,
+									@RequestParam("writer") String writer,
+									@RequestParam("publisher") String publisher,
+									@RequestParam("price") int price,
+									@RequestParam("isbn") String isbn,
+									@RequestParam("message") String message,
+									HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String userId = ((User)session.getAttribute("loginUser")).getMember_Id();
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("name", name);
+		map.put("writer", writer);
+		map.put("publisher", publisher);
+		map.put("price", price);
+		map.put("isbn", isbn);
+		map.put("message", message);
+		map.put("userId", userId);
+		
+		int result = bService.insertRequest(map);
+		
+		if(result > 0) {
+			return "redirect: selectRequestBook.bk";
+		} else {
+			throw new BookException("도서신청 실패");
+		}
+
+	}
+	
+	@RequestMapping("selectRequestBook.bk")
+	public ModelAndView selectRequestBook(ModelAndView mv,
+											HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String userId = ((User)session.getAttribute("loginUser")).getMember_Id();
+		
+		ArrayList<BookRequest> list = bService.selectRequestList(userId);
+		
+		mv.addObject("list", list);
+		mv.setViewName("requestBookListView");
+		
+		return mv;
+	}
+	
+	@RequestMapping("checkBook.bk")
+	@ResponseBody
+	public String checkBook(HttpServletRequest req) {
+		int result = bService.checkBook();
+		
+		if(result >= 0) {
+			System.out.println("업데이트 성공");
+			return "success";
+		} else {
+			return "error";
+		}
+	}
+	
+	@RequestMapping("masterPage.bk")
+	public String masterPage() {
+		return "masterPage";
+	}
+	
+	@RequestMapping("requestBookMaster.bk")
+	public ModelAndView requestBookMaster(ModelAndView mv) {
+		
+		ArrayList<BookRequest> list = bService.selectRequestList();
+		
+		mv.addObject("list", list);
+		mv.setViewName("requestBookmasterPage");
+		
+		return mv;
+	}
 }

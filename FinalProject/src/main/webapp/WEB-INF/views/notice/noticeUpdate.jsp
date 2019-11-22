@@ -65,6 +65,7 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 						<td>
 							<!-- <textarea rows="20" cols="140" name="nContent" style="resize: none;"></textarea> -->
 							<textarea name=nContent>${ notice.nContent }</textarea>
+							※ 가로 최대 사이즈 1100 까지 가능
 			                <script>
 			                        CKEDITOR.replace( 'nContent' );
 			                </script>

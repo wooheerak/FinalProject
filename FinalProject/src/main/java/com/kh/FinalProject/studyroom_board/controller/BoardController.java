@@ -72,7 +72,6 @@ public class BoardController {
 	// 게시글 등록 폼
 	@RequestMapping("bInsertView.bo")
 	public String boardInsertView() {
-		
 		return "boardInsert";
 	}
 	
@@ -107,8 +106,6 @@ public class BoardController {
 	@RequestMapping("bUpdate.bo")
 	public ModelAndView boardUpdate(@ModelAttribute Board b, ModelAndView mv) {
 		
-		System.out.println("controller : " + b );
-		
 		int result = sbService.updateBoard(b);
 					
 		if(result > 0) {
@@ -134,6 +131,20 @@ public class BoardController {
 		}
 	}
 	
+	// 모집 마감
+	@RequestMapping("bComplete.bo")
+	public String boardComplete(@RequestParam("bo_number") int bo_number) {
+		
+		int result = sbService.completeBoard(bo_number);
+		
+		if(result > 0) {
+			return "redirect:bList.bo";
+			
+		}else {
+			throw new BoardException("모집 마감 실패");
+		}
+	}
+	
 	// 그룹 참여
 	@RequestMapping("bJoin.bo")
 	public ModelAndView memberJoin(@RequestParam("bo_number") int bo_number, @RequestParam("bo_member") int bo_member,
@@ -141,13 +152,10 @@ public class BoardController {
 								@RequestParam("Member_Id") String Member_Id,
 							HttpServletRequest request, ModelAndView mv) {
 		
-		System.out.println("1 : " + bo_number);
 		Map<String, Object> join = new HashMap<String, Object>();
 		join.put("bo_number", bo_number );
 		join.put("Member_Name", Member_Name );
 		join.put("Member_Id", Member_Id );
-		
-		System.out.println("map : " + join);
 		
 		int mem = bo_member;
 		int maxmem = bo_maxmember;
@@ -179,8 +187,6 @@ public class BoardController {
 		Map<String, Object> join = new HashMap<String, Object>();
 		join.put("bo_number",bo_number);
 		join.put("Member_Name",Member_Name);
-		
-		System.out.println("con : " + join);
 		
 		int result = sbService.memberUnjoin(join);
 			
@@ -220,10 +226,11 @@ public class BoardController {
 	@RequestMapping("addReply.bo")
 	@ResponseBody
 	public String addReply(Reply r, HttpSession session) {
-		User loginUser = (User)session.getAttribute("loginUser");
-		String rWriter = loginUser.getMember_Id();
 		
-		r.setrWriter(rWriter);
+		User loginUser = (User)session.getAttribute("loginUser"); // 세션에 로그인 정보 가져옴
+		String rWriter = loginUser.getMember_Id(); // 세션의 작성자 불러옴
+		
+		r.setrWriter(rWriter); // reply 에 작성자 넣어줌
 		
 		int result = sbService.insertReply(r);
 		
@@ -235,16 +242,33 @@ public class BoardController {
 	}
 	
 	// 댓글 삭제
-	@RequestMapping("rdelete.bo")
+	@RequestMapping("rDelete.bo")
 	@ResponseBody
-	public String deleteReply(@RequestParam("refBid") int refBid) {
+	public String deleteReply(int rId) {
 		
-		int result = sbService.deleteReply(refBid);
+		int result = sbService.deleteReply(rId);
 		
 		if(result > 0) {
 			return "success";
 		}else {
 			throw new BoardException("댓글 삭제 실패");
+		}
+	}
+	// 댓글 수정
+	@RequestMapping("rUpdate.bo")
+	@ResponseBody
+	public String updateReply(int rId, String rContent, HttpSession session) {
+		
+		Map<String, Object> reply = new HashMap<String, Object>();
+		reply.put("rId", rId );
+		reply.put("rContent", rContent );
+		
+		int result = sbService.updateReply(reply);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			throw new BoardException("댓글 수정 실패");
 		}
 	}
 	

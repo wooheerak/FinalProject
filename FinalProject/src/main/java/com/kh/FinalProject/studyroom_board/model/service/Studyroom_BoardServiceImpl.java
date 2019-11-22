@@ -77,6 +77,12 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 		return sbDAO.memberUnjoin(sqlSession, join);
 	}
 	
+	// 모집 마감
+	@Override
+	public int completeBoard(int bo_number) {
+		return sbDAO.completeBoard(sqlSession, bo_number);
+	}
+	
 	// 댓글 리스트
 	@Override
 	public ArrayList<Reply> selectReplyList(int bo_number) {
@@ -85,21 +91,23 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 	}
 
 	// 댓글 등록
-	/*@Override
+	@Override
 	public int insertReply(Reply r) {
-
 		return sbDAO.insertReply(sqlSession, r);
-	}*/
+	}
 	
 	// 댓글 삭제
 	@Override
-	public int deleteReply(int refBid) {
-		return sbDAO.deleteReply(sqlSession, refBid);
+	public int deleteReply(int rId) {
+		return sbDAO.deleteReply(sqlSession, rId);
 	}
 
+	// 댓글 수정
 	@Override
-	public int insertReply(Reply r) {
-		return sbDAO.insertReply(sqlSession, r);
+	public int updateReply(Map<String, Object> reply) {
+		return sbDAO.updateReply(sqlSession, reply);
 	}
+
+
 
 }

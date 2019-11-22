@@ -52,4 +52,9 @@ public class NoticeServiceImpl implements NoticeService{
 		return nDAO.noticeDelete(sqlSession, nId);
 	}
 
+	// 공지사항 탑리스트
+	public ArrayList<Notice> selectTopList() {
+		return nDAO.selectTopList(sqlSession);
+	}
+
 }

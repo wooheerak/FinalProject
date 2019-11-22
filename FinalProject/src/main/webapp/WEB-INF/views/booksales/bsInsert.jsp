@@ -12,7 +12,6 @@
 <style>
 table{
 border: 1px;
-
 }
 
 th {
@@ -54,9 +53,67 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 						</td>
 					</tr>
 					<tr>
-						<th>작성자</th>
+						<th>카테고리</th>
+						<td>
+							<!-- <input type="text" size="100%" name="brCategory"> -->
+							<select name="brCategory">
+								<OPTION value=''>카테고리 선택</OPTION>
+	                            <OPTION value='경상계열'>경상계열</OPTION>
+	                            <OPTION value='인문/사회계열'>인문/사회계열</OPTION>
+	                            <OPTION value='공학계열'>공학계열</OPTION>
+	                            <OPTION value='어학계열'>어학계열</OPTION>
+	                            <OPTION value='법학계열'>법학계열</OPTION>
+	                            <OPTION value='의학/약학계열'>의학/약학계열</OPTION>
+	                            <OPTION value='사법계열'>사법계열</OPTION>
+	                            <OPTION value='예체능계열'>예체능계열</OPTION>
+	                            <OPTION value='기타'>기타</OPTION>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>작성자 학생번호</th>
 						<td>
 							<input type="text" name="brStudentId">
+						</td>
+					</tr>
+					<tr>
+						<th>책저자</th>
+						<td>
+							<input type="text" name="brWriter">
+						</td>
+					</tr>
+					<tr>
+						<th>출판사</th>
+						<td>
+							<input type="text" name="brPublisher">
+						</td>
+					</tr>
+					<tr>
+						<th>발행일자</th>
+						<td>
+							<input type="date" name="brIssueDate">
+						</td>
+					</tr>
+					<tr>
+						<th>ISBN</th>
+						<td>
+							<input type="text" name="brISBN">
+						</td>
+					</tr>
+					<tr>
+						<th>책상태</th>
+						<td>
+							<select name="brCondition">
+								<option value="A">A</option>
+								<option value="B">B</option>
+								<option value="C">C</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>가격</th>
+						<td>
+							<input type="text" name="brPrice"> 원
 						</td>
 					</tr>
 					<tr>
@@ -67,10 +124,14 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 			                <script>
 			                        CKEDITOR.replace( 'brComment' );
 			                </script>
+							<P>※ 상세 이미지 내용에 붙여넣기 가능</P>
 						</td>
 					</tr>
 					<tr>
-						<th>첨부파일</th>
+						<th>
+							첨부파일<br>
+							<p><font size="2">※ 책 표지 사진을 <br>첨부해 주세요</font></p>
+						</th>
 						<td><input type="file" name="uploadFile"></td>
 					</tr>					
 				</table>

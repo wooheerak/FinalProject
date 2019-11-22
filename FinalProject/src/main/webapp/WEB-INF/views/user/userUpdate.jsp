@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -8,21 +8,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:import url="../common/header.jsp"></c:import>
+   <c:import url="../common/header.jsp"></c:import>
 
-	<section class="section normalhead lb">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-					<h2>회원 정보 수정</h2>
-				</div>
-				<!-- end col -->
-			</div>
-			<!-- end row -->
-		</div>
-		<!-- end container -->
-	</section>
-	<!-- end section -->
+   <section class="section normalhead lb">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
+               <h2>회원 정보 수정</h2>
+            </div>
+            <!-- end col -->
+         </div>
+         <!-- end row -->
+      </div>
+      <!-- end container -->
+   </section>
+   <!-- end section -->
 
 	<section class="section overfree">
 		<div class="icon-center">
@@ -65,21 +65,21 @@
 						
 					</form>
 				</div>
-				
-				
 				<!-- end col -->
 
-				<div class="col-md-4">
-				</div>
-				<!-- end col -->
-			</div>
-			<!-- end row -->
-		</div>
-		<!-- end container -->
-	</section>
-	<!-- end section -->
 
-	<jsp:include page="../common/footer.jsp" />
-	
+            <div class="col-md-4">
+            </div>
+            <!-- end col -->
+         </div>
+         <!-- end row -->
+      </div>
+      <!-- end container -->
+   </section>
+   <!-- end section -->
+
+
+   <jsp:include page="../common/footer.jsp" />
+   
 </body>
 </html>

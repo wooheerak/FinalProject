@@ -6,7 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+<style type="text/css">
+#footer {
+font-size: 20px;
+font-weight: bold;
+}
+</style>
 </head>
 <body>
 	<!-- footer는 어느 페이지든 포함하고 있을 테니 여기서 contextPath 변수 값 만들어주자 -->
@@ -19,7 +24,7 @@
                     </div>
                     <!-- end col -->
                     <div class="col-md-6 col-sm-6 col-xs-12 text-center ">
-                        <p>2019 &copy;The StudyHub.lib All rights reserved.</p>
+                        <p id="footer">2019 &copy;The StudyHub.lib All rights reserved.</p>
                     </div>
                     <!-- end col -->
                 </div>

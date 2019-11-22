@@ -21,6 +21,15 @@ public interface StudyroomService {
 
 	ArrayList<String> selectName(Map<String, Object> map);
 
+	ArrayList<Studyroom> getSrInfo(String so_floor);
+
+	ArrayList<String> checkId(Map<String, Object> map);
+
+	ArrayList<StudyroomOrder> reservationInfo(String dateInfo);
+
+	ArrayList<StudyroomOrder> checkTime(StudyroomOrder sro);
+
+
 	
 
 }

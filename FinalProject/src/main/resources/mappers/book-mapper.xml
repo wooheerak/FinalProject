@@ -17,12 +17,47 @@
 		<result property="bLocation" column="B_LOCATION"/>
 		<result property="status" column="B_STATUS"/>
 		<result property="bIMG" column="B_IMG"/>
+		<association property="bookReservation" javaType="BookReservation">
+			<id property="BV_NO" column="BV_NO"/>
+			<result property="B_NO" column="B_NO"/>
+			<result property="USER_ID" column="USER_ID"/>
+			<result property="BV_DATE" column="BV_DATE"/>
+			<result property="BV_RETURN_DATE" column="BV_RETURN_DATE"/>
+			<result property="BV_STATUS" column="BV_STATUS"/>
+		</association>
 	</resultMap>
+	
+	
+	<resultMap type="BookReservation" id="reservationResultSet">
+		<id property="BV_NO" column="BV_NO"/>
+		<result property="B_NO" column="B_NO"/>
+		<result property="USER_ID" column="USER_ID"/>
+		<result property="BV_DATE" column="BV_DATE"/>
+		<result property="BV_RETURN_DATE" column="BV_RETURN_DATE"/>
+		<result property="BV_STATUS" column="BV_STATUS"/>
+		<association property="book" javaType="Book">
+			<id property="bNo" column="B_NO"/>
+			<result property="bName" column="B_NAME"/>
+			<result property="bWriter" column="B_WRITER"/>
+			<result property="bTrans" column="B_TRANS"/>
+			<result property="bPublisher" column="B_PUBLISHER"/>
+			<result property="bPage" column="B_PAGE"/>
+			<result property="price" column="PRICE"/>
+			<result property="bMainCTG" column="B_MAIN_CTG"/>
+			<result property="bIssueDate" column="B_ISSUE_DATE"/>
+			<result property="bLanguage" column="B_LANGUAGE"/>
+			<result property="bISBN" column="B_ISBN"/>
+			<result property="bLocation" column="B_LOCATION"/>
+			<result property="status" column="B_STATUS"/>
+			<result property="bIMG" column="B_IMG"/>			
+		</association>		
+	</resultMap>
+	
 	
 	<select id="selectCount" resultType="_int" parameterType="map">
 		select count(*)
 		from book
-		where (b_status='Y' or b_status= 'R')
+		where (b_status='Y' or b_status= 'R' or b_status = 'W')
 		<choose>
 			<when test='searchOption.equals("title")'>
 				and b_name LIKE '%' || #{search} || '%'
@@ -42,7 +77,7 @@
 	<select id="selectList" parameterType="map" resultMap="bookResultSet">
 		select *
 		from book
-		where (b_status='Y' or b_status= 'R')	
+		where (b_status='Y' or b_status= 'R' or b_status = 'W')	
 		<choose>
 			<when test='searchOption.equals("title")'>
 				and b_name LIKE '%' || #{search} || '%'
@@ -62,7 +97,7 @@
 	<select id="selectBook" parameterType="_int" resultMap="bookResultSet">
 		select *
 		from book
-		where (b_status='Y' or b_status= 'R') and b_no = #{bNo}
+		where (b_status='Y' or b_status= 'R' or b_status= 'W') and b_no = #{bNo}
 	</select>
 	
 	<select id="selectYCount" parameterType="string" resultType="_int">
@@ -76,4 +111,54 @@
 		from book
 		where b_isbn= #{bISBN}
  	</select>
+ 	
+ 	<insert id="insertBv" parameterType="map">
+ 		insert into book_reservation values (SEQ_BVNO.NEXTVAL, #{bookNo}, #{userId}, to_char(sysdate,'YYYY/MM/DD HH24:MI'), to_char((sysdate +1),'YYYY/MM/DD HH24:MI'), default)
+ 	</insert>
+ 	
+ 	<update id="updateBS" parameterType="map">
+ 		update book
+ 		set b_status = 'W'
+ 		where b_no = #{bookNo}
+ 	</update>
+ 	
+ 	<select id="selectReservationBookList" resultMap="bookResultSet">
+		select b.*, br.BV_NO, br.B_NO, br.USER_ID, br.BV_DATE, br.BV_RETURN_DATE, br.BV_STATUS
+ 		from book b join book_reservation br on (b.b_no = br.b_no)
+ 		where USER_ID = #{userId}
+ 		order by BV_DATE desc
+ 	</select>
+ 	
+ 	<select id="selectReservationCount" resultType="_int">
+ 		select count(*)
+ 		from book_reservation
+ 		where USER_ID = #{userId}
+ 	</select>
+ 	
+ 	<insert id="insertRequest" parameterType="map">
+ 		insert into book_request
+ 		values(SEQ_BQNO.NEXTVAL, #{userId}, #{name}, #{writer}, null, #{publisher}, #{isbn}, #{price}, #{message}, sysdate, 'N')
+ 	</insert>
+ 	
+ 	<select id="selectRequestList" parameterType="string" resultType="BookRequest">
+ 		select *
+ 		from book_request
+ 		where BQ_STUDENT_ID = #{userId}
+ 		order by BQ_NO desc
+ 	</select>
+ 	
+ 	<update id="checkBook">
+ 		update book
+ 		set b_status = 'N'
+ 		where b_no in (select b_no
+ 			  from book_reservation
+ 			  where BV_RETURN_DATE <![CDATA[<]]> to_char(sysdate,'YYYY/MM/DD HH24:MI'))
+ 	</update>
+ 	
+ 	<select id="requestBookListmaster" resultType="BookRequest">
+ 		select *
+ 		from book_request
+ 		order by bq_no desc
+ 	</select>
+	
 </mapper>

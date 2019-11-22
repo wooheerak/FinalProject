@@ -29,8 +29,25 @@ public class StudyroomDao {
 	}
 
 	public ArrayList<String> selectName(SqlSession sqlSession, Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return (ArrayList)sqlSession.selectList("studyroomMapper.selectName", map);
 	}
+
+	public ArrayList<Studyroom> getSrInfo(SqlSession sqlSession, String so_floor) {
+		return (ArrayList)sqlSession.selectList("studyroomMapper.getSrInfo",so_floor);
+	}
+
+	public ArrayList<String> checkId(SqlSession sqlSession, Map<String, Object> map) {
+		return (ArrayList)sqlSession.selectList("studyroomMapper.checkId", map);
+	}
+
+	public ArrayList<StudyroomOrder> reservationInfo(SqlSession sqlSession, String dateInfo) {
+		return (ArrayList)sqlSession.selectList("studyroomMapper.reservationInfo", dateInfo);
+	}
+
+	public ArrayList<StudyroomOrder> checkTime(SqlSession sqlSession, StudyroomOrder sro) {
+		return (ArrayList)sqlSession.selectList("studyroomMapper.checkTime",sro);
+	}
+
+	
 
 }

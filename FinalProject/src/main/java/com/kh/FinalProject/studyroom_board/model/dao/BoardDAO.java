@@ -57,9 +57,14 @@ public class BoardDAO {
 		return sqlSession.update("boardMapper.memberUnjoin", join);
 	}
 	
+	// 모집 마감
+	public int completeBoard(SqlSessionTemplate sqlSession, int bo_number) {
+		return sqlSession.update("boardMapper.completeBoard", bo_number);
+	}
+	
 	// 댓글 리스트
 	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int bo_number) {
-		return (ArrayList)sqlSession.selectOne("boardMapper.selectReplyList", bo_number);
+		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList", bo_number);
 	}
 
 	// 댓글 등록
@@ -68,8 +73,14 @@ public class BoardDAO {
 	}
 
 	// 댓글 삭제
-	public int deleteReply(SqlSessionTemplate sqlSession, int refBid) {
-		return sqlSession.update("boardMapper.deleteReply", refBid);
+	public int deleteReply(SqlSessionTemplate sqlSession, int rId) {
+		return sqlSession.update("boardMapper.deleteReply", rId);
 	}
+
+	// 댓글 수정
+	public int updateReply(SqlSessionTemplate sqlSession, Map<String, Object> reply) {
+		return sqlSession.update("boardMapper.updateReply", reply);
+	}
+
 
 }

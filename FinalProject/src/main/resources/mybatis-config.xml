@@ -5,27 +5,30 @@
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
+	
 	<typeAliases>
-	  <typeAlias type="com.kh.FinalProject.studyroom_board.model.vo.Board" alias="Board"/>
+	  	<typeAlias type="com.kh.FinalProject.studyroom_board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.FinalProject.studyroom_board.model.vo.Reply" alias="Reply"/>
 		<typeAlias type="com.kh.FinalProject.book.model.vo.Book" alias="Book"/>
 		<typeAlias type="com.kh.FinalProject.notice.model.vo.Notice" alias="Notice"/>
 		<typeAlias type="com.kh.FinalProject.studyseat.model.vo.Seat" alias="Seat"/>
-	  <typeAlias type="com.kh.FinalProject.user.model.vo.User" alias="User"/>
+	  	<typeAlias type="com.kh.FinalProject.user.model.vo.User" alias="User"/>
 		<typeAlias type="com.kh.FinalProject.studyroom_order.model.vo.Studyroom_orderInfo" alias="Studyroom_orderInfo"/>
 		<typeAlias type="com.kh.FinalProject.studyroom_order.model.vo.Studyroom" alias="Studyroom"/>
 		<typeAlias type="com.kh.FinalProject.studyroom_order.model.vo.StudyroomOrder" alias="StudyroomOrder"/>
-    <typeAlias type="com.kh.FinalProject.booksales.model.vo.BookReg" alias="BookReg"/>
-    <typeAlias type="com.kh.FinalProject.studyseat.model.vo.SeatHistory" alias="SeatHistory"/>
+    	<typeAlias type="com.kh.FinalProject.booksales.model.vo.BookReg" alias="BookReg"/>
+    	<typeAlias type="com.kh.FinalProject.studyseat.model.vo.SeatHistory" alias="SeatHistory"/>
+    	<typeAlias type="com.kh.FinalProject.book.model.vo.BookReservation" alias="Bookreservation"/>
+    	<typeAlias type="com.kh.FinalProject.book.model.vo.BookRequest" alias="BookRequest"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/board-mapper.xml"/>
 		<mapper resource="mappers/notice-mapper.xml"/>
 		<mapper resource="mappers/studyroom-mapper.xml"/>
-	  <mapper resource="mappers/seat-mapper.xml"/>
-	  <mapper resource="mappers/user-mapper.xml"/>
-	  <mapper resource="mappers/booksales-mapper.xml"/>
-    <mapper resource="mappers/book-mapper.xml"/>
+		<mapper resource="mappers/seat-mapper.xml"/>
+		<mapper resource="mappers/user-mapper.xml"/>
+		<mapper resource="mappers/booksales-mapper.xml"/>
+    	<mapper resource="mappers/book-mapper.xml"/>
 	</mappers>
 </configuration>

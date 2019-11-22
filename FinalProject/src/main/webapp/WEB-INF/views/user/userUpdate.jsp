@@ -44,18 +44,12 @@
 							<input type="text" class="form-control" name="student_Name" readonly value="${ loginUser.member_Name }" style="background: lightgrey;">
 						</div>
 						<div class="form-group">
-							<p>비밀번호</p>
-							<input type="text" class="form-control" name="student_Password" readonly value="${ loginUser.member_Password }" style="background: lightgrey;">
-						</div>
-						<div class="form-group">
 							<p>핸드폰 번호</p>
-							<input type="text" class="form-control" id="phone" name="Phone"
-								value="${ loginUser.phone }" required>
+							<input type="text" class="form-control" id="phone" name="Phone" value="${ loginUser.phone }" required>
 						</div>
 						<div class="form-group">
 							<p>이메일</p>
-							<input type="text" class="form-control" id="email" name="member_Email"
-								value="${ loginUser.member_Email }" required>
+							<input type="text" class="form-control" id="email" name="member_Email" value="${ loginUser.member_Email }" required>	
 						</div>
 						<div class="form-group">
 							<p>주소</p>
@@ -63,7 +57,11 @@
 								name="address" value="${ loginUser.address }" required>
 						</div>
 						
-						<input id="update" type="submit" class="btn btn-transparent" value="수정하기" style="background:white">&nbsp;&nbsp;
+						<c:url var="myinfo" value="userinformationcheck.ul"/>
+						<input id="update" type="submit" class="btn btn-transparent" value="수정하기" style="background:white" onclick="location.href='${myinfo}'"/>
+						
+						<c:url var="userpwd" value="userpassword.ul"/>
+						<a  class="btn btn-transparent" onclick="location.href='${userpwd}'">비밀번호 수정하기 </a>
 						
 					</form>
 				</div>

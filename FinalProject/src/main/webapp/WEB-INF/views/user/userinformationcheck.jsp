@@ -44,10 +44,6 @@
 							<input type="text" class="form-control" name="member_name" readonly value="${ loginUser.member_Name }" style="background: rightgray;">
 						</div>
 						<div class="form-group">
-							<p>비밀번호</p>
-							<input type="text" class="form-control" name="mamber_password" readonly value="${ loginUser.member_Password }" style="background: rightgray;">
-						</div>
-						<div class="form-group">
 							<p>핸드폰 번호</p>
 							<input type="text" class="form-control" name="Phone" readonly value="${ loginUser.phone }" style="background: rightgray;">
 						</div>
@@ -59,6 +55,8 @@
 							<p>주소</p>
 							<input type="text" class="form-control"	name="address" readonly value="${ loginUser.address }" style="background: rightgray;"/>
 						</div>
+							 <c:url var="mUpdate" value="mUpdate.ul"/>
+							 <a class="btn btn-transparent" onclick="location.href='${mUpdate}'">회원정보수정</a>
 					</form>
 				</div>
 				

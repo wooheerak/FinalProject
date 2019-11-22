@@ -15,7 +15,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-					<h2>비밀번호 찾기</h2>
+					<h2>비밀번호 수정</h2>
 				</div>
 				<!-- end col -->
 			</div>
@@ -34,19 +34,79 @@
 				<div class="col-md-4"></div>
 
 				<div class="col-md-4">
-					<form role="form" class="contactform">
+					<form action="newupdatepwd.ul" role="form" class="contactform">
+						<input type="hidden" name="member_Id"
+							value="${ loginUser.member_Id }">
 						<div class="form-group">
-							<input type="text" class="form-control" id="name" name="name"
-								placeholder="학번을 입력해주세요" required>
+							<input type="text" class="form-control" id="password"
+								placeholder="현재 비밀번호를 입력해주세요." required>
+								<div class="alert alert-success" id="alert-success1">비밀번호가 일치합니다.</div>
+								<div class="alert alert-danger" id="alert-danger1">비밀번호가 일치하지 않습니다.</div>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" id="email" name="email"
-								placeholder="이메일을 입력해주세요" required>
+							<input type="text" class="form-control" id="password1"
+								name="member_Password" placeholder="새 비밀번호를 입력해주세요." required>
 						</div>
-						<a class="btn btn-transparent"
-							onclick="location='userpassword2.up2'">다음</a>
+						<div class="form-group">
+							<input type="text" class="form-control" id="password2"
+								name="member_Password1" placeholder="새 비밀번호를 다시 입력해주세요."
+								required>
+								<div class="alert alert-success" id="alert-success2">비밀번호가 일치합니다.</div>
+								<div class="alert alert-danger" id="alert-danger2">비밀번호가 일치하지 않습니다.</div>
+						</div>
+						<script>
+							$(function(){
+								$("#alert-success1").hide();
+								$("#alert-danger1").hide();
+								$("input").keyup(function(){
+									var pwd1 = $("#password").val();
+									var pwd2 = ${ loginUser.member_Password };
+									if(pwd1 != "" || pwd2 != ""){
+										if(pwd1 == pwd2){
+											$("#alert-success1").show();
+											$("#alert-danger1").hide();
+											$("#check").removeAttr("disabled");
+										} else {
+											$("#alert-success1").hide();
+											$("#alert-danger1").show();
+											$("#check").attr("disabled","disabled");
+										}
+									}
+								});
+							});
+							$(function(){
+								$("#alert-success2").hide();
+								$("#alert-danger2").hide();
+								$("input").keyup(function(){
+									var pwd1 = $("#password1").val();
+									var pwd2 = $("#password2").val();
+									if(pwd1 != "" || pwd2 != ""){
+										if(pwd1 == pwd2){
+											$("#alert-success2").show();
+											$("#alert-danger2").hide();
+											$("#check").removeAttr("disabled");
+
+										} else {
+											$("#alert-success2").hide();
+											$("#alert-danger2").show();
+											$("#check").attr("disabled","disabled");
+											
+										}
+									}
+								});
+							});
+								
+							
+						</script>
+
+
+						<c:url var="myinfo" value="userinformationcheck.ul" />
+						<input type="submit" id="check" class="btn btn-transparent"
+							value="수정하기" style="background: white;" />
 					</form>
 				</div>
+				
+		
 				<!-- end col -->
 
 				<div class="col-md-4"></div>

@@ -661,12 +661,20 @@ button[class*="btn"] {border: 0;}
 												  confirmButtonText: '마감 할래요!!',
 												}).then((result) => {
 												if (result.value) {
-												    location.href='${ bComplete }'
-											    	 swalWithBootstrapButtons.fire(
-											    		      '마감 되었습니다',
-											    		      '마감 완료.',
-											    		      'success'
-											    		    )
+													var url = "srAppointment.sr?bo_number=${board.bo_number}&bo_member=${board.bo_member}&member_Name=${ loginUser.member_Name }&bo_join=?${ board.bo_join }";
+													console.log(${board.bo_member});
+													var srReservation2 = "srReservation2";
+													
+													var specs="width=420px, height=350px, left=20, top=30, toolbar=no, location=no, directories=no";
+													
+													window.open(url,srReservation2,specs);
+													
+// 												    location.href='${ bComplete }'
+// 											    	 swalWithBootstrapButtons.fire(
+// 											    		      '마감 되었습니다',
+// 											    		      '마감 완료.',
+// 											    		      'success'
+// 											    		    )
 												  } else {
 												  }
 											})

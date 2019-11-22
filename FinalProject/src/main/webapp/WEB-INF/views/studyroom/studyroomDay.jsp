@@ -246,15 +246,6 @@
 												<option value="${i}">${i}</option>
 											</c:if>
 										</c:forEach>
-										
-										<%
-// 									      for(int i=year-1; i<year+3; i++){
-// 									       String selected = (i == year)?"selected":"";
-// 									       String color = (i == year)?"#CCCCCC":"#FFFFFF";
-// 									         out.print("<option value="+i+" "+selected+" style=background:"+color+">"+i+"</option>");       
-// 									      }
-									      %>
-									      
 									</select> 
 									
 									<select id="month" name="month"  class="studyroom_option2" onchange="daycheck(this)">

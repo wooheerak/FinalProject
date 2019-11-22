@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +41,9 @@
 <link rel="stylesheet" href="resources/style.css">
 
 <style>
-
+#so_participant{
+	background:lightgrey;
+}
 
 #reservationTable {
 	margin: auto;
@@ -105,12 +108,7 @@ input{
 								<select id="so_floor" name="so_floor" onchange="studyroomNameChange(this.value)" style="width:100%;">
 									<!-- 유저가 클린한 방의 층 selected -->
 									<c:forEach var="i" begin="1" end="3">
-										<c:if test="${i==sr_floor}">
-											<option value="${i}" selected="selected" >${i}</option>
-										</c:if>
-										<c:if test="${i!=sr_floor}">
-											<option value="${i}" >${i}</option>
-										</c:if>
+										<option value="${i}" >${i}</option>
 									</c:forEach>
 								</select>							
 							</td>
@@ -126,7 +124,95 @@ input{
 						</tr>
 						<tr>
 							<td colspan="2"><b>예약 일</b></td>
-							<td colspan="5"><input type="text" readonly id="so_date" name="so_date" value="${so_date}" style="background: lightgrey;"/></td>
+							<td colspan="5">
+								<div>
+									<jsp:useBean id="now" class="java.util.Date"/>
+									<fmt:formatDate value="${now}" pattern="yyyy" var="year"/>
+									<fmt:formatDate value="${now}" pattern="MM" var="month"/>
+									<fmt:formatDate value="${now}" pattern="dd" var="date"/>
+								
+									<select id="year" name="year"  class="studyroom_option2">
+										<!-- 오늘 년도 기본 선택-->
+										<c:forEach var="i" begin="${year-1}" end="${year+2}">
+											<c:if test="${i == year}">
+												<option value="${i}" selected>${i}</option>
+											</c:if>
+											<c:if test="${i != year}">
+												<option value="${i}">${i}</option>
+											</c:if>
+										</c:forEach>
+									</select> 
+									
+									<select id="month" name="month"  class="studyroom_option2" onchange="daycheck(this)">
+										<!--  -->
+										<!-- 오늘 달 기본 선택-->
+										<c:forEach var="i" begin="1" end="12">
+											<c:if test="${i == month}">
+												<c:if test="${i<=9}">
+													<option value="0${i}" selected>${i}</option>
+												</c:if>
+												<c:if test="${i>9}">
+													<option value="${i}" selected>${i}</option>
+												</c:if>
+											</c:if>
+											<c:if test="${i != month}">
+												<c:if test="${i<=9}">
+													<option value="0${i}">${i}</option>
+												</c:if>
+												<c:if test="${i>9}">
+													<option value="${i}">${i}</option>
+												</c:if>
+											</c:if>
+										</c:forEach>
+									</select> 
+									
+									<select id="day" name="day"  class="studyroom_option2">
+										<!-- 선택된 달의 숫자만큼 일수 반복-->
+										<c:choose>
+											<c:when test="${month==1 or month ==3 or month==5 or month == 7 or month == 8 or month == 10 or month == 12}">
+												<c:forEach var="i" begin="1" end="31">
+													<c:if test="${i == date}">
+														<option value="${i}" selected>${i}</option>
+													</c:if>
+													<c:if test="${i != date}">
+														<option value="${i}">${i}</option>
+													</c:if>
+												</c:forEach>
+											</c:when>
+											<c:when test="${month==4 or month ==6 or month==9 or month == 11}">
+												<c:forEach var="i" begin="1" end="30">
+													<c:if test="${i == date}">
+														<option value="${i}" selected>${i}</option>
+													</c:if>
+													<c:if test="${i != date}">
+														<option value="${i}">${i}</option>
+													</c:if>
+												</c:forEach>
+											</c:when>
+											<c:when test="${month==2 and (year % 4 ==0 and year%100 !=0) or year %400==0}">
+												<c:forEach var="i" begin="1" end="31">
+													<c:if test="${i == date}">
+														<option value="${i}" selected>${i}</option>
+													</c:if>
+													<c:if test="${i != date}">
+														<option value="${i}">${i}</option>
+													</c:if>
+												</c:forEach>
+											</c:when>
+											<c:when test="${month==2}">
+												<c:forEach var="i" begin="1" end="28">
+													<c:if test="${i == date}">
+														<option value="${i}" selected>${i}</option>
+													</c:if>
+													<c:if test="${i != date}">
+														<option value="${i}">${i}</option>
+													</c:if>
+												</c:forEach>
+											</c:when>
+										</c:choose>
+									</select>
+								</div>
+							</td>
 							<td></td>
 						</tr>
 						<tr>
@@ -136,20 +222,10 @@ input{
 									<!-- i값이 사용자가 클릭한 값이랑 일치하면 selected -->
 									<c:forEach var="i" begin="9" end="21">
 										<c:if test="${i<10}">
-											<c:if test="${i == so_startTime}">
-												<option value="0${i}" selected="selected">0${i}:00</option>				
-											</c:if>
-											<c:if test="${i != so_startTime}">
-												<option value="0${i}">0${i}:00</option>				
-											</c:if>  
+											<option value="0${i}" selected>0${i}:00</option>				
 										</c:if>
 										<c:if test="${i>=10}">
-											<c:if test="${i == so_startTime}">
-												<option value="${i}" selected="selected">${i}:00</option>				
-											</c:if>
-											<c:if test="${i != so_startTime}">
-												<option value="${i}">${i}:00</option>				
-											</c:if>                                                          
+											<option value="${i}">${i}:00</option>				
 										</c:if>
 									</c:forEach>
 								</select>
@@ -157,19 +233,14 @@ input{
 							<td>~</td>
 							<td colspan="2">
 								<select id="so_end_time" name="so_end_time" style="width:100%">
-									<c:if test="${so_startTime<21}">
-										<c:forEach var="i" begin="${so_startTime+1}" end="${so_startTime+2}">										
-											<c:if test="${i == so_startTime+1}">
+										<c:forEach var="i" begin="10" end="11">										
+											<c:if test="${i == 10}">
 												<option value="${i}" selected="selected">${i}:00</option>				
 											</c:if>
-											<c:if test="${i != so_startTime+1}">
+											<c:if test="${i != 10}">
 												<option value="${i}">${i}:00</option>				
 											</c:if>										
 										</c:forEach>
-									</c:if>
-									<c:if test="${so_startTime == 21}">
-										<option value="${so_startTime+1}">${so_startTime+1}:00</option>	
-									</c:if>
 								</select>
 							</td>
 							<td></td>
@@ -178,7 +249,14 @@ input{
 					<table  class="text-center" id="reservationTable2" name="reservationTable2">
 						<tr>
 							<td colspan="2"><b>예약자 정보(학번)</b></td>
-							<td colspan="5"><input name="so_organizer" id="so_organizer" type="text" readonly style="height:24px; background:lightgrey;" value="${so_organizer}"/></td>
+							<td colspan="5"><input name="so_organizer" id="so_organizer" type="text" readonly style="height:24px; background:lightgrey;" value="${member_Name}"/></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td colspan="2"><b>참여 인원</b></td>
+							<td colspan="5">
+							<input name="memberCount" id="memberCount" type="text" readonly style="height:24px; background:lightgrey;" value="${bo_member}"/>
+							<input name="so_organizer" id="so_organizer" type="hidden" readonly style="height:24px; background:lightgrey;" value="${bo_join}"/></td>
 							<td></td>
 						</tr>
 					</table>
@@ -186,7 +264,7 @@ input{
 				<br>
 				<div class="btnbox">
 					<!-- 예약 완료시 이 창은 꺼지고 부모창 refresh -->
-					<input class="btn btn-transparent" style="padding:0px" onclick="reservationCheck()" type="submit" value="예약"/>
+					<input class="btn btn-transparent" style="padding:0px" onclick="reservationCheck()" type="button" value="예약"/>
 					<input class="btn btn-transparent" style="padding:0px"  type="button" onclick="window.close()" value="취소"/>
 				</div>
 			</form>
@@ -197,23 +275,6 @@ input{
 	var count=0;
 	var num=0;
 	// 인원수 추가
-	$(document).on("click","#addParticipant",function (){
-		if(selectRoomInfo[num].sr_maxPeople-1>count){
-			$('#reservationTable2 > tbody:last').append(
-					'<tr id = "t'+ count +'"><td colspan="2"></td><td colspan="5"><input id="so_participant" name="so_participant" type="text" style="height:24px;"></td><td><button type="button" onclick="deleteParticipant(this);" class="btn btn-transparent addPar" style="width:25px; height:25px;" id = "b'+ count +'">-</button></td></tr>');
-			count++;
-		}else{
-			alert("최대 인원수 입니다.");
-		}
-					
-	});
-	
-	// 인원수 축소
-	function deleteParticipant(obj){
-		var tId = "#" + $(obj).parent('td').parent('tr').attr('id');
-		$(tId).remove();
-		count--;
-	}
 	
 	// 랜덤 배경색상 지정
 	var so_bColor='#';
@@ -241,29 +302,27 @@ input{
 		
 		//console.log(myData);
 		
-		
-		
 		// 참여자 실제 학생인지 검사
-		var check = {"idCheck":myData};
-		//console.log(check);
+// 		var check = {"idCheck":myData};
+// 		//console.log(check);
 		
-		jQuery.ajaxSettings.traditional = true;
+// 		jQuery.ajaxSettings.traditional = true;
 		
-		$.ajax({
-			type 	: "POST",
-			url		: "checkId.sr",
-			data	: check,
-			success	: function(data){
-				if(participants.length > $(data).length){
-					alert("학번을 정확히 입력해 주십시오.");
-					return false;
-				}
-			},
-			error:function(){
-				alert("학번을 정확히 입력해 주십시오.");
-				return false;
-			}
-		});	
+// 		$.ajax({
+// 			type 	: "POST",
+// 			url		: "checkId.sr",
+// 			data	: check,
+// 			success	: function(data){
+// 				if(participants.length > $(data).length){
+// 					alert("학번을 정확히 입력해 주십시오.");
+// 					return false;
+// 				}
+// 			},
+// 			error:function(){
+// 				alert("학번을 정확히 입력해 주십시오.");
+// 				return false;
+// 			}
+// 		});	
 		
 		// 참여자 또는 예약자가 동일 시간대에 다른곳에 예약 되었는지 체크
 		
@@ -287,14 +346,13 @@ input{
 				so_date: $('#so_date').val()
 			},
 			success	: function(data){
-				if(data!=0){
-					console.log(data);
-					alert("중복 예약은 불가능 합니다1.");
+				if($(data)!=0){
+					alert("중복 예약은 불가능 합니다.");
 					return false;
 				}
 			},
 			error:function(){
-				alert("중복 예약은 불가능 합니다2.");
+				alert("중복 예약은 불가능 합니다.");
 				return false;
 			}
 		});
@@ -328,18 +386,16 @@ input{
 	window.onload=function(){
 		var $target = $("select[name='so_name']");
 		var $target2 = $("table[name='reservationTable2']");
+		var bo_member = $("#memberCount").val();
 		
-		$target.empty();
-		if(${sr_floor} == ""){
-			$target.append('<option value="">선택</option>');
-			return;
-		}
+		console.log(bo_member);
 		
 		$.ajax({
 			type: "POST",
-			url : "getSrInfo.sr",
+			url : "spoidSrInfo.sr",
 			async: false,
-			data : {so_floor : ${sr_floor} },
+			data : {so_floor : 1,
+					bo_member: bo_member},
 			success: function(jdata){
 				if(jdata.length == 0){
 					$target.append('<option value="">선택</option>');
@@ -354,29 +410,7 @@ input{
 							$target.append("<option value="+ jdata[i].sr_name+">"+jdata[i].sr_name+"</option>");
 						}
 					});
-					$("#so_name option:contains('${sr_name}')").prop("selected","selected");
 					
-					// 선택한 select의 value값(스터디룸 이름)을 받고 그 값 의 최대 인원수를 뽑아야 함
-					var studyroom = Math.floor((jdata[num].sr_maxPeople-1)/2);
-					// console.log(studyroom);
-					
-					
-					for(var i=0; i<studyroom; i++){
-						if(studyroom==1&&i==0){
-							$target2.append("<tr><td colspan='2'><b>참여자</b></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td><button id='addParticipant' name='addParticipant' type='button' class='btn btn-transparent so_participant' style='width:25px; height:25px;'>+</button></td></tr>");
-							count++;
-						}else if(i == 0){
-							$target2.append("<tr><td colspan='2'><b>참여자</b></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td></td></tr>");
-							count++;
-						}else if(i == (studyroom-1)){
-							$target2.append("<tr><td colspan='2'></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td><button id='addParticipant' name='addParticipant' type='button' class='btn btn-transparent so_participant' style='width:25px; height:25px;'>+</button></td></tr>");
-							count++;
-						}else{
-							$target2.append("<tr><td colspan='2'></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td></td></tr>");
-							count++;
-						}	
-						
-					}
 				}
 			},
 			error:function(xhr){
@@ -424,24 +458,6 @@ input{
 					
 					var studyroom = Math.floor((jdata[num].sr_maxPeople-1)/2);
 					console.log(studyroom);
-					
-					$('#reservationTable2 tr:not(:first)' ).remove();
-					
-					for(var i=0; i<studyroom; i++){
-							if(studyroom==1&&i == 0){
-								$target2.append("<tr><td colspan='2'><b>참여자</b></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td><button id='addParticipant' name='addParticipant' type='button' class='btn btn-transparent so_participant' style='width:25px; height:25px;'>+</button></td></tr>");
-								count++;
-							}else if(i == 0){
-								$target2.append("<tr><td colspan='2'><b>참여자</b></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td></td></tr>");
-								count++;
-							}else if(i == (studyroom-1)){
-								$target2.append("<tr><td colspan='2'></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td><button id='addParticipant' name='addParticipant' type='button' class='btn btn-transparent so_participant' style='width:25px; height:25px;'>+</button></td></tr>");
-								count++;
-							}else{
-								$target2.append("<tr><td colspan='2'></td><td colspan='5'><input id='so_participant'"+i+" name='so_participant'  type='text' style='height:24px;'></td><td></td></tr>");
-								count++;
-							}	
-						}
 				}
 			},
 			error:function(xhr){

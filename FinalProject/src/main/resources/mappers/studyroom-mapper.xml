@@ -11,11 +11,30 @@
 		FROM STUDYROOM
 		
 	</select>
+	<select id="selectRoomListwM" resultMap="studyroomResultSet">
+		<![CDATA[
+		SELECT *
+		FROM STUDYROOM
+		WHERE SR_MAXPEOPLE>=#{bo_member} 
+		AND SR_MAXPEOPLE/2<=#{bo_member}
+		]]>
+		
+	</select>
+	
+	<select id="spoidSrInfo" parameterType="map" >
+		<![CDATA[
+		SELECT *
+		FROM STUDYROOM
+		WHERE SR_MAXPEOPLE>=#{bo_member} 
+		AND SR_MAXPEOPLE/2<=#{bo_member}
+		AND SR_FLOOR = #{so_floor}
+		]]>
+	</select>
 	
 	<select id="getSrInfo" parameterType="string" resultMap="studyroomResultSet">
 		SELECT *
 		FROM STUDYROOM
-		WHERE SR_FLOOR=${so_floor}
+		WHERE SR_FLOOR=#{so_floor}
 	</select>
 	
 	<resultMap type="Studyroom" id="studyroomResultSet">
@@ -67,8 +86,9 @@
 	<select id="checkTime" parameterType="StudyroomOrder" resultType="StudyroomOrder">
 		SELECT *
 		FROM STUDYROOM_ORDER
-		WHERE to_char(SO_DATE,'yyyymmdd') = #{so_date} 
-    		and (so_organizer=#{so_organizer} OR so_participant=#{so_participant} OR so_organizer=#{so_participant} OR so_participant=#{so_organizer})
+		WHERE to_char(SO_DATE,'yyyymmdd')=#{so_date} 
+    		and (so_organizer=#{so_organizer} OR so_participant=#{so_participant} 
+    				OR so_organizer=#{so_participant} OR so_participant=#{so_organizer})
     		and (so_start_time = #{so_start_time} OR so_end_time=#{so_end_time})
 	</select>
 	

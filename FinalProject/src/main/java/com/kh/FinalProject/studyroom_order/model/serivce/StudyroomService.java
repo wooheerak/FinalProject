@@ -29,6 +29,10 @@ public interface StudyroomService {
 
 	ArrayList<StudyroomOrder> checkTime(StudyroomOrder sro);
 
+	ArrayList<Studyroom> selectRoomList(int bo_member);
+
+	ArrayList<Studyroom> spoidSrInfo(Map<String, Object> map);
+
 
 	
 

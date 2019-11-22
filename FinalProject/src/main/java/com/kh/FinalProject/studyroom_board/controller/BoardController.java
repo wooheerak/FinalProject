@@ -141,7 +141,7 @@ public class BoardController {
 		
 		if(result > 0) {
 			
-			return "srReservation.sr";
+			return "redirect:bDetail.bo?bo_number"+bo_number;
 			
 		}else {
 			throw new BoardException("모집 마감 실패");

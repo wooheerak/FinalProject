@@ -48,6 +48,14 @@ public class StudyroomDao {
 		return (ArrayList)sqlSession.selectList("studyroomMapper.checkTime",sro);
 	}
 
+	public ArrayList<Studyroom> selectRoomList(SqlSession sqlSession, int bo_member) {
+		return (ArrayList)sqlSession.selectList("studyroomMapper.selectRoomListwM",bo_member);
+	}
+
+	public ArrayList<Studyroom> spoidSrInfo(SqlSession sqlSession, Map<String, Object> map) {
+		return (ArrayList)sqlSession.selectList("studyroomMapper.spoidSrInfo",map);
+	}
+
 	
 
 }

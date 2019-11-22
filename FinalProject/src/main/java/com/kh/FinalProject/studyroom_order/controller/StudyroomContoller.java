@@ -84,6 +84,21 @@ public class StudyroomContoller {
 		return list;
 	}
 	
+	// 참여인원 만큼의 스터디룸 조회
+	@RequestMapping("spoidSrInfo.sr")
+	@ResponseBody
+	public ArrayList<Studyroom> spoidSrInfo(@RequestParam String so_floor, @RequestParam String bo_member) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("so_floor", so_floor);
+		map.put("bo_member", bo_member);
+		
+		System.out.println(map);
+		
+		ArrayList<Studyroom> list = srService.spoidSrInfo(map);
+		//System.out.println("getSrInfo : " + list);
+		return list;
+	}
+	
 	// 스터디룸 해당일 예약 전체 조회
 	@RequestMapping(value="srDay.sr", method= {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView dayView(ModelAndView mv,@RequestParam(value="year", required=false)Integer year,
@@ -134,13 +149,40 @@ public class StudyroomContoller {
 	public String weekView() {
 		return "studyroomWeek";
 	}
+	// 스터디룸 게시판 마감 -> 예약 페이지
+	@RequestMapping("srAppointment.sr")
+	public ModelAndView sr( 
+			@RequestParam(value="bo_member", required=false) int bo_member,
+			@RequestParam(value="member_Name", required=false) String member_Name,
+			@RequestParam(value="bo_join", required=false) String bo_join, ModelAndView mv) {
+		
+		System.out.println(bo_member);
+		System.out.println(member_Name);
+		System.out.println(bo_join);
+		
+		mv.addObject("bo_member",bo_member);
+		mv.addObject("member_Name",member_Name);
+		mv.addObject("bo_join",bo_join);
+		
+		
+		ArrayList<Studyroom> studyroomInfo = srService.selectRoomList(bo_member);
+		//System.out.println("studyroomInfo : " + studyroomInfo);
+		
+		if(studyroomInfo != null) {
+			mv.addObject("studyroomInfo",studyroomInfo);
+			mv.setViewName("studyroomAppointment");
+		}else {
+			
+		}
+		
+		return mv;
+	}
 	
 	// 스터디룸 예약 페이지
 	@RequestMapping("srReservation.sr")
 	public ModelAndView reservView(@RequestParam("sr_name") String sr_name, @RequestParam(value="so_date", required=false) String so_date,
 								@RequestParam(value="so_startTime", required=false) String so_startTime, @RequestParam(value="so_organizer", required=false) String so_organizer,
-								@RequestParam(value="sr_floor", required=false) String sr_floor, ModelAndView mv) {
-		
+								@RequestParam(value="sr_floor", required=false) String sr_floor,ModelAndView mv) {
 		// 값 받은후 변경
 		mv.addObject("sr_name",sr_name);
 		mv.addObject("so_date",so_date);
@@ -151,7 +193,6 @@ public class StudyroomContoller {
 		// 전체 스터디룸 정보
 		ArrayList<Studyroom> studyroomInfo = srService.selectRoomList();
 		//System.out.println("studyroomInfo : " + studyroomInfo);
-		
 		if(studyroomInfo != null) {
 			mv.addObject("studyroomInfo",studyroomInfo);
 			mv.setViewName("studyroomReservation");
@@ -199,7 +240,9 @@ public class StudyroomContoller {
 							@RequestParam(value="so_organizer", required=false) String so_organizer) {
 //		System.out.println("학생체크매핑됨");
 		SimpleDateFormat tf = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println("안바뀐 date : " + so_date);
 		Date date=Date.valueOf(so_date);
+		System.out.println("바뀐 date : " + date);
 		
 		StudyroomOrder sro = new StudyroomOrder();
 			sro.setSo_participant(so_participant);
@@ -210,48 +253,22 @@ public class StudyroomContoller {
 		
 		
 		// 참여자 쪼갤 배열
-		String[] partici = so_participant.split(",");
+		String[] partici = so_participant.split(",| ");
 		
 		// 참여자별 조회 결과 저장을 위한 변수
-		int count =0;
+		int count=0;
 		// 참여자 숫자만큼 검색
 		for(int i =0; i<partici.length; i++) {
 			System.out.println("partici : "+partici[i]);
 			sro.setSo_participant(partici[i]);
 			System.out.println("sro: " + sro);
 			ArrayList<StudyroomOrder> result= srService.checkTime(sro);
-			if(result != null){
+			if(!result.isEmpty()){
+				System.out.println("중복 예약 정보 : " + result);
 				count++;
-				break;
+				//break;
 			}
 		}
 		return count;
 	}
-	
-	@RequestMapping("monthDown.sr")
-	public String monthDown(String year,String month, String day) {
-		int tempYear =0;
-		int tempMonth =0;
-		int tempDay =0;
-		
-		if(month == "01"){
-			tempYear = Integer.parseInt(year)-1;
-			month="12";
-		}else{
-			tempMonth = Integer.parseInt(month)-1;
-		}
-		
-		return "";
-	}
-	
-	@RequestMapping("monthUp.sr")
-	public String monthUp(int Month) {
-			
-		return "";
-	}
-	
-	
-	
-	
-	
 }

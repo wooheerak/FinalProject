@@ -133,12 +133,15 @@ public class BoardController {
 	
 	// 모집 마감
 	@RequestMapping("bComplete.bo")
-	public String boardComplete(@RequestParam("bo_number") int bo_number) {
+	public String boardComplete(@RequestParam("bo_number") int bo_number,
+								@RequestParam("member_Name") String member_Name,
+								@RequestParam("bo_join") String bo_join) {
 		
 		int result = sbService.completeBoard(bo_number);
 		
 		if(result > 0) {
-			return "redirect:bList.bo";
+			
+			return "srReservation.sr";
 			
 		}else {
 			throw new BoardException("모집 마감 실패");

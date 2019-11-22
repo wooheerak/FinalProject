@@ -174,61 +174,35 @@
 	<!-- 수진쓰 추가부분 -->
 	<script>
 		
-	<% 
-		Cookie[] cookies = request.getCookies();
-		
-		int check = 0 ;
-		int rNo = 0;
-		int uNo = 0;
-		
-		User user = (User)session.getAttribute("loginUser");
-		if(user != null){
-		 	rNo = user.getRseatNo();
-		 	uNo = user.getUseatNo();
-		}
-		if(cookies != null){
-			for(Cookie c : cookies){
-				System.out.println("쿠키 : " + c.getName());
-				if(c.getName().equals("certTimer")){
-					System.out.println("인증 타이머 쿠키가 살아있다");
-					check = 1 ;
+	function checkCookie(){
+		/* location.href="cancelRC.ss?cancelId=" ;
+		location.href="outSeatCoo.ss?outNo=" ; */
+			$.ajax({
+				url : "checkCookie.ss" ,
+				success : function(data){
+					console.log(data);
+					if(data.cName == "No"){
+						if(data.sNo != 0){
+							if(data.cStatus == "cert"){
+								location.href="cancelRC.ss?cancelId=" + data.sNo ;					
+							}
+							else if(data.cStatus == "out"){
+								location.href="outSeatCoo.ss?outNo=" + data.sNo;						
+							}
+						}
+					}
+					
+				} ,
+				error : function(data){
+					console.log(data);
 				}
-				else if(c.getName().equals("outTimer")){
-					System.out.println("퇴실 타이머 쿠키가 살아있다");
-					check = 2 ;
-				}
-				
-			}
-		}
-		
-		if(check == 0){
-			if(rNo == 0){
-	%>
-			
-				console.log("없으");
-	<%
-			}
-			else{
-	%>
-				console.log(<%=rNo %> + "취소할게");
-				location.href="cancelRC.ss?cancelId=" + <%=rNo %>;
-	<%
-			}
-			
-			if(uNo == 0){
-	%>
-						
-				console.log("없으");
-	<%
-			}
-			else{
-	%>
-				console.log(<%=uNo %> + "퇴실할게");
-				location.href="outSeatCoo.ss?outNo=" + <%=uNo %>;
-	<%
-			}
-		}
-	%>
+			});
+	}
+	
+	
+	window.onload = setInterval(function(){
+		checkCookie();
+	}, 5000);
 	
 	</script>
 	<!-- 요기까지 -->

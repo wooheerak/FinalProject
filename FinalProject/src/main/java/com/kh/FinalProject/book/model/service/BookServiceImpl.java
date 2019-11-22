@@ -121,6 +121,12 @@ public class BookServiceImpl implements BookService{
 	}
 
 
+	@Override
+	public int cancelRequest(int bq_no) {
+		return bDao.cancelRequest(sqlSession, bq_no);
+	}
+
+
 	
 	
 }

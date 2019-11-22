@@ -41,4 +41,6 @@ public interface BookService {
 
 	ArrayList<BookReservation> selectReservationList();
 
+	int cancelRequest(int bq_no);
+
 }

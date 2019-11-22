@@ -87,6 +87,9 @@
 						</thead>
 						<tbody>
 							<c:forEach var="r" items="${ list }">
+								<c:url var="cancel" value="cancelRequset.bk">
+									<c:param name="BQ_NO" value="${ r.BQ_NO }"/>					
+								</c:url>  							
 								<tr>
 									<td>${r.BQ_NAME }</td>
 									<td>${r.BQ_WRITER }</td>
@@ -108,7 +111,9 @@
 										</c:if>
 									</td>
 									<td>
-										
+					            		<c:if test="${r.BQ_STATUS eq 'W' }">
+						            		<input id="" type="button" onclick="location.href='${cancel}'" value="취소하기" style="background-color: white; color: black; border: 2px solid red;"/>&nbsp;
+						            	</c:if>
 									</td>
 								</tr>
 							</c:forEach>

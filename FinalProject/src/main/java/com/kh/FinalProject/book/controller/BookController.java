@@ -282,4 +282,13 @@ public class BookController {
 		
 		return mv;
 	}
+	
+	@RequestMapping("cancelRequset.bk")
+	public String cancelRequset(@RequestParam("BQ_NO") int bq_no) {
+		
+		
+		int result = bService.cancelRequest(bq_no);
+		
+		return "redirect: selectRequestBook.bk";
+	}
 }

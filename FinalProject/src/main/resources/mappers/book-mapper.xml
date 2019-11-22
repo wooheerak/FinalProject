@@ -173,6 +173,12 @@
  		where bq_no = #{bq_no}
  	</update> 	
  	
+ 	<update id="cancelRequest">
+ 		update BOOK_REQUEST
+ 		set bq_status = 'C'
+ 		where bq_no = #{bq_no}
+ 	</update>
+ 	
  	<select id="reservationBookListmaster" resultMap="reservationResultSet">
  		select *
  		from book_reservation

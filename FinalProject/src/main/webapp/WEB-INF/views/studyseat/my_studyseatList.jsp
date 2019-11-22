@@ -18,7 +18,6 @@
 	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
 <script>
 
-	
 
 	jQuery(function($) {
 		$("#seatList").DataTable({
@@ -248,11 +247,8 @@
         </section>
         <!-- end section -->
         </div>
-        	`
+        	
         <script>
-        		
-       
-		
         
         
         		var cancelId = 0 ;
@@ -269,12 +265,11 @@
  							
  						
  							$(".isStudy").text("열람실");
- 							
- 							
- 	                        
+ 							 							 	                        
  	                        $("#sContent").text("");
  								
  							for(var i in data){
+ 								
  								
  								str +=  '<tr>' ;
  								str +=  ('<td>' + (Number(i)+1) + '</td>');
@@ -293,7 +288,8 @@
  									str += '<td>예약 취소</td>' ;
  								}
  								
- 								str += ('<td>' + data[i].useDate + '</td>');
+ 								str += ('<td>' + data[i].startTime + '</td>');
+ 								str += ('<td>' + data[i].endTime + '</td>');
  								
  								if(data[i].shStatus == "E"){
  									str += '<td></td>';
@@ -338,6 +334,8 @@
 		        function cancelSeat(obj){									
 					console.log(cancelId);
 					
+					/* 수정수정 */
+					
 					$.ajax({
 						url : "cancelResv.ss" ,
 						data : { cancelId : cancelId } ,
@@ -370,7 +368,8 @@
  								}
 								
 								
-								str += ('<td>' + data[i].useDate + '</td>');
+								str += ('<td>' + data[i].startTime + '</td>');
+ 								str += ('<td>' + data[i].endTime + '</td>');
 								
 								if(data[i].shStatus == "E"){
 									str += '<td></td>';

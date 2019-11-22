@@ -44,6 +44,10 @@ public class StudyroomDao {
 		return (ArrayList)sqlSession.selectList("studyroomMapper.reservationInfo", dateInfo);
 	}
 
+	public ArrayList<StudyroomOrder> checkTime(SqlSession sqlSession, StudyroomOrder sro) {
+		return (ArrayList)sqlSession.selectList("studyroomMapper.checkTime",sro);
+	}
+
 	
 
 }

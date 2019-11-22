@@ -78,6 +78,18 @@ public class BookDao {
 	public ArrayList<BookRequest> requestBookmasterPage(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("bookMapper.requestBookListmaster");
 	}
+
+	public int allowRequest(SqlSessionTemplate sqlSession, String bq_no) {
+		return sqlSession.update("bookMapper.allowRequest", bq_no);
+	}
+
+	public int rejactRequest(SqlSessionTemplate sqlSession, String bq_no) {
+		return sqlSession.update("bookMapper.rejactRequest", bq_no);
+	}
+
+	public ArrayList<BookReservation> selectReservationList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("bookMapper.reservationBookListmaster");
+	}
 	
 	
 }

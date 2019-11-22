@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>StudyHub.lib</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-
+<style>
 /*열람실 좌석현황*/
 .readingR{position: relative; margin-top: 22px;}
 .readingR > ul{overflow: hidden;padding: 3px 9px 2px 12px;border: 1px solid #dedede;background-color: #f5f5f5;}

@@ -90,6 +90,10 @@ public class BookDao {
 	public ArrayList<BookReservation> selectReservationList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("bookMapper.reservationBookListmaster");
 	}
+
+	public int cancelRequest(SqlSessionTemplate sqlSession, int bq_no) {
+		return sqlSession.update("bookMapper.cancelRequest", bq_no);
+	}
 	
 	
 }

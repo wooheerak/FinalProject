@@ -133,12 +133,15 @@ public class BoardController {
 	
 	// 모집 마감
 	@RequestMapping("bComplete.bo")
-	public String boardComplete(@RequestParam("bo_number") int bo_number) {
+	public String boardComplete(@RequestParam("bo_number") int bo_number,
+								@RequestParam("member_Name") String member_Name,
+								@RequestParam("bo_join") String bo_join) {
 		
 		int result = sbService.completeBoard(bo_number);
 		
 		if(result > 0) {
-			return "redirect:bList.bo";
+			
+			return "srReservation.sr";
 			
 		}else {
 			throw new BoardException("모집 마감 실패");
@@ -179,7 +182,9 @@ public class BoardController {
 	
 	// 그룹 탈퇴
 	@RequestMapping("bUnjoin.bo")
-	public ModelAndView memberUnjoin(@RequestParam("bo_number") int bo_number, @RequestParam("Member_Name") String Member_Name,
+	public ModelAndView memberUnjoin(@RequestParam("bo_number") int bo_number, 
+						@RequestParam("Member_Name") String Member_Name,
+						@RequestParam("Member_Id") String Member_Id,
 						HttpServletRequest request, ModelAndView mv) {
 		
 		int bNo = bo_number;
@@ -187,6 +192,7 @@ public class BoardController {
 		Map<String, Object> join = new HashMap<String, Object>();
 		join.put("bo_number",bo_number);
 		join.put("Member_Name",Member_Name);
+		join.put("Member_Id", Member_Id );
 		
 		int result = sbService.memberUnjoin(join);
 			

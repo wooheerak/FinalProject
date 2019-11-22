@@ -71,7 +71,7 @@
      <!-- 그룹 참여  UPDATE 내테이블 SET 컬럼 = 컬럼||'신규값' -->
      <update id = "memberJoin" parameterType = "map" >
         UPDATE STUDYROOM_BOARD
-        SET BO_MEMBER = BO_MEMBER + 1 , BO_JOIN = BO_JOIN||#{Member_Name}||' '
+        SET BO_MEMBER = BO_MEMBER + 1 , BO_JOIN = BO_JOIN||#{Member_Id}||' '
         WHERE BO_NUMBER = #{bo_number}
      </update>
      
@@ -79,7 +79,7 @@
      <update id = "memberUnjoin" parameterType = "map" >
         UPDATE STUDYROOM_BOARD
         SET BO_MEMBER = BO_MEMBER - 1 , 
-        BO_JOIN = REPLACE(BO_JOIN,#{Member_Name},'')
+        BO_JOIN = REPLACE(BO_JOIN,#{Member_Id},'')
         WHERE BO_NUMBER = #{bo_number}
      </update>
      

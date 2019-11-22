@@ -497,7 +497,7 @@ button[class*="btn"] {border: 0;}
 		<div class="icon-center">
 			<i class="fa fa-code"></i>
 		</div>
-	<table id="tb" class="table">
+		<table id="tb" class="table">
         <thead>
             <tr>
             	<th>번호</th>

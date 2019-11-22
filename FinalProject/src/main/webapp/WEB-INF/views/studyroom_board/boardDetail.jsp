@@ -638,7 +638,12 @@ button[class*="btn"] {border: 0;}
 										</script>
 									</c:if>
 									<c:url var="bComplete" value="bComplete.bo">
+									<!-- 작성자, 참여인원, 참여자id,  -->
+									
+										<c:param name="member_Name" value="${ loginUser.member_Name }"/>
 										<c:param name="bo_number" value="${ board.bo_number }"/>
+										<c:param name="bo_join" value="${ board.bo_join }"/>
+										
 									</c:url>
 									<button id="complete" class="btn-gradient green">마감하기</button>
 									<script type="text/javascript">

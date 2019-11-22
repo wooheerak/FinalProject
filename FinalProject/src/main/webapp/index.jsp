@@ -102,8 +102,10 @@
 		style="padding-top: 80px; padding-bottom: 20px;">
 		<div class="col-md-1"></div>
 		<div class="col-md-4 notice nopad">
-			<b style="padding-left: 15px;">공지사항</b>
-			<ul id="t" style="padding-left: 0px;">
+			<b style="padding-left: 15px; font-size: 20px;">공지사항</b><a
+				href="nlist.no"><img alt="" src="resources/images/more.gif"
+				style="float: right; width: 15px; padding-top: 5px;"></a>
+			<ul id="t" style="padding-left: 15px;">
 				<!-- li 태그로 공지사항 제목 들어가는 부분 -->
 			</ul>
 		</div>
@@ -152,15 +154,15 @@
 	<!-- 공지사항 인덱스 리스트 끝 -->
 
 	<!-- 중고 신착 도서 리스트 -->
-	<section class="section" style="padding-top: 0px;">
+	<section class="section" style="padding-top: 15px;">
 		<div class="col-md-1"></div>
-		<div class="col-md-3 nopad">
-			<div style="width: 330px;">
-				<b style="padding-left: 15px;">중고서적</b>
-				<div id="d" style="display: flex;">
-					<!-- 중고서적 이미지 -->
-				</div>
-			</div>
+		<div class="col-md-4 nopad">
+			<b style="padding-left: 15px; font-size: 20px;">중고서적</b>
+			<a href="bslist.bs"><img alt="" src="resources/images/more.gif"
+				style="float: right; width: 15px; padding-top: 5px;"></a>
+			<ul id="d" style="display: flex; padding-left: 0px; border-top: 1px solid #878787;">
+				<!-- 중고서적 이미지 -->
+			</ul>
 		</div>
 	</section>
 
@@ -181,20 +183,20 @@
 							var str = "";
 
 							for ( var i in data) {
-								str += '<div style="padding-left: 10px;">';
+								str += '<ul style="list-style-type:none; padding-left: 10px; padding-top: 10px;">';
 								str += '<a href="'
 										+ "bsdetail.bs?brBnumber="
 										+ data[i].brBnumber
 										+ '"><span class="img"><span class="bookKind" style="position: absolute; background: url(resources/images/신착도서.png); background-size: 100%; z-index: 100; width: 30px; height: 316px; color: #fff; font-size: 13px; padding-top: 5px; background-repeat: no-repeat; text-align: center;">신착</span>';
-								str += '<div class="imgBox ebook-details nopad">';
+								str += '<li class="imgBox ebook-details nopad">';
 								str += '<img alt="" src="resources/bsuploadFiles/'+ data[i].renameFileName +'"';
-								str +=' style="width: 120px; height: 160; padding-left:10px;" class="img-respive">';
-								str += '<div style="padding-left:25px; padding-top: 9px;">'
+								str +=' style="max-width: 120px; height: auto; class="img-respive">';
+								str += '<li style="padding-left:35px; padding-top: 9px;">'
 										+ data[i].brPrice + '원</div>';
 								str += '</a>';
-								str += '</div>';
+								str += '</li>';
 								str += '</span>';
-								str += '</div>';
+								str += '</ul>';
 
 							}
 							console.log(str);
@@ -215,7 +217,8 @@
 	<section>
 		<!-- 유용한 싸이트 링크 슬라이드 -->
 		<section style="background-color: white;">
-			<div id="logoSlider" style="border-top: 1px solid #dadada; border-bottom: 1px solid #dadada;">
+			<div id="logoSlider"
+				style="border-top: 1px solid #dadada; border-bottom: 1px solid #dadada;">
 				<div class="MS-content">
 					<div class="item">
 						<a href="http://www.nl.go.kr/nl/" target="_blank" title="국립중앙도서관">
@@ -277,8 +280,8 @@
 		<!-- Initialize element with Multislider -->
 		<script>
 			$('#logoSlider').multislider({
-				continuous: true,
-	            duration: 4000
+				continuous : true,
+				duration : 4000
 			});
 
 			function bannerMouse(imgPath, obj) {

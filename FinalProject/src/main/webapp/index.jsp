@@ -188,7 +188,9 @@
 		style="padding-top: 80px; padding-bottom: 20px;">
 		<div class="col-md-1"></div>
 		<div class="col-md-4 notice nopad">
-			<b style="padding-left: 15px;">공지사항</b>
+			<b style="padding-left: 15px;">공지사항</b> <a href="nlist.no"
+				class="more" title="More" style="float: right; padding-right: 10px;"><img
+				src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
 			<ul id="t" style="padding-left: 10px;">
 				<!-- li 태그로 공지사항 제목 들어가는 부분 -->
 			</ul>
@@ -232,13 +234,13 @@
 	<!-- 중고 신착 도서 리스트 -->
 	<section class="section" style="padding-top: 0px;">
 		<div class="col-md-1"></div>
-		<div class="col-md-3 nopad">
-			<div style="width: 330px;">
-				<b style="padding-left: 15px;">중고서적</b>
-				<div id="d" style="display: flex; border-top: 1px solid #878787;">
-					<!-- 중고서적 이미지 -->
-				</div>
-			</div>
+		<div class="col-md-4 notice nopad">
+			<b style="padding-left: 15px;">중고서적</b><a href="bslist.bs"
+				class="more" title="More" style="float: right; padding-right: 10px;"><img
+				src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
+			<ul id="d" style="max-width: 564px; padding-left: 10px; display: flex; border-top: 1px solid #878787;">
+				<!-- 중고서적 이미지 -->
+			</ul>
 		</div>
 	</section>
 
@@ -254,25 +256,25 @@
 							$("#d").text("");
 							var str = "";
 							for ( var i in data) {
-								str += '<div style="padding-left: 10px;">';
+								str += '<ul style="padding-left: 10px; list-style-type:none; padding-top: 10px; width: 130px; height: 160px;">';
 								str += '<a href="'
 										+ "bsdetail.bs?brBnumber="
 										+ data[i].brBnumber
 										+ '"><span class="img"><span class="bookKind" style="position: absolute; background: url(resources/images/신착도서.png); background-size: 100%; z-index: 100; width: 30px; height: 316px; color: #fff; font-size: 13px; padding-top: 5px; background-repeat: no-repeat; text-align: center;">신착</span>';
-								str += '<div class="imgBox ebook-details nopad">';
+								str += '<li class="imgBox ebook-details nopad">';
 								str += '<img alt="" src="resources/bsuploadFiles/'+ data[i].renameFileName +'"';
-								str +=' style="width: 120px; height: 160; padding-left:10px;" class="img-respive">';
-								str += '<div style="padding-left:25px; padding-top: 9px;">'
+								str +=' style="width: 100%; height: auto; padding-left:10px;" class="img-respive">';
+								str += '<li style="padding-left:25px; padding-top: 9px;">'
 										+ data[i].brPrice + '원</div>';
 								str += '</a>';
-								str += '</div>';
+								str += '</li>';
 								str += '</span>';
-								str += '</div>';
+								str += '</ul>';
 							}
 							console.log(str);
 							$("#d").append(str);
 						}
-					});		
+					});
 		}
 		$(function() {
 			topList1();

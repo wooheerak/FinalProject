@@ -19,4 +19,19 @@ public class UserDAO {
 		return sqlSession.update("userMapper.update",map);
 	}
 
+	public int userpwdUpdate(SqlSessionTemplate sqlSession, User u) {
+		
+		return sqlSession.update("userMapper.pwdUpdate", u);
+	}
+
+	public User userpasswordfind(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		
+		return (User)sqlSession.selectOne("userMapper.pwdfind", map);
+	}
+
+	public int changePwd(SqlSessionTemplate sqlSession, Map<String, String> map2) {
+		
+		return sqlSession.update("userMapper.changePwd", map2);
+	}
+
 }

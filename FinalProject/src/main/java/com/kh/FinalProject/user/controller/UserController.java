@@ -10,19 +10,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import com.kh.FinalProject.user.email.FindUtil;
+import com.kh.FinalProject.user.email.MailUtil;
 import com.kh.FinalProject.user.model.exception.UserException;
 import com.kh.FinalProject.user.model.sevice.UserService;
 import com.kh.FinalProject.user.model.vo.User;
+
 
 
 
@@ -34,13 +36,15 @@ public class UserController {
 
 	@Autowired
 	private UserService uService;
-		
+	
+	
 	@RequestMapping("login.ul")
 	public String login() {
 		
 		return "userlogin";
 	}
 	
+	// 로그인 로그인 실패
 	@RequestMapping("userlogin.ul")
 	public String userlogin(User u, Model model) {
 		
@@ -48,14 +52,13 @@ public class UserController {
 		
 		if(loginUser != null) {
 			model.addAttribute("loginUser",loginUser);
-			
-			System.out.println(loginUser);
-			
+					
+			return "redirect:index.do";
 		}else {
-			throw new UserException("로그인 실패");
+			return "userlogin";
 		}
-		return "redirect:index.do";
 	}
+	
 	
 	// 로그아웃용 컨트롤러
 	@RequestMapping(value="logout.ul")
@@ -83,18 +86,17 @@ public class UserController {
 			@RequestParam("member_Email") String Member_Email,
 			@RequestParam("address") String address,
 			@RequestParam("student_number") String student_number,
-			@RequestParam("student_Password") String pwd,
 			Model model) {
 		
 		u.setMember_Id(student_number);
-		u.setMember_Password(pwd);
 		
 		Map<String, String> map = new HashMap<>();
 		
-		map.put("Phone", Phone );
-		map.put("Member_Email", Member_Email );
-		map.put("address", address );
-		map.put("student_number", student_number );
+		map.put("Phone", Phone);
+		map.put("Member_Email", Member_Email);
+		map.put("address", address);
+		map.put("student_number", student_number);
+		
 		
 		int result = uService.userUpdate(map);
 		
@@ -104,7 +106,7 @@ public class UserController {
 			User loginUser = uService.userlogin(u);
 			model.addAttribute("loginUser", loginUser);
 			
-			return "userUpdate";
+			return "userinformationcheck";
 		}else {
 			System.out.println("수정실패");
 			return "userUpdate";
@@ -122,20 +124,117 @@ public class UserController {
 		return mv;
 	}
 	
-	// 비밀번호 찾기 폼
-	@RequestMapping(value = "/find_pw_form.do")
-	public String find_pw_form() throws Exception {
-		return "/user/find_pw_form";
+	// 비밀번호 수정
+	@RequestMapping("newupdatepwd.ul")
+	public String pwdUpdate(@ModelAttribute User u) {
+		
+		System.out.println(u);
+	
+			int result = uService.pwdUpdate(u);
+			if(result > 0) {
+
+				return "redirect:userinformationcheck.ul";
+			} else {
+				throw new UserException("비밀번호 변경 실패");
+			}	
+		
 	}
 	
-	@RequestMapping("userpassword.ul")
-	public String userpassword() {
-		return "userpassword";
+	// 비밀번호 찾기
+	@RequestMapping(value = "usercheck.ul", method = {RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public String findPwd(User u, String inputCode,
+			HttpSession session) throws Exception {
+		
+		String newPwd = FindUtil.getNewPwd();
+		
+		Map<String, String> map = new HashMap<>();
+		
+		map.put("member_Id", u.getMember_Id());
+		map.put("newPwd", newPwd);
+		
+		System.out.println(map);
+		
+		uService.changePwd(map);
+		
+		String subject = "[kh] 임시 비밀번호 발급안내";
+		
+		String msg = "";
+		msg += "<div align='center' style='border:1px solid black; font=family:verdana'>";
+		msg += "<h3 style='color: blue;><strong>" + u.getMember_Id();
+		msg += "님</strong>의 임시 비밀번호 입니다. 로그인 후 비밀번호를 변경하세요.</h3>";
+		msg += "<p> 임시 비밀번호 : <strong>" + newPwd + "</strong></p></div>";
+		
+		MailUtil.sendMail(u.getMember_Email(), subject, msg);
+		
+		return "redirect:userpassword2.ul";
 	}
 	
-	@RequestMapping("userpassword2.ul")
-	public String userpassword2() {
-		return "userpassword2";
-	}
 	
+
+		// 비밀번호 찾기 폼
+		@RequestMapping(value = "userpasswordfind.ul")
+		public ModelAndView userpasswordfind(ModelAndView mv) throws Exception{
+			int check = 1;
+			mv.addObject("checkSep", check);
+			mv.setViewName("userpasswordfind");
+			return mv;
+		}
+		
+		
+		@RequestMapping(value = "userpassword2.ul")
+		public ModelAndView userpassword2(
+				@RequestParam("member_Id") String member_Id,
+				@RequestParam("member_Email") String member_Email,
+				@RequestParam("member_Name") String member_Name,
+				ModelAndView mv) throws Exception {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("member_Id", member_Id);
+			map.put("member_Name", member_Name);
+			map.put("member_Email", member_Email);
+			
+			System.out.println("a : " + map);
+			
+			User user = uService.userpasswordfind(map);
+			
+			if(user != null) {
+				
+				String newPwd = FindUtil.getNewPwd();
+				
+				Map<String, String> map2 = new HashMap<>();
+				
+				map2.put("member_Id", member_Id);
+				map2.put("newPwd", newPwd);
+				
+				System.out.println("b ; " + map2);
+				
+				uService.changePwd(map2);
+				
+				String subject = "[kh] 임시 비밀번호 발급안내";
+				
+				String msg = "";
+				msg += "<br> <br> <div align='center' style='border:1px solid black;'>";
+				msg += "<h3 style='color: blue';><strong>" + member_Id + "<br>";
+				msg += "님</strong>의 임시 비밀번호 입니다. 로그인 후 비밀번호를 변경하세요.</h3>";
+				msg += "<p> 임시 비밀번호 : <strong>" + newPwd + "<br> <br> </strong></p></div> ";
+				
+				MailUtil.sendMail(member_Email, subject, msg);
+				
+				mv.setViewName("userpassword2");
+				return mv;
+			} else {
+				int check = 0;
+				mv.addObject("checkSep", check);
+				mv.setViewName("userpasswordfind");
+				return mv;
+			}
+				
+			
+	
+	
+
+		}
 }
+

@@ -34,9 +34,11 @@
 					<div class="design-title text-left">
 						<small>본인 인증이 완료되었습니다.</small>
 						<h2>임시비밀 번호가 발송되었습니다.</h2>
-						<p class="lead">비밀번호를 변경해주세요!!!</p>
+						<p class="lead">로그인 후 비밀번호를 변경해주세요!!!</p>
 						<p></p>
 						<a class="btn btn-transparent" onclick="location='index.jsp'">홈으로</a>
+						<c:url var="ulogin" value="userlogin.ul" />
+						<input class="btn btn-transparent"  onclick="location.href='${ulogin}'" value="로그인" style="background: white;" />
 					</div>
 					<!-- end website-design -->
 				</div>

@@ -17,7 +17,7 @@ public interface StudyroomService {
 
 	int reservationStudyroom(StudyroomOrder sr);
 
-	ArrayList<StudyroomOrder> selectOrderList();
+	ArrayList<StudyroomOrder> selectOrderList(String id);
 
 	ArrayList<String> selectName(Map<String, Object> map);
 
@@ -29,9 +29,10 @@ public interface StudyroomService {
 
 	ArrayList<StudyroomOrder> checkTime(StudyroomOrder sro);
 
-	ArrayList<Studyroom> selectRoomList(int bo_member);
+//	ArrayList<Studyroom> spoidSrInfo(Map<String, Object> map);
+	ArrayList<Studyroom> spoidSrInfo(Studyroom sr);
 
-	ArrayList<Studyroom> spoidSrInfo(Map<String, Object> map);
+	ArrayList<StudyroomOrder> orderList(StudyroomOrder sr);
 
 
 	

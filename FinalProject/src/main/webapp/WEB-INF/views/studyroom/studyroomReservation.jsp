@@ -175,6 +175,7 @@ input{
 							<td></td>
 						</tr>
 					</table>
+					<input type="hidden" id="so_bColor" name="so_bColor"/>
 					<table  class="text-center" id="reservationTable2" name="reservationTable2">
 						<tr>
 							<td colspan="2"><b>예약자 정보(학번)</b></td>
@@ -185,7 +186,6 @@ input{
 				
 				<br>
 				<div class="btnbox">
-					<!-- 예약 완료시 이 창은 꺼지고 부모창 refresh -->
 					<input class="btn btn-transparent" style="padding:0px" onclick="reservationCheck()" type="submit" value="예약"/>
 					<input class="btn btn-transparent" style="padding:0px"  type="button" onclick="window.close()" value="취소"/>
 				</div>
@@ -216,10 +216,10 @@ input{
 	}
 	
 	// 랜덤 배경색상 지정
-	var so_bColor='#';
+	var color='#';
 	var letters = ['f6c9cc','a8c0c0','FEBF36','FF7838','6478A0','acc7bf','5e5f67','c37070','eae160','bf7aa3','d7d967'];
-	so_bColor += letters[Math.floor(Math.random() * letters.length)];
-	//document.getElementById('sotd').style.background = color;
+	color += letters[Math.floor(Math.random() * letters.length)];
+	document.getElementById('so_bColor').value = color;
 	
 	// 예약 전 체크 사항들
 	function reservationCheck(){
@@ -493,14 +493,14 @@ input{
 		if((e.value)<20){
 			for(var i=1; i<3; i++){			
 				var opt = document.createElement("option");
-			    opt.value = Number(e.value)+Number(i)+":00";
+			    opt.value = Number(e.value)+Number(i);
 			    opt.innerHTML = Number(e.value)+Number(i)+":00";
 			    if(i==1) opt.selected=true;
 			    target.appendChild(opt);
 			}
 		}else{
 			var opt = document.createElement("option");
-		    opt.value = Number(e.value)+1+":00";
+		    opt.value = Number(e.value)+1;
 		    opt.innerHTML = Number(e.value)+1+":00";
 		    target.appendChild(opt);
 		}

@@ -15,7 +15,7 @@
 * { font-family: 'Spoqa Han Sans'; }
 #boardtable {
 	margin: auto;
-	width: 80% !important;
+	width: 70% !important;
 	min-height: 600px;
 	text-align: center;
 }
@@ -661,7 +661,7 @@ button[class*="btn"] {border: 0;}
 												  confirmButtonText: '마감 할래요!!',
 												}).then((result) => {
 												if (result.value) {
-													var url = "srAppointment.sr?bo_number=${board.bo_number}&bo_member=${board.bo_member}&member_Name=${ loginUser.member_Name }&bo_join=?${ board.bo_join }";
+													var url = "srAppointment.sr?bo_number=${board.bo_number}&bo_member=${board.bo_member}&member_Name=${ loginUser.member_Id }&bo_join=${ board.bo_join }";
 													console.log(${board.bo_member});
 													var srReservation2 = "srReservation2";
 													

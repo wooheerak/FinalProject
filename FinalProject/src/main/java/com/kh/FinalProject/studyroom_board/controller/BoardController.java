@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,6 +28,7 @@ import com.kh.FinalProject.studyroom_board.model.exception.BoardException;
 import com.kh.FinalProject.studyroom_board.model.service.Studyroom_BoderService;
 import com.kh.FinalProject.studyroom_board.model.vo.Board;
 import com.kh.FinalProject.studyroom_board.model.vo.Reply;
+import com.kh.FinalProject.studyroom_order.model.vo.StudyroomOrder;
 import com.kh.FinalProject.user.model.vo.User;
 
 @Controller
@@ -132,16 +134,15 @@ public class BoardController {
 	}
 	
 	// 모집 마감
-	@RequestMapping("bComplete.bo")
-	public String boardComplete(@RequestParam("bo_number") int bo_number,
-								@RequestParam("member_Name") String member_Name,
-								@RequestParam("bo_join") String bo_join) {
-		
-		int result = sbService.completeBoard(bo_number);
+	@RequestMapping(value="bComplete.bo", method= {RequestMethod.POST,RequestMethod.GET})
+	@ResponseBody
+	public String boardComplete(@RequestParam StudyroomOrder sr) {
+		System.out.println("bCompleteSr : " + sr);
+		int result = sbService.completeBoard(sr.getBo_number());
 		
 		if(result > 0) {
 			
-			return "redirect:bDetail.bo?bo_number"+bo_number;
+			return "redirect:bDetail.bo?bo_number="+sr.getBo_number();
 			
 		}else {
 			throw new BoardException("모집 마감 실패");

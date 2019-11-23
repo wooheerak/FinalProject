@@ -36,8 +36,8 @@ public class StudyroomServiceImpl implements StudyroomService{
 	}
 
 	@Override
-	public ArrayList<StudyroomOrder> selectOrderList() {
-		return srDao.selectOrderList(sqlSession);
+	public ArrayList<StudyroomOrder> selectOrderList(String id) {
+		return srDao.selectOrderList(sqlSession,id);
 	}
 
 	@Override
@@ -65,14 +65,19 @@ public class StudyroomServiceImpl implements StudyroomService{
 		return srDao.checkTime(sqlSession,sro);
 	}
 
+//	@Override
+//	public ArrayList<Studyroom> spoidSrInfo(Map<String, Object> map) {
+//		return srDao.spoidSrInfo(sqlSession,map);
+//	}
+	
 	@Override
-	public ArrayList<Studyroom> selectRoomList(int bo_member) {
-		return srDao.selectRoomList(sqlSession,bo_member);
+	public ArrayList<Studyroom> spoidSrInfo(Studyroom sr) {
+		return srDao.spoidSrInfo(sqlSession,sr);
 	}
 
 	@Override
-	public ArrayList<Studyroom> spoidSrInfo(Map<String, Object> map) {
-		return srDao.spoidSrInfo(sqlSession,map);
+	public ArrayList<StudyroomOrder> orderList(StudyroomOrder sr) {
+		return srDao.orderList(sqlSession,sr);
 	}
 
 }

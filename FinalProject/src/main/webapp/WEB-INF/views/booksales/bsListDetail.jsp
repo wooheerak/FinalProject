@@ -112,7 +112,7 @@ table th {
 					<br>
 				</div>
 				<div class="col-md-12">
-					<table style="border: 1px solid lightgray;">
+					<table style="border: 1px solid lightgray; width: 100%;">
 						<tr>
 							<th>품질정보</th>
 						</tr>
@@ -133,9 +133,14 @@ table th {
 						<c:url var="complete" value="complete.bs">
 							<c:param name="brBnumber" value="${ bs.brBnumber }" />
 						</c:url>
-						<button type="button" class="btn btn-transparent"
-							style="background-color: white; margin-left: 150px;"
-							data-toggle="modal" data-target=".bd-example-modal-lg">구매하기</button>
+						
+						<c:if test="${ loginUser ne null }">
+						
+							<button type="button" class="btn btn-transparent"
+								style="background-color: white; margin-left: 150px;"
+								data-toggle="modal" data-target=".bd-example-modal-lg">구매하기</button>
+						</c:if>	
+							
 					</c:if>
 
 					<!-- 로그인 아이디 소유자가 작성했을 시 -->

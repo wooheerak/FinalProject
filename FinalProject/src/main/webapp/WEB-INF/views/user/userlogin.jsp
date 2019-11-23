@@ -44,7 +44,7 @@
 								placeholder="id" required>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" id="password"
+							<input type="password" class="form-control" id="password"
 								name="member_Password" placeholder="password" required>
 						</div>
 

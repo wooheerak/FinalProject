@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>중고서적 수정</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.13.0/standard-all/ckeditor.js"></script>
 </head>
 <style>
 table{
@@ -122,10 +122,75 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 						<th>내용</th>
 						<td>
 							<!-- <textarea rows="20" cols="140" name="nContent" style="resize: none;"></textarea> -->
-							<textarea name=brComment>${ br.brComment }</textarea>
+							<textarea cols="80" id="brComment" name="brComment" rows="10" data-sample-short>${ br.brComment }</textarea>
 			                <script>
-			                        CKEDITOR.replace( 'brComment' );
-			                </script>
+    CKEDITOR.addCss('.cke_editable { font-size: 15px; padding: 2em; }');
+
+    CKEDITOR.replace('brComment', {
+      toolbar: [{
+          name: 'document',
+          items: ['Print']
+        },
+        {
+          name: 'clipboard',
+          items: ['Undo', 'Redo']
+        },
+        {
+          name: 'styles',
+          items: ['Format', 'Font', 'FontSize']
+        },
+        {
+          name: 'colors',
+          items: ['TextColor', 'BGColor']
+        },
+        {
+          name: 'align',
+          items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
+        },
+        '/',
+        {
+          name: 'basicstyles',
+          items: ['Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'CopyFormatting']
+        },
+        {
+          name: 'links',
+          items: ['Link', 'Unlink']
+        },
+        {
+          name: 'paragraph',
+          items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote']
+        },
+        {
+          name: 'insert',
+          items: ['Image', 'Table']
+        },
+        {
+          name: 'tools',
+          items: ['Maximize']
+        },
+        {
+          name: 'editing',
+          items: ['Scayt']
+        }
+      ],
+
+      extraAllowedContent: 'h3{clear};h2{line-height};h2 h3{margin-left,margin-top}',
+
+      // Adding drag and drop image upload.
+      extraPlugins: 'print,format,font,colorbutton,justify,uploadimage',
+      uploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+
+      // Configure your file manager integration. This example uses CKFinder 3 for PHP.
+      filebrowserBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html',
+      filebrowserImageBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html?type=Images',
+      filebrowserUploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files',
+      filebrowserImageUploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Images',
+
+      height: 560,
+
+      removeDialogTabs: 'image:advanced;link:advanced'
+    });
+  </script>
 							<P>※ 상세 이미지 내용에 붙여넣기 가능</P>
 						</td>
 					</tr>

@@ -110,8 +110,9 @@ table th {
 						</div>
 					</div>
 					<br>
-					<table
-						style="height: 120px; width: 780px; border: 1px solid lightgray;">
+				</div>
+				<div class="col-md-12">
+					<table style="border: 1px solid lightgray;">
 						<tr>
 							<th>품질정보</th>
 						</tr>

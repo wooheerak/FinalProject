@@ -24,8 +24,8 @@ public class StudyroomDao {
 		return sqlSession.insert("studyroomMapper.reservationStudyroom",sr);
 	}
 
-	public ArrayList<StudyroomOrder> selectOrderList(SqlSession sqlSession) {
-		return (ArrayList)sqlSession.selectList("studyroomMapper.selectOrderList");
+	public ArrayList<StudyroomOrder> selectOrderList(SqlSession sqlSession, String id) {
+		return (ArrayList)sqlSession.selectList("studyroomMapper.selectOrderList",id);
 	}
 
 	public ArrayList<String> selectName(SqlSession sqlSession, Map<String, Object> map) {
@@ -48,12 +48,15 @@ public class StudyroomDao {
 		return (ArrayList)sqlSession.selectList("studyroomMapper.checkTime",sro);
 	}
 
-	public ArrayList<Studyroom> selectRoomList(SqlSession sqlSession, int bo_member) {
-		return (ArrayList)sqlSession.selectList("studyroomMapper.selectRoomListwM",bo_member);
+//	public ArrayList<Studyroom> spoidSrInfo(SqlSession sqlSession, Map<String, Object> map) {
+//		return (ArrayList)sqlSession.selectList("studyroomMapper.spoidSrInfo",map);
+//	}
+	public ArrayList<Studyroom> spoidSrInfo(SqlSession sqlSession, Studyroom sr) {
+		return (ArrayList)sqlSession.selectList("studyroomMapper.spoidSrInfo",sr);
 	}
 
-	public ArrayList<Studyroom> spoidSrInfo(SqlSession sqlSession, Map<String, Object> map) {
-		return (ArrayList)sqlSession.selectList("studyroomMapper.spoidSrInfo",map);
+	public ArrayList<StudyroomOrder> orderList(SqlSession sqlSession, StudyroomOrder sr) {
+		return (ArrayList)sqlSession.selectList("studyroomMapper.orderList",sr);
 	}
 
 	

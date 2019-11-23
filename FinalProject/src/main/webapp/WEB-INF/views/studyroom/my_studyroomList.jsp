@@ -7,7 +7,67 @@
 <head>
 <meta charset="UTF-8">
 <title>열람실 좌석 조회</title>
-<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> 
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript"
+	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+<script type="text/javascript"
+	src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+<script>
+
+
+	jQuery(function($) {
+		$("#orderList").DataTable({
+	         // 표시 건수기능 숨기기
+	         "lengthChange" : true,
+	         // 정보 표시 숨기기
+	         "info" : true,
+			 "ordering": false ,
+			 "filter" : false ,
+			 "lengthChange" : false , 
+	           // 정렬
+	            "order": [],
+	            
+	         // 페이지 넘기는 방식
+	         pagingType : "full_numbers",
+
+	         // n번째 항목 넓이를 300px로 설정
+	         columnDefs : [ {
+	            targets : 0,
+	            width : 40
+	         }, {
+	            targets : 1,
+	            width : 300
+	         } ],
+
+	         "language" : {
+	            "emptyTable" : "데이터가 없어요.",
+	            "lengthMenu" : "페이지당 _MENU_ 개씩 보기",
+	            "info" : "현재 _START_ - _END_ / _TOTAL_건",
+	            "infoEmpty" : "데이터 없음",
+	            "infoFiltered" : "( _MAX_건의 데이터에서 필터링됨 )",
+	            "search" : "검색: ",
+	            "zeroRecords" : "일치하는 데이터가 없어요.",
+	            "loadingRecords" : "로딩중...",
+	            "processing" : "잠시만 기다려 주세요...",
+	            "paginate" : {
+	               "next" : ">",
+	               "previous" : "<" , 
+	               "last" : ">>" ,
+	               "first" : "<<" 
+	            	  
+	            }
+	         }
+	   
+		});
+	});
+	
+
+</script> 
 </head>
 
 <body>
@@ -87,9 +147,8 @@
                 </script>
                 <br><br>
                 <hr>
-                <form id="boardForm" name="boardForm" method="post">
-
-                    <table class="table table-striped table-hover" style = "text-align: center;">
+                <form action="" method="post">
+                    <table id="orderList" name="orderList" class="table table-striped table-hover" style = "text-align: center;">
                         <thead >
                             <tr>
                                 <th style = "text-align: center;">예약번호</th>

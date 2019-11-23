@@ -48,11 +48,17 @@
 	<div id="rsInfo">
 		<h2 style="margin-top:100px"><b>예약이 완료 되었습니다</b></h2>
 	<br>
-	<input type="button" class="btn" onclick="thisClose()" value="확인"/>
+	<input type="hidden" id="sr" name="sr" value="${sr}"/>
+	<input type="button" class="btn" onclick="thisClose()" value="확인" />
 	</div>
 	
 <script>
 function thisClose(){
+	if($('#sr')!=null){
+		var sr = $('#sr').val();
+		console.log(sr);
+		location.href="bComplete.bo?sr="+encodeURI(sr);
+	}
 	opener.location.reload();
 	self.close();
 }

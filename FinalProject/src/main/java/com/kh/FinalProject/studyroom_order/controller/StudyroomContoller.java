@@ -7,6 +7,9 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.FinalProject.studyroom_order.model.serivce.StudyroomService;
 import com.kh.FinalProject.studyroom_order.model.vo.Studyroom;
 import com.kh.FinalProject.studyroom_order.model.vo.StudyroomOrder;
+import com.kh.FinalProject.studyseat.model.vo.SeatHistory;
+import com.kh.FinalProject.user.model.vo.User;
 
 @Controller
 public class StudyroomContoller {
@@ -28,10 +33,19 @@ public class StudyroomContoller {
 	
 	// 내정보 > 스터디룸 예약 조회
 	@RequestMapping("mystudyroomList.sr")
-	public ModelAndView mySeatList(ModelAndView mv) {
+	public ModelAndView mySeatList(HttpServletRequest request ,ModelAndView mv) {
 		
-		ArrayList<StudyroomOrder> list = srService.selectOrderList();
-		System.out.println("학번으로 이름 출력전 list : " + list);
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("loginUser");
+		String id = "";
+		ArrayList<StudyroomOrder> list = null;
+		
+		if(user != null) {
+			id = user.getMember_Id();
+			list = srService.selectOrderList(id);				
+		}
+		
+		//System.out.println("학번으로 이름 출력전 list : " + list);
 		
 		ArrayList<String> hakbunList = new ArrayList<String>();
 		
@@ -84,20 +98,7 @@ public class StudyroomContoller {
 		return list;
 	}
 	
-	// 참여인원 만큼의 스터디룸 조회
-	@RequestMapping("spoidSrInfo.sr")
-	@ResponseBody
-	public ArrayList<Studyroom> spoidSrInfo(@RequestParam String so_floor, @RequestParam String bo_member) {
-		Map<String,Object> map = new HashMap<>();
-		map.put("so_floor", so_floor);
-		map.put("bo_member", bo_member);
-		
-		System.out.println(map);
-		
-		ArrayList<Studyroom> list = srService.spoidSrInfo(map);
-		//System.out.println("getSrInfo : " + list);
-		return list;
-	}
+	
 	
 	// 스터디룸 해당일 예약 전체 조회
 	@RequestMapping(value="srDay.sr", method= {RequestMethod.POST,RequestMethod.GET})
@@ -149,27 +150,31 @@ public class StudyroomContoller {
 	public String weekView() {
 		return "studyroomWeek";
 	}
+	
 	// 스터디룸 게시판 마감 -> 예약 페이지
 	@RequestMapping("srAppointment.sr")
 	public ModelAndView sr( 
 			@RequestParam(value="bo_member", required=false) int bo_member,
+			@RequestParam(value="bo_number",required=false) int bo_number,
 			@RequestParam(value="member_Name", required=false) String member_Name,
 			@RequestParam(value="bo_join", required=false) String bo_join, ModelAndView mv) {
 		
+		System.out.println(bo_number);
 		System.out.println(bo_member);
 		System.out.println(member_Name);
 		System.out.println(bo_join);
 		
+		mv.addObject("bo_number",bo_number);
 		mv.addObject("bo_member",bo_member);
 		mv.addObject("member_Name",member_Name);
 		mv.addObject("bo_join",bo_join);
 		
 		
-		ArrayList<Studyroom> studyroomInfo = srService.selectRoomList(bo_member);
+		//ArrayList<Studyroom> studyroomInfo = srService.checkRoomList(bo_member);
 		//System.out.println("studyroomInfo : " + studyroomInfo);
 		
-		if(studyroomInfo != null) {
-			mv.addObject("studyroomInfo",studyroomInfo);
+		if(mv != null) {
+			//mv.addObject("studyroomInfo",studyroomInfo);
 			mv.setViewName("studyroomAppointment");
 		}else {
 			
@@ -177,6 +182,27 @@ public class StudyroomContoller {
 		
 		return mv;
 	}
+	
+	// 참여인원 만큼의 스터디룸 조회
+		@RequestMapping("spoidSrInfo.sr")
+		@ResponseBody
+		public ArrayList<Studyroom> spoidSrInfo(@RequestParam String so_floor, @RequestParam String bo_member) {
+//			Map<String,Object> map = new HashMap<>();
+//			map.put("so_floor", so_floor);
+//			map.put("bo_member", bo_member);
+//			
+//			System.out.println(map);
+			
+			Studyroom sr = new Studyroom();
+			
+			sr.setSr_floor(so_floor);
+			sr.setSr_maxPeople(Integer.parseInt(bo_member));
+			
+//			ArrayList<Studyroom> list = srService.spoidSrInfo(map);
+			ArrayList<Studyroom> list = srService.spoidSrInfo(sr);
+			//System.out.println("getSrInfo : " + list);
+			return list;
+		}
 	
 	// 스터디룸 예약 페이지
 	@RequestMapping("srReservation.sr")
@@ -202,17 +228,40 @@ public class StudyroomContoller {
 		
 		return mv;
 	}
+	// 스터디룸 예약(마감>예약)
+	@RequestMapping("orderList.sr")
+	@ResponseBody
+	public ArrayList<StudyroomOrder> orderList(String so_date, String so_name){
+		StudyroomOrder sr = new StudyroomOrder();
+		System.out.println("so_date : "+ so_date);
+		System.out.println("so_name : " + so_name);
+		
+		sr.setSo_date(Date.valueOf(so_date));
+		sr.setSo_name(so_name);
+		
+		System.out.println("sr : "  + sr);
+		
+		ArrayList<StudyroomOrder> list = srService.orderList(sr);
+		
+		System.out.println("list : " + list );
+		
+		return list;
+	}
 	
 	// 스터디룸 예약
 	@RequestMapping("reservationStudyroom.sr")
-	public String reservationStudyroom(@ModelAttribute StudyroomOrder sr) {
+	public ModelAndView reservationStudyroom(@ModelAttribute StudyroomOrder sr,ModelAndView mv) {
 		// 값 받은후 변경
 		
-		//System.out.println(sr);
+		System.out.println("SR:"+ sr);
 		
 		int result=srService.reservationStudyroom(sr);
 		
-		return "reservationCheckView";
+		if(result!=0) {
+			mv.addObject("sr",sr);
+			mv.setViewName("reservationCheckView");
+		}
+		return mv;
 		
 	}
 	
@@ -240,9 +289,9 @@ public class StudyroomContoller {
 							@RequestParam(value="so_organizer", required=false) String so_organizer) {
 //		System.out.println("학생체크매핑됨");
 		SimpleDateFormat tf = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println("안바뀐 date : " + so_date);
+		// System.out.println("안바뀐 date : " + so_date);
 		Date date=Date.valueOf(so_date);
-		System.out.println("바뀐 date : " + date);
+		// System.out.println("바뀐 date : " + date);
 		
 		StudyroomOrder sro = new StudyroomOrder();
 			sro.setSo_participant(so_participant);

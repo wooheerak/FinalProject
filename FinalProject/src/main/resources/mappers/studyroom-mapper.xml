@@ -11,23 +11,13 @@
 		FROM STUDYROOM
 		
 	</select>
-	<select id="selectRoomListwM" resultMap="studyroomResultSet">
+	<select id="spoidSrInfo" parameterType="Studyroom" resultMap="studyroomResultSet">
 		<![CDATA[
 		SELECT *
 		FROM STUDYROOM
-		WHERE SR_MAXPEOPLE>=#{bo_member} 
-		AND SR_MAXPEOPLE/2<=#{bo_member}
-		]]>
-		
-	</select>
-	
-	<select id="spoidSrInfo" parameterType="map" >
-		<![CDATA[
-		SELECT *
-		FROM STUDYROOM
-		WHERE SR_MAXPEOPLE>=#{bo_member} 
-		AND SR_MAXPEOPLE/2<=#{bo_member}
-		AND SR_FLOOR = #{so_floor}
+		WHERE SR_MAXPEOPLE>=#{sr_maxPeople} 
+		AND SR_MAXPEOPLE/2<=#{sr_maxPeople}
+		AND SR_FLOOR = #{sr_floor}
 		]]>
 	</select>
 	
@@ -42,17 +32,17 @@
 		<result property="sr_floor" column="SR_FLOOR"/>
 		<result property="sr_maxPeople" column="SR_MAXPEOPLE"/>
 	</resultMap>
-
 	
 	<insert id="reservationStudyroom" parameterType="StudyroomOrder">
 		INSERT INTO STUDYROOM_ORDER
-		VALUES (SEQ_SONO.NEXTVAL, #{so_floor}, #{so_name}, #{so_maxpeople},
+		VALUES (SEQ_SONO.NEXTVAL, #{so_floor}, #{so_name}, #{bo_number},
 				#{so_organizer},#{so_participant}, #{so_start_time}, #{so_end_time},#{so_bColor},#{so_date},'Y')
 	</insert>
 	
 	<select id="selectOrderList" resultMap="studyroomOrderResultSet">
 		SELECT *
 		FROM STUDYROOM_ORDER
+		WHERE SO_ORGANIZER = ${id}
 		ORDER BY SO_NO DESC
 	</select>
 		
@@ -93,22 +83,32 @@
 	</select>
 	
 	<select id="reservationInfo" parameterType="string" resultType="StudyroomOrder">
-		select so_no, so_floor, so_name, so_maxpeople,
+		select so_no, so_floor, so_name, bo_number,
 			(select member_name from member where member_id = so_organizer)as so_organizer,so_participant,so_start_time,
 			so_end_time,so_bcolor,so_date,so_status 
 		from studyroom_order
 		where to_char(SO_DATE,'yyyymmdd') = ${dateInfo}
 	</select>
 	
+	<select id="orderList" parameterType="StudyroomOrder" resultType="StudyroomOrder">
+		SELECT *
+		FROM STUDYROOM_ORDER
+		WHERE TO_CHAR(SO_DATE,'yyyymmdd')=#{so_date}
+			AND SO_NAME=#{so_name}
+	</select>
+	
+	
 	<resultMap type="StudyroomOrder" id="studyroomOrderResultSet">
 		<id property="so_no" column="SO_NO"/>
 		<result property="sr_floor" column="SR_FLOOR"/>
 		<result property="so_name" column="SO_NAME"/>
-		<result property="sr_maxPeople" column="SR_MAXPEOPLE"/>
+		<result property="bo_number" column="bo_number"/>
 		<result property="so_organizer" column="SO_ORGAIZER"/>
 		<result property="so_participant" column="SO_PARTICIPANT"/>
 		<result property="so_start_time" column="SO_START_TIME"/>
 		<result property="so_end_time" column="SO_END_TIME"/>
+		<result property="so_bColor" column="SO_BCOLOR"/>
 		<result property="so_date" column="SO_DATE"/>
 	</resultMap>
+	
 </mapper>

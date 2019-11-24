@@ -24,7 +24,7 @@
 		<!-- end container -->
 	</section>
 	<!-- end section -->
-	<script>
+ 	<script>
 		alert("아이디와 비밀번호를 확인하세요.")
 	</script>
 	<section class="section overfree">

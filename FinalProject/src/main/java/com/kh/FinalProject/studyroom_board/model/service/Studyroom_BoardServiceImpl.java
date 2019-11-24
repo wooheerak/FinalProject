@@ -113,4 +113,9 @@ public class Studyroom_BoardServiceImpl implements Studyroom_BoderService{
 		return sbDAO.updateReply(sqlSession, reply);
 	}
 
+	@Override
+	public ArrayList<Board> indexselectList() {
+		return sbDAO.indexselectList(sqlSession);
+	}
+
 }

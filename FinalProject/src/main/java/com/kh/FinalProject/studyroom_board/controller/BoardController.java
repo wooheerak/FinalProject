@@ -15,8 +15,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,6 +52,21 @@ public class BoardController {
 			throw new BoardException("게시글 조회 실패");
 		}
 		return mv;
+
+	}
+	
+	// 메인페이지 게시글 리스트
+	@RequestMapping("topList.bo")
+	public void indexboardList(HttpServletResponse response) throws IOException{
+		
+		ArrayList<Board> list = sbService.indexselectList();
+		
+		for(Board b : list) {
+			b.setBo_title(URLEncoder.encode(b.getBo_title(), "utf-8"));
+		}
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+	    gson.toJson(list, response.getWriter());
 
 	}
 	

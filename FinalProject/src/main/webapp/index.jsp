@@ -106,6 +106,15 @@
   padding-top: 16px;
 }
 
+/* 게시판 테이블 용 */
+th{
+ text-align: center !important;	
+ background: #bbd1f9;
+ color: #806464;
+}
+.aa{background: #e3ebf9;}
+.bb{background: #e3ebf9;}
+.cc{background: #e3ebf9;}
 </style>
 
 </head>
@@ -392,9 +401,101 @@
 		});
 	</script>
 
+	<section class="section" style="padding-top: 0px;">
+		<div class="col-md-4">
+			<div class="readingR">
+				<h2>열람실 좌석현황</h2>
+				<ul id="seatStat" style="">
+					<li class="book">
+						<h3>1열람실</h3>
+						<p title="1열람실 : 344석">
+							<span class="num">344</span>/<span class="total">344</span>
+						</p>
+					</li>
+					<li class="book flr">
+						<h3>2열람실</h3>
+						<p title="2열람실 : 176석">
+							<span class="num">46</span>/<span class="total">176</span>
+						</p>
+					</li>
+					<li class="com">
+						<h3>3열람실</h3>
+						<p title="3열람실 : 148석, 노트북 사용가능">
+							<span class="num">29</span>/<span class="total">148</span>
+						</p>
+					</li>
+					<li class="book flr">
+						<h3>4열람실</h3>
+						<p title="4열람실 : 278석">
+							<span class="num">185</span>/<span class="total">278</span>
+						</p>
+					</li>
+					<li class="com">
+						<h3>6열람실</h3>
+						<p title="6열람실 : 54석, 노트북 사용가능">
+							<span class="num">35</span>/<span class="total">54</span>
+						</p>
+					</li>
+					<li class="com flr">
+						<h3>법&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;학</h3>
+						<p title="법학열람실 : 133석, 노트북 사용가능">
+							<span class="num">105</span>/<span class="total">133</span>
+						</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
 	
-		
-	
+	<!-- 스터디룸 조회수 게시글 top5 -->
+	<section class="section" style="padding-top: 0px;">
+		<h3>스터디룸 게시글 조회수 TOP 5 목록</h3>
+		<table id="tb" border="1">
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>제목</th>
+					<th>모집 상태</th>
+					<th>날자</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	<script>
+		function topList() {
+			$.ajax({
+				url: "topList.bo",
+				dataType: "json",
+				success: function(data) {
+					$tableBody = $("#tb tbody");
+					$tableBody.html("");
+					
+					for(var i in data){
+						var $tr = $("<tr>");
+						var $bId = $("<td align='center' class='aa'>").text(data[i].bo_number);
+						var $bTitle = $("<td align='center'>").text(decodeURIComponent(data[i].bo_title.replace(/\+/g, " ")));
+						var $bWriter = $("<td align='center' class='bb'>").text(data[i].bo_complete);
+						var $bCreateDate = $("<td align='center'>").text(data[i].bo_date);
+						
+						$tr.append($bId);
+						$tr.append($bTitle);
+						$tr.append($bWriter);
+						$tr.append($bCreateDate);
+						
+						$tableBody.append($tr);
+					}
+				}
+			});
+		}
+		$(function(){
+			topList();
+			
+			setInterval(function(){
+				topList();
+			}, 5000);
+		});
+	</script>
+	</section>
 
 
 

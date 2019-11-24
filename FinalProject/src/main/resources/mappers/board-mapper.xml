@@ -27,6 +27,18 @@
         ORDER BY BO_NUMBER DESC
      </select>
      
+     <!-- 인덱스 게시판 리스트 -->
+     <select id = "indexselectList" resultMap="boardResultSet">
+           <![CDATA[
+           SELECT *
+           FROM (SELECT *
+                FROM STUDYROOM_BOARD
+                  WHERE BO_ING = 'Y'
+                 ORDER BY BO_COUNT DESC)
+            WHERE ROWNUM <= 5        
+        ]]>        
+     </select>
+     
      <!-- 게시글 상세보기 -->
      <select id = "selectBoard" parameterType = "_int" resultMap = "boardResultSet">
         SELECT * 

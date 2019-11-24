@@ -35,6 +35,8 @@ public interface Studyroom_BoderService {
 
 	int updateReply(Map<String, Object> reply);
 
+	ArrayList<Board> indexselectList();
+
 
 
 

@@ -87,6 +87,10 @@ public class BoardDAO {
 		return sqlSession.update("boardMapper.updateReply", reply);
 	}
 
+	public ArrayList<Board> indexselectList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("boardMapper.indexselectList");
+	}
+
 
 
 }

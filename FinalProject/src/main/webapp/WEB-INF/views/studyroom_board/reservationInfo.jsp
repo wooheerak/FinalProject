@@ -46,7 +46,7 @@
 </head>
 <body>
 	<div id="rsInfo">
-		<h2 style="margin-top:100px"><b>예약 정보를 확인하세요</b></h2>
+		<h3 style="margin-top:100px"><b>예약 정보를 확인하세요</b></h3>
 	<br>
 		<h3>${info}</h3>
 	<br>

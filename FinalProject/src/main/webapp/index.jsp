@@ -93,16 +93,6 @@
 		background-size: 19px 14px;
 	}
 }
-/* 게시판 테이블 용 */
-th{
- text-align: center !important;	
- background: #bbd1f9;
- color: #806464;
-}
-.aa{background: #e3ebf9;}
-.bb{background: #e3ebf9;}
-.cc{background: #e3ebf9;}
-
 </style>
 
 </head>
@@ -242,13 +232,15 @@ th{
 	<!-- 공지사항 인덱스 리스트 끝 -->
 
 	<!-- 중고 신착 도서 리스트 -->
-	<section class="section" style="padding-top: 0px;">
+	<section class="section"
+		style="padding-top: 0px; padding-bottom: 50px;">
 		<div class="col-md-1"></div>
 		<div class="col-md-4 notice nopad">
 			<b style="padding-left: 15px;">중고서적</b><a href="bslist.bs"
 				class="more" title="More" style="float: right; padding-right: 10px;"><img
 				src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
-			<ul id="d" style="max-width: 564px; padding-left: 10px; display: flex; border-top: 1px solid #878787;">
+			<ul id="d"
+				style="max-width: 564px; padding-left: 10px; display: flex; border-top: 1px solid #878787;">
 				<!-- 중고서적 이미지 -->
 			</ul>
 		</div>
@@ -272,8 +264,9 @@ th{
 										+ data[i].brBnumber
 										+ '"><span class="img"><span class="bookKind" style="position: absolute; background: url(resources/images/신착도서.png); background-size: 100%; z-index: 100; width: 30px; height: 316px; color: #fff; font-size: 13px; padding-top: 5px; background-repeat: no-repeat; text-align: center;">신착</span>';
 								str += '<li class="imgBox ebook-details nopad">';
-								str += '<img alt="" src="resources/bsuploadFiles/'+ data[i].renameFileName +'"';
-								str +=' style="width: 100%; height: auto; padding-left:10px;" class="img-respive">';
+								str += '<img alt="" src="resources/bsuploadFiles/'
+										+ data[i].renameFileName + '"';
+								str += ' style="width: 100%; height: auto; padding-left:10px;" class="img-respive">';
 								str += '<li style="padding-left:25px; padding-top: 9px;">'
 										+ data[i].brPrice + '원</div>';
 								str += '</a>';
@@ -293,6 +286,61 @@ th{
 			}, 15000);
 		});
 	</script>
+
+<!-- 스터디룸 조회수 게시글 top5 -->
+	<section class="section" style="padding-top: 0px;">
+		<h3>스터디룸 게시글 조회수 TOP 5 목록</h3>
+		<table id="tb" border="1">
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>제목</th>
+					<th>모집 상태</th>
+					<th>날자</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+		<script>
+			function topList2() {
+				$.ajax({
+					url : "topList.bo",
+					dataType : "json",
+					success : function(data) {
+						$tableBody = $("#tb tbody");
+						$tableBody.html("");
+
+						for ( var i in data) {
+							var $tr = $("<tr>");
+							var $bId = $("<td align='center' class='aa'>")
+									.text(data[i].bo_number);
+							var $bTitle = $("<td align='center'>").text(
+									decodeURIComponent(data[i].bo_title
+											.replace(/\+/g, " ")));
+							var $bWriter = $("<td align='center' class='bb'>")
+									.text(data[i].bo_complete);
+							var $bCreateDate = $("<td align='center'>").text(
+									data[i].bo_date);
+
+							$tr.append($bId);
+							$tr.append($bTitle);
+							$tr.append($bWriter);
+							$tr.append($bCreateDate);
+
+							$tableBody.append($tr);
+						}
+					}
+				});
+			}
+			$(function() {
+				topList2();
+
+				setInterval(function() {
+					topList2();
+				}, 5000);
+			});
+		</script>
+	</section>
 
 	<section class="section" style="padding-top: 0px;">
 		<div class="col-md-4">
@@ -339,56 +387,7 @@ th{
 			</div>
 		</div>
 	</section>
-	
-	<!-- 스터디룸 조회수 게시글 top5 -->
-	<section class="section" style="padding-top: 0px;">
-		<h3>스터디룸 게시글 조회수 TOP 5 목록</h3>
-		<table id="tb" border="1">
-			<thead>
-				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>모집 상태</th>
-					<th>날자</th>
-				</tr>
-			</thead>
-			<tbody></tbody>
-		</table>
-	<script>
-		function topList() {
-			$.ajax({
-				url: "topList.bo",
-				dataType: "json",
-				success: function(data) {
-					$tableBody = $("#tb tbody");
-					$tableBody.html("");
-					
-					for(var i in data){
-						var $tr = $("<tr>");
-						var $bId = $("<td align='center' class='aa'>").text(data[i].bo_number);
-						var $bTitle = $("<td align='center'>").text(decodeURIComponent(data[i].bo_title.replace(/\+/g, " ")));
-						var $bWriter = $("<td align='center' class='bb'>").text(data[i].bo_complete);
-						var $bCreateDate = $("<td align='center'>").text(data[i].bo_date);
-						
-						$tr.append($bId);
-						$tr.append($bTitle);
-						$tr.append($bWriter);
-						$tr.append($bCreateDate);
-						
-						$tableBody.append($tr);
-					}
-				}
-			});
-		}
-		$(function(){
-			topList();
-			
-			setInterval(function(){
-				topList();
-			}, 5000);
-		});
-	</script>
-	</section>
+
 
 
 

@@ -54,7 +54,7 @@
 						<a class="navbar-brand" href="index.jsp"><img
 							src="resources/images/logo.png" style="width:120px;"/></a>
 					</div>
-					<div id="navbar" class="navbar-collapse collapse">
+					<div id="navbar" class="navbar-collapse collapse" style = "float : left; margin-left : 150px;">
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="index.jsp">Home</a></li>
                            	<li><a href="selectList.bk?searchOption="+'title'+"&search="+' '">자료검색</a></li>
@@ -117,48 +117,31 @@
 								</ul>
 							</li>
 							<li>
-								 <div class="loginArea" align="right">
+								 <div class="loginArea" align="right" style = "margin-top : 12px;">
                            <c:if test="${ empty sessionScope.loginUser }">
-                              <form action="userlogin.ul" method="post">
-                                 <table id="loginTable" style="text-align:center;">
-                                    <tr>
-                                       <td>아이디</td>
-                                       <td><input type="text" name="member_Id" style="background-color: lightblue; color: black"></td>
-                                       <td rowspan="2">
-                                          <button id="loginBtn" style="color: black;">로그인</button>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>비밀번호</td>
-                                       <td><input type="password" name="member_Password" style="background-color: lightblue; color: black"></td>
-                                    </tr>
-                                    <tr>
-                                       <td colspan="3">
-                                          <button type="button" style="color: black;">비밀번호 찾기</button>
-                                       </td>
-                                    
-                                    </tr>
-                                 </table>
-                              </form>
+                           		<td colspan="2">
+                             	 <a style="cursor:pointer" onclick="location.href='loginForm.ul'">로그인</a>
+                             	</td>
                            </c:if>
                            <c:if test="${ !empty sessionScope.loginUser }"> 
                               <tr>
                                  <td>
-                                    <font color="black"> ${ loginUser.member_Name }님 환영합니다.</font>
+                                   
                                  </td>
                                  <c:url var="myinfo" value="userinformationcheck.ul"/>
                                  <c:url var="logout" value="logout.ul"/>
                           
-						
+								<td>
                                  <a style="cursor:pointer" onclick="location.href='${myinfo}'">정보보기/</a>
                                  <a style="cursor:pointer" onclick="location.href='${logout}'">로그아웃</a>
+                                </td>
                                  
                                  
                               <tr>
                            </c:if>
                            
                         </div>
-                     </li>   
+                   		  </li>   
                   </ul>
                </div>
                <!--/.nav-collapse -->
@@ -173,7 +156,8 @@
 	
 	<!-- 수진쓰 추가부분 -->
 	<script>
-		
+	
+	
 	function checkCookie(){
 		/* location.href="cancelRC.ss?cancelId=" ;
 		location.href="outSeatCoo.ss?outNo=" ; */
@@ -184,10 +168,12 @@
 					if(data.cName == "No"){
 						if(data.sNo != 0){
 							if(data.cStatus == "cert"){
-								location.href="cancelRC.ss?cancelId=" + data.sNo ;					
+								location.href="cancelRC.ss?cancelId=" + data.sNo ;		
+								
 							}
 							else if(data.cStatus == "out"){
-								location.href="outSeatCoo.ss?outNo=" + data.sNo;						
+								location.href="outSeatCoo.ss?outNo=" + data.sNo;
+							
 							}
 						}
 					}
@@ -199,10 +185,13 @@
 			});
 	}
 	
-	
-	window.onload = setInterval(function(){
+	$(function(){
 		checkCookie();
-	}, 5000);
+		setInterval(function(){
+			checkCookie();
+		}, 5000);
+	})
+	
 	
 	</script>
 	<!-- 요기까지 -->

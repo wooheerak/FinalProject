@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.FinalProject.studyseat.model.dao.SeatDao;
 import com.kh.FinalProject.studyseat.model.vo.Seat;
 import com.kh.FinalProject.studyseat.model.vo.SeatHistory;
+import com.kh.FinalProject.user.model.vo.User;
 
 @Service("sService")
 public class SeatServiceImpl implements SeatService{
@@ -115,6 +116,13 @@ public class SeatServiceImpl implements SeatService{
 	public int updateOutHistory(Seat seat) {
 		
 		return sDao.updateOutHistory(sqlSession , seat);
+	}
+
+
+	@Override
+	public int updateUser(User user) {
+
+		return sDao.updateUser(sqlSession , user);
 	}
 
 

@@ -340,7 +340,7 @@ th{
 		</div>
 	</section>
 	
-	<!-- 스터디룸 게시글 top5 -->
+	<!-- 스터디룸 조회수 게시글 top5 -->
 	<section class="section" style="padding-top: 0px;">
 		<h3>스터디룸 게시글 조회수 TOP 5 목록</h3>
 		<table id="tb" border="1">

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>예약 완료</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <!-- Basic -->
@@ -13,7 +13,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <!-- Site Meta -->
-<title>StudyHub.lib</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -47,36 +46,19 @@
 </head>
 <body>
 	<div id="rsInfo">
-		<h2 style="margin-top:100px"><b>예약이 완료 되었습니다</b></h2>
+		<h2 style="margin-top:100px"><b>예약 정보를 확인하세요</b></h2>
 	<br>
-	
-	<c:url var="bComplete" value="bComplete.bo">
-		<c:param name="bo_number" value="${ sr.bo_number }"/>
-		<c:param name="so_start_time" value="${sr.so_start_time}"/>
-		<c:param name="so_end_time" value="${sr.so_end_time}"/>
-		<c:param name="so_date" value="${sr.so_date}"/>
-		<c:param name="so_name" value="${sr.so_name}"/>
-	</c:url>
-	
-	<input type="button" class="btn" id="close" onclick="location.href='${ bComplete }'" value="확인" />
+		<h3>${info}</h3>
+	<br>
+		<h4>게시판에서도 확인할 수 있습니다</h4>
+	<input type="button" class="btn" id="close" value="확인" />
 	</div>
 	
-<!-- <script>
+<script>
 $("#close").on("click" , function(){
-	 
-	$.ajax({
-         url : "bComplete" ,
-         data : {bo_number : bId},
-         dataType : "json" ,
-         success : function(data){
-        	 
-         }
-		
-	});
-	
-	
+	opener.document.location.reload();
 	self.close();
 });
-</script> -->
+</script>
 </body>
 </html>

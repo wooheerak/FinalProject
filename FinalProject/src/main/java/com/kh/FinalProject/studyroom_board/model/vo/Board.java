@@ -16,6 +16,8 @@ public class Board {
 	private String bo_reinfo;	// 예약 정보
 	private String bo_ing;	// 게시글 상태
 	private int bo_count; // 조회수
+	private String bo_reservation;	// 예약 정보
+	
 	
 	
 	public Board() {}
@@ -23,7 +25,7 @@ public class Board {
 	// 전체
 	public Board(int bo_primary, int bo_number, String bo_title, String bo_detail, String bo_name, int bo_member,
 			int bo_maxmember, String bo_date, String bo_complete, String bo_join, String bo_reinfo, String bo_ing,
-			int bo_count) {
+			int bo_count, String bo_reservation) {
 		super();
 		this.bo_primary = bo_primary;
 		this.bo_number = bo_number;
@@ -38,6 +40,7 @@ public class Board {
 		this.bo_reinfo = bo_reinfo;
 		this.bo_ing = bo_ing;
 		this.bo_count = bo_count;
+		this.bo_reservation = bo_reservation;
 	}
 	
 	// 그룹 참여
@@ -160,15 +163,21 @@ public class Board {
 		this.bo_count = bo_count;
 	}
 
+	public String getBo_reservation() {
+		return bo_reservation;
+	}
+
+	public void setBo_reservation(String bo_reservation) {
+		this.bo_reservation = bo_reservation;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [bo_primary=" + bo_primary + ", bo_number=" + bo_number + ", bo_title=" + bo_title
 				+ ", bo_detail=" + bo_detail + ", bo_name=" + bo_name + ", bo_member=" + bo_member + ", bo_maxmember="
 				+ bo_maxmember + ", bo_date=" + bo_date + ", bo_complete=" + bo_complete + ", bo_join=" + bo_join
-				+ ", bo_reinfo=" + bo_reinfo + ", bo_ing=" + bo_ing + ", bo_count=" + bo_count + "]";
+				+ ", bo_reinfo=" + bo_reinfo + ", bo_ing=" + bo_ing + ", bo_count=" + bo_count + ", bo_reservation="
+				+ bo_reservation + "]";
 	}
-
-	
-	
 	
 }

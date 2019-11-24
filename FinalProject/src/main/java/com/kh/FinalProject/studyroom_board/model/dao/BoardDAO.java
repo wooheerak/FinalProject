@@ -58,8 +58,13 @@ public class BoardDAO {
 	}
 	
 	// 모집 마감
-	public int completeBoard(SqlSessionTemplate sqlSession, int bo_number) {
-		return sqlSession.update("boardMapper.completeBoard", bo_number);
+	public int completeBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("boardMapper.completeBoard", map);
+	}
+	
+	// 모집 마감 취소
+	public int uncompleteBoard(SqlSessionTemplate sqlSession, int bo_number) {
+		return sqlSession.update("boardMapper.uncompleteBoard", bo_number);
 	}
 	
 	// 댓글 리스트
@@ -81,6 +86,7 @@ public class BoardDAO {
 	public int updateReply(SqlSessionTemplate sqlSession, Map<String, Object> reply) {
 		return sqlSession.update("boardMapper.updateReply", reply);
 	}
+
 
 
 }

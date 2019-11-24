@@ -15,6 +15,8 @@ public class User {
 	private int rseatNo ; // 예약한 자리 번호
 	private int useatNo ; // 현재 사용중인 죄석번호
 	private String cStatus ; //쿠키 구분
+	private int sNo ; 
+	private int cTime;
 	
 	public User() {
 		super();
@@ -22,7 +24,8 @@ public class User {
 	}
 
 	public User(String member_Id, String member_Password, String member_Name, String member_No, String phone,
-			String address, String member_Sep, String member_Email, int rseatNo, int useatNo, String cStatus) {
+			String address, String member_Sep, String member_Email, int rseatNo, int useatNo, String cStatus, int sNo,
+			int cTime) {
 		super();
 		Member_Id = member_Id;
 		Member_Password = member_Password;
@@ -35,6 +38,8 @@ public class User {
 		this.rseatNo = rseatNo;
 		this.useatNo = useatNo;
 		this.cStatus = cStatus;
+		this.sNo = sNo;
+		this.cTime = cTime;
 	}
 
 	public String getMember_Id() {
@@ -125,12 +130,28 @@ public class User {
 		this.cStatus = cStatus;
 	}
 
+	public int getsNo() {
+		return sNo;
+	}
+
+	public void setsNo(int sNo) {
+		this.sNo = sNo;
+	}
+
+	public int getcTime() {
+		return cTime;
+	}
+
+	public void setcTime(int cTime) {
+		this.cTime = cTime;
+	}
+
 	@Override
 	public String toString() {
 		return "User [Member_Id=" + Member_Id + ", Member_Password=" + Member_Password + ", Member_Name=" + Member_Name
 				+ ", Member_No=" + Member_No + ", Phone=" + Phone + ", Address=" + Address + ", Member_Sep="
 				+ Member_Sep + ", Member_Email=" + Member_Email + ", rseatNo=" + rseatNo + ", useatNo=" + useatNo
-				+ ", cStatus=" + cStatus + "]";
+				+ ", cStatus=" + cStatus + ", sNo=" + sNo + ", cTime=" + cTime + "]";
 	}
 
 	

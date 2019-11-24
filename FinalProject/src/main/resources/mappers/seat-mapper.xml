@@ -17,7 +17,7 @@
   	
   	<update id = "updateResv" parameterType = "Seat">
   		UPDATE STUDYSEAT
-  		SET SS_USE = 'R' , CERT_CODE = #{cert_code} , STUDENT_ID = #{student_id}
+  		SET SS_USE = 'R' , CERT_CODE = #{cert_code} , STUDENT_ID = #{student_id} , START_TIME = TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:MI') , END_TIME =  TO_CHAR((SYSDATE + 1/24),'YYYY/MM/DD HH24:MI')
   		WHERE SS_NO = #{ss_no} 
   	</update>
   
@@ -63,12 +63,12 @@
   
   	<insert id="insertHistory" parameterType = "Seat">
   		INSERT INTO SEAT_HISTORY
-  		VALUES(SEQ_SHNO.NEXTVAL, #{ss_no} , SYSDATE , #{student_id} , 'R', NULL, NULL)
+  		VALUES(SEQ_SHNO.NEXTVAL, #{ss_no} , SYSDATE , #{student_id} , 'R', TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:MI'), TO_CHAR((SYSDATE + 1/24),'YYYY/MM/DD HH24:MI'))
   	</insert>
   	
   	<update id = "cancelResv" parameterType="Seat">
   		UPDATE SEAT_HISTORY
-  		SET SH_STATUS = 'C'
+  		SET SH_STATUS = 'C' , END_TIME =  TO_CHAR(SYSDATE,'YYYY/MM/DD HH24:MI')
   		WHERE SS_NO = #{ss_no}  AND STUDENT_ID = #{student_id} 
 			  AND USE_DATE = (SELECT MAX(USE_DATE)
                 			  FROM SEAT_HISTORY
@@ -77,7 +77,7 @@
   	
   	<update id  = "resetSeat" parameterType = "_int">
   		UPDATE STUDYSEAT
-		SET SS_USE = 'N' , CERT_CODE = NULL , STUDENT_ID = NULL
+		SET SS_USE = 'N' , CERT_CODE = NULL , STUDENT_ID = NULL , START_TIME = NULL, END_TIME = NULL
 		WHERE SS_NO = #{cancelId}
   	</update>
   	
@@ -109,5 +109,11 @@
   		UPDATE SEAT_HISTORY 
 		SET SH_STATUS = 'E' , END_TIME = TO_CHAR(SYSDATE,'YYYY/MM/DD HH24:MI')
 		WHERE SS_NO = #{ss_no} AND STUDENT_ID = #{student_id}
+  	</update>
+  	
+  	<update id = "updateUser" parameterType = "User">
+  		UPDATE MEMBER
+  		SET S_NO = #{sNo} , C_STATUS = #{cStatus}
+  		WHERE MEMBER_ID = #{member_Id}
   	</update>
 </mapper>

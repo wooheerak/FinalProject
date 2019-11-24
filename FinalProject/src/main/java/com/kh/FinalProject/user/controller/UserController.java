@@ -52,10 +52,16 @@ public class UserController {
       }
    }
    
-   
+   //수진 추가부분
+   // 로그인 form으로 return
+   @RequestMapping("loginForm.ul")
+   public String loginForm() {
+	   return "userlogin";
+   }
    // 로그아웃용 컨트롤러
    @RequestMapping(value="logout.ul")
    public String logout(SessionStatus status) {
+	
       status.setComplete();
       return "redirect:index.do";
    }

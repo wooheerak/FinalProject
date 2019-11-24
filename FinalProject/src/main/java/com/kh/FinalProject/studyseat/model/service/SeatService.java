@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.FinalProject.studyseat.model.vo.Seat;
 import com.kh.FinalProject.studyseat.model.vo.SeatHistory;
+import com.kh.FinalProject.user.model.vo.User;
 
 @Service("sService")
 public interface SeatService {
@@ -37,6 +38,8 @@ public interface SeatService {
 	int updateSeat(Seat seat);
 
 	int updateOutHistory(Seat seat);
+
+	int updateUser(User user);
 
 	
 

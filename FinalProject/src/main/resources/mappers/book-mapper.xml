@@ -52,6 +52,20 @@
 			<result property="bIMG" column="B_IMG"/>			
 		</association>		
 	</resultMap>
+
+	<resultMap type="BookRent" id="bookRentSet">
+		<id property="br_no" column="BR_NO"/>
+		<result property="b_no" column="B_NO"/>
+		<result property="br_date" column="BR_DATE"/>
+		<result property="br_return_date" column="BR_RETURN_DATE"/>
+		<result property="user_id" column="USER_ID"/>
+		<result property="br_status" column="BR_STATUS"/>
+		<association property="book" javaType="Book">
+			<id property="bNo" column="B_NO"/>
+			<result property="bName" column="B_NAME"/>
+			<result property="bWriter" column="B_WRITER"/>
+		</association>
+	</resultMap>
 	
 	
 	<select id="selectCount" resultType="_int" parameterType="map">
@@ -113,7 +127,7 @@
  	</select>
  	
  	<insert id="insertBv" parameterType="map">
- 		insert into book_reservation values (SEQ_BVNO.NEXTVAL, #{bookNo}, #{userId}, to_char(sysdate,'YYYY/MM/DD HH24:MI'), to_char((sysdate +1),'YYYY/MM/DD HH24:MI'), default)
+ 		insert into book_reservation values (SEQ_BVNO.NEXTVAL, #{bookNo}, #{userId}, to_char(sysdate,'YYYY/MM/DD HH24:MI'), to_char((sysdate +1),'YYYY/MM/DD HH24:MI'), 'W')
  	</insert>
  	
  	<update id="updateBS" parameterType="map">
@@ -122,10 +136,11 @@
  		where b_no = #{bookNo}
  	</update>
  	
- 	<select id="selectReservationBookList" resultMap="bookResultSet">
+ 	<select id="selectReservationBookList" resultMap="reservationResultSet">
 		select b.*, br.BV_NO, br.B_NO, br.USER_ID, br.BV_DATE, br.BV_RETURN_DATE, br.BV_STATUS
- 		from book b join book_reservation br on (b.b_no = br.b_no)
- 		where USER_ID = #{userId}
+ 		from book_reservation br 
+ 		join book b on (b.b_no = br.b_no)
+ 		where br.USER_ID = #{userId}
  		order by BV_DATE desc
  	</select>
  	
@@ -149,10 +164,16 @@
  	
  	<update id="checkBook">
  		update book
- 		set b_status = 'N'
+ 		set b_status = 'Y'
  		where b_no in (select b_no
  			  from book_reservation
  			  where BV_RETURN_DATE <![CDATA[<]]> to_char(sysdate,'YYYY/MM/DD HH24:MI'))
+ 	</update>
+ 	
+ 	<update id="checkBook2">
+ 		update book_rent
+ 		set br_status = 'O'
+ 		where BR_RETURN_DATE <![CDATA[<]]> to_char(sysdate,'YYYY/MM/DD HH24:MI')
  	</update>
  	
  	<select id="requestBookListmaster" resultType="BookRequest">
@@ -184,5 +205,98 @@
  		from book_reservation
  		order by bv_no desc
  	</select>
+ 	
+	<update id="updateResvCancel">
+		update BOOK_RESERVATION
+		set bv_status = 'C'
+		where bv_no = #{bv_no}
+	</update>
 	
+	<update id="updateBkCancel">
+		update BOOK
+		set b_status = 'Y'
+		where b_no = #{b_no}
+	</update>
+	
+	<update id="updateRAllow">
+		update BOOK_RESERVATION
+		set bv_status = 'Y' 
+		where bv_no = #{bv_no}
+	</update>
+	
+	<update id="updateBAllow">
+		update BOOK
+		set b_status = 'R'
+		where b_no = #{b_no}		
+	</update>
+	
+	<insert id="insertRent" parameterType="map">
+		insert into book_rent
+		values(SEQ_BKNO.nextval, #{b_no} , to_char(sysdate,'YYYY/MM/DD HH24:MI') , to_char((sysdate + 3),'YYYY/MM/DD HH24:MI'), #{userId} , default)
+	</insert>
+	
+	<select id="selectborrowBkList" resultMap="bookRentSet">
+		select *
+		from book_rent br
+			join book b on (br.b_no = b.b_no)
+		where user_id = #{userId}
+	</select>
+	
+	<update id="updateExtension" parameterType="map">
+		update book_rent
+		set br_return_date = to_char((sysdate)+3,'YYYY/MM/DD HH24:MI'), br_status = 'E'
+		where br_no = #{br_no}
+	</update>
+	
+	<update id="updateRentBook">
+		update book_rent
+		set br_status = 'Y'
+		where br_no = #{br_no}
+	</update>
+	
+	<update id="updateBookY">
+		update book
+		set b_status = 'Y'
+		where b_no = #{b_no}
+	</update>
+	
+	<select id="loanBookList" resultMap="bookRentSet">
+		select *
+		from book_rent br
+			join book b on (br.b_no = b.b_no)
+		order by br_no desc
+	</select>
+	
+	<select id="selectBkListM" resultMap="bookResultSet">
+		select *
+		from book
+		order by b_no desc
+	</select>
+	
+	<insert id="insertBk" parameterType="Book">
+		insert into book
+		values(SEQ_BNO.NEXTVAL, #{bName}, #{bWriter}, #{bTrans}, #{bPublisher}, #{bPage}, #{price}, #{bMainCTG}, sysdate, #{bLanguage}, #{bISBN}, #{bLocation}, 'Y', #{bIMG})
+	</insert>
+	
+	<update id="updateNB" parameterType="Book">
+		update book
+		set B_NAME = #{bName},
+			B_WRITER = #{bWriter},
+			B_TRANS = #{bTrans},
+			B_PUBLISHER = #{bPublisher},
+			B_PAGE = #{bPage},
+			PRICE = #{price},
+			B_MAIN_CTG = #{bMainCTG},
+			B_LANGUAGE = #{bLanguage},
+			B_ISBN = #{bISBN},
+			B_LOCATION = #{bLocation},
+			B_IMG = #{bIMG}
+		where B_NO = #{bNo}
+	</update>
+	
+	<update id="deleteBook">
+		update book
+		set B_STATUS = 'N'
+		where B_NO = #{bNo}
+	</update>
 </mapper>

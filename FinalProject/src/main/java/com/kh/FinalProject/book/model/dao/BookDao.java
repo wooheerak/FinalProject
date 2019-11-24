@@ -1,6 +1,7 @@
 package com.kh.FinalProject.book.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
@@ -8,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.FinalProject.book.model.vo.Book;
+import com.kh.FinalProject.book.model.vo.BookRent;
 import com.kh.FinalProject.book.model.vo.BookRequest;
 import com.kh.FinalProject.book.model.vo.BookReservation;
 import com.kh.FinalProject.book.model.vo.PageInfo;
@@ -93,6 +95,66 @@ public class BookDao {
 
 	public int cancelRequest(SqlSessionTemplate sqlSession, int bq_no) {
 		return sqlSession.update("bookMapper.cancelRequest", bq_no);
+	}
+
+	public int updateResv(SqlSessionTemplate sqlSession, int bv_no) {
+		return sqlSession.update("bookMapper.updateResvCancel", bv_no);
+	}
+
+	public int updateBk(SqlSessionTemplate sqlSession, int b_no) {
+		return sqlSession.update("bookMapper.updateBkCancel", b_no);
+	}
+
+	public int updateRAllow(SqlSessionTemplate sqlSession, int bv_no) {
+		return sqlSession.update("bookMapper.updateRAllow", bv_no);
+	}
+
+	public int updateBAllow(SqlSessionTemplate sqlSession, int b_no) {
+		return sqlSession.update("bookMapper.updateBAllow", b_no);
+	}
+
+	public int insertRent(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.insert("bookMapper.insertRent", map);
+	}
+
+	public ArrayList<BookRent> selectborrowBkList(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("bookMapper.selectborrowBkList", userId);
+	}
+
+	public int updateExtension(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("bookMapper.updateExtension", map);
+	}
+
+	public int checkBook2(SqlSessionTemplate sqlSession) {
+		return sqlSession.update("bookMapper.checkBook2");
+	}
+
+	public int returnRentBook(SqlSessionTemplate sqlSession, int br_no) {
+		return sqlSession.update("bookMapper.updateRentBook",br_no);
+	}
+
+	public int returnBook(SqlSessionTemplate sqlSession, int b_no) {
+		return sqlSession.update("bookMapper.updateBookY", b_no);
+	}
+
+	public ArrayList<BookRent> loanBookList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("bookMapper.loanBookList");
+	}
+
+	public ArrayList<Book> selectBkListM(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("bookMapper.selectBkListM");
+	}
+
+	public int insertBk(SqlSessionTemplate sqlSession, Book bk) {
+		return sqlSession.insert("bookMapper.insertBk", bk);
+	}
+
+	public int updateNBook(SqlSessionTemplate sqlSession, Book bk) {
+		return sqlSession.update("bookMapper.updateNB", bk);
+	}
+
+	public int deleteBook(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.update("bookMapper.deleteBook", bNo);
 	}
 	
 	

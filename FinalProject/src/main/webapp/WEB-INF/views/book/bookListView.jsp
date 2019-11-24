@@ -58,7 +58,7 @@
             </div>
             <div class="pricing-details" style="text-align: center;">
                <div class="menuContent">내 정보 조회</div>
-               <div class="menuContent">대출 내역 조회</div>
+               <div class="menuContent" onclick="location.href='borrowBookList.bk'">대출 내역 조회</div>
                <div class="menuContent">열람실/스터디룸 이용내역 조회</div>
                <div class="menuContent">도서 신청 조회</div>
                <div class="menuContent">BOOKSALES<br>거래 내역</div>

@@ -20,6 +20,7 @@
     	<typeAlias type="com.kh.FinalProject.studyseat.model.vo.SeatHistory" alias="SeatHistory"/>
     	<typeAlias type="com.kh.FinalProject.book.model.vo.BookReservation" alias="Bookreservation"/>
     	<typeAlias type="com.kh.FinalProject.book.model.vo.BookRequest" alias="BookRequest"/>
+    	<typeAlias type="com.kh.FinalProject.book.model.vo.BookRent" alias="BookRent"/>
 	</typeAliases>
 	
 	<mappers>

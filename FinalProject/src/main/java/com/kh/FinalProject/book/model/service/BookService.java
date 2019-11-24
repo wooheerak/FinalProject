@@ -1,9 +1,11 @@
 package com.kh.FinalProject.book.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.kh.FinalProject.book.model.vo.Book;
+import com.kh.FinalProject.book.model.vo.BookRent;
 import com.kh.FinalProject.book.model.vo.BookRequest;
 import com.kh.FinalProject.book.model.vo.BookReservation;
 import com.kh.FinalProject.book.model.vo.PageInfo;
@@ -42,5 +44,33 @@ public interface BookService {
 	ArrayList<BookReservation> selectReservationList();
 
 	int cancelRequest(int bq_no);
+
+	int updateResv(int bv_no);
+
+	int updateBk(int b_no);
+
+	int updateRAllow(int bv_no);
+
+	int updqteBAllow(int b_no);
+
+	int insertRent(HashMap<String, Object> map);
+
+	ArrayList<BookRent> selectborrowBkList(String userId);
+
+	int updateExtension(Map<String, Object> map);
+
+	int returnRentBook(int br_no);
+
+	int returnBook(int b_no);
+
+	ArrayList<BookRent> loanBookList();
+
+	ArrayList<Book> selectBkListM();
+
+	int insertBk(Book bk);
+
+	int updateNBook(Book bk);
+
+	int deleteBook(int bNo);
 
 }

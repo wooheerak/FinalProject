@@ -12,6 +12,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script>
 	jQuery(function($) {
 		$("#tb").DataTable({
@@ -74,7 +75,7 @@
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
 						<h2>도서 관리 페이지</h2>
-						<p class="lead">예약 도서 관리</p>
+						<p class="lead">대출 도서 관리</p>
 					</div>
 					<!-- end col -->
 				</div>
@@ -107,53 +108,67 @@
 					</div>
 					<!-- end pricing-box -->
 				</div>
-				
-				<!-- 테이블 -->
-	<!-- 	<section> -->
+	<!-- 테이블 -->
 	<div class="col-md-9" style="margin-left: 30px; border-radius: 30px; diplay:inline;">
 			<table id="tb" class="table" style="clear:none; diplay:inline;">
 		        <thead align="center">
 		            <tr>
-		            	<th>번호</th>
-		            	<th>신청자 아이디</th>
 		            	<th>도서 번호</th>
-		            	<th>예약 날짜</th>
-		            	<th>만료 날짜</th>
-		            	<th>예약 상황</th>
+		            	<th>도서 제목</th>
+		            	<th>저 자</th>
+		            	<th>출판사</th>
+		            	<th>카테고리</th>
+		            	<th>입고 날짜</th>
+		            	<th>ISBN</th>
+		            	<th>위 치</th>
+		            	<th>도서 상태</th>
+		            	<th></th>
 		          	</tr>
 		        </thead>
 		
 		        <tbody>
-		            <c:forEach var="r" items="${ list }">
-		            	<c:url var="allow" value="allowReservation.bk">
-							<c:param name="bv_no" value="${ r.bv_no }"/>		
-							<c:param name="b_no" value="${ r.b_no }"/>		
-							<c:param name="user_id" value="${ r.user_id }"/>		
-						</c:url>
+		            <c:forEach var="b" items="${ list }">
+		            <c:url var="detailView" value="bookDetailViewMaster.bk">
+						<c:param name="bno" value="${ b.bNo }"/>					
+						<c:param name="isbn" value="${ b.bISBN }"/>					
+					</c:url>
 		            <tr>
-		            	<td>${ r.bv_no }</td>
-		            	<td>${ r.user_id }</td>
-		            	<td>${ r.b_no }</td>
-		            	<td>${ r.bv_date }</td>
-		            	<td>${ r.bv_return_date }</td>
+		            	<td>${ b.bNo }</td>
+		            	<td>${ b.bName }</td>
+		            	<td>${ b.bWriter }</td>
+		            	<td>${ b.bPublisher }</td>
+		            	<td>${ b.bMainCTG }</td>
+		            	<td>${ b.bIssueDate }</td>
+		            	<td>${ b.bISBN }</td>
+		            	<td>${ b.bLocation }</td>
 		            	<td>
-		            		<c:if test="${r.bv_status eq 'W' }">
-			            		<input id="" type="button" onclick="location.href='${allow}'" value="대출" style="background-color: white; color: black; border: 2px solid blue;"/>&nbsp;
+		            		<c:if test="${b.status eq 'R' }">
+								<p style="color: blue;">대출 중</p>
 			            	</c:if>
-			            	<c:if test="${r.bv_status eq 'N' }">
-			            		<p>기간 만료됨</p>
+			            	<c:if test="${b.status eq 'N' }">
+			            		<p style="color: red;">폐기 됨</p>
 			            	</c:if>
-			            	<c:if test="${r.bv_status eq 'Y' }">
-			            		<p>대출 승인됨</p>
-			            	</c:if>
-			            	<c:if test="${r.bv_status eq 'C' }">
-			            		<p>예약 취소됨</p>
+			            	<c:if test="${b.status eq 'Y' }">
+			            		<p>대출 가능</p>
 			            	</c:if>
 		            	</td>
+		            	<td>
+		            		<c:if test="${b.status ne 'N' }">
+		            			<button onclick="location.href='${detailView}'" class="w3-button w3-white w3-border w3-round-large">상세 보기</button>
+		            		</c:if>
+		            		<c:if test="${b.status eq 'N' }">
+		            			<p>폐기 됨</p>
+		            		</c:if>
+		            	</td>
+		            </tr>
 		            </c:forEach>
 		        </tbody>
 		    </table>	
 		    </div>	
+		    <c:url var="insertBook" value="insertBook.bk">
+				</c:url>
+				<button onclick="location.href='${insertBook}'" style="margin-left: 410px;"
+				class="w3-button w3-white w3-border w3-round-large">도서 등록</button>	
 		</section>
 	<!-- </section> -->
 		<!-- end section -->

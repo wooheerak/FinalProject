@@ -12,37 +12,41 @@
 /*열람실 좌석현황*/
 .readingR {
 	position: relative;
-	margin-top: 22px;
 }
 
 .readingR>ul {
+	width : 100%;
+	list-style-type: none;
 	overflow: hidden;
-	padding: 3px 9px 2px 12px;
 	border: 1px solid #dedede;
-	background-color: #f5f5f5;
+	padding-left : 10px;
 }
 
 .readingR>ul li {
-	float: left;
 	line-height: 31px;
 }
 
 .readingR>ul h3 {
 	float: left;
-	width: 45px;
+	width: 60px;
 	text-align: left;
 	font-size: 13px;
 	color: #6d6d6d;
 }
 
 .readingR>ul p {
-	float: right;
 	font-size: 13px;
 	color: #6d6d6d;
 }
 
+
 .readingR>ul p .num {
+	font-size : 12px;
 	color: #ff1857;
+}
+
+.readingR>ul p .total {
+	font-size : 14px;
 }
 
 .readingR .flr {
@@ -51,8 +55,6 @@
 
 .readingR .book p {
 	padding-left: 28px;
-	background: url(../../../../image/ko/local/main/readingIcon2.png)
-		no-repeat 10px 7px;
 	background-size: 13px 16px;
 	text-align: left;
 	min-width: 52px;
@@ -60,8 +62,6 @@
 
 .readingR .com p {
 	padding-left: 29px;
-	background: url(../../../../image/ko/local/main/readingIcon1.png)
-		no-repeat 6px 8px;
 	background-size: 19px 14px;
 }
 
@@ -76,23 +76,36 @@
 	height: 13px;
 }
 
-@media screen and (max-width:1116px) {
-	.readingR>ul {
-		padding: 3px 8px 2px 8px;
-	}
-	.readingR .book p {
-		padding-left: 24px;
-		background: url(../../../../image/ko/local/main/readingIcon2.png)
-			no-repeat 5px 7px;
-		background-size: 13px 16px;
-	}
-	.readingR .com p {
-		padding-left: 25px;
-		background: url(../../../../image/ko/local/main/readingIcon1.png)
-			no-repeat 3px 8px;
-		background-size: 19px 14px;
-	}
+
+.lInput[type=text], .lInput[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 }
+
+.lButton {
+  background-color: #00529c;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.lButton:hover {
+  opacity: 0.8;
+}
+
+
+.psw {
+  float: right;
+  padding-top: 16px;
+}
+
 </style>
 
 </head>
@@ -195,6 +208,69 @@
 				<!-- li 태그로 공지사항 제목 들어가는 부분 -->
 			</ul>
 		</div>
+		
+		<!-- 열람실 좌석현황 -->
+		<div class="col-md-2" style = "margin-left : 40px;">
+			<div class="readingR " >
+				<b>열람실 좌석현황</b>
+				<ul id="seatStat" style="" >
+					<p style = "margin-left : 40px; margin-top : 10px;">	  
+				    	<span class = "num">잔여좌석</span> / 총 좌석
+					</p>
+					<li class="book" style = "margin-top : 10px;">
+						<p style = "display : inline;"><b>A</b> 열람실</p>
+						<p id = "aTitle" title="A열람실 : 344석" style = "display : inline;">
+							<span class="num numA">344</span>/<span class="total">344</span>
+						</p>
+					</li>
+					
+					<li class="book">
+						<p style = "display : inline;"><b>B</b> 열람실</p>
+						<p id = "bTitle" title="B열람실 : 176석" style = "display : inline;">
+							<span class="num numB">46</span>/<span class="total">176</span>
+						</p>
+					</li>
+					
+					<li class="com" style = "margin-bottom : 10px;">
+						<p style = "display : inline;"><b>C</b> 열람실</p>
+						<p  id = "cTitle" title="C열람실 : 148석, 노트북 사용가능" style = "display : inline;">
+							<span class="num numC">29</span>/<span class="total">148</span>
+						</p>
+					</li>
+		
+				</ul>
+			</div>
+		</div>
+		
+		<!-- 로그인 -->
+		<c:if test="${ empty sessionScope.loginUser }">
+			<form class = "lForm" action="userlogin.ul" method="post">
+	
+			  <div class="col-md-3" style = "margin-left : 40px;border : 1px solid lightgray;padding : 20px; margin-top : 25px; ">
+	    		<label for="uname"><b>Student Id</b></label>
+	    		<input class = "lInput" type="text" placeholder="Enter Student Id" name="member_Id" required>
+	
+	    		<label for="psw"><b>Password</b></label>
+	    		<input class = "lInput" type="password" placeholder="Enter Password" name="member_Password" required>
+	        
+	    		<button class = "lButton" type="submit">Login</button>
+				<a href="#">비밀번호를 잊으셨나요?</a>
+			  </div>
+			</form>
+		</c:if>
+		
+		<c:if test="${ !empty sessionScope.loginUser }">
+			<div class="col-md-3" style = "margin-left : 40px; border : 1px solid lightgray; padding : 0px; margin-top : 25px; height : 294px;">
+				<img src="resources/images/logo.png" style="width:120px ; margin-left : 100px; margin-top : 50px;"/>
+	    		<label for="uname" style = "margin-left : 90px; margin-top : 25px;"><b>${ loginUser.member_Name }</b>님, 반갑습니다.</label>
+	   
+	        	<div style = "margin-left : 50px; margin-top : 20px;">
+	    		<button class = "lButton" type="button" onclick="location.href='userinformationcheck.ul'" style = "width : 40%; height : 40px; display : inline; padding-top : 8px;">개인 정보</button>
+	    		<button class = "lButton" type="button" onclick="location.href='logout.ul'" style = "margin-left : 5px; width : 40%;  height : 40px; display : inline; padding-top : 8px;">로그아웃</button>
+	    		</div>
+			 </div>
+		</c:if>
+		
 	</section>
 	<!-- end section -->
 
@@ -227,6 +303,38 @@
 			setInterval(function() {
 				topList();
 			}, 15000);
+		});
+		
+		function countSeat() {
+			$.ajax({
+				url : "cSeat.ss",
+				success : function(data) {
+					console.log(data);
+					var countA = data[0];
+					var countB = data[1];
+					var countC = data[2];
+					
+					$("#aTitle").attr("title","A열람실 : "+ countA +"석");
+					$("#bTitle").attr("title","B열람실 : "+ countB +"석");
+					$("#cTitle").attr("title","C열람실 : "+ countC +"석, 노트북 사용가능");
+					
+					$(".numA").text(countA);
+					$(".numB").text(countB);
+					$(".numC").text(countC);
+					
+				} ,
+				error : function(data){
+					console.log(data);
+				}
+			
+			});
+		}
+		
+		$(function() {
+			countSeat();
+			setInterval(function() {
+				countSeat();
+			}, 10000);
 		});
 	</script>
 	<!-- 공지사항 인덱스 리스트 끝 -->
@@ -284,51 +392,9 @@
 		});
 	</script>
 
-	<section class="section" style="padding-top: 0px;">
-		<div class="col-md-4">
-			<div class="readingR">
-				<h2>열람실 좌석현황</h2>
-				<ul id="seatStat" style="">
-					<li class="book">
-						<h3>1열람실</h3>
-						<p title="1열람실 : 344석">
-							<span class="num">344</span>/<span class="total">344</span>
-						</p>
-					</li>
-					<li class="book flr">
-						<h3>2열람실</h3>
-						<p title="2열람실 : 176석">
-							<span class="num">46</span>/<span class="total">176</span>
-						</p>
-					</li>
-					<li class="com">
-						<h3>3열람실</h3>
-						<p title="3열람실 : 148석, 노트북 사용가능">
-							<span class="num">29</span>/<span class="total">148</span>
-						</p>
-					</li>
-					<li class="book flr">
-						<h3>4열람실</h3>
-						<p title="4열람실 : 278석">
-							<span class="num">185</span>/<span class="total">278</span>
-						</p>
-					</li>
-					<li class="com">
-						<h3>6열람실</h3>
-						<p title="6열람실 : 54석, 노트북 사용가능">
-							<span class="num">35</span>/<span class="total">54</span>
-						</p>
-					</li>
-					<li class="com flr">
-						<h3>법&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;학</h3>
-						<p title="법학열람실 : 133석, 노트북 사용가능">
-							<span class="num">105</span>/<span class="total">133</span>
-						</p>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</section>
+	
+		
+	
 
 
 

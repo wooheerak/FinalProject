@@ -535,8 +535,16 @@
 		
 		
 		function resvModal(){
-			$("#seatId").text(seatNo);
-			$("#popModal").trigger("click");
+			if(seatNo != 0){
+				$("#seatId").text(seatNo);
+				$("#popModal").trigger("click");
+			}
+			else{
+				$("#mMessage").text("");
+				$("#mMessage").append("좌석을 선택해주세요!");
+				$("#mB").attr("onclick" , "");
+				$("#mButton").trigger("click");
+			}
 			
 		}
 		
@@ -703,16 +711,24 @@
 					console.log(data);
 					
 					if(data != 0){
-						cId = data
+						cId = data;
+						$("#exampleModalLongTitle1").text("퇴실 Message");
+						$("#certMsg").text("");
+						$("#certMsg").append("퇴실하시겠습니까? <br><br> ( 좌석번호 : " + cId + "번  )");
+						$("#rCode").hide();
+						$("#certBtn").attr("onclick" , "outSeat();")
+						$("#codeModal").trigger("click");
 					
 					}
+					else{
+						$("#mMessage").text("");
+						$("#mMessage").append("이용중인 좌석이 없습니다!");
+						$("#mB").attr("onclick" , "");
+						$("#mButton").trigger("click");
+					}
 					
-					$("#exampleModalLongTitle1").text("퇴실 Message");
-					$("#certMsg").text("");
-					$("#certMsg").append("퇴실하시겠습니까? <br><br> ( 좌석번호 : " + cId + "번  )");
-					$("#rCode").hide();
-					$("#certBtn").attr("onclick" , "outSeat();")
-					$("#codeModal").trigger("click");
+					
+					
 				} ,
 				error : function(error){
 					console.log(error);

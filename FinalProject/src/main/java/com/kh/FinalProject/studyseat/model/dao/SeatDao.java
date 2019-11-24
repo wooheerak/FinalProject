@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.FinalProject.studyseat.model.vo.Seat;
 import com.kh.FinalProject.studyseat.model.vo.SeatHistory;
+import com.kh.FinalProject.user.model.vo.User;
 
 @Repository("sDao")
 public class SeatDao {
@@ -104,6 +105,13 @@ public class SeatDao {
 	public int updateOutHistory(SqlSessionTemplate sqlSession, Seat seat) {
 		
 		return sqlSession.update("seatMapper.updateOutHistory" , seat);
+	}
+
+
+
+	public int updateUser(SqlSessionTemplate sqlSession, User user) {
+		
+		return sqlSession.update("seatMapper.updateUser" , user);
 	}
 
 

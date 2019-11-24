@@ -16,6 +16,10 @@
 	<result property="Address" column="ADDRESS"/>
 	<result property="Member_Sep" column="MEMBER_SEP"/>
 	<result property="Member_Email" column="MEMBER_EMAIL"/>
+	<!-- 수진 추가부분  -->
+	<result property ="sNo" column="S_NO"/>
+	<result property = "cStatus" column = "C_STATUS"/>
+	<result property = "cTime" column = "C_TIME"/>
 	</resultMap>
 	
 	<!-- 회원정보수정 -->

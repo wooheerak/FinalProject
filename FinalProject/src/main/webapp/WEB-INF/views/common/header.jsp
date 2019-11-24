@@ -3,7 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-	User loginUser = (User)session.getAttribute("loginUser");
+	User loginUser = (User) session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 
 <!-- Basic -->
@@ -45,22 +45,26 @@
 
 </head>
 <body>
-<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
+	<c:set var="contextPath"
+		value="${ pageContext.servletContext.contextPath }"
+		scope="application" />
 	<header class="header site-header">
 		<div class="container">
 			<nav class="navbar navbar-default yamm">
 				<div class="container-fluid">
 					<div class="navbar-header">
 						<a class="navbar-brand" href="index.jsp"><img
-							src="resources/images/logo.png" style="width:120px;"/></a>
+							src="resources/images/logo.png" style="width: 120px;" /></a>
 					</div>
-					<div id="navbar" class="navbar-collapse collapse" style = "float : left; margin-left : 150px;">
+					<div id="navbar" class="navbar-collapse collapse"
+						style="float: left; margin-left: 150px;">
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="index.jsp">Home</a></li>
-                           	<li><a href="selectList.bk?searchOption="+'title'+"&search="+' '">자료검색</a></li>
-                           	<li><a href="">도서관 서비스</a></li>
-                           	<li><a href="">도서관 안내</a></li>
-                           	<li><a href="">마이라이브러리</a></li>
+							<li><a href="selectList.bk?searchOption="
+								+'title'+"&search="+' '">자료검색</a></li>
+							<li><a href="">도서관 서비스</a></li>
+							<li><a href="">도서관 안내</a></li>
+							<li><a href="">마이라이브러리</a></li>
 							<li class="dropdown yamm-fw hasmenu"><a href="#"
 								class="dropdown-toggle" data-toggle="dropdown" role="button"
 								aria-haspopup="true" aria-expanded="false">더보기 <span
@@ -69,145 +73,137 @@
 									<li>
 										<div class="yamm-content">
 											<div class="row">
-												<div class="col-md-4">
+												<div class="col-md-3">
 													<ul>
-														<li><a href="service-01.html">SEO Consultants</a></li>
-														<li><a href="service-02.html">SEO Audits</a></li>
-														<li><a href="service-03.html">SEO Packages & Plans</a></li>
-														<li><a href="service-04.html">Web Copywriting</a></li>
-														<li><a href="service-05.html">SEO Copywriting</a></li>
-														<li><a href="service-06.html">Keyword Research</a></li>
-														<li><a href="service-07.html">SEO Strategy</a></li>
 														<li><a href="selectRequestBook.bk">신청 목록</a></li>
 														<li><a href="requestBook.bk">도서 신청하기</a></li>
+														<%
+															if (loginUser != null) {
+																if (loginUser.getMember_Sep().equals("A")) {
+														%>
+														<li><a href="masterPage.bk">관리자 페이지</a></li>
+														<%
+															}
+															}
+														%>
 													</ul>
 												</div>
-												<div class="col-md-4">
+												<div class="col-md-3">
 													<ul>
 														<li><a href="srDay.sr">스터디룸 조회</a></li>
-		                                                <li><a href="">Pricing & Plans</a></li>
-		                                                <li><a href="">Our Clients</a></li>
-		                                                <li><a href="bsinsertView.bs">중고서적 등록</a></li>
-		                                                <li><a href="bslist.bs">중고서적</a></li>
-		                                                <li><a href="bList.bo">스터디룸 게시판</a></li>
-                                                    <%
-		                                                	if(loginUser != null){
-		                                                		if(loginUser.getMember_Sep().equals("A")){
-		                                                %>
-		                                                <li><a href="masterPage.bk">관리자 페이지</a></li>
-		                                                <% }}%>
+														<li><a href="myseatList.ss">나의 열람실</a></li>
+														<li><a href="bList.bo">스터디룸 게시판</a></li>
 													</ul>
 												</div>
-												<div class="col-md-4">
+												<div class="col-md-3">
 													<ul>
-														<li><a href="">Blog & News</a></li>
-		                                                <li><a href="">Blog Alternative</a></li>
-		                                                <li><a href="">Single Blog</a></li>
-		                                                <li><a href="ninsertView.no">공지사항 작성</a></li>
-		                                                <li><a href="nlist.no">공지사항</a></li>
-		                                                <li><a href="myseatList.ss">나의 열람실</a></li>
-		                                                <li><a href="">Contact Alternative</a></li>
-		                                                <li><a href="">FAQ's Page</a></li>
-		                                                <li><a href="">404 Not Found</a></li>
+														<li><a href="bslist.bs">중고서적</a></li>
+														<li><a href="bsinsertView.bs">중고서적 등록</a></li>
+													</ul>
+												</div>
+												<div class="col-md-3">
+													<ul>
+														<li><a href="nlist.no">공지사항</a></li>
+														<%
+															if (loginUser != null) {
+																if (loginUser.getMember_Name().equals("관리자")) {
+														%>
+														<li><a href="ninsertView.no">공지사항 작성</a></li>
+														<%
+															}
+															}
+														%>
 													</ul>
 												</div>
 											</div>
 										</div>
 									</li>
-								</ul>
-							</li>
+								</ul></li>
 							<li>
-								 <div class="loginArea" align="right" style = "margin-top : 12px;">
-                           <c:if test="${ empty sessionScope.loginUser }">
-                           		<td colspan="2">
-                             	 <a style="cursor:pointer" onclick="location.href='loginForm.ul'">로그인</a>
-                             	</td>
-                           </c:if>
-                           <c:if test="${ !empty sessionScope.loginUser }"> 
-                              <tr>
-                                 <td>
-                                   
-                                 </td>
-                                 <c:url var="myinfo" value="userinformationcheck.ul"/>
-                                 <c:url var="logout" value="logout.ul"/>
-                          
-								<td>
-                                 <a style="cursor:pointer" onclick="location.href='${myinfo}'">정보보기/</a>
-                                 <a style="cursor:pointer" onclick="location.href='${logout}'">로그아웃</a>
-                                </td>
-                                 
-                                 
-                              <tr>
-                           </c:if>
-                           
-                        </div>
-                   		  </li>   
-                  </ul>
-               </div>
-               <!--/.nav-collapse -->
-            </div>
-            <!--/.container-fluid -->
-         </nav>
-         <!-- end nav -->
-      </div>
-      <!-- end container -->
-   </header>
-   <!-- end header -->
-	
+								<div class="loginArea" align="right" style="margin-top: 12px;">
+									<c:if test="${ empty sessionScope.loginUser }">
+										<td colspan="2"><a style="cursor: pointer"
+											onclick="location.href='loginForm.ul'">로그인</a></td>
+									</c:if>
+									<c:if test="${ !empty sessionScope.loginUser }">
+										<tr>
+											<td></td>
+											<c:url var="myinfo" value="userinformationcheck.ul" />
+											<c:url var="logout" value="logout.ul" />
+
+											<td><a style="cursor: pointer"
+												onclick="location.href='${myinfo}'">정보보기/</a> <a
+												style="cursor: pointer" onclick="location.href='${logout}'">로그아웃</a>
+											</td>
+										<tr>
+									</c:if>
+
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!--/.nav-collapse -->
+				</div>
+				<!--/.container-fluid -->
+			</nav>
+			<!-- end nav -->
+		</div>
+		<!-- end container -->
+	</header>
+	<!-- end header -->
+
 	<!-- 수진쓰 추가부분 -->
 	<script>
-	
-	
-	function checkCookie(){
-		/* location.href="cancelRC.ss?cancelId=" ;
-		location.href="outSeatCoo.ss?outNo=" ; */
+		function checkCookie() {
+			/* location.href="cancelRC.ss?cancelId=" ;
+			location.href="outSeatCoo.ss?outNo=" ; */
 			$.ajax({
-				url : "checkCookie.ss" ,
-				success : function(data){
+				url : "checkCookie.ss",
+				success : function(data) {
 					console.log(data);
-					if(data.cName == "No"){
-						if(data.sNo != 0){
-							if(data.cStatus == "cert"){
-								location.href="cancelRC.ss?cancelId=" + data.sNo ;		
-								
-							}
-							else if(data.cStatus == "out"){
-								location.href="outSeatCoo.ss?outNo=" + data.sNo;
-							
+					if (data.cName == "No") {
+						if (data.sNo != 0) {
+							if (data.cStatus == "cert") {
+								location.href = "cancelRC.ss?cancelId="
+										+ data.sNo;
+
+							} else if (data.cStatus == "out") {
+								location.href = "outSeatCoo.ss?outNo="
+										+ data.sNo;
+
 							}
 						}
 					}
-					
-				} ,
-				error : function(data){
+
+				},
+				error : function(data) {
 					console.log(data);
 				}
 			});
-	}
-	
-	$(function(){
-		checkCookie();
-		setInterval(function(){
+		}
+
+		$(function() {
 			checkCookie();
-		}, 5000);
-	})
-	
-	
+			setInterval(function() {
+				checkCookie();
+			}, 5000);
+		})
 	</script>
 	<!-- 요기까지 -->
-  
-  <!-- 동수파트 -->
-  	<script>
-		window.onload = setInterval(function(){
-			
+
+	<!-- 동수파트 -->
+	<script>
+		window.onload = setInterval(function() {
+
 			$.ajax({
 				url : "checkBook.bk",
-				success: function(data){
-				}, error : function(data){
+				success : function(data) {
+				},
+				error : function(data) {
 				}
 			});
-		},60000);
+		}, 60000);
 	</script>
-  	<!-- 요기까지 -->
+	<!-- 요기까지 -->
 </body>
 </html>

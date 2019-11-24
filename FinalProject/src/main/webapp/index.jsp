@@ -127,86 +127,106 @@ th{
 	<c:import url="WEB-INF/views/common/header.jsp"></c:import>
 
 	<!-- 검색바 -->
-	<div class="" style="background-color: white;">
-		<div class="row">
-			<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-				<form action="selectList.bk" class="calculateform"
-					style="height: 120px; padding-top: 33px; background-color: rgb(19, 19, 94);">
-					<div class="dorpdown dropdown" style="display: flex;">
-						<SELECT name='searchOption'>
-							<!-- 검색 컬럼 -->
-							<OPTION value='title'>제목 검색</OPTION>
-							<OPTION value='author'>저자 검색</OPTION>
-							<OPTION value='publisher'>출판사 검색</OPTION>
-							<OPTION value='ISBN'>ISBN 검색</OPTION>
-						</SELECT> &nbsp;&nbsp; <input type="text" class="form-control"
-							id="searchbar" name="search"
-							style="height: 49.33px; width: 450px;" placeholder="검색어를 입력하세요">
-						&nbsp;&nbsp; <input type="submit" name="send" value="검색"
-							class="btn btn-default" style="height: 49.33px; width: 150px;" />
-					</div>
-				</form>
-			</div>
-			<!-- end col -->
-		</div>
-		<!-- end row -->
-	</div>
-	<!-- 검색바 -->
+   <section class="section nopad" style="background-color:rgba(0,82,156,0.7);width : 100%; height : 250px; ">
+   
+         <div class="col-md-10 col-md-offset-1  text-center" style = "">
+            <form action="selectList.bk" class="calculateform"
+               style="height: 150px; padding-top: 33px;background-color:rgba(0,82,156);  margin-bottom : 30px;">
+               <div class="dorpdown dropdown" style="display: flex; margin-top : 30px; width : 100%;">
+                  <SELECT name='searchOption'>
+                     <!-- 검색 컬럼 -->
+                     <OPTION value='title'>제목 검색</OPTION>
+                     <OPTION value='author'>저자 검색</OPTION>
+                     <OPTION value='publisher'>출판사 검색</OPTION>
+                     <OPTION value='ISBN'>ISBN 검색</OPTION>
+                  </SELECT> &nbsp;&nbsp; <input type="text" class="form-control"
+                     id="searchbar" name="search"
+                     style="height: 49.33px; width: 450px;" placeholder="검색어를 입력하세요">
+                  &nbsp;&nbsp; <input type="submit" name="send" value="검색"
+                     class="btn btn-default" style="height: 49.33px; width: 150px;" />
+               </div>
+            </form>
+         </div>
+         <!-- end col -->
+         
+         
+         
+         <!-- end row -->
+   
+      <!-- end container -->
+      <!-- end row -->
+   </section> 
+   
 
-	<section class="section nopad">
-		<div class="container-fluid">
-			<div class="row text-center">
-				<div class="col-md-3 col-sm-6 nopad first">
-					<div class="home-service c1" style="background-color: #dfe8ea;">
-						<i class="flaticon-competition"></i>
-						<p>대출/연장</p>
-					</div>
-					<!-- end home-service -->
-				</div>
-				<!-- end col -->
+   <!-- 검색바 -->
 
-				<div class="col-md-3 col-sm-6 nopad">
-					<div class="home-service c2" style="background-color: #dfe8ea;">
-						<i class="flaticon-chat"></i>
-						<p>자료 요청</p>
-					</div>
-					<!-- end home-service -->
-				</div>
-				<!-- end col -->
+   <section class="section nopad" style = "">
+      <ul class="text-center" style = "list-style-type: none ; margin-left : 0px;padding:0px; ">
+            <li>
+            <div class="col-md-2 col-sm-6 nopad" >
+               <div class="home-service c1" style="background-color: #dfe8ea; height :165px; padding : 7px;">
+                  <img src="resources/images/quickMenu6.png" style="width: 100px;">
+                  <p>대출/연장</p>
+               </div>
+               <!-- end home-service -->
+            </div>
+            </li>
+            <!-- end col -->
+            <li>
+            <div class="col-md-2 col-sm-6 nopad">
+               <div class="home-service c2" style="background-color: #dfe8ea; height :165px;padding : 7px;">
+                  <img src="resources/images/quickMenu4.png" style="width: 100px;">
+                  <p>자료 요청</p>
+               </div>
+               <!-- end home-service -->
+            </div>
+            </li>
+            <!-- end col -->
 
-				<div class="col-md-3 col-sm-6 nopad">
-					<div class="home-service c3" style="background-color: #dfe8ea;"
-						onclick="location.href='studymain.ss'">
-						<i class="flaticon-medal"></i>
-						<p>열람실/스터디룸</p>
-					</div>
-					<!-- end home-service -->
-				</div>
-
-				<div class="col-md-3 col-sm-6 nopad">
-					<div class="home-service c3" style="background-color: #dfe8ea;"
-						onclick="location.href='bList.bo'">
-						<i class="flaticon-chat"></i>
-						<p>스터디룸 게시판</p>
-					</div>
-					<!-- end home-service -->
-				</div>
-				<!-- end col -->
-
-				<div class="col-md-3 col-sm-6 nopad last">
-					<div class="home-service c4" style="background-color: #dfe8ea;">
-						<i class="flaticon-medal"></i>
-						<p>시설 안내</p>
-					</div>
-					<!-- end home-service -->
-				</div>
-				<!-- end col -->
-			</div>
-			<!-- end row -->
-		</div>
-		<!-- end container -->
-	</section>
-	<!-- end section -->
+            <li>
+            <div class="col-md-2 col-sm-6 nopad">
+               <div class="home-service c3" style="background-color: #dfe8ea; height :165px; padding : 7px;"
+                  onclick="location.href='studymain.ss'">
+                  <img src="resources/images/quickMenu3.png" style="width: 100px;">
+                  <p >열람실/스터디룸</p>
+               </div>
+               <!-- end home-service -->
+            </div>
+            </li>
+            
+            <li>
+            <div class="col-md-2 col-sm-6 nopad">
+               <div class="home-service c3" style="background-color: #dfe8ea; height :165px; padding : 7px;"
+                  onclick="location.href='bList.bo'">
+                  <img src="resources/images/quickMenu1.png" style="width: 100px;">
+                  <p >스터디룸 게시판</p>
+               </div>
+               <!-- end home-service -->
+            </div>
+            </li>
+            <!-- end col -->
+            <li>
+            <div class="col-md-2 col-sm-6 nopad last">
+               <div class="home-service c4" style="background-color: #dfe8ea; height :165px; padding : 7px;">
+                  <img src="resources/images/quickMenu2.png" style="width: 100px;">
+                  <p>시설 안내</p>
+               </div>
+               <!-- end home-service -->
+            </div>
+            </li>
+            <li>
+            <div class="col-md-2 col-sm-6 nopad last">
+               <div class="home-service c4" style="background-color: #dfe8ea; height :165px; padding : 7px;">
+                  <img src="resources/images/quickMenu7.png" style="width: 100px;">
+                  <p>중고 서적</p>
+               </div>
+               <!-- end home-service -->
+            </div>
+            </li>
+            <!-- end col -->
+         </ul>
+   </section> 
+   <!-- end section -->
 
 	<!-- 공지사항 -->
 	<section class="section"

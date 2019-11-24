@@ -662,19 +662,9 @@ button[class*="btn"] {border: 0;}
 												}).then((result) => {
 												if (result.value) {
 													var url = "srAppointment.sr?bo_number=${board.bo_number}&bo_member=${board.bo_member}&member_Name=${ loginUser.member_Id }&bo_join=${ board.bo_join }";
-													console.log(${board.bo_member});
 													var srReservation2 = "srReservation2";
-													
 													var specs="width=420px, height=350px, left=20, top=30, toolbar=no, location=no, directories=no";
-													
 													window.open(url,srReservation2,specs);
-													
-// 												    location.href='${ bComplete }'
-// 											    	 swalWithBootstrapButtons.fire(
-// 											    		      '마감 되었습니다',
-// 											    		      '마감 완료.',
-// 											    		      'success'
-// 											    		    )
 												  } else {
 												  }
 											})
@@ -684,10 +674,35 @@ button[class*="btn"] {border: 0;}
 							</c:if>
 						</c:if>
 					</c:if>
-				<c:if test="${ board.bo_complete == 'Y' }">
-				
-					<%-- ${ }강의실 ${ }시부터 ${ }시까지 예약 되었습니다 --%>
-					
+			<c:if test="${ board.bo_complete == 'Y' }">
+				<c:if test="${ loginUser.member_Name == board.bo_name }">
+					${ board.bo_reservation } 
+					<c:url var="bUnComplete" value="bUnComplete.bo">
+						<c:param name="bo_number" value="${ board.bo_number }"/>
+					</c:url>
+					<button id="uncomplete" class="btn-gradient red">마감취소</button>
+					<script type="text/javascript">
+							$('#uncomplete').click(function(){
+								Swal.fire({
+									width: 600,
+									padding: 100,
+								  title: '마감 취소 하시겠습니까?',
+								  text: "다시한번 확인해주세요",
+								  icon: 'warning',
+								  showCancelButton: true,
+								  confirmButtonColor: '#3085d6',
+								  cancelButtonColor: '#d33',
+								  cancelButtonText: '취소',
+								  confirmButtonText: '마감 취소할래요!!',
+								}).then((result) => {
+									if (result.value) {
+									    location.href='${ bUnComplete }'
+								  } else {
+								  }
+							})
+						});
+						</script>
+					</c:if>
 				</c:if>
 			</td>
 		</tr>

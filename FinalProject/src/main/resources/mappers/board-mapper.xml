@@ -16,6 +16,7 @@
 		<result property="bo_date" column="BO_DATE"/> <!-- 작성일 -->
 		<result property="bo_count" column="BO_COUNT"/>	 <!-- 조회수 -->
 		<result property="bo_ing" column="BO_ING"/>	  <!-- 상태 -->
+		<result property="bo_reservation" column="BO_RESERVATION"/>	  <!-- 상태 -->
 	</resultMap>
 	
      <!-- 게시판 리스트 -->
@@ -44,7 +45,7 @@
      <insert id = "insertBoard" parameterType = "Board">
         INSERT INTO STUDYROOM_BOARD
         VALUES(SEQ_BOP.NEXTVAL , SEQ_BON.NEXTVAL , #{bo_title} , #{bo_detail} , #{bo_name} , 1 ,
-              #{bo_maxmember} , NULL , #{bo_reinfo} , DEFAULT , TO_CHAR(SYSDATE,'YYYY-MM-DD HH24-MI-SS') , DEFAULT , DEFAULT)
+              #{bo_maxmember} , NULL , #{bo_reinfo} , DEFAULT , TO_CHAR(SYSDATE,'YYYY-MM-DD HH24-MI-SS') , DEFAULT , DEFAULT,NULL)
      </insert>
      
      <!-- 게시글 업데이트 -->
@@ -62,10 +63,19 @@
      </update>
      
      <!-- 모집 마감 -->
-     <update id = "completeBoard" parameterType = "_int" >
+     <update id = "completeBoard" parameterType = "map" >
         UPDATE STUDYROOM_BOARD
-        SET BO_COMPLETE = 'Y'
+        SET BO_COMPLETE = 'Y' ,
+        BO_RESERVATION = #{info}
         WHERE BO_NUMBER = #{bo_number}
+     </update>
+     
+     <!-- 모집 마감 취소 -->
+     <update id="uncompleteBoard" parameterType="_int" >
+     	UPDATE STUDYROOM_BOARD
+     	SET BO_COMPLETE = 'N' ,
+     	BO_RESERVATION = ''
+     	WHERE BO_NUMBER = #{bo_number}
      </update>
      
      <!-- 그룹 참여  UPDATE 내테이블 SET 컬럼 = 컬럼||'신규값' -->

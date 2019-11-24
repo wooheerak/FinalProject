@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,7 +28,6 @@ import com.kh.FinalProject.studyroom_board.model.exception.BoardException;
 import com.kh.FinalProject.studyroom_board.model.service.Studyroom_BoderService;
 import com.kh.FinalProject.studyroom_board.model.vo.Board;
 import com.kh.FinalProject.studyroom_board.model.vo.Reply;
-import com.kh.FinalProject.studyroom_order.model.vo.StudyroomOrder;
 import com.kh.FinalProject.user.model.vo.User;
 
 @Controller
@@ -134,18 +133,45 @@ public class BoardController {
 	}
 	
 	// 모집 마감
-	@RequestMapping(value="bComplete.bo", method= {RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping("bComplete.bo")
 	@ResponseBody
-	public String boardComplete(@RequestParam StudyroomOrder sr) {
-		System.out.println("bCompleteSr : " + sr);
-		int result = sbService.completeBoard(sr.getBo_number());
+	public ModelAndView boardComplete(@RequestParam("bo_number") int bo_number, @RequestParam("so_start_time") String so_start_time, 
+				@RequestParam("so_end_time") String so_end_time, @RequestParam("so_date") String so_date,
+				@RequestParam("so_name") String so_name, ModelAndView mv) {
+		
+		String info = so_name +" 스터디룸으로 " +so_date+"일 "+so_start_time+":00 시부터 "+so_end_time+":00 시까지 예약완료";
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bo_number", bo_number);
+		map.put("info", info);
+		
+		System.out.println("info : " + info);
+		
+		int result = sbService.completeBoard(map);
 		
 		if(result > 0) {
-			
-			return "redirect:bDetail.bo?bo_number="+sr.getBo_number();
+			mv.addObject("info", info);
+			mv.setViewName("reservationInfo");
+			return mv;
 			
 		}else {
 			throw new BoardException("모집 마감 실패");
+		}
+	}	
+
+	// 모집 마감 취소
+	@RequestMapping("bUnComplete.bo")
+	@ResponseBody
+	public ModelAndView bUnComplete(@RequestParam("bo_number") int bo_number, ModelAndView mv){
+		
+		int result = sbService.uncompleteBoard(bo_number);
+		
+		if(result > 0) {
+			mv.setViewName("redirect:bDetail.bo?bo_number=" + bo_number);
+			return mv;
+			
+		}else {
+			throw new BoardException("마감 취소 실패");
 		}
 	}
 	

@@ -23,7 +23,9 @@ public interface Studyroom_BoderService {
 
 	int memberUnjoin(Map<String, Object> join);
 	
-	int completeBoard(int bo_number);
+	int completeBoard(Map<String, Object> map);
+	
+	int uncompleteBoard(int bo_number);
 	
     ArrayList<Reply> selectReplyList(int bo_number);
 	
@@ -32,6 +34,8 @@ public interface Studyroom_BoderService {
 	int deleteReply(int rId);
 
 	int updateReply(Map<String, Object> reply);
+
+
 
 
 

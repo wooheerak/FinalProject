@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -272,8 +272,7 @@ th {
 		<!-- 로그인 -->
 		<c:if test="${ empty sessionScope.loginUser }">
 			<form class="lForm" action="userlogin.ul" method="post">
-				<div class="col-md-3"
-					style="border: 1px solid lightgray; padding: 10px;">
+				<div class="col-md-3" style="border: 1px solid lightgray; width: 330px; padding: 10px;">
 					<label for="uname"><b>Student Id</b></label>
 					<input class="lInput" type="text" placeholder="Enter Student Id" name="member_Id" required style="height: 40px;">
 					<label for="psw"><b>Password</b></label> 
@@ -306,7 +305,7 @@ th {
 		</c:if>
 
 		<!-- 중고서적 top -->
-		<div class="col-md-4 notice nopad" style="padding-left: 50px; padding-top: 20px;">
+		<div class="col-md-4 notice nopad" style="margin-left: 90px; padding-top: 20px;">
 			<b style="padding-left: 15px;">중고서적</b><a href="bslist.bs"
 				class="more" title="More" style="float: right; padding-right: 10px;"><img
 				src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
@@ -317,7 +316,7 @@ th {
 		</div>
 
 		<!-- 열람실 좌석현황 -->
-		<div class="col-md-2" style="margin-left: 40px; padding-top: 20px;">
+		<div class="col-md-2" style="margin-left: 60px; padding-top: 20px;">
 			<div class="readingR ">
 				<b>열람실 좌석현황</b>
 				<ul id="seatStat" style="padding-left: 0px;">

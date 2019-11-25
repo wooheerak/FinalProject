@@ -96,7 +96,7 @@ input{
 				<h3>스터디룸 예약</h3>
 			</div>
 			<br>
-			<form action="reservationStudyroom.sr" onsubmit="return reservationCheck()">
+			<form action="reservationStudyroom.sr" onsubmit="return reservationCheck();">
  				
 					<table class="text-center" id="reservationTable" name="reservationTable">
 						<tr>
@@ -132,44 +132,12 @@ input{
 						<tr>
 							<td colspan="2"><b>예약 시간</b></td>
 							<td colspan="2">
-								<select id="so_start_time" name="so_start_time" onchange="endTimeChange(this)" style="width:100%">
-									<!-- i값이 사용자가 클릭한 값이랑 일치하면 selected -->
-									<c:forEach var="i" begin="9" end="21">
-										<c:if test="${i<10}">
-											<c:if test="${i == so_startTime}">
-												<option value="0${i}" selected="selected">0${i}:00</option>				
-											</c:if>
-											<c:if test="${i != so_startTime}">
-												<option value="0${i}">0${i}:00</option>				
-											</c:if>  
-										</c:if>
-										<c:if test="${i>=10}">
-											<c:if test="${i == so_startTime}">
-												<option value="${i}" selected="selected">${i}:00</option>				
-											</c:if>
-											<c:if test="${i != so_startTime}">
-												<option value="${i}">${i}:00</option>				
-											</c:if>                                                          
-										</c:if>
-									</c:forEach>
+								<select id="so_start_time" name="so_start_time" onchange="endTimeChange(this.value)" style="width:100%">
 								</select>
 							</td>
 							<td>~</td>
 							<td colspan="2">
 								<select id="so_end_time" name="so_end_time" style="width:100%">
-									<c:if test="${so_startTime<21}">
-										<c:forEach var="i" begin="${so_startTime+1}" end="${so_startTime+2}">										
-											<c:if test="${i == so_startTime+1}">
-												<option value="${i}" selected="selected">${i}:00</option>				
-											</c:if>
-											<c:if test="${i != so_startTime+1}">
-												<option value="${i}">${i}:00</option>				
-											</c:if>										
-										</c:forEach>
-									</c:if>
-									<c:if test="${so_startTime == 21}">
-										<option value="${so_startTime+1}">${so_startTime+1}:00</option>	
-									</c:if>
 								</select>
 							</td>
 							<td></td>
@@ -186,8 +154,8 @@ input{
 				
 				<br>
 				<div class="btnbox">
-					<input class="btn btn-transparent" style="padding:0px" onclick="reservationCheck()" type="submit" value="예약"/>
-					<input class="btn btn-transparent" style="padding:0px"  type="button" onclick="window.close()" value="취소"/>
+					<input class="btn btn-transparent" style="padding:0px" type="submit" value="예약"/>
+					<input class="btn btn-transparent" style="padding:0px" type="button" onclick="window.close()" value="취소"/>
 				</div>
 			</form>
 		</div>
@@ -223,7 +191,8 @@ input{
 	
 	// 예약 전 체크 사항들
 	function reservationCheck(){
-		
+		// 결과 값을 담을 returnCheck 변수
+		var returnCheck = true;
 		// 예약자
 		var organizer = $('#so_organizer');
 		// console.log("#so_organizer" + $('#so_organizer').val());
@@ -239,10 +208,6 @@ input{
 			myData[i] = participants[i].value;
 		}
 		
-		//console.log(myData);
-		
-		
-		
 		// 참여자 실제 학생인지 검사
 		var check = {"idCheck":myData};
 		//console.log(check);
@@ -253,15 +218,16 @@ input{
 			type 	: "POST",
 			url		: "checkId.sr",
 			data	: check,
+			async	: false,
 			success	: function(data){
 				if(participants.length > $(data).length){
 					alert("학번을 정확히 입력해 주십시오.");
-					return false;
+					returnCheck =  false;
 				}
 			},
 			error:function(){
-				alert("학번을 정확히 입력해 주십시오.");
-				return false;
+				alert("학번을 정확히 입력해 주십시오!");
+				returnCheck =  false;
 			}
 		});	
 		
@@ -271,31 +237,53 @@ input{
 		var participant ="";
 		for(var i=0; i<participants.length; i++){
 			participant+=participants[i].value;
-			if(i != participants.length-1) participant+=",";
+			if(i != participants.length-1) {
+				participant+=",";
+			}
 		}
-		console.log(participant);
 		
+		// console.log(participant);
 		
 		$.ajax({
 			type 	: "POST",
 			url		: "checkTime.sr",
+			async	: false,
 			data	: {
 				so_organizer: organizer.val(),
 				so_participant: participant,
-				so_start_time: $('#so_start_time').val(),
-				so_end_time: $('#so_end_time').val(),
 				so_date: $('#so_date').val()
 			},
-			success	: function(data){
-				if(data!=0){
-					console.log(data);
-					alert("중복 예약은 불가능 합니다1.");
-					return false;
+			success	: function(tdata){
+				for(var i=0; i<tdata.length; i++){
+					console.log(tdata[i].so_start_time);
+					console.log(tdata[i].so_end_time);
+					console.log($('#so_start_time').val());
+					console.log($('#so_end_time').val());
+					
+					if(tdata[i].so_start_time == $('#so_start_time').val()
+							&& tdata[i].so_end_time == $('#so_end_time').val()
+							&& tdata[i].so_status=='Y'){
+						alert("동일시각 중복 예약은 불가능 합니다.");
+						returnCheck =  false;
+						break;
+					}else if( (Number(tdata[i].so_end_time)-Number(tdata[i].so_start_time))==2){
+						if( Number(tdata[i].so_start_time)+1 == Number($('#so_end_time').val())
+								&& tdata[i].so_status=='Y' ){
+							alert("동일시각 중복 예약은 불가능 합니다!");
+							returnCheck =  false;
+							break;
+						}else if( Number(tdata[i].so_end_time)-1 == Number($('#so_start_time').val()) 
+								&& tdata[i].so_status=='Y' ){
+							alert("동일시각 중복 예약은 불가능 합니다!!");
+							returnCheck = false;
+							break;
+						}
+					}
 				}
 			},
 			error:function(){
-				alert("중복 예약은 불가능 합니다2.");
-				return false;
+				alert("중복 예약 조회 실패");
+				returnCheck = false;
 			}
 		});
 		
@@ -305,35 +293,31 @@ input{
 			for(var j=0; j<i; j++){
 		 		if(participants[i].value == participants[j].value){
 		 			alert("참여자가 중복 되었습니다.")
-		 			return false;
+		 			returnCheck = false;
 		 		}
 			}
 			// 빈값 입력 방지
 			if(participants[i].value==""||participants[i].value==null){
 				alert("참여자를 모두 입력해 주세요");
-				return false;
+				returnCheck = false;
 			}
 			// 참여자와 예약자 같은 학번 입력 방지
 			if(participants[i].value == organizer.val()){
 				alert("주최자와 참여자는 같을 수 없습니다.");
-				return false;
+				returnCheck = false;
 			}
 		}
 		
 		// 정상 예약
-		return true;
+		return returnCheck;
 	}                                                         
 	
+	var orderData="";
 	// 최초 작동 - 예약 정보 불러오기
 	window.onload=function(){
 		var $target = $("select[name='so_name']");
 		var $target2 = $("table[name='reservationTable2']");
-		
-		$target.empty();
-		if(${sr_floor} == ""){
-			$target.append('<option value="">선택</option>');
-			return;
-		}
+		var name ="";
 		
 		$.ajax({
 			type: "POST",
@@ -341,14 +325,15 @@ input{
 			async: false,
 			data : {so_floor : ${sr_floor} },
 			success: function(jdata){
+				orderData=jdata;
 				if(jdata.length == 0){
 					$target.append('<option value="">선택</option>');
 				}else{
-					num=0;
 					selectRoomInfo = jdata;
 					$(jdata).each(function(i){
 						if(jdata[i].sr_name == "${sr_name}"){
-							$target.append("<option value="+ jdata[i].sr_name+">"+jdata[i].sr_name+"</option>");
+							$target.append("<option value="+ jdata[i].sr_name+" selected>"+jdata[i].sr_name+"</option>");
+							name = jdata[i].sr_name;
 							num = i;
 						}else{
 							$target.append("<option value="+ jdata[i].sr_name+">"+jdata[i].sr_name+"</option>");
@@ -359,7 +344,6 @@ input{
 					// 선택한 select의 value값(스터디룸 이름)을 받고 그 값 의 최대 인원수를 뽑아야 함
 					var studyroom = Math.floor((jdata[num].sr_maxPeople-1)/2);
 					// console.log(studyroom);
-					
 					
 					for(var i=0; i<studyroom; i++){
 						if(studyroom==1&&i==0){
@@ -385,15 +369,107 @@ input{
 				return;
 			}
 		});
+		
+		// 예약 가능 시간 표시
+		var $target3 = $("#so_start_time");
+		var $target4 = $("#so_end_time");
+
+		$.ajax({
+			type:"POST",
+			url:"orderList.sr",
+			data:{so_name:name,
+				so_date: $('#so_date').val()},
+			success:function(data){
+				//console.log(data);
+				orderData=data;
+				var ic=0;
+				if(data == "" || data == null || data == undefined || ( data != null && typeof data == "object" && !Object.keys(data).length)){
+					for(var i=9;i<22;i++){
+						//console.log(${so_startTime});
+							if(i==9){
+								$target3.append("<option value=09 >09:00</option>");
+							}else{
+								$target3.append("<option value="+i+">"+i+":00"+"</option>");
+							}
+					}
+					if(${so_startTime} !='09'){
+						$("#so_start_time option:contains('${so_startTime}')").prop("selected","selected");
+					}
+					
+					var st = Number($("#so_start_time").val());
+					console.log(st);
+					for(var i=st+1; i<=st+2;i++){
+						$target4.append("<option value="+i+">"+i+":00"+"</option>");
+					}
+					
+				}else{
+					//console.log(data[ic].so_start_time);
+					for(var i=9;i<22;i++){
+						var check=0;
+						for(var j=0; j<data.length; j++){
+							if(Number(data[j].so_start_time) == i ){
+								// 겹침
+								check++;
+							}else{
+								// 안겹침
+								if(Number(data[j].so_end_time)-Number(data[j].so_start_time) == 2){
+									if(i == Number(data[j].so_end_time)-1){
+										check++;
+									}
+								}
+							}
+							
+							}
+						if(check==0){
+							//console.log(${so_startTime});
+							if(i==9){
+								if(i==Number(${so_startTime})){
+									$target3.append("<option value=09 selected>09:00</option>");
+								}else{
+									$target3.append("<option value=09>09:00</option>");
+								}
+							}else{
+								if(i==Number(${so_startTime})){
+									$target3.append("<option value="+i+" selected>"+i+":00"+"</option>");
+								}else{
+									$target3.append("<option value="+i+">"+i+":00"+"</option>");
+								}
+							}
+						}
+					}
+					var st = Number($("#so_start_time").val());
+					//console.log(st);
+					//console.log(st+1);
+					for(var i=st+1; i<=st+2; i++){
+						var end=0;
+						for(var j=0; j<data.length; j++){
+							if(Number(data[j].so_end_time)==i){
+								end++;
+							}else if(i==st+2&&Number(data[j].so_start_time)==i-1){
+								end++;
+							}
+							
+						}
+						if(end==0)
+							$target4.append("<option value="+i+">"+i+":00"+"</option>");
+					}
+				}
+				
+			},error:function(){
+				alert("aksbdjabjksd");
+			}
+		});
+		
  	}
 
 	var selectRoomInfo ="";
 	// 층 변환 시 작동
 	function studyroomNameChange(so_floor){
 		count =0;
-		console.log(so_floor);
+		//console.log(so_floor);
 		var $target = $("select[name='so_name']");
 		var $target2 = $("table[name='reservationTable2']");
+		var name="";
 		
 		$target.empty();
 		if(so_floor == ""){
@@ -407,23 +483,20 @@ input{
 			async: false,
 			data : {so_floor : so_floor },
 			success: function(jdata){
+				orderData=jdata;
 				if(jdata.length == 0){
 					$target.append('<option value="">선택</option>');
 				}else{
-					num=0;
 					selectRoomInfo = jdata;
-					console.log(selectRoomInfo);
+					//console.log(selectRoomInfo);
 					$(jdata).each(function(i){
-						if(jdata[i].sr_name == "${sr_name}"){
-							$target.append("<option value="+ jdata[i].sr_name+"selected>"+jdata[i].sr_name+"</option>");
-							num = i;
-						}else{
 							$target.append("<option value="+ jdata[i].sr_name+">"+jdata[i].sr_name+"</option>");
-						}
+							name=jdata[0].sr_name;
+							num=0;
 					});
 					
-					var studyroom = Math.floor((jdata[num].sr_maxPeople-1)/2);
-					console.log(studyroom);
+					var studyroom = Math.floor((jdata[0].sr_maxPeople-1)/2);
+					//console.log(studyroom);
 					
 					$('#reservationTable2 tr:not(:first)' ).remove();
 					
@@ -442,12 +515,91 @@ input{
 								count++;
 							}	
 						}
+					num=studyroom*2;
 				}
 			},
 			error:function(xhr){
-				console.log(xhr.responseText);
+				//console.log(xhr.responseText);
 				alert("ㅁㄴㅇㄹ");
 				return;
+			}
+		});
+		
+		// 예약 가능 시간 표시
+		var $target3 = $("#so_start_time");
+		var $target4 = $("#so_end_time");
+		$("select#so_start_time option").remove();
+		$("select#so_end_time option").remove();
+		
+		$.ajax({
+			type:"POST",
+			url:"orderList.sr",
+			data:{so_name:name,
+				so_date: $('#so_date').val()},
+			success:function(data){
+				orderData=data;
+				//console.log(data);
+				var ic=0;
+				if(data == "" || data == null || data == undefined || ( data != null && typeof data == "object" && !Object.keys(data).length)){
+					for(var i=9;i<22;i++){
+							if(i==9){
+								$target3.append("<option value=09 >09:00</option>");
+							}else{
+								$target3.append("<option value="+i+">"+i+":00"+"</option>");
+							}
+							//num = i;
+					}
+					var st = $("#so_start_time").val();
+					//console.log(st);
+					for(var i=st+1; i<=st+2;i++){
+						$target4.append("<option value="+i+" selected>"+i+":00"+"</option>");
+					}
+					
+				}else{
+					//console.log(data[ic].so_start_time);
+					for(var i=9;i<22;i++){
+						var check=0;
+						for(var j=0; j<data.length; j++){
+							if(Number(data[j].so_start_time) == i ){
+								// 겹침
+								check++;
+							}else{
+								// 안겹침
+								if(Number(data[j].so_end_time)-Number(data[j].so_start_time) == 2){
+									if(i == Number(data[j].so_end_time)-1){
+										check++;
+									}
+								}
+							}
+							
+							}
+						if(check==0){
+							if(i==9){
+								$target3.append("<option value=09 selected>09:00</option>");
+							}else{
+								$target3.append("<option value="+i+">"+i+":00"+"</option>");
+							}
+						}
+					}
+					var st = Number($("#so_start_time").val());
+					//console.log(st);
+					for(var i=st+1; i<=st+2; i++){
+						var end=0;
+						for(var j=0; j<data.length; j++){
+							if(Number(data[j].so_end_time)==i){
+								end++;
+							}else if(i==st+2&&Number(data[j].so_start_time)==i-1){
+								end++;
+							}
+							
+						}
+						if(end==0)
+							$target4.append("<option value="+i+">"+i+":00"+"</option>");
+					}
+				}
+				
+			},error:function(){
+				alert("aksbdjabjksd");
 			}
 		});
 	}
@@ -455,14 +607,16 @@ input{
 	// 스터디룸 변환 시 작동
 	function organizerNumChange(so_name){
 		count=0;
-		console.log(so_name);
-		console.log(selectRoomInfo);
+		//console.log(so_name);
+		//console.log(selectRoomInfo);
 		var $target2 = $("table[name='reservationTable2']");
+		var name = so_name;
 
 		// 선택한 select의 value값(스터디룸 이름)을 받고 그 값 의 최대 인원수를 뽑아야 함
 		for(var i=0; i<selectRoomInfo.length;i++){
 			if(selectRoomInfo[i].sr_name == so_name){
 				var studyroom = Math.ceil(selectRoomInfo[i].sr_maxPeople/2);
+				num=i;
 			} 
 		}
 		// console.log(studyroom);
@@ -482,28 +636,126 @@ input{
 					count++;
 				}	
 			}
+		
+		// 예약 가능 시간 표시
+		var $target3 = $("#so_start_time");
+		var $target4 = $("#so_end_time");
+		$("select#so_start_time option").remove();
+		$("select#so_end_time option").remove();
+		
+		$.ajax({
+			type:"POST",
+			url:"orderList.sr",
+			data:{so_name:name,
+				so_date: $('#so_date').val()},
+			success:function(data){
+				//console.log(data);
+				orderData=data;
+				var ic=0;
+				if(data == "" || data == null || data == undefined || ( data != null && typeof data == "object" && !Object.keys(data).length)){
+					for(var i=9;i<22;i++){
+							if(i==9){
+								$target3.append("<option value=09 >09:00</option>");
+							}else{
+								$target3.append("<option value="+i+">"+i+":00"+"</option>");
+							}
+							//num = i;
+					}
+					var st = $("#so_start_time").val();
+					//console.log(st);
+					for(var i=st+1; i<=st+2;i++){
+						$target4.append("<option value="+i+" selected>"+i+":00"+"</option>");
+					}
+					
+				}else{
+					//console.log(data[ic].so_start_time);
+					for(var i=9;i<22;i++){
+						var check=0;
+						for(var j=0; j<data.length; j++){
+							if(Number(data[j].so_start_time) == i ){
+								// 겹침
+								check++;
+							}else{
+								// 안겹침
+								if(Number(data[j].so_end_time)-Number(data[j].so_start_time) == 2){
+									if(i == Number(data[j].so_end_time)-1){
+										check++;
+									}
+								}
+							}
+							
+							}
+						if(check==0){
+							if(i==9){
+								$target3.append("<option value=09>09:00</option>");
+							}else{
+								$target3.append("<option value="+i+">"+i+":00"+"</option>");
+							}
+						}
+					}
+					var st = Number($("#so_start_time").val());
+					//console.log(st);
+					for(var i=st+1; i<=st+2; i++){
+						var end=0;
+						for(var j=0; j<data.length; j++){
+							if(Number(data[j].so_end_time)==i){
+								end++;
+							}else if(i==st+2&&Number(data[j].so_start_time)==i-1){
+								end++;
+							}
+							
+						}
+						if(end==0)
+							$target4.append("<option value="+i+">"+i+":00"+"</option>");
+					}
+				}
+				
+			},error:function(){
+				alert("aksbdjabjksd");
+			}
+		});
 	}
 	
 	
 	function endTimeChange(e){
-		var target = document.getElementById("so_end_time");
+		var $target = document.getElementById("so_end_time");
+		$("select#so_end_time option").remove();
 		
-		target.options.length = 0;
-		
-		if((e.value)<20){
-			for(var i=1; i<3; i++){			
-				var opt = document.createElement("option");
-			    opt.value = Number(e.value)+Number(i);
-			    opt.innerHTML = Number(e.value)+Number(i)+":00";
-			    if(i==1) opt.selected=true;
-			    target.appendChild(opt);
+		//console.log(e);
+		//console.log(orderData);
+
+		var st = Number(e);
+		//console.log(st);
+		for(var i=st+1; i<=st+2; i++){
+			var end=0;
+			for(var j=0; j<orderData.length; j++){
+				if(Number(orderData[j].so_end_time)==i){
+					end++;
+				}else if(i==st+2&&Number(orderData[j].so_start_time)==i-1){
+					end++;
+				}else if(i==23){
+					end++;
+				}
+				
 			}
-		}else{
-			var opt = document.createElement("option");
-		    opt.value = Number(e.value)+1;
-		    opt.innerHTML = Number(e.value)+1+":00";
-		    target.appendChild(opt);
+			if(end==0)
+				$("#so_end_time").append("<option value="+i+">"+i+":00"+"</option>");
 		}
+		
+// 		if((e.value)<20){
+// 			for(var i=1; i<3; i++){			
+// 				var opt = document.createElement("option");
+// 			    opt.value = Number(e.value)+Number(i);
+// 			    opt.innerHTML = Number(e.value)+Number(i)+":00";
+// 			    if(i==1) opt.selected=true;
+// 			    target.appendChild(opt);
+// 			}
+// 		}else{
+// 			var opt = document.createElement("option");
+// 		    opt.value = Number(e.value)+1;
+// 		    opt.innerHTML = Number(e.value)+1+":00";
+// 		    target.appendChild(opt);
+// 		}
 		
 	}
 

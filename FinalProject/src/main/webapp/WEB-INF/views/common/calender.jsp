@@ -197,7 +197,7 @@ int count = 0;
 </table>
 <table width="400" cellpadding="2" cellspacing="0" border="1" align="center">
  <tr height="30">
-  <td><font size="2"></font></td>
+<!--   <td><font size="2"></font></td> -->
   <td><font size="2">일</font></td>
   <td><font size="2">월</font></td>
   <td><font size="2">화</font></td>
@@ -208,7 +208,7 @@ int count = 0;
  </tr>
  <tr height="30">
 <%
-for (int i=1;i<startDay+1;i++){
+for (int i=1;i<startDay;i++){
  count++;
 %>
         <td>&nbsp;</td>
@@ -216,29 +216,35 @@ for (int i=1;i<startDay+1;i++){
 }
 for (int i=startDate;i<=endDate;i++){
  String bgcolor = (today.equals(year+":"+(month+1)+":"+i))? "#CCCCCC" : "#FFFFFF";
- String color = (count%8 == 1 || count%8 == 7)? "red" : "black";
+ //String color = (count%8 == 1 || count%8 == 7)? "red" : "black";
+ String color = (count%7 == 0 || count%7 == 6)? "red" : "black";
  count++;
  
- if(count%8 == 1){
+// if(count%8 == 1){
 	 %>
-	 <td><font size="2"><a href="srWeek.sr">=></a></font></td>
+<!-- 	 <td><font size="2"><a href="srWeek.sr">=></a></font></td> -->
 	 <%
-	 i--;
- }else{
+ 	 //i--;
+ //}else{
 %> 
-  <td><font size="2" color=<%=color %>>
+  <td>
+  <font size="2" color=<%=color %>>
   <input id="day" name="day" type="hidden" value="<%=i %>"/>
   <a href="srDay.sr?year=<%=year %>&month=<%=month+1 %>&day=<%=i %>" style="color:<%=color %>"><%=i %></a>
-  </font></td>
-<%}
-  if(count%8 == 0 && i < endDate){
+  </font>
+  </td>
+<%
+//}
+  //if(count%8 == 0 && i < endDate){
+  if(count%7 == 0 && i < endDate){
 %> 
  </tr>
  <tr height="30">
 <%
   }
 }
-while(count%8 != 0){
+//while(count%8 != 0){
+while(count%7 != 0){
 %>
        <td>&nbsp;</td>
 <% 

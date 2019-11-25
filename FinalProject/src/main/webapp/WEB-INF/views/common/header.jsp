@@ -60,15 +60,10 @@
 						style="float: left; margin-left: 150px;">
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="index.jsp">Home</a></li>
-							<li><a href="selectList.bk?searchOption="
-								+'title'+"&search="+' '">자료검색</a></li>
-							<li><a href="">도서관 서비스</a></li>
-							<li><a href="">도서관 안내</a></li>
-							<li><a href="">마이라이브러리</a></li>
-							<li class="dropdown yamm-fw hasmenu"><a href="#"
+							<li class="dropdown yamm-fw hasmenu"><a
+								href="selectList.bk?searchOption=" +'title'+"&search="+' '"
 								class="dropdown-toggle" data-toggle="dropdown" role="button"
-								aria-haspopup="true" aria-expanded="false">더보기 <span
-									class="fa fa-angle-down"></span></a>
+								aria-haspopup="true" aria-expanded="false">자료검색</a>
 								<ul class="dropdown-menu">
 									<li>
 										<div class="yamm-content">
@@ -83,33 +78,6 @@
 														%>
 														<li><a href="masterPage.bk">관리자 페이지</a></li>
 														<%
-																}
-															}
-														%>
-													</ul>
-												</div>
-												<div class="col-md-3">
-													<ul>
-														<li><a href="srDay.sr">스터디룸 조회</a></li>
-														<li><a href="myseatList.ss">나의 열람실</a></li>
-														<li><a href="bList.bo">스터디룸 게시판</a></li>
-													</ul>
-												</div>
-												<div class="col-md-3">
-													<ul>
-														<li><a href="bslist.bs">중고서적</a></li>
-														<li><a href="bsinsertView.bs">중고서적 등록</a></li>
-													</ul>
-												</div>
-												<div class="col-md-3">
-													<ul>
-														<li><a href="nlist.no">공지사항</a></li>
-														<%
-															if (loginUser != null) {
-																if (loginUser.getMember_Name().equals("관리자")) {
-														%>
-														<li><a href="ninsertView.no">공지사항 작성</a></li>
-														<%
 															}
 															}
 														%>
@@ -117,36 +85,79 @@
 												</div>
 											</div>
 										</div>
-									</li>
 								</ul></li>
-							<li>
-								<div class="loginArea" align="right" style="margin-top: 12px;">
-									<c:if test="${ empty sessionScope.loginUser }">
-										<td colspan="2"><a style="cursor: pointer"
-											onclick="location.href='loginForm.ul'">로그인</a></td>
-									</c:if>
-									<c:if test="${ !empty sessionScope.loginUser }">
-										<tr>
-											<td></td>
-											<c:url var="myinfo" value="userinformationcheck.ul" />
-											<c:url var="logout" value="logout.ul" />
 
-											<td><a style="cursor: pointer"
-												onclick="location.href='${myinfo}'"><b>${ loginUser.member_Name }</b>님&nbsp;정보보기/</a> <a
-												style="cursor: pointer" onclick="location.href='${logout}'">로그아웃</a>
-											</td>
-										<tr>
-									</c:if>
 
-								</div>
-							</li>
-						</ul>
+							<li><a href="">도서관 서비스</a></li>
+							<li><a href="">도서관 안내</a></li>
+							<li><a href="">마이라이브러리</a></li>
+							<li class="dropdown yamm-fw hasmenu"><a href="#"
+								class="dropdown-toggle" data-toggle="dropdown" role="button"
+								aria-haspopup="true" aria-expanded="false">더보기 <span
+									class="fa fa-angle-down"></span></a>
+								<ul class="dropdown-menu">
+
+									<div class="col-md-3">
+										<ul>
+											<li><a href="srDay.sr">스터디룸 조회</a></li>
+											<li><a href="myseatList.ss">나의 열람실</a></li>
+											<li><a href="bList.bo">스터디룸 게시판</a></li>
+										</ul>
+									</div>
+									<div class="col-md-3">
+										<ul>
+											<li><a href="bslist.bs">중고서적</a></li>
+											<li><a href="bsinsertView.bs">중고서적 등록</a></li>
+										</ul>
+									</div>
+									<div class="col-md-3">
+										<ul>
+											<li><a href="nlist.no">공지사항</a></li>
+											<%
+												if (loginUser != null) {
+													if (loginUser.getMember_Name().equals("관리자")) {
+											%>
+											<li><a href="ninsertView.no">공지사항 작성</a></li>
+											<%
+												}
+												}
+											%>
+										</ul>
+									</div>
 					</div>
-					<!--/.nav-collapse -->
 				</div>
-				<!--/.container-fluid -->
-			</nav>
-			<!-- end nav -->
+				</li>
+				</ul>
+				</li>
+				<li>
+				</ul>
+					<div class="loginArea" align="right" style="margin-top: 12px;">
+						<c:if test="${ empty sessionScope.loginUser }">
+							<td colspan="2"><a style="cursor: pointer"
+								onclick="location.href='loginForm.ul'">로그인</a></td>
+						</c:if>
+						<c:if test="${ !empty sessionScope.loginUser }">
+							<tr>
+								<td></td>
+								<c:url var="myinfo" value="userinformationcheck.ul" />
+								<c:url var="logout" value="logout.ul" />
+
+								<td><a style="cursor: pointer"
+									onclick="location.href='${myinfo}'"><b>${ loginUser.member_Name }</b>님&nbsp;정보보기/</a>
+									<a style="cursor: pointer" onclick="location.href='${logout}'">로그아웃</a>
+								</td>
+							<tr>
+						</c:if>
+
+					</div>
+				</li>
+				</ul>
+		</div>
+		<!--/.nav-collapse -->
+		</div>
+		<!--/.container-fluid -->
+		</nav>
+		<!-- end nav -->
 		</div>
 		<!-- end container -->
 	</header>
@@ -203,20 +214,19 @@
 				}
 			});
 		}, 60000);
-		
-	<script>
-	function checkLogin(){
-	 
-	var id = '${ loginUser.member_Name }';
-	
-	if(id != ""){
-	 location.href="requestBook.bk";
+
+		<script>
+		function checkLogin() {
+
+			var id = '${ loginUser.member_Name }';
+
+			if (id != "") {
+				location.href = "requestBook.bk";
+			} else {
+				alert('로그인이 필요한 기능입니다.');
+				location.href = "loginForm.ul";
+			}
 		}
-	else{
-	 alert('로그인이 필요한 기능입니다.');
-	 location.href="loginForm.ul";
-		}
-	}
 	</script>
 	<!-- 요기까지 -->
 </body>

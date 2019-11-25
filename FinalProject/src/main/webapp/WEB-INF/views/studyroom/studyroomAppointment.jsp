@@ -71,10 +71,14 @@ input{
 	text-align:center;
 	width:80px;
 	height: 30px;
+	border-color:rgba(0,82,156,0.7) !important;
+	color:rgba(0,82,156,0.7) !important;
 	 
 }
 .btn-transparent{
 	padding : 0px;
+	border-color:rgba(0,82,156,0.7) !important;
+	color:rgba(0,82,156,0.7) !important;
 }
 
 .btnbox{
@@ -250,7 +254,7 @@ input{
 				<br>
 				<div class="btnbox">
 					<!-- 예약 완료시 이 창은 꺼지고 부모창 refresh -->
-					<input class="btn btn-transparent" style="padding:0px" type="submit" value="예약"/>
+					<input id="rButton" class="btn btn-transparent" style="padding:0px" type="submit" value="예약"/>
 					<input class="btn btn-transparent" style="padding:0px"  type="button" onclick="window.close()" value="취소"/>
 				</div>
 			</form>
@@ -340,7 +344,7 @@ input{
 	window.onload=function(){
 		var $target = $("select[name='so_name']");
 		var name ="";
-		console.log(bo_member);
+		//console.log(bo_member);
 		
 		$.ajax({
 			type: "POST",
@@ -407,7 +411,12 @@ input{
 					}
 					
 				}else{
-					console.log(data[ic].so_start_time);
+					var sum = 0;
+					for(var j=0; j<data.length; j++){
+						sum += (Number(data[j].so_end_time) - Number(data[j].so_start_time));	
+					}
+					if(sum != 13){
+					//console.log(data[ic].so_start_time);
 					for(var i=9;i<22;i++){
 						var check=0;
 						for(var j=0; j<data.length; j++){
@@ -436,6 +445,9 @@ input{
 					//console.log(st);
 					for(var i=st+1; i<=st+2; i++){
 						var end=0;
+						if (i ==23){
+							end++;
+						}
 						for(var j=0; j<data.length; j++){
 							if(Number(data[j].so_end_time)==i){
 								end++;
@@ -447,18 +459,12 @@ input{
 						if(end==0)
 							$target2.append("<option value="+i+">"+i+":00"+"</option>");
 					}
-// 					var st = Number($("#so_start_time").val());
-// 					console.log(st);
-// 					var end ="";
-// 					for(var i=st+1; i<=st+2; i++){
-// 						for(var j=0; j<data.size; j++){
-// 							if(data[j].so_end_time==i){
-// 								end=data[j].so_end_time;
-// 							}
-// 						}
-// 						if(end!=i)
-// 							$target2.append("<option value="+i+">"+i+":00"+"</option>");
-// 					}
+				}else{
+					$target.append("<option value='해당없음'>해당없음</option>");
+					$target2.append("<option value='해당없음'>해당없음</option>");
+					$("#rButton").hide();
+					
+				}
 				}
 				
 			},error:function(){
@@ -549,45 +555,59 @@ input{
 					}
 					
 				}else{
-					console.log(data[ic].so_start_time);
-					for(var i=9;i<22;i++){
-						var check=0;
-						for(var j=0; j<data.length; j++){
-							if(Number(data[j].so_start_time) == i ){
-								// 겹침
-								check++;
-							}else{
-								// 안겹침
-								if(Number(data[j].so_end_time)-Number(data[j].so_start_time) == 2){
-									if(i == Number(data[j].so_end_time)-1){
-										check++;
+					var sum = 0;
+					for(var j=0; j<data.length; j++){
+						sum += (Number(data[j].so_end_time) - Number(data[j].so_start_time));	
+					}
+					//console.log(sum);
+					if(sum != 13){
+						//console.log(data[ic].so_start_time);
+						for(var i=9;i<22;i++){
+							var check=0;
+							for(var j=0; j<data.length; j++){
+								if(Number(data[j].so_start_time) == i ){
+									// 겹침
+									check++;
+								}else{
+									// 안겹침
+									if(Number(data[j].so_end_time)-Number(data[j].so_start_time) == 2){
+										if(i == Number(data[j].so_end_time)-1){
+											check++;
+										}
 									}
 								}
-							}
-							
-							}
-						if(check==0){
-							if(i==9){
-								$target3.append("<option value=09 selected>09:00</option>");
-							}else{
-								$target3.append("<option value="+i+">"+i+":00"+"</option>");
+								
+								}
+							if(check==0){
+								if(i==9){
+									$target3.append("<option value=09 selected>09:00</option>");
+								}else{
+									$target3.append("<option value="+i+">"+i+":00"+"</option>");
+								}
 							}
 						}
-					}
-					var st = Number($("#so_start_time").val());
-					//console.log(st);
-					for(var i=st+1; i<=st+2; i++){
-						var end=0;
-						for(var j=0; j<data.length; j++){
-							if(Number(data[j].so_end_time)==i){
-								end++;
-							}else if(i==st+2&&Number(data[j].so_start_time)==i-1){
+						var st = Number($("#so_start_time").val());
+						//console.log(st);
+						for(var i=st+1; i<=st+2; i++){
+							var end=0;
+							if(i ==23){
 								end++;
 							}
-							
+							for(var j=0; j<data.length; j++){
+								if(Number(data[j].so_end_time)==i){
+									end++;
+								}else if(i==st+2&&Number(data[j].so_start_time)==i-1){
+									end++;
+								}
+								
+							}
+							if(end==0)
+								$target4.append("<option value="+i+">"+i+":00"+"</option>");
 						}
-						if(end==0)
-							$target4.append("<option value="+i+">"+i+":00"+"</option>");
+					}else{
+						$target3.append("<option value='해당없음'>해당없음</option>");
+						$target4.append("<option value='해당없음'>해당없음</option>");
+						$("#rButton").hide();
 					}
 				}
 				
@@ -640,47 +660,65 @@ input{
 						$target2.append("<option value="+i+" selected>"+i+":00"+"</option>");
 					}
 				}else{
-					for(var i=9;i<22;i++){
-						var check=0;
-						for(var j=0; j<data.length; j++){
-							if(Number(data[j].so_start_time) == i ){
-								// 겹침
-								check++;
-							}else{
-								// 안겹침
-								if(Number(data[j].so_end_time)-Number(data[j].so_start_time) == 2){
-									if(i == Number(data[j].so_end_time)-1){
-										check++;
+					
+					var sum = 0;
+					var sName = "";
+					for(var j=0; j<data.length; j++){
+						sum += (Number(data[j].so_end_time) - Number(data[j].so_start_time));	
+					}
+					if(sum != 13){
+						for(var i=9;i<22;i++){
+							var check=0;
+							for(var j=0; j<data.length; j++){
+								if(Number(data[j].so_start_time) == i ){
+									// 겹침
+									check++;
+								}else{
+									// 안겹침
+									if(Number(data[j].so_end_time)-Number(data[j].so_start_time) == 2){
+										if(i == Number(data[j].so_end_time)-1){
+											check++;
+										}
 									}
 								}
-							}
-							
-							}
-						if(check==0){
-							if(i==9){
-								$target.append("<option value=09 selected>09:00</option>");
-							}else{
-								$target.append("<option value="+i+">"+i+":00"+"</option>");
+								
+								}
+							if(check==0){
+								if(i==9){
+									$target.append("<option value=09 selected>09:00</option>");
+								}else{
+									$target.append("<option value="+i+">"+i+":00"+"</option>");
+								}
 							}
 						}
-					}
-					var st = Number($("#so_start_time").val());
-					//console.log(st);
-					for(var i=st+1; i<=st+2; i++){
-						var end=0;
-						for(var j=0; j<data.length; j++){
-							if(Number(data[j].so_end_time)==i){
-								end++;
-							}else if(i==st+2&&Number(data[j].so_start_time)==i-1){
+						var st = Number($("#so_start_time").val());
+						//console.log(st);
+						for(var i=st+1; i<=st+2; i++){
+							var end=0;
+							if(i==23){
 								end++;
 							}
-							
+							for(var j=0; j<data.length; j++){
+								if(Number(data[j].so_end_time)==i){
+									end++;
+								}else if(i==st+2&&Number(data[j].so_start_time)==i-1){
+									end++;
+								}
+								
+							}
+							if(end==0)
+								$target2.append("<option value="+i+">"+i+":00"+"</option>");
 						}
-						if(end==0)
-							$target2.append("<option value="+i+">"+i+":00"+"</option>");
 					}
+					else{
+						$target.append("<option value='해당없음'>해당없음</option>");
+						$target2.append("<option value='해당없음'>해당없음</option>");
+						$("#rButton").hide();
+						
+					}
+					
+					
 				}
-				
 			},error:function(){
 				alert("aksbdjabjksd");
 			}
@@ -706,35 +744,19 @@ input{
 		//console.log(st);
 		for(var i=st+1; i<=st+2; i++){
 			var end=0;
+			if(i==23){
+				end++;
+			}
 			for(var j=0; j<orderData.length; j++){
 				if(Number(orderData[j].so_end_time)==i){
 					end++;
 				}else if(i==st+2&&Number(orderData[j].so_start_time)==i-1){
 					end++;
-				}else if(i==23){
-					end++;
 				}
-				
 			}
 			if(end==0)
 				$("#so_end_time").append("<option value="+i+">"+i+":00"+"</option>");
 		}
-		
-// 		if((e.value)<20){
-// 			for(var i=1; i<3; i++){			
-// 				var opt = document.createElement("option");
-// 			    opt.value = Number(e.value)+Number(i)+":00";
-// 			    opt.innerHTML = Number(e.value)+Number(i)+":00";
-// 			    if(i==1) opt.selected=true;
-// 			    target.appendChild(opt);
-// 			}
-// 		}else{
-// 			var opt = document.createElement("option");
-// 		    opt.value = Number(e.value)+1+":00";
-// 		    opt.innerHTML = Number(e.value)+1+":00";
-// 		    target.appendChild(opt);
-// 		}
-		
 	}
 
 </script>

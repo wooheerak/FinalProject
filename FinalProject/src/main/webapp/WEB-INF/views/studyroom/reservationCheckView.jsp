@@ -43,6 +43,21 @@
 		padding:3px;
 		margin:auto;
 }
+.btn {
+/* 	background-color:white; */
+	background-color:white;
+	text-align:center;
+	width:80px;
+	height: 30px;
+	border-color:rgba(0,82,156,0.7) !important;
+	color:rgba(0,82,156,0.7) !important;
+	 
+}
+.btn-transparent{
+	padding : 0px;
+	border-color:rgba(0,82,156,0.7) !important;
+	color:rgba(0,82,156,0.7) !important;
+}
 </style>
 </head>
 <body>
@@ -58,7 +73,7 @@
 		<c:param name="so_name" value="${sr.so_name}"/>
 	</c:url>
 	
-	<input type="button" class="btn" id="close" onclick="location.href='${ bComplete }'" value="확인" />
+	<input type="button" class="btn btn-transparent" id="close" onclick="location.href='${ bComplete }'" value="확인" />
 	</div>
 	
 <!-- <script>

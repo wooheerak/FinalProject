@@ -187,7 +187,7 @@ border-bottom: 1px solid #878787;
       <ul class="text-center" style = "list-style-type: none ; margin-left : 0px;padding:0px; ">
             <li>
             <div class="col-md-2 col-sm-6 nopad" >
-               <div class="home-service c1" style="background-color: #dfe8ea; height :165px; padding : 7px;">
+               <div onclick="checkLogin2()" class="home-service c1" style="background-color: #dfe8ea; height :165px; padding : 7px;">
                   <img src="resources/images/timeIcon1.png" style="width: 110px;">
                   <p>대출/연장</p>
                </div>
@@ -651,18 +651,32 @@ border-bottom: 1px solid #878787;
    </script>
    
    <script>
-	  function checkLogin(){
-		  
-		 var id = '${ loginUser.member_Name }';
-		 
-		 if(id != ""){
-			 location.href="requestBook.bk";
-		 }
-		 else{
-			 alert('로그인이 필요한 기능입니다.');
-			 location.href="loginForm.ul";
-		 }
-	  }
+		
+	// 도서 신청
+	function checkLogin(){
+		var id = '${ loginUser.member_Name }';
+			 
+		if(id != ""){
+			location.href="requestBook.bk";
+		}
+		else{
+			alert('로그인이 필요한 기능입니다.');
+			location.href="loginForm.ul";
+		}
+	}
+	
+	// 대출/연장
+	function checkLogin2(){
+		var id = '${ loginUser.member_Name }';
+			 
+		if(id != ""){
+			location.href="borrowBookList.bk";
+		}
+		else{
+			alert('로그인이 필요한 기능입니다.');
+			location.href="loginForm.ul";
+		}
+	}	
    </script>
 
 	<c:import url="WEB-INF/views/common/footer.jsp"></c:import>

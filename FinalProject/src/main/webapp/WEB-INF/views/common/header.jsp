@@ -77,8 +77,8 @@
 											<div class="row">
 												<div class="col-md-3">
 													<ul>
-														<li><a href="selectRequestBook.bk">신청 목록</a></li>
-														<li><a href="requestBook.bk">도서 신청하기</a></li>
+														<li><a href="#" onclick="checkLogin3()">신청 목록</a></li>
+														<li><a href="#" onclick="checkLogin4()">도서 신청하기</a></li>
 														<%
 															if (loginUser != null) {
 																if (loginUser.getMember_Sep().equals("A")) {
@@ -205,6 +205,32 @@
 				}
 			});
 		}, 60000);
+		
+		// 신청 목록
+		function checkLogin3(){
+			var id = '${ loginUser.member_Name }';
+				 
+			if(id != ""){
+				location.href="selectRequestBook.bk";
+			}
+			else{
+				alert('로그인이 필요한 기능입니다.');
+				location.href="loginForm.ul";
+			}
+		}
+		
+		// 신청 목록
+		function checkLogin4(){
+			var id = '${ loginUser.member_Name }';
+				 
+			if(id != ""){
+				location.href="requestBook.bk";
+			}
+			else{
+				alert('로그인이 필요한 기능입니다.');
+				location.href="loginForm.ul";
+			}
+		}			
 	</script>
 	<!-- 요기까지 -->
 </body>

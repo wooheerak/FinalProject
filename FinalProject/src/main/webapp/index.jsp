@@ -115,13 +115,21 @@ th{
 .aa{background: rgba(104, 182, 253, 0.7);
    color: white;
    font-weight:700; 
-   font-size:18px;}
+   font-size:18px;
+   border-bottom:1px solid black;
+      }
 .bb{background: rgba(104, 182, 253, 0.7);
    color: white;
    font-weight:700; 
-   font-size:18px;}
-.cc{background: #e3ebf9;}
-
+   font-size:18px;
+   border-bottom:1px solid black;
+   }
+.cc{
+border-bottom:1px solid black;
+}
+.dd{
+border-bottom:1px solid black;
+}
 .caption {font-weight:700; font-size:20px; padding:5px; color:#1BA6B2; text-align:left; margin-bottom:5px}
 
 .bo_top {
@@ -129,7 +137,13 @@ th{
    color: white;
    font-weight:700; 
    font-size:18px;
+
 }
+
+#tb{
+border-bottom: 1px solid #878787;
+}
+
 
 </style>
 
@@ -445,16 +459,15 @@ th{
       style="padding-top: 0px; padding-bottom: 50px;">
       <div class="col-md-1"></div>
       <div class="col-md-4 notice nopad">
-         <b style="padding-left: 15px;"class="caption">스터디룸 게시판 조회수 TOP5</b><a href="bList.bo"
-            class="more" title="More" style="float: right; padding-right: 10px;"><img
-            src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
+         <b style="padding-left: 15px;"class="caption">스터디룸 게시판 조회수 TOP5</b>
+         <a href="bList.bo" class="more" title="더보기" style="float: right;">게시판 가기</a>
       <ul id="d"
-            style="max-width: 564px; padding-left: 10px; display: flex; border-top: 1px solid #878787;">
-      <table id="tb">
+            style="max-width: 564px; padding-left: 0px; display: flex; border-top: 1px solid #878787;">
+      <table id="tb" border="0">
          <thead>
             <tr>
                <th class="bo_top">번호</th>
-               <th class="bo_top" style="width: 300px;">제목</th>
+               <th class="bo_top" style="width: 350px;">제목</th>
                <th class="bo_top">조회수</th>
                <th class="bo_top" style="width: 100px;">날자</th>
             </tr>
@@ -475,12 +488,12 @@ th{
                      var $tr = $("<tr>");
                      var $bId = $("<td align='center' class='aa'>")
                            .text(data[i].bo_number);
-                     var $bTitle = $("<td align='center'>").text(
+                     var $bTitle = $("<td align='center' class='cc'>").text(
                            decodeURIComponent(data[i].bo_title
                                  .replace(/\+/g, " ")));
                      var $bWriter = $("<td align='center' class='bb'>")
                            .text(data[i].bo_count);
-                     var $bCreateDate = $("<td align='center'>").text(
+                     var $bCreateDate = $("<td align='center' class='dd'>").text(
                            data[i].bo_date);
 
                      $tr.append($bId);

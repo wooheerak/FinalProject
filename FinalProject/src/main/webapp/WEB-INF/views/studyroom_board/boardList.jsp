@@ -36,12 +36,12 @@
 			stateSave : true,
 
 			// n번째 항목 넓이를 300px로 설정
-			columnDefs : [ {
-				targets : 0,
-				width : 40
+			"columnDefs" : [ {
+				"targets" : "0",
+				"width" : "40"
 			}, {
-				targets : 1,
-				width : 300
+				"targets" : "1",
+				"width" : "800"
 			} ],
 
 			"language" : {
@@ -81,9 +81,22 @@
 
 .dataTables_wrapper {
 	margin: auto;
-	width: 80% !important;
+	width: 70% !important;
 	min-height: 600px;
 }
+.title{
+	width: 500px !important;
+}
+td{
+	font-weight:500; 
+   font-size:18px;
+}
+.title{
+	font-weight:600; 
+   font-size:18px;
+
+}
+
 /* 버튼 */
 * {
 	box-sizing: border-box;
@@ -501,7 +514,7 @@ button[class*="btn"] {border: 0;}
         <thead>
             <tr>
             	<th>번호</th>
-            	<th>제목</th>
+            	<th class="title">제목</th>
             	<th>작성자</th>
             	<th>모집인원</th>
             	<th>모집유형</th>
@@ -523,7 +536,7 @@ button[class*="btn"] {border: 0;}
 						<c:url var="bDetail" value="bDetail.bo">
 							<c:param name="bo_number" value="${ b.bo_number }"/>
 						</c:url>
-						<a href="${ bDetail }">${ b.bo_title }</a>
+						<a href="${ bDetail }" class="title">${ b.bo_title }</a>
 				</td>
             
             

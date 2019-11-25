@@ -14,7 +14,7 @@
 	#buttonTab{border-left: hidden; border-right: hidden;}
 </style>
 </head>
-<body>
+<body style="background-color: white;">
    <c:import url="../common/header.jsp"></c:import>
    
    <section class="section normalhead lb">
@@ -50,31 +50,17 @@
       </div>
    </section>
 
-   <section class="section" style="padding-top: 10px;">
-      <div class="col-md-2" style="margin-left: 135px; border-radius: 30px;">
-         <div class="pricing-box clearfix">
-            <div class="pricing-header firstch">
-               <h4>개인 정보 조회</h4>
-            </div>
-            <div class="pricing-details" style="text-align: center;">
-               <div class="menuContent">내 정보 조회</div>
-               <div class="menuContent" onclick="location.href='borrowBookList.bk'">대출 내역 조회</div>
-               <div class="menuContent">열람실/스터디룸 이용내역 조회</div>
-               <div class="menuContent">도서 신청 조회</div>
-               <div class="menuContent">BOOKSALES<br>거래 내역</div>
-            </div>
-         </div>
-      </div>
+
       
    <section class="section" style="padding:0px;">
          <div class="container" id="bookList">
-            <div class="row">
+            <div class="row" style="margin-left: 150px;">
             
 			<c:forEach var="b" items="${ list }" varStatus="status" >
 				<input type="hidden" name="bNo" value="${b.bNo }">
-                  <div class="ebook-details row col-md-5">
+                  <div class="ebook-details row col-md-6">
                      <div class="col-md-3">
-                        <img src="resources/BOOK_IMG/${b.bIMG }" alt="" class="img-responsive">
+                        <img src="resources/BOOK_IMG/${b.bIMG }" alt="이미지 준비중" class="img-responsive">
                      </div>
                      <div class="col-md-8">
                         <div class="book-details">
@@ -98,7 +84,7 @@
       </section><!-- end section -->
       <br><br>
  		<!-- 페이징 처리 -->
-		<table style="margin-left:43%">
+		<table style="margin-left:43%; background-color: white;">
 		<tr style="align:center; height:20px;" id="buttonTab;">
 			<td colspan="6">
 			

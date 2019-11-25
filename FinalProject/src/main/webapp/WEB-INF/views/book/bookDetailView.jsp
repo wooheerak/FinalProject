@@ -43,7 +43,7 @@
 				<div class="col-md-6 col-sm-6 col-xs-12" style="width:230px; height:340px;">
 					<div class="pitem" style="width:220px; height:330px;">
 						<div class="case-box">
-							<img src="resources/BOOK_IMG/${book.bIMG }" alt=""
+							<img src="resources/BOOK_IMG/${book.bIMG }" alt="이미지 준비중"
 								class="img-responsive">
 						</div><!-- end case-box -->
 					</div><!-- end pitem -->

@@ -1,6 +1,7 @@
 package com.kh.FinalProject.book.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.kh.FinalProject.book.model.exception.BookException;
 import com.kh.FinalProject.book.model.service.BookService;
 import com.kh.FinalProject.book.model.vo.Book;
@@ -157,8 +161,14 @@ public class BookController {
 	
 	@RequestMapping("bookdetail.bk")
 	public ModelAndView boardDetail(@RequestParam("bNo") int bNo,
-									@RequestParam("page") int page,
+									@RequestParam(value = "page", required = false) int page ,
 									ModelAndView mv) {
+		int ipage = -1;
+		if(page > 0) {
+			ipage = page;
+		} else {
+			ipage = 1;
+		}
 		
 		Book book = bService.selectBook(bNo);
 		
@@ -170,7 +180,7 @@ public class BookController {
 		
 		if(book != null) {
 			mv.addObject("book", book)
-			.addObject("page", page)
+			.addObject("page", ipage)
 			.addObject("allCount", bCount)
 			.addObject("yCount", bYCount)
 			.setViewName("bookDetailView");
@@ -572,6 +582,16 @@ public class BookController {
 		}
 		
 	}
+	
+	// 신착 도서 목록
+	@RequestMapping("newBookList.bk")
+	public void bsTopList(ModelAndView mv, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		ArrayList<Book> bklist = bService.selectTopList();
+		
+		Gson gson = new Gson();
+		gson.toJson(bklist, response.getWriter());
+	}	
 
 	 
 	 

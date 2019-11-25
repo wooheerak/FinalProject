@@ -73,4 +73,6 @@ public interface BookService {
 
 	int deleteBook(int bNo);
 
+	ArrayList<Book> selectTopList();
+
 }

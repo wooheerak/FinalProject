@@ -219,6 +219,12 @@ public class BookServiceImpl implements BookService{
 	}
 
 
+	@Override
+	public ArrayList<Book> selectTopList() {
+		return bDao.selectTopList(sqlSession);
+	}
+
+
 	
 	
 }

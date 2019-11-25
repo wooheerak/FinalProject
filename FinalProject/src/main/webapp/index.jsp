@@ -250,9 +250,10 @@ th {
 			<li>
 				<div class="col-md-2 col-sm-6 nopad last">
 					<div class="home-service c4"
-						style="background-color: #dfe8ea; height: 165px; padding: 7px;">
+						style="background-color: #dfe8ea; height: 165px; padding: 7px;"
+						onclick="location.href='nlist.no'">
 						<img src="resources/images/quickMenu2.png" style="width: 100px;">
-						<p>시설 안내</p>
+						<p>공지사항</p>
 					</div>
 					<!-- end home-service -->
 				</div>
@@ -289,35 +290,35 @@ th {
 		<div class="col-md-2" style="margin-left: 40px;">
 			<div class="readingR ">
 				<b>열람실 좌석현황</b>
-				<ul id="seatStat" style="">
-					<p style="margin-left: 40px; margin-top: 10px;">
-						<span class="num">잔여좌석</span> / 총 좌석
-					</p>
-					<li class="book" style="margin-top: 10px;">
-						<p style="display: inline;">
+				<ul id="seatStat" style="padding-left: 0px;">
+					<li style="text-align: center; padding-top: 15px;">
+						<span class="num" style="color: red;">잔여좌석</span> / 총 좌석
+					</li>
+					<li class="book" style="margin-top: 10px; text-align: center;">
+						<p style="display: inline; font-size: 17px; padding-left: 0px;">
 							<b>A</b> 열람실
 						</p>
 						<p id="aTitle" title="A열람실 : 344석" style="display: inline;">
-							<span class="num numA">344</span>/<span class="total">344</span>
+							<span class="num numA" style="font-size: 17px;">344</span>/<span class="total" style="font-size: 17px;">344</span>
 						</p>
 					</li>
 
-					<li class="book">
-						<p style="display: inline;">
+					<li class="book" style="margin-top: 10px; text-align: center;">
+						<p style="display: inline; font-size: 17px; padding-left: 0px;">
 							<b>B</b> 열람실
 						</p>
 						<p id="bTitle" title="B열람실 : 176석" style="display: inline;">
-							<span class="num numB">46</span>/<span class="total">176</span>
+							<span class="num numB" style="font-size: 17px;">46</span>/<span class="total" style="font-size: 17px;">176</span>
 						</p>
 					</li>
 
-					<li class="com" style="margin-bottom: 10px;">
-						<p style="display: inline;">
+					<li class="com" style="margin-top: 10px; margin-bottom: 10px; text-align: center;">
+						<p style="display: inline; font-size: 17px; padding-left: 0px;">
 							<b>C</b> 열람실
 						</p>
 						<p id="cTitle" title="C열람실 : 148석, 노트북 사용가능"
 							style="display: inline;">
-							<span class="num numC">29</span>/<span class="total">148</span>
+							<span class="num numC" style="font-size: 17px;">29</span>/<span class="total" style="font-size: 17px;">148</span>
 						</p>
 					</li>
 
@@ -490,7 +491,7 @@ th {
 
 	<!-- 스터디룸 조회수 게시글 top5 -->
 	<section class="section"
-		style="padding-top: 0px; padding-bottom: 50px;">
+		style="padding-top: 20px; padding-bottom: 50px;">
 		<div class="col-md-1"></div>
 		<div class="col-md-4 notice nopad">
 			<b style="padding-left: 15px;" class="caption">스터디룸 게시판 조회수 TOP5</b><a

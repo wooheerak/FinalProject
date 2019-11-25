@@ -59,9 +59,9 @@
 					<div id="navbar" class="navbar-collapse collapse"
 						style="float: left; margin-left: 150px;">
 						<ul class="nav navbar-nav navbar-right">
-							<li><a href="index.jsp">Home</a></li>
+							<li><a href="borrowBookList.bk">대출/연장</a></li>
 							<li><a href="selectList.bk?searchOption="
-								+'title'+"&search="+' '">자료검색</a></li>
+								+'title'+"&search="+' '">도서검색</a></li>
 							<li><a href="">도서관 서비스</a></li>
 							<li><a href="">도서관 안내</a></li>
 							<li><a href="">마이라이브러리</a></li>

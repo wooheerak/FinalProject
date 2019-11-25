@@ -20,7 +20,7 @@
 					<h2>
 						<strong>열람실</strong>조회
 					</h2>
-					<p class="lead">잠은 죽어서 자자...</p>
+					<p class="lead">환영합니다!</p>
 				</div>
 				<!-- end col -->
 			</div>

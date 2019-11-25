@@ -309,7 +309,7 @@ border-bottom: 1px solid #878787;
              <input class = "lInput" type="password" placeholder="Enter Password" name="member_Password" required>
            
              <button class = "lButton" type="submit">Login</button>
-            <a href="#">비밀번호를 잊으셨나요?</a>
+            <a href="userpasswordfind.ul">비밀번호를 잊으셨나요?</a>
            </div>
          </form>
       </c:if>

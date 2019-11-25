@@ -39,17 +39,22 @@ public class UserController {
 
    // 로그인 로그인 실패
    @RequestMapping("userlogin.ul")
-   public String userlogin(User u, Model model) {
+   public ModelAndView userlogin(User u, Model model , ModelAndView mv) {
       
       User loginUser = uService.userlogin(u);
       
       if(loginUser != null) {
          model.addAttribute("loginUser",loginUser);
-               
-         return "redirect:index.do";
+         
+         mv.addObject("checkL", 0).setViewName("redirect:index.do");
+         
       }else {
-         return "userlogin";
+    	  
+    	 mv.addObject("checkL", 1).setViewName("userlogin");
+         
       }
+      
+      return mv;
    }
    
    //수진 추가부분
@@ -58,6 +63,7 @@ public class UserController {
    public String loginForm() {
 	   return "userlogin";
    }
+   
    // 로그아웃용 컨트롤러
    @RequestMapping(value="logout.ul")
    public String logout(SessionStatus status) {

@@ -111,9 +111,12 @@
 	<input id="yCount" type="hidden" value="${yCount }"/>
 	<input id="allCount" type="hidden" value="${allCount }"/>
 	<input name="bookWriter" type="hidden" value="${book.bWriter }"/>
+	
+	
 	<form id="submitForm" action="deleteBook.bk">
 		<input type="hidden" name="bNo" value="${book.bNo }"/>
 	</form>
+	
 	<script>
 		function backBtn(){
 			window.history.back();
@@ -121,12 +124,10 @@
 		
 		function deleteBook(){
 			if(confirm('도서를 폐기처리 하시겠습니까?')){
-				/* location.href='deleteBook.bk'; */
 				$('#submitForm').submit();
 			} else {
 				
 			}
-			
 		}
 	</script>	
 

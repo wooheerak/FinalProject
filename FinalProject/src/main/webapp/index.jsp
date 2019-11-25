@@ -187,9 +187,9 @@ th{
             <!-- end col -->
             <li>
             <div class="col-md-2 col-sm-6 nopad">
-               <div class="home-service c2" style="background-color: #dfe8ea; height :165px;padding : 7px;">
-                  <img src="resources/images/quickMenu4.png" style="width: 100px;">
-                  <p>자료 요청</p>
+               <div onclick="checkLogin()" class="home-service c2" style="background-color: #dfe8ea; height :165px;padding : 7px;">
+               <img src="resources/images/quickMenu4.png" style="width: 100px;">
+                  <p>도서 신청</p>
                </div>
                <!-- end home-service -->
             </div>
@@ -201,7 +201,7 @@ th{
                <div class="home-service c3" style="background-color: #dfe8ea; height :165px; padding : 7px;"
                   onclick="location.href='studymain.ss'">
                   <img src="resources/images/quickMenu3.png" style="width: 100px;">
-                  <p >열람실/스터디룸</p>
+                  <p>열람실/스터디룸</p>
                </div>
                <!-- end home-service -->
             </div>
@@ -575,7 +575,21 @@ th{
          $(obj).prop('src', imgPath);
       }
    </script>
-
+   
+   <script>
+	  function checkLogin(){
+		  
+		 var id = '${ loginUser.member_Name }';
+		 
+		 if(id != ""){
+			 location.href="requestBook.bk";
+		 }
+		 else{
+			 alert('로그인이 필요한 기능입니다.');
+			 location.href="loginForm.ul";
+		 }
+	  }
+   </script>
 
    <c:import url="WEB-INF/views/common/footer.jsp"></c:import>
 </body>

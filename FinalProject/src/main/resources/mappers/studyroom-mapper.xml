@@ -102,6 +102,11 @@
 	<update id="deleteOrder" parameterType="string" >
 		UPDATE studyroom_order SET so_status='n' where so_no=#{so_no}
 	</update>
+	<update id="cancelOrder" parameterType="string" >
+		UPDATE studyroom_order SET so_status='n' 
+		where bo_number=#{bo_number}
+		AND so_status='Y'
+	</update>
 	
 	
 	<resultMap type="StudyroomOrder" id="studyroomOrderResultSet">

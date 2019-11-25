@@ -259,29 +259,35 @@ input{
 			},
 			success	: function(tdata){
 				for(var i=0; i<tdata.length; i++){
-					console.log(tdata[i].so_start_time);
-					console.log(tdata[i].so_end_time);
-					console.log($('#so_start_time').val());
-					console.log($('#so_end_time').val());
-					
+// 					console.log(tdata[i].so_start_time);
+// 					console.log(tdata[i].so_end_time);
+// 					console.log($('#so_start_time').val());
+// 					console.log($('#so_end_time').val());
+					var br=0;
 					if(tdata[i].so_start_time == $('#so_start_time').val()
-							&& tdata[i].so_end_time == $('#so_end_time').val()
+							|| tdata[i].so_end_time == $('#so_end_time').val()
 							&& tdata[i].so_status=='Y'){
 						alert("동일시각 중복 예약은 불가능 합니다.");
 						returnCheck =  false;
+						br++;
 						break;
 					}else if( (Number(tdata[i].so_end_time)-Number(tdata[i].so_start_time))==2){
 						if( Number(tdata[i].so_start_time)+1 == Number($('#so_end_time').val())
 								&& tdata[i].so_status=='Y' ){
 							alert("동일시각 중복 예약은 불가능 합니다!");
 							returnCheck =  false;
+							br++;
 							break;
 						}else if( Number(tdata[i].so_end_time)-1 == Number($('#so_start_time').val()) 
 								&& tdata[i].so_status=='Y' ){
 							alert("동일시각 중복 예약은 불가능 합니다!!");
 							returnCheck = false;
+							br++;
 							break;
 						}
+					}
+					if(br!=0){
+						break;
 					}
 				}
 			},
@@ -298,17 +304,20 @@ input{
 		 		if(participants[i].value == participants[j].value){
 		 			alert("참여자가 중복 되었습니다.")
 		 			returnCheck = false;
+		 			break;
 		 		}
 			}
 			// 빈값 입력 방지
 			if(participants[i].value==""||participants[i].value==null){
 				alert("참여자를 모두 입력해 주세요");
 				returnCheck = false;
+				break;
 			}
 			// 참여자와 예약자 같은 학번 입력 방지
 			if(participants[i].value == organizer.val()){
 				alert("주최자와 참여자는 같을 수 없습니다.");
 				returnCheck = false;
+				break;
 			}
 		}
 		

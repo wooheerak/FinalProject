@@ -85,4 +85,9 @@ public class StudyroomServiceImpl implements StudyroomService{
 		return srDao.deleteOrder(sqlSession,so_no);
 	}
 
+	@Override
+	public int cancelOrder(String bo_number) {
+		return srDao.cancelOrder(sqlSession, bo_number);
+	}
+
 }

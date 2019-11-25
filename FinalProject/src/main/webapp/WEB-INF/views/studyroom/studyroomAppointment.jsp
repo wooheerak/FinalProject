@@ -264,7 +264,6 @@ input{
 <script>
 	var count=0;
 	var num=0;
-	// 인원수 추가
 	
 	// 랜덤 배경색상 지정
 	var color='#';
@@ -303,29 +302,36 @@ input{
 			},
 			success	: function(tdata){
 				for(var i=0; i<tdata.length; i++){
-					console.log(tdata[i].so_start_time);
-					console.log(tdata[i].so_end_time);
-					console.log($('#so_start_time').val());
-					console.log($('#so_end_time').val());
+					var br=0;
+// 					console.log(tdata[i].so_start_time);
+// 					console.log(tdata[i].so_end_time);
+// 					console.log($('#so_start_time').val());
+// 					console.log($('#so_end_time').val());
 					
 					if(tdata[i].so_start_time == $('#so_start_time').val()
-							&& tdata[i].so_end_time == $('#so_end_time').val()
+							|| tdata[i].so_end_time == $('#so_end_time').val()
 							&& tdata[i].so_status=='Y' ){
 						alert("동일시각 중복 예약은 불가능 합니다.");
 						returnCheck =  false;
+						br++;
 						break;
 					}else if( (Number(tdata[i].so_end_time)-Number(tdata[i].so_start_time))==2){
 						if( Number(tdata[i].so_start_time)+1 == Number($('#so_end_time').val())
 								&& tdata[i].so_status=='Y' ){
 							alert("동일시각 중복 예약은 불가능 합니다!");
 							returnCheck =  false;
+							br++;
 							break;
 						}else if( Number(tdata[i].so_end_time)-1 == Number($('#so_start_time').val())
 								&& tdata[i].so_status=='Y' ){
 							alert("동일시각 중복 예약은 불가능 합니다!!");
 							returnCheck = false;
+							br++;
 							break;
 						}
+					}
+					if(br!=0){
+						break;
 					}
 				}
 			},

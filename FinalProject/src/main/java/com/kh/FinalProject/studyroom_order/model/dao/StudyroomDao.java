@@ -63,6 +63,11 @@ public class StudyroomDao {
 		return sqlSession.update("studyroomMapper.deleteOrder",so_no);
 	}
 
+	public int cancelOrder(SqlSession sqlSession, String bo_number) {
+		System.out.println("dao : " + bo_number);
+		return sqlSession.update("studyroomMapper.cancelOrder",bo_number);
+	}
+
 	
 
 }

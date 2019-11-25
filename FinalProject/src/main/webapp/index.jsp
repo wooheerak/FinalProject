@@ -185,6 +185,13 @@ th {
 			</form>
 		</div>
 		<!-- end col -->
+
+
+
+		<!-- end row -->
+
+		<!-- end container -->
+		<!-- end row -->
 	</section>
 
 
@@ -195,7 +202,7 @@ th {
 			style="list-style-type: none; margin-left: 0px; padding: 0px;">
 			<li>
 				<div class="col-md-2 col-sm-6 nopad">
-					<div class="home-service c1"
+					<div onclick="checkLogin2()" class="home-service c1"
 						style="background-color: #dfe8ea; height: 165px; padding: 7px;">
 						<img src="resources/images/timeIcon1.png" style="width: 110px;">
 						<p>대출/연장</p>
@@ -243,10 +250,9 @@ th {
 			<li>
 				<div class="col-md-2 col-sm-6 nopad last">
 					<div class="home-service c4"
-						style="background-color: #dfe8ea; height: 165px; padding: 7px;"
-						onclick="location.href='nlist.no'">
+						style="background-color: #dfe8ea; height: 165px; padding: 7px;">
 						<img src="resources/images/quickMenu2.png" style="width: 100px;">
-						<p>공지사항</p>
+						<p>시설 안내</p>
 					</div>
 					<!-- end home-service -->
 				</div>
@@ -343,8 +349,7 @@ th {
 				<img src="resources/images/logo.png"
 					style="display: block; width: 150px; margin-left: auto; margin-right: auto; padding-top: 30px;" />
 				<div style="text-align: center; padding-top: 30px;">
-					<b>${ loginUser.member_Name }</b>님,
-						반갑습니다.
+					<b>${ loginUser.member_Name }</b>님, 반갑습니다.
 				</div>
 				<div style="text-align: center; padding-top: 30px;">
 					<button class="lButton" type="button"
@@ -357,9 +362,9 @@ th {
 				</div>
 			</div>
 		</c:if>
-
 	</section>
 	<!-- end section -->
+
 
 	<!-- 공지사항 인덱스 리스트 -->
 	<script>
@@ -622,8 +627,8 @@ th {
 	</script>
 
 	<script>
+		// 도서 신청
 		function checkLogin() {
-
 			var id = '${ loginUser.member_Name }';
 
 			if (id != "") {
@@ -633,7 +638,20 @@ th {
 				location.href = "loginForm.ul";
 			}
 		}
+
+		// 대출/연장
+		function checkLogin2() {
+			var id = '${ loginUser.member_Name }';
+
+			if (id != "") {
+				location.href = "borrowBookList.bk";
+			} else {
+				alert('로그인이 필요한 기능입니다.');
+				location.href = "loginForm.ul";
+			}
+		}
 	</script>
+
 
 	<c:import url="WEB-INF/views/common/footer.jsp"></c:import>
 

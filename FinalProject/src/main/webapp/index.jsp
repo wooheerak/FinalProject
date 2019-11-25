@@ -114,9 +114,26 @@ th{
  background: #bbd1f9;
  color: #806464;
 }
-.aa{background: #e3ebf9;}
-.bb{background: #e3ebf9;}
+.aa{background: rgba(104, 182, 253, 0.7);
+	color: white;
+	font-weight:700; 
+	font-size:18px;}
+.bb{background: rgba(104, 182, 253, 0.7);
+	color: white;
+	font-weight:700; 
+	font-size:18px;}
 .cc{background: #e3ebf9;}
+
+.caption {font-weight:700; font-size:20px; padding:5px; color:#1BA6B2; text-align:left; margin-bottom:5px}
+
+.bo_top {
+	background-color:  rgba(0,82,156,0.7);
+	color: white;
+	font-weight:700; 
+	font-size:18px;
+}
+
+
 >>>>>>> branch 'master' of https://github.com/wooheerak/FinalProject.git
 </style>
 
@@ -428,19 +445,27 @@ th{
 	</script>
 
 <!-- 스터디룸 조회수 게시글 top5 -->
-	<section class="section" style="padding-top: 0px;">
-		<h3>스터디룸 게시글 조회수 TOP 5 목록</h3>
-		<table id="tb" border="1">
+	<section class="section"
+		style="padding-top: 0px; padding-bottom: 50px;">
+		<div class="col-md-1"></div>
+		<div class="col-md-4 notice nopad">
+			<b style="padding-left: 15px;"class="caption">스터디룸 게시판 조회수 TOP5</b><a href="bList.bo"
+				class="more" title="More" style="float: right; padding-right: 10px;"><img
+				src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
+		<ul id="d"
+				style="max-width: 564px; padding-left: 10px; display: flex; border-top: 1px solid #878787;">
+		<table id="tb">
 			<thead>
 				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>모집 상태</th>
-					<th>날자</th>
+					<th class="bo_top">번호</th>
+					<th class="bo_top" style="width: 300px;">제목</th>
+					<th class="bo_top">조회수</th>
+					<th class="bo_top" style="width: 100px;">날자</th>
 				</tr>
 			</thead>
 			<tbody></tbody>
 		</table>
+		</ul>
 		<script>
 			function topList2() {
 				$.ajax({
@@ -458,7 +483,7 @@ th{
 									decodeURIComponent(data[i].bo_title
 											.replace(/\+/g, " ")));
 							var $bWriter = $("<td align='center' class='bb'>")
-									.text(data[i].bo_complete);
+									.text(data[i].bo_count);
 							var $bCreateDate = $("<td align='center'>").text(
 									data[i].bo_date);
 

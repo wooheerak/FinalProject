@@ -119,7 +119,7 @@
 											%>
 											<li><a href="ninsertView.no">공지사항 작성</a></li>
 											<%
-												}
+													}
 												}
 											%>
 										</ul>
@@ -215,7 +215,7 @@
 			});
 		}, 60000);
 
-		<script>
+		
 		function checkLogin() {
 
 			var id = '${ loginUser.member_Name }';

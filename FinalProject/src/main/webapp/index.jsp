@@ -663,6 +663,19 @@ border-bottom: 1px solid #878787;
 			 location.href="loginForm.ul";
 		 }
 	  }
+
+	  function checkLogin2(){
+		  
+			 var id = '${ loginUser.member_Name }';
+			 
+			 if(id != ""){
+				 location.href="borrowBookList.bk";
+			 }
+			 else{
+				 alert('로그인이 필요한 기능입니다.');
+				 location.href="loginForm.ul";
+			 }
+		  }
    </script>
 
 	<c:import url="WEB-INF/views/common/footer.jsp"></c:import>

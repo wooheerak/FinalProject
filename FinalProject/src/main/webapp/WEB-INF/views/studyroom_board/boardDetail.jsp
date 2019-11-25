@@ -702,9 +702,18 @@ button[class*="btn"] {border: 0;}
 								  cancelButtonText: '취소',
 								  confirmButtonText: '마감 취소할래요!!',
 								}).then((result) => {
+									var pass=0;
+									$.ajax({
+										type:"POST",
+										url : "cancelOrder.sr",
+										async	: false,
+										data:{bo_number:${board.bo_number}},
+										success :{
+										},error:{
+										}
+									});
 									if (result.value) {
-									    location.href='${ bUnComplete }'
-								  } else {
+									    location.href='${ bUnComplete }';
 								  }
 							})
 						});

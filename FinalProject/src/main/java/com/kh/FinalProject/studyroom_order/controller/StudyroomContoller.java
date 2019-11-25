@@ -310,5 +310,12 @@ public class StudyroomContoller {
 		
 		int result = srService.deleteOrder(so_no);
 	}
+	// ajax 마감 취소(삭제)
+	@RequestMapping("cancelOrder.sr")
+	public void cancelOrder(String bo_number) {
+		System.out.println("cancelOrder.sr bo_number : " + bo_number);
+		
+		int result = srService.cancelOrder(bo_number);
+	}
 	
 }

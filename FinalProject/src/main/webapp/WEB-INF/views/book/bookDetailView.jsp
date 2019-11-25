@@ -130,18 +130,25 @@
 	<script>
 		function reservation(){
 			var yCount = "${yCount}";
-			if(yCount == '0'){
-				alert('예약 가능한 도서가 없습니다.');
-				document.getElementById('id01').style.display='none'
-			} else {
-				alert('예약이 완료되었습니다.');	
-				$('#submitForm').submit();
+			var id = '${ loginUser.member_Name }';
+			if(id != ""){
+				if(yCount == '0'){
+					alert('예약 가능한 도서가 없습니다.');
+					document.getElementById('id01').style.display='none'
+				} else {
+					alert('예약이 완료되었습니다.');	
+					$('#submitForm').submit();
+				}
+			} else{
+				alert('로그인이 필요한 기능입니다.');
+				location.href="loginForm.ul";
 			}
 		}
 		
 		function backBtn(){
 			window.history.back();
 		}
+
 	</script>	
 
 	<jsp:include page="../common/footer.jsp" />

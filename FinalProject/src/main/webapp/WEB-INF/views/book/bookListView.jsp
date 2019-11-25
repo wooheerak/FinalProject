@@ -33,7 +33,7 @@
       </div>
       <div class="container">
          <form action="selectList.bk" class="calculateform"
-            style="padding-bottom: 35px; background-color: lightblue;">
+            style="padding-bottom: 35px; background-color: lightblue; background-color: rgba(0,82,156);" >
             <div class="dorpdown dropdown portfolio-filter"
                style="display: flex;">
                <SELECT name='searchOption'> <!-- 검색 컬럼 -->

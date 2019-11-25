@@ -76,14 +76,14 @@
 												<div class="col-md-3">
 													<ul>
 														<li><a href="selectRequestBook.bk">신청 목록</a></li>
-														<li><a href="requestBook.bk">도서 신청하기</a></li>
+														<li><a href="" onclick="checkLogin()">도서 신청</a></li>
 														<%
 															if (loginUser != null) {
 																if (loginUser.getMember_Sep().equals("A")) {
 														%>
 														<li><a href="masterPage.bk">관리자 페이지</a></li>
 														<%
-															}
+																}
 															}
 														%>
 													</ul>
@@ -203,6 +203,21 @@
 				}
 			});
 		}, 60000);
+		
+	<script>
+	function checkLogin(){
+	 
+	var id = '${ loginUser.member_Name }';
+	
+	if(id != ""){
+	 location.href="requestBook.bk";
+		}
+	else{
+	 alert('로그인이 필요한 기능입니다.');
+	 location.href="loginForm.ul";
+		}
+	}
+	</script>
 	</script>
 	<!-- 요기까지 -->
 </body>

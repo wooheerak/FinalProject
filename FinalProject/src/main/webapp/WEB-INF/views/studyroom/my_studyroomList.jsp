@@ -67,7 +67,12 @@
 	});
 	
 
-</script> 
+</script>
+<style>
+#myModal{
+	margin-top:300px;
+}
+</style> 
 </head>
 
 <body>
@@ -156,7 +161,7 @@
                                 <th style = "text-align: center;">참여자</th>
                                 <th style = "text-align: center;">예약 시간</th>
                                 <th style = "text-align: center;">날짜</th>
-                                <th style = "text-align: center;"></th>
+                                <th style = "text-align: center;">예약 상태</th>
                                
                             </tr>
                         </thead>
@@ -180,11 +185,14 @@
                                 	
                                 	<!-- 예약 일, 시작 시간과 현재를 비교 -->
                                 	<c:choose>
+                                		<c:when test="${b.so_status == 'n'}">
+                                			<td><label >예약 취소 됨</label></td>
+                                		</c:when>
                                 		<c:when test="${b.so_date > nowDate}">
-                                			<td><button class = "btn cancelRev" >예약 취소</button></td>
+                                			<td><button type="button" class = "btn cancelRev" data-toggle="modal" data-target="#myModal" data-so_no="${b.so_no}">예약 취소</button></td>
                                 		</c:when>
                                 		<c:when test="${b.so_date == nowDate && nowHour < b.so_start_time}">
-                                			<td><button class = "btn cancelRev" >예약 취소</button></td>
+                                			<td><button type="button"  class = "btn cancelRev" data-toggle="modal" data-target="#myModal" data-so_no="${b.so_no}">예약 취소</button></td>
                                 		</c:when>
                                 		<c:otherwise>
                                 			<td></td>
@@ -201,10 +209,59 @@
         </section>
         <!-- end section -->
         </div>
+        
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" id="myModalLabel">스터디룸 예약 취소</h4>
+      </div>
+      <div class="modal-body">
+        	정말로 예약을 취소 하시겠습니까?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="deleteOrder()">예약 취소</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 	
 	<jsp:include page="../common/footer.jsp"/>
 
 </body>
+<script>
+var so_no ="";
+$(document).ready(function() {     
+    $('#myModal').on('show.bs.modal', function(event) {          
+    	so_no = $(event.relatedTarget).data('so_no');
+    });
+});
+
+function deleteOrder(){
+	console.log(so_no);
+	 
+	$.ajax({
+		type 	: "POST",
+		url		: "deleteOrder.sr",
+		async	: false,
+		data	: {
+			so_no:so_no
+		},
+		success	:{
+			
+		}
+		,error : {
+			
+		}
+	});
+	
+	location.reload();
+	self.close();
+}
+</script>
 
 </html>

@@ -34,6 +34,8 @@ public interface StudyroomService {
 
 	ArrayList<StudyroomOrder> orderList(StudyroomOrder sr);
 
+	int deleteOrder(String so_no);
+
 
 	
 

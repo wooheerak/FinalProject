@@ -270,7 +270,8 @@ input{
 	
 	// 예약 전 체크 사항들
 	function reservationCheck(){
-		
+		// 결과 값을 담을 returnCheck 변수
+		var returnCheck = true;
 		// 예약자
 		var organizer = $('#so_organizer');
 		// console.log("#so_organizer" + $('#so_organizer').val());
@@ -290,28 +291,48 @@ input{
 		$.ajax({
 			type 	: "POST",
 			url		: "checkTime.sr",
+			async	: false,
 			data	: {
 				so_organizer: organizer.val(),
 				so_participant: participant,
-				so_start_time: $('#so_start_time').val(),
-				so_end_time: $('#so_end_time').val(),
-				so_date: so_date
+				so_date: $('#so_date').val()
 			},
-			success	: function(data){
-				console.log(data);
-				if(data!=0){
-					alert("중복 예약은 불가능 합니다1.");
-					return false;
+			success	: function(tdata){
+				for(var i=0; i<tdata.length; i++){
+					console.log(tdata[i].so_start_time);
+					console.log(tdata[i].so_end_time);
+					console.log($('#so_start_time').val());
+					console.log($('#so_end_time').val());
+					
+					if(tdata[i].so_start_time == $('#so_start_time').val()
+							&& tdata[i].so_end_time == $('#so_end_time').val()
+							&& tdata[i].so_status=='Y' ){
+						alert("동일시각 중복 예약은 불가능 합니다.");
+						returnCheck =  false;
+						break;
+					}else if( (Number(tdata[i].so_end_time)-Number(tdata[i].so_start_time))==2){
+						if( Number(tdata[i].so_start_time)+1 == Number($('#so_end_time').val())
+								&& tdata[i].so_status=='Y' ){
+							alert("동일시각 중복 예약은 불가능 합니다!");
+							returnCheck =  false;
+							break;
+						}else if( Number(tdata[i].so_end_time)-1 == Number($('#so_start_time').val())
+								&& tdata[i].so_status=='Y' ){
+							alert("동일시각 중복 예약은 불가능 합니다!!");
+							returnCheck = false;
+							break;
+						}
+					}
 				}
 			},
 			error:function(){
-				alert("중복 예약은 불가능 합니다2.");
-				return false;
+				alert("중복 예약 조회 실패");
+				returnCheck = false;
 			}
 		});
 		
 		// 정상 예약
-		return true;
+		return returnCheck;
 	}                                                         
 	var orderData="";
 	// 최초 작동 - 예약 정보 불러오기
@@ -379,7 +400,7 @@ input{
 							}
 							//num = i;
 					}
-					var st = $("#so_start_time").val();
+					var st = Number($("#so_start_time").val());
 					console.log(st);
 					for(var i=st+1; i<=st+2;i++){
 						$target2.append("<option value="+i+" selected>"+i+":00"+"</option>");
@@ -426,18 +447,18 @@ input{
 						if(end==0)
 							$target2.append("<option value="+i+">"+i+":00"+"</option>");
 					}
-					var st = Number($("#so_start_time").val());
-					console.log(st);
-					var end ="";
-					for(var i=st+1; i<=st+2; i++){
-						for(var j=0; j<data.size; j++){
-							if(data[j].so_end_time==i){
-								end=data[j].so_end_time;
-							}
-						}
-						if(end!=i)
-							$target2.append("<option value="+i+">"+i+":00"+"</option>");
-					}
+// 					var st = Number($("#so_start_time").val());
+// 					console.log(st);
+// 					var end ="";
+// 					for(var i=st+1; i<=st+2; i++){
+// 						for(var j=0; j<data.size; j++){
+// 							if(data[j].so_end_time==i){
+// 								end=data[j].so_end_time;
+// 							}
+// 						}
+// 						if(end!=i)
+// 							$target2.append("<option value="+i+">"+i+":00"+"</option>");
+// 					}
 				}
 				
 			},error:function(){
@@ -450,6 +471,11 @@ input{
 	var selectRoomInfo ="";
 	// 층 변환 시 작동
 	function studyroomNameChange(so_floor){
+		var year = $('#year').val();
+		var month = $('#month').val();
+		var day = $('#day').val();
+		var so_date = year+'-'+month+'-'+day;
+		
 		count =0;
 		console.log(so_floor);
 		var $target = $("select[name='so_name']");
@@ -468,6 +494,7 @@ input{
 			data : {so_floor : so_floor,
 					bo_member: bo_member},
 			success: function(jdata){
+				orderData=jdata;
 				if(jdata.length == 0){
 					$target.append('<option value="">선택</option>');
 				}else{
@@ -475,12 +502,9 @@ input{
 					selectRoomInfo = jdata;
 					console.log(selectRoomInfo);
 					$(jdata).each(function(i){
-						if(jdata[i].sr_name == "${sr_name}"){
-							$target.append("<option value="+ jdata[i].sr_name+"selected>"+jdata[i].sr_name+"</option>");
-							num = i;
-						}else{
-							$target.append("<option value="+ jdata[i].sr_name+">"+jdata[i].sr_name+"</option>");
-						}
+						name=jdata[0].sr_name;
+						num = i;
+						$target.append("<option value="+ jdata[i].sr_name+">"+jdata[i].sr_name+"</option>");
 					});
 					
 					var studyroom = Math.floor((jdata[num].sr_maxPeople-1)/2);
@@ -491,6 +515,84 @@ input{
 				console.log(xhr.responseText);
 				alert("층 변경 실패");
 				return;
+			}
+		});
+		
+		// 예약 가능 시간 표시
+		var $target3 = $("#so_start_time");
+		var $target4 = $("#so_end_time");
+		$("select#so_start_time option").remove();
+		$("select#so_end_time option").remove();
+		
+		$.ajax({
+			type:"POST",
+			url:"orderList.sr",
+			data:{so_name:name,
+				so_date: so_date},
+			success:function(data){
+				orderData=data;
+				//console.log(data);
+				var ic=0;
+				if(data == "" || data == null || data == undefined || ( data != null && typeof data == "object" && !Object.keys(data).length)){
+					for(var i=9;i<22;i++){
+							if(i==9){
+								$target3.append("<option value=09 >09:00</option>");
+							}else{
+								$target3.append("<option value="+i+">"+i+":00"+"</option>");
+							}
+							//num = i;
+					}
+					var st = Number($("#so_start_time").val());
+					//console.log(st);
+					for(var i=st+1; i<=st+2;i++){
+						$target4.append("<option value="+i+">"+i+":00"+"</option>");
+					}
+					
+				}else{
+					console.log(data[ic].so_start_time);
+					for(var i=9;i<22;i++){
+						var check=0;
+						for(var j=0; j<data.length; j++){
+							if(Number(data[j].so_start_time) == i ){
+								// 겹침
+								check++;
+							}else{
+								// 안겹침
+								if(Number(data[j].so_end_time)-Number(data[j].so_start_time) == 2){
+									if(i == Number(data[j].so_end_time)-1){
+										check++;
+									}
+								}
+							}
+							
+							}
+						if(check==0){
+							if(i==9){
+								$target3.append("<option value=09 selected>09:00</option>");
+							}else{
+								$target3.append("<option value="+i+">"+i+":00"+"</option>");
+							}
+						}
+					}
+					var st = Number($("#so_start_time").val());
+					//console.log(st);
+					for(var i=st+1; i<=st+2; i++){
+						var end=0;
+						for(var j=0; j<data.length; j++){
+							if(Number(data[j].so_end_time)==i){
+								end++;
+							}else if(i==st+2&&Number(data[j].so_start_time)==i-1){
+								end++;
+							}
+							
+						}
+						if(end==0)
+							$target4.append("<option value="+i+">"+i+":00"+"</option>");
+					}
+				}
+				
+			},error:function(){
+				alert("aksbdjabjksd");
 			}
 		});
 	}
@@ -532,7 +634,7 @@ input{
 							}
 							//num = i;
 					}
-					var st = $("#so_start_time").val();
+					var st = Number($("#so_start_time").val());
 					//console.log(st);
 					for(var i=st+1; i<=st+2;i++){
 						$target2.append("<option value="+i+" selected>"+i+":00"+"</option>");

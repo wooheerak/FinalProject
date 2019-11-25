@@ -3,7 +3,7 @@
 <mapper namespace="studyroomMapper">
 	<select id="getRoomCount" resultType="_int">
 		SELECT count(*) 
-		FROM STUDYROOM		 
+		FROM STUDYROOM
 	</select>
 	
 	<select id="selectRoomList" resultMap="studyroomResultSet">
@@ -79,7 +79,7 @@
 		WHERE to_char(SO_DATE,'yyyymmdd')=#{so_date} 
     		and (so_organizer=#{so_organizer} OR so_participant=#{so_participant} 
     				OR so_organizer=#{so_participant} OR so_participant=#{so_organizer})
-    		and (so_start_time = #{so_start_time} OR so_end_time=#{so_end_time})
+    		AND SO_STATUS='Y'
 	</select>
 	
 	<select id="reservationInfo" parameterType="string" resultType="StudyroomOrder">
@@ -88,6 +88,7 @@
 			so_end_time,so_bcolor,so_date,so_status 
 		from studyroom_order
 		where to_char(SO_DATE,'yyyymmdd') = ${dateInfo}
+		AND SO_STATUS='Y'
 	</select>
 	
 	<select id="orderList" parameterType="StudyroomOrder" resultType="StudyroomOrder">
@@ -95,7 +96,12 @@
 		FROM STUDYROOM_ORDER
 		WHERE TO_CHAR(SO_DATE,'yyyymmdd')=#{so_date}
 			AND SO_NAME=#{so_name}
+			AND SO_STATUS='Y'
 	</select>
+	
+	<update id="deleteOrder" parameterType="string" >
+		UPDATE studyroom_order SET so_status='n' where so_no=#{so_no}
+	</update>
 	
 	
 	<resultMap type="StudyroomOrder" id="studyroomOrderResultSet">
@@ -109,6 +115,7 @@
 		<result property="so_end_time" column="SO_END_TIME"/>
 		<result property="so_bColor" column="SO_BCOLOR"/>
 		<result property="so_date" column="SO_DATE"/>
+		<result property="so_status" column="SO_STATUS"/>
 	</resultMap>
 	
 </mapper>

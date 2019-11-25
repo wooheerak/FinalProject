@@ -59,6 +59,10 @@ public class StudyroomDao {
 		return (ArrayList)sqlSession.selectList("studyroomMapper.orderList",sr);
 	}
 
+	public int deleteOrder(SqlSession sqlSession, String so_no) {
+		return sqlSession.update("studyroomMapper.deleteOrder",so_no);
+	}
+
 	
 
 }

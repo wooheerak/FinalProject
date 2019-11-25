@@ -45,15 +45,11 @@ public class StudyroomContoller {
 			list = srService.selectOrderList(id);				
 		}
 		
-		//System.out.println("학번으로 이름 출력전 list : " + list);
-		
 		ArrayList<String> hakbunList = new ArrayList<String>();
 		
 		for(StudyroomOrder so : list ) {
 			hakbunList.add(so.getSo_participant());
-			//System.out.println("학번만 뽑은 list"+hakbunList);
 		}
-		//System.out.println(hakbunList + "size : " + hakbunList.size());
 		
 		for(int i=0; i<hakbunList.size(); i++) {		
 			String[] name = hakbunList.get(i).split(",");
@@ -88,7 +84,7 @@ public class StudyroomContoller {
 		return mv;
 	}
 	
-	// 스터디룸 조회
+	// 스터디룸 층별 조회
 	@RequestMapping("getSrInfo.sr")
 	@ResponseBody
 	public ArrayList<Studyroom> studyroomInfo(@RequestParam String so_floor) {
@@ -98,8 +94,6 @@ public class StudyroomContoller {
 		return list;
 	}
 	
-	
-	
 	// 스터디룸 해당일 예약 전체 조회
 	@RequestMapping(value="srDay.sr", method= {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView dayView(ModelAndView mv,@RequestParam(value="year", required=false)Integer year,
@@ -108,7 +102,7 @@ public class StudyroomContoller {
 		int roomCount = srService.getRoomCount();
 		ArrayList<Studyroom> roomlist = srService.selectRoomList();
 
-		System.out.println("변경전 : " + month);
+		System.out.println("변경전 month: " + month);
 		
 		if(year==null) {
 			//최초입력 시 오늘 날짜 정보 
@@ -117,20 +111,11 @@ public class StudyroomContoller {
 			month = cr.get(Calendar.MONTH)+1;
 			date = cr.get(Calendar.DATE);
 		}
-		System.out.println(year);
-		System.out.println(month);
-		System.out.println(date);
+		System.out.println(year+" "+month+" "+date);
 		String dateInfo = Integer.toString(year) + Integer.toString(month) + Integer.toString(date);
-		//System.out.println("dateInfo : " +dateInfo);
-		//Map<String, Object> map = new HashMap<String,Object>();
-		
 		
 		ArrayList<StudyroomOrder> reservationInfo = srService.reservationInfo(dateInfo);
 		System.out.println("reservationInfo: "+reservationInfo);
-		//System.out.println("roomlist: "+roomlist);
-		
-		//System.out.println("roomCount : " + roomCount);
-		//System.out.println("list : " + list);
 		
 		if(roomlist != null) {
 			mv.addObject("year",year);
@@ -145,7 +130,7 @@ public class StudyroomContoller {
 		}
 		return mv;
 	}
-
+	// 주간별 스터디룸 일정 조회
 	@RequestMapping("srWeek.sr")
 	public String weekView() {
 		return "studyroomWeek";
@@ -228,7 +213,7 @@ public class StudyroomContoller {
 		
 		return mv;
 	}
-	// 스터디룸 예약(마감>예약)
+	// 스터디룸 예약 정보(날짜,스터디룸 이름) 조회
 	@RequestMapping("orderList.sr")
 	@ResponseBody
 	public ArrayList<StudyroomOrder> orderList(String so_date, String so_name){
@@ -253,7 +238,7 @@ public class StudyroomContoller {
 	public ModelAndView reservationStudyroom(@ModelAttribute StudyroomOrder sr,ModelAndView mv) {
 		// 값 받은후 변경
 		
-		System.out.println("SR:"+ sr);
+		System.out.println("예약할 객체 SR 값:"+ sr);
 		
 		int result=srService.reservationStudyroom(sr);
 		
@@ -284,8 +269,8 @@ public class StudyroomContoller {
 	// 학생 시간 중복체크
 	@RequestMapping("checkTime.sr")
 	@ResponseBody
-	public int checkTime(@RequestParam(value="so_participant")String so_participant, @RequestParam(value="so_date", required=false) String so_date,
-							@RequestParam(value="so_start_time", required=false) String so_start_time, @RequestParam(value="so_end_time", required=false) String so_end_time,
+	public ArrayList<StudyroomOrder> checkTime(@RequestParam(value="so_participant")String so_participant, 
+							@RequestParam(value="so_date", required=false) String so_date,
 							@RequestParam(value="so_organizer", required=false) String so_organizer) {
 //		System.out.println("학생체크매핑됨");
 		SimpleDateFormat tf = new SimpleDateFormat("yyyy-MM-dd");
@@ -295,29 +280,35 @@ public class StudyroomContoller {
 		
 		StudyroomOrder sro = new StudyroomOrder();
 			sro.setSo_participant(so_participant);
-			sro.setSo_start_time(so_start_time);
-			sro.setSo_end_time(so_end_time);
 			sro.setSo_organizer(so_organizer);
 			sro.setSo_date(date);
-		
+		System.out.println("참여자 빼고 삽입 완료한 객체 sro : "+sro);
 		
 		// 참여자 쪼갤 배열
 		String[] partici = so_participant.split(",| ");
 		
 		// 참여자별 조회 결과 저장을 위한 변수
-		int count=0;
+		ArrayList<StudyroomOrder> result = new ArrayList<StudyroomOrder>();
 		// 참여자 숫자만큼 검색
 		for(int i =0; i<partici.length; i++) {
-			System.out.println("partici : "+partici[i]);
+			System.out.println("검색하는 참여자 partici : "+partici[i]);
 			sro.setSo_participant(partici[i]);
-			System.out.println("sro: " + sro);
-			ArrayList<StudyroomOrder> result= srService.checkTime(sro);
-			if(!result.isEmpty()){
-				System.out.println("중복 예약 정보 : " + result);
-				count++;
-				//break;
+			System.out.println("예약 조회할 객체 sro: " + sro);
+			ArrayList<StudyroomOrder> searchResult= srService.checkTime(sro);
+			for(StudyroomOrder sr : searchResult) {
+				result.add(sr);
 			}
 		}
-		return count;
+		System.out.println("예약 조회 result : " + result);
+		return result;
 	}
+	
+	// ajax 예약취소(삭제)
+	@RequestMapping("deleteOrder.sr")
+	public void deleteOrder(String so_no) {
+		System.out.println("deleteOrder.sr so_no : " + so_no);
+		
+		int result = srService.deleteOrder(so_no);
+	}
+	
 }

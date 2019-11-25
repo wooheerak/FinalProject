@@ -68,10 +68,14 @@ input{
 	text-align:center;
 	width:80px;
 	height: 30px;
+	border-color:rgba(0,82,156,0.7) !important;
+	color:rgba(0,82,156,0.7) !important;
 	 
 }
 .btn-transparent{
 	padding : 0px;
+	border-color:rgba(0,82,156,0.7) !important;
+	color:rgba(0,82,156,0.7) !important;
 }
 
 .btnbox{
@@ -154,7 +158,7 @@ input{
 				
 				<br>
 				<div class="btnbox">
-					<input class="btn btn-transparent" style="padding:0px" type="submit" value="예약"/>
+					<input id = "rButton" class="btn btn-transparent" style="padding:0px" type="submit" value="예약"/>
 					<input class="btn btn-transparent" style="padding:0px" type="button" onclick="window.close()" value="취소"/>
 				</div>
 			</form>
@@ -315,6 +319,7 @@ input{
 	var orderData="";
 	// 최초 작동 - 예약 정보 불러오기
 	window.onload=function(){
+		$("#rButton").show();
 		var $target = $("select[name='so_name']");
 		var $target2 = $("table[name='reservationTable2']");
 		var name ="";
@@ -326,17 +331,18 @@ input{
 			data : {so_floor : ${sr_floor} },
 			success: function(jdata){
 				orderData=jdata;
+				
 				if(jdata.length == 0){
 					$target.append('<option value="">선택</option>');
 				}else{
 					selectRoomInfo = jdata;
 					$(jdata).each(function(i){
 						if(jdata[i].sr_name == "${sr_name}"){
-							$target.append("<option value="+ jdata[i].sr_name+" selected>"+jdata[i].sr_name+"</option>");
+							$target.append("<option id="+ jdata[i].sr_name+ " value="+ jdata[i].sr_name+" selected>"+jdata[i].sr_name+"</option>");
 							name = jdata[i].sr_name;
 							num = i;
 						}else{
-							$target.append("<option value="+ jdata[i].sr_name+">"+jdata[i].sr_name+"</option>");
+							$target.append("<option id="+ jdata[i].sr_name+ " value="+ jdata[i].sr_name+">"+jdata[i].sr_name+"</option>");
 						}
 					});
 					$("#so_name option:contains('${sr_name}')").prop("selected","selected");
@@ -403,6 +409,12 @@ input{
 					}
 					
 				}else{
+					var sum = 0;
+					var sName = "";
+					for(var j=0; j<data.length; j++){
+						sum += (Number(data[j].so_end_time) - Number(data[j].so_start_time));	
+					}
+					if(sum != 13){
 					//console.log(data[ic].so_start_time);
 					for(var i=9;i<22;i++){
 						var check=0;
@@ -442,17 +454,25 @@ input{
 					//console.log(st+1);
 					for(var i=st+1; i<=st+2; i++){
 						var end=0;
+						if(i==23){
+							end++;
+						}
 						for(var j=0; j<data.length; j++){
 							if(Number(data[j].so_end_time)==i){
 								end++;
 							}else if(i==st+2&&Number(data[j].so_start_time)==i-1){
 								end++;
 							}
-							
 						}
 						if(end==0)
 							$target4.append("<option value="+i+">"+i+":00"+"</option>");
 					}
+					
+				}else{
+					$target.append("<option value='해당없음'>해당없음</option>");
+					$target2.append("<option value='해당없음'>해당없음</option>");
+					$("#rButton").hide();
+				}
 				}
 				
 			},error:function(){
@@ -466,6 +486,7 @@ input{
 	// 층 변환 시 작동
 	function studyroomNameChange(so_floor){
 		count =0;
+		$("#rButton").show();
 		//console.log(so_floor);
 		var $target = $("select[name='so_name']");
 		var $target2 = $("table[name='reservationTable2']");
@@ -549,53 +570,67 @@ input{
 							}
 							//num = i;
 					}
-					var st = $("#so_start_time").val();
+					var st = Number($("#so_start_time").val());
 					//console.log(st);
 					for(var i=st+1; i<=st+2;i++){
-						$target4.append("<option value="+i+" selected>"+i+":00"+"</option>");
+						$target4.append("<option value="+i+">"+i+":00"+"</option>");
 					}
 					
 				}else{
-					//console.log(data[ic].so_start_time);
-					for(var i=9;i<22;i++){
-						var check=0;
-						for(var j=0; j<data.length; j++){
-							if(Number(data[j].so_start_time) == i ){
-								// 겹침
-								check++;
-							}else{
-								// 안겹침
-								if(Number(data[j].so_end_time)-Number(data[j].so_start_time) == 2){
-									if(i == Number(data[j].so_end_time)-1){
-										check++;
+					var sum = 0;
+					for(var j=0; j<data.length; j++){
+						sum += (Number(data[j].so_end_time) - Number(data[j].so_start_time));	
+					}
+					if(sum != 13){
+						//console.log(data[ic].so_start_time);
+						for(var i=9;i<22;i++){
+							var check=0;
+							for(var j=0; j<data.length; j++){
+								if(Number(data[j].so_start_time) == i ){
+									// 겹침
+									check++;
+								}else{
+									// 안겹침
+									if(Number(data[j].so_end_time)-Number(data[j].so_start_time) == 2){
+										if(i == Number(data[j].so_end_time)-1){
+											check++;
+										}
 									}
 								}
-							}
-							
-							}
-						if(check==0){
-							if(i==9){
-								$target3.append("<option value=09 selected>09:00</option>");
-							}else{
-								$target3.append("<option value="+i+">"+i+":00"+"</option>");
+								
+								}
+							if(check==0){
+								if(i==9){
+									$target3.append("<option value=09 selected>09:00</option>");
+								}else{
+									$target3.append("<option value="+i+">"+i+":00"+"</option>");
+								}
 							}
 						}
-					}
-					var st = Number($("#so_start_time").val());
-					//console.log(st);
-					for(var i=st+1; i<=st+2; i++){
-						var end=0;
-						for(var j=0; j<data.length; j++){
-							if(Number(data[j].so_end_time)==i){
-								end++;
-							}else if(i==st+2&&Number(data[j].so_start_time)==i-1){
+						var st = Number($("#so_start_time").val());
+						//console.log(st);
+						for(var i=st+1; i<=st+2; i++){
+							var end=0;
+							if(i==23){
 								end++;
 							}
-							
+							for(var j=0; j<data.length; j++){
+								if(Number(data[j].so_end_time)==i){
+									end++;
+								}else if(i==st+2&&Number(data[j].so_start_time)==i-1){
+									end++;
+								}
+							}
+							if(end==0)
+								$target4.append("<option value="+i+">"+i+":00"+"</option>");
 						}
-						if(end==0)
-							$target4.append("<option value="+i+">"+i+":00"+"</option>");
-					}
+					
+				}else{
+					$target3.append("<option value='해당없음'>해당없음</option>");
+					$target4.append("<option value='해당없음'>해당없음</option>");
+					$("#rButton").hide();
+					
+				}
 				}
 				
 			},error:function(){
@@ -607,6 +642,7 @@ input{
 	// 스터디룸 변환 시 작동
 	function organizerNumChange(so_name){
 		count=0;
+		$("#rButton").show();
 		//console.log(so_name);
 		//console.log(selectRoomInfo);
 		var $target2 = $("table[name='reservationTable2']");
@@ -661,53 +697,69 @@ input{
 							}
 							//num = i;
 					}
-					var st = $("#so_start_time").val();
+					var st = Number($("#so_start_time").val());
 					//console.log(st);
 					for(var i=st+1; i<=st+2;i++){
-						$target4.append("<option value="+i+" selected>"+i+":00"+"</option>");
+						$target4.append("<option value="+i+" >"+i+":00"+"</option>");
 					}
 					
 				}else{
-					//console.log(data[ic].so_start_time);
-					for(var i=9;i<22;i++){
-						var check=0;
-						for(var j=0; j<data.length; j++){
-							if(Number(data[j].so_start_time) == i ){
-								// 겹침
-								check++;
-							}else{
-								// 안겹침
-								if(Number(data[j].so_end_time)-Number(data[j].so_start_time) == 2){
-									if(i == Number(data[j].so_end_time)-1){
-										check++;
+					var sum = 0;
+					var sName = "";
+					for(var j=0; j<data.length; j++){
+						sum += (Number(data[j].so_end_time) - Number(data[j].so_start_time));	
+					}
+					if(sum != 13){
+						//console.log(data[ic].so_start_time);
+						for(var i=9;i<22;i++){
+							var check=0;
+							for(var j=0; j<data.length; j++){
+								if(Number(data[j].so_start_time) == i ){
+									// 겹침
+									check++;
+								}else{
+									// 안겹침
+									if(Number(data[j].so_end_time)-Number(data[j].so_start_time) == 2){
+										if(i == Number(data[j].so_end_time)-1){
+											check++;
+										}
 									}
 								}
-							}
-							
-							}
-						if(check==0){
-							if(i==9){
-								$target3.append("<option value=09>09:00</option>");
-							}else{
-								$target3.append("<option value="+i+">"+i+":00"+"</option>");
+								
+								}
+							if(check==0){
+								if(i==9){
+									$target3.append("<option value=09>09:00</option>");
+								}else{
+									$target3.append("<option value="+i+">"+i+":00"+"</option>");
+								}
 							}
 						}
-					}
-					var st = Number($("#so_start_time").val());
-					//console.log(st);
-					for(var i=st+1; i<=st+2; i++){
-						var end=0;
-						for(var j=0; j<data.length; j++){
-							if(Number(data[j].so_end_time)==i){
-								end++;
-							}else if(i==st+2&&Number(data[j].so_start_time)==i-1){
+						var st = Number($("#so_start_time").val());
+						// console.log(st);
+						for(var i=st+1; i<=st+2; i++){
+							var end=0;
+							if(i==23){
 								end++;
 							}
-							
+							for(var j=0; j<data.length; j++){
+								if(Number(data[j].so_end_time)==i){
+									end++;
+								}else if(i==st+2&&Number(data[j].so_start_time)==i-1){
+									end++;
+								}
+							}
+							if(end==0)
+								$target4.append("<option value="+i+">"+i+":00"+"</option>");
 						}
-						if(end==0)
-							$target4.append("<option value="+i+">"+i+":00"+"</option>");
+					}else{
+						$target3.append("<option value='해당없음'>해당없음</option>");
+						$target4.append("<option value='해당없음'>해당없음</option>");
+						$("#rButton").hide();
+						
 					}
+					
+					
 				}
 				
 			},error:function(){
@@ -728,35 +780,20 @@ input{
 		//console.log(st);
 		for(var i=st+1; i<=st+2; i++){
 			var end=0;
+			//console.log(i)
+			if(i==23){
+				end++;
+			}
 			for(var j=0; j<orderData.length; j++){
 				if(Number(orderData[j].so_end_time)==i){
 					end++;
 				}else if(i==st+2&&Number(orderData[j].so_start_time)==i-1){
 					end++;
-				}else if(i==23){
-					end++;
 				}
-				
 			}
 			if(end==0)
 				$("#so_end_time").append("<option value="+i+">"+i+":00"+"</option>");
 		}
-		
-// 		if((e.value)<20){
-// 			for(var i=1; i<3; i++){			
-// 				var opt = document.createElement("option");
-// 			    opt.value = Number(e.value)+Number(i);
-// 			    opt.innerHTML = Number(e.value)+Number(i)+":00";
-// 			    if(i==1) opt.selected=true;
-// 			    target.appendChild(opt);
-// 			}
-// 		}else{
-// 			var opt = document.createElement("option");
-// 		    opt.value = Number(e.value)+1;
-// 		    opt.innerHTML = Number(e.value)+1+":00";
-// 		    target.appendChild(opt);
-// 		}
-		
 	}
 
 </script>

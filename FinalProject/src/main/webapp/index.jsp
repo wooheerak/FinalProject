@@ -85,8 +85,6 @@
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
-<<<<<<< HEAD
-=======
 
 .lButton {
   background-color: #00529c;
@@ -117,7 +115,7 @@ th{
 .aa{background: #e3ebf9;}
 .bb{background: #e3ebf9;}
 .cc{background: #e3ebf9;}
->>>>>>> branch 'master' of https://github.com/wooheerak/FinalProject.git
+
 </style>
 
 </head>
@@ -148,13 +146,6 @@ th{
             </form>
          </div>
          <!-- end col -->
-         
-         
-         
-         <!-- end row -->
-   
-      <!-- end container -->
-      <!-- end row -->
    </section> 
    
 

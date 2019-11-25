@@ -68,7 +68,7 @@
       
    <section class="section" style="padding:0px;">
          <div class="container" id="bookList">
-            <div class="row" style = " margin-left : -145px;">
+            <div class="row">
             
 			<c:forEach var="b" items="${ list }" varStatus="status" >
 				<input type="hidden" name="bNo" value="${b.bNo }">

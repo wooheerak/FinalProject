@@ -67,41 +67,45 @@ table th {
 						</div>
 						<div style="display: flex;">
 							<div>
-								<b>출판사 |</b>&nbsp;&nbsp;&nbsp;
-								<p>${ bs.brPublisher }</p>
+								<div style="width: 300px">
+									<b>출판사 |</b>&nbsp;&nbsp;&nbsp;
+								</div>
+								<div>
+									<p>${ bs.brPublisher }</p>
+								</div>
 							</div>
-							<div style="margin-left: 205px;">
+							<div>
 								<b>카테고리 |</b>&nbsp;&nbsp;&nbsp;
 								<p>${ bs.brCategory }</p>
 							</div>
 						</div>
 						<div style="display: flex;">
-							<div>
+							<div style="width: 300px">
 								<b>발행날짜 |</b>&nbsp;&nbsp;&nbsp;
 								<p>${ bs.brIssueDate }</p>
 							</div>
-							<div style="margin-left: 195px;">
+							<div>
 								<b>ISBN |</b>&nbsp;&nbsp;&nbsp;
 								<p>${ bs.brISBN }</p>
 							</div>
 						</div>
 					</div>
 					<div style="display: flex;">
-						<div>
+						<div style="width: 300px">
 							<b>등록자</b>&nbsp;
 							<p>${ bs.brMemberName }</p>
 						</div>
-						<div style="margin-left: 225px;">
+						<div>
 							<b>등록날짜</b>&nbsp;
 							<p>${ bs.brRegDate }</p>
 						</div>
 					</div>
 					<div style="display: flex;">
-						<div>
+						<div style="width: 300px">
 							<b>가격</b>&nbsp;
 							<p>${ bs.brPrice }원</p>
 						</div>
-						<div style="margin-left: 220px;">
+						<div>
 							<b>품질등급</b>
 							<p>${ bs.brCondition }</p>
 						</div>
@@ -125,7 +129,8 @@ table th {
 				<div class="text-center">
 					<!-- 로그인 아이디 소유자가 NO 작성 시 -->
 					<c:if test="${ loginUser.member_Name ne bs.brMemberName }">
-						<a href="bslist.bs" class="btn btn-transparent" style="margin-left:100px;">목록</a>
+						<a href="bslist.bs" class="btn btn-transparent"
+							style="margin-left: 100px;">목록</a>
 						<c:url var="bsupView" value="bsupView.bs">
 							<c:param name="brBnumber" value="${ bs.brBnumber }" />
 						</c:url>
@@ -133,14 +138,14 @@ table th {
 						<c:url var="complete" value="complete.bs">
 							<c:param name="brBnumber" value="${ bs.brBnumber }" />
 						</c:url>
-						
+
 						<c:if test="${ loginUser ne null }">
-						
+
 							<button type="button" class="btn btn-transparent"
 								style="background-color: white; margin-left: 150px;"
 								data-toggle="modal" data-target=".bd-example-modal-lg">구매하기</button>
-						</c:if>	
-							
+						</c:if>
+
 					</c:if>
 
 					<!-- 로그인 아이디 소유자가 작성했을 시 -->
@@ -148,8 +153,10 @@ table th {
 						<c:url var="bsupView" value="bsupView.bs">
 							<c:param name="brBnumber" value="${ bs.brBnumber }" />
 						</c:url>
-						<a href="${ bsupView }" class="btn btn-transparent" style="color:red;">수정</a>
-						<a href="bslist.bs" class="btn btn-transparent" style="margin-left: 30px;">목록</a>
+						<a href="${ bsupView }" class="btn btn-transparent"
+							style="color: red;">수정</a>
+						<a href="bslist.bs" class="btn btn-transparent"
+							style="margin-left: 30px;">목록</a>
 
 						<c:url var="complete" value="complete.bs">
 							<c:param name="brBnumber" value="${ bs.brBnumber }" />

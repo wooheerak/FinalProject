@@ -132,7 +132,7 @@
 											<c:url var="logout" value="logout.ul" />
 
 											<td><a style="cursor: pointer"
-												onclick="location.href='${myinfo}'">정보보기/</a> <a
+												onclick="location.href='${myinfo}'"><b>${ loginUser.member_Name }</b>님&nbsp;정보보기/</a> <a
 												style="cursor: pointer" onclick="location.href='${logout}'">로그아웃</a>
 											</td>
 										<tr>

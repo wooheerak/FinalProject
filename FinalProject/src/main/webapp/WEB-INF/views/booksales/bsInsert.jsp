@@ -182,7 +182,7 @@ th {
 					<tr>
 						<th>첨부파일<br>
 							<p>
-								<font size="2">※ 책 표지 사진을 <br>첨부해 주세요
+								<font size="2">※ 책 표지 사진을 <br>첨부해 주세요<br>(최대 4kbyte)
 								</font>
 							</p>
 						</th>

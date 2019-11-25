@@ -100,7 +100,7 @@ jQuery(function($) {
 
 					<c:forEach var="br" items="${ list }">
 
-						<tr style="height: 200px;">
+						<tr style="height: 180px;">
 							<td>${ br.brBnumber }</td>
 							<td class="ebook-details">
 								<c:url var="bsdetail" value="bsdetail.bs">

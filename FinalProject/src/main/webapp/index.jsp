@@ -184,27 +184,18 @@ th {
 				</div>
 			</form>
 		</div>
-		<!-- end col -->
-
-
-
-		<!-- end row -->
-
-		<!-- end container -->
-		<!-- end row -->
 	</section>
 
 
-	<!-- 검색바 -->
-
+	<!-- 메뉴바 -->
 	<section class="section nopad" style="">
 		<ul class="text-center"
 			style="list-style-type: none; margin-left: 0px; padding: 0px;">
 			<li>
 				<div class="col-md-2 col-sm-6 nopad">
 					<div onclick="checkLogin2()" class="home-service c1"
-						style="background-color: #dfe8ea; height: 165px; padding: 7px;">
-						<img src="resources/images/timeIcon1.png" style="width: 110px;">
+						style="background-color: #dfe8ea; height: 145px; padding: 7px;">
+						<img src="resources/images/timeIcon1.png" style="width: 100px;">
 						<p>대출/연장</p>
 					</div>
 					<!-- end home-service -->
@@ -214,8 +205,8 @@ th {
 			<li>
 				<div class="col-md-2 col-sm-6 nopad">
 					<div onclick="checkLogin()" class="home-service c2"
-						style="background-color: #dfe8ea; height: 165px; padding: 7px;">
-						<img src="resources/images/quickMenu4.png" style="width: 100px;">
+						style="background-color: #dfe8ea; height: 145px; padding: 7px;">
+						<img src="resources/images/quickMenu4.png" style="width: 90px;">
 						<p>도서 신청</p>
 					</div>
 					<!-- end home-service -->
@@ -226,9 +217,9 @@ th {
 			<li>
 				<div class="col-md-2 col-sm-6 nopad">
 					<div class="home-service c3"
-						style="background-color: #dfe8ea; height: 165px; padding: 7px;"
+						style="background-color: #dfe8ea; height: 145px; padding: 7px;"
 						onclick="location.href='studymain.ss'">
-						<img src="resources/images/quickMenu3.png" style="width: 100px;">
+						<img src="resources/images/quickMenu3.png" style="width: 90px;">
 						<p>열람실/스터디룸</p>
 					</div>
 					<!-- end home-service -->
@@ -238,9 +229,9 @@ th {
 			<li>
 				<div class="col-md-2 col-sm-6 nopad">
 					<div class="home-service c3"
-						style="background-color: #dfe8ea; height: 165px; padding: 7px;"
+						style="background-color: #dfe8ea; height: 145px; padding: 7px;"
 						onclick="location.href='bList.bo'">
-						<img src="resources/images/quickMenu1.png" style="width: 100px;">
+						<img src="resources/images/quickMenu1.png" style="width: 90px;">
 						<p>스터디룸 게시판</p>
 					</div>
 					<!-- end home-service -->
@@ -250,9 +241,9 @@ th {
 			<li>
 				<div class="col-md-2 col-sm-6 nopad last">
 					<div class="home-service c4"
-						style="background-color: #dfe8ea; height: 165px; padding: 7px;"
+						style="background-color: #dfe8ea; height: 145px; padding: 7px;"
 						onclick="location.href='nlist.no'">
-						<img src="resources/images/quickMenu2.png" style="width: 100px;">
+						<img src="resources/images/quickMenu2.png" style="width: 90px;">
 						<p>공지사항</p>
 					</div>
 					<!-- end home-service -->
@@ -261,8 +252,9 @@ th {
 			<li>
 				<div class="col-md-2 col-sm-6 nopad last">
 					<div class="home-service c4"
-						style="background-color: #dfe8ea; height: 165px; padding: 7px;">
-						<img src="resources/images/quickMenu7.png" style="width: 100px;">
+						style="background-color: #dfe8ea; height: 145px; padding: 7px;"
+						onclick="location.href='bslist.bs'">
+						<img src="resources/images/quickMenu7.png" style="width: 90px;">
 						<p>중고 서적</p>
 					</div>
 					<!-- end home-service -->
@@ -271,72 +263,21 @@ th {
 			<!-- end col -->
 		</ul>
 	</section>
-	<!-- end section -->
+	<!-- 메뉴바 end-->
 
-	<!-- 공지사항 -->
+	<!-- 로그인, 중고서적, 좌석현황 -->
 	<section class="section"
-		style="padding-top: 80px; padding-bottom: 20px;">
+		style="padding-top: 50px; padding-bottom: 20px;">
 		<div class="col-md-1"></div>
-		<div class="col-md-4 notice nopad">
-			<b style="padding-left: 15px;">공지사항</b> <a href="nlist.no"
-				class="more" title="More" style="float: right; padding-right: 10px;"><img
-				src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
-			<ul id="t" style="padding-left: 10px;">
-				<!-- li 태그로 공지사항 제목 들어가는 부분 -->
-			</ul>
-		</div>
-
-		<!-- 열람실 좌석현황 -->
-		<div class="col-md-2" style="margin-left: 40px;">
-			<div class="readingR ">
-				<b>열람실 좌석현황</b>
-				<ul id="seatStat" style="padding-left: 0px;">
-					<li style="text-align: center; padding-top: 15px;">
-						<span class="num" style="color: red;">잔여좌석</span> / 총 좌석
-					</li>
-					<li class="book" style="margin-top: 10px; text-align: center;">
-						<p style="display: inline; font-size: 17px; padding-left: 0px;">
-							<b>A</b> 열람실
-						</p>
-						<p id="aTitle" title="A열람실 : 344석" style="display: inline;">
-							<span class="num numA" style="font-size: 17px;">344</span>/<span class="total" style="font-size: 17px;">344</span>
-						</p>
-					</li>
-
-					<li class="book" style="margin-top: 10px; text-align: center;">
-						<p style="display: inline; font-size: 17px; padding-left: 0px;">
-							<b>B</b> 열람실
-						</p>
-						<p id="bTitle" title="B열람실 : 176석" style="display: inline;">
-							<span class="num numB" style="font-size: 17px;">46</span>/<span class="total" style="font-size: 17px;">176</span>
-						</p>
-					</li>
-
-					<li class="com" style="margin-top: 10px; margin-bottom: 10px; text-align: center;">
-						<p style="display: inline; font-size: 17px; padding-left: 0px;">
-							<b>C</b> 열람실
-						</p>
-						<p id="cTitle" title="C열람실 : 148석, 노트북 사용가능"
-							style="display: inline;">
-							<span class="num numC" style="font-size: 17px;">29</span>/<span class="total" style="font-size: 17px;">148</span>
-						</p>
-					</li>
-
-				</ul>
-			</div>
-		</div>
-
 		<!-- 로그인 -->
 		<c:if test="${ empty sessionScope.loginUser }">
 			<form class="lForm" action="userlogin.ul" method="post">
-
 				<div class="col-md-3"
-					style="margin-left: 40px; border: 1px solid lightgray; padding: 20px; margin-top: 25px;">
-					<label for="uname"><b>Student Id</b></label> <input class="lInput"
-						type="text" placeholder="Enter Student Id" name="member_Id"
-						required> <label for="psw"><b>Password</b></label> <input
-						class="lInput" type="password" placeholder="Enter Password"
-						name="member_Password" required>
+					style="border: 1px solid lightgray; padding: 10px;">
+					<label for="uname"><b>Student Id</b></label>
+					<input class="lInput" type="text" placeholder="Enter Student Id" name="member_Id" required style="height: 40px;">
+					<label for="psw"><b>Password</b></label> 
+					<input class="lInput" type="password" placeholder="Enter Password" name="member_Password" required style="height: 40px;">
 
 					<button class="lButton" type="submit">Login</button>
 					<a href="userpasswordfind.ul">비밀번호를 잊으셨나요?</a>
@@ -346,7 +287,7 @@ th {
 
 		<c:if test="${ !empty sessionScope.loginUser }">
 			<div class="col-md-3"
-				style="margin-left: 40px; border: 1px solid lightgray; padding: 0px; margin-top: 25px; height: 294px;">
+				style="border: 1px solid lightgray; padding: 0px; margin-top: 25px; height: 294px;">
 				<img src="resources/images/logo.png"
 					style="display: block; width: 150px; margin-left: auto; margin-right: auto; padding-top: 30px;" />
 				<div style="text-align: center; padding-top: 30px;">
@@ -363,9 +304,140 @@ th {
 				</div>
 			</div>
 		</c:if>
+
+		<!-- 중고서적 top -->
+		<div class="col-md-4 notice nopad" style="padding-left: 50px; padding-top: 20px;">
+			<b style="padding-left: 15px;">중고서적</b><a href="bslist.bs"
+				class="more" title="More" style="float: right; padding-right: 10px;"><img
+				src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
+			<ul id="d"
+				style="max-width: 564px; padding-left: 0px;display: flex; border-top: 1px solid #878787;">
+				<!-- 중고서적 이미지 -->
+			</ul>
+		</div>
+
+		<!-- 열람실 좌석현황 -->
+		<div class="col-md-2" style="margin-left: 40px; padding-top: 20px;">
+			<div class="readingR ">
+				<b>열람실 좌석현황</b>
+				<ul id="seatStat" style="padding-left: 0px;">
+					<li style="text-align: center; padding-top: 15px;"><span
+						class="num" style="color: red;">잔여좌석</span> / 총 좌석</li>
+					<li class="book" style="margin-top: 10px; text-align: center;">
+						<p style="display: inline; font-size: 17px; padding-left: 0px;">
+							<img src="resources/images/readingIcon2.png"
+								style="width: 25px; padding-right: 8px;"><b>A</b> 열람실
+						</p>
+						<p id="aTitle" title="A열람실 : 344석" style="display: inline;">
+							<span class="num numA" style="font-size: 17px;">344</span>/<span
+								class="total" style="font-size: 17px;">344</span>
+						</p>
+					</li>
+
+					<li class="book" style="margin-top: 10px; text-align: center;">
+						<p style="display: inline; font-size: 17px; padding-left: 0px;">
+							<img src="resources/images/readingIcon2.png"
+								style="width: 25px; padding-right: 8px;"><b>B</b> 열람실
+						</p>
+						<p id="bTitle" title="B열람실 : 176석" style="display: inline;">
+							<span class="num numB" style="font-size: 17px;">46</span>/<span
+								class="total" style="font-size: 17px;">176</span>
+						</p>
+					</li>
+
+					<li class="com"
+						style="margin-top: 10px; margin-bottom: 10px; text-align: center;">
+						<p style="display: inline; font-size: 17px; padding-left: 0px;">
+							<img src="resources/images/readingIcon2.png"
+								style="width: 25px; padding-right: 8px;"><b>C</b> 열람실
+						</p>
+						<p id="cTitle" title="C열람실 : 148석, 노트북 사용가능"
+							style="display: inline;">
+							<span class="num numC" style="font-size: 17px;">29</span>/<span
+								class="total" style="font-size: 17px;">148</span>
+						</p>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</section>
 	<!-- end section -->
+	
+	<!-- 중고서적 탑 리스트 -->
+	<script>
+		function topList1() {
+			$
+					.ajax({
+						url : "topList.bs",
+						dataType : "json",
+						success : function(data) {
+							console.log(data);
+							$("#d").text("");
+							var str = "";
+							for ( var i in data) {
+								str += '<ul style="padding-left: 5px; list-style-type:none; padding-top: 10px; width: 140px; height: 170px;">';
+								str += '<a href="'
+										+ "bsdetail.bs?brBnumber="
+										+ data[i].brBnumber
+										+ '"><span class="img"><span class="bookKind" style="position: absolute; background: url(resources/images/신착도서.png); background-size: 100%; z-index: 100; width: 30px; height: 316px; color: #fff; font-size: 13px; padding-top: 5px; background-repeat: no-repeat; text-align: center;">신착</span>';
+								str += '<li class="imgBox ebook-details nopad">';
+								str += '<img alt="" src="resources/bsuploadFiles/'
+										+ data[i].renameFileName + '"';
+								str += ' style="width: 100%; height: auto; padding-left:10px;" class="img-respive">';
+								str += '<li style="padding-left:25px; padding-top: 9px;">'
+										+ data[i].brPrice + '원</div>';
+								str += '</a>';
+								str += '</li>';
+								str += '</span>';
+								str += '</ul>';
+							}
+							console.log(str);
+							$("#d").append(str);
+						}
+					});
+		}
+		$(function() {
+			topList1();
+			setInterval(function() {
+				topList1();
+			}, 15000);
+		});
+	</script>
+	
+	<!-- 스터디룸 게시판 & 공지사항 -->
+	<section class="section"
+		style="padding-top: 30px; padding-bottom: 50px;">
+		<!-- 스터디룸 -->
+		<div class="col-md-1"></div>
+		<div class="col-md-4 notice nopad">
+			<b style="padding-left: 15px;">스터디룸 게시판 조회수 TOP5</b><a
+				href="bList.bo" class="more" title="More"
+				style="float: right; padding-right: 10px;"><img
+				src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
+			<ul style="border-top: 1px solid #878787;"></ul>
+			<table id="tb">
+				<thead>
+					<tr>
+						<th class="bo_top">번호</th>
+						<th class="bo_top" style="width: 350px;">제목</th>
+						<th class="bo_top">조회수</th>
+						<th class="bo_top" style="width: 100px;">날자</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
 
+		<div class="col-md-1"></div>
+		<div class="col-md-4 notice nopad">
+			<b style="padding-left: 15px;">공지사항</b> <a href="nlist.no"
+				class="more" title="More" style="float: right; padding-right: 10px;"><img
+				src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
+			<ul id="t" style="padding-left: 10px;">
+				<!-- li 태그로 공지사항 제목 들어가는 부분 -->
+			</ul>
+		</div>
+	</section>
 
 	<!-- 공지사항 인덱스 리스트 -->
 	<script>
@@ -378,7 +450,7 @@ th {
 					$("#t").html("");
 					var str = "";
 					for ( var i in data) {
-						str += '<li><span class="type2">NEW</span>';
+						str += '<li style="height:52px;"><span class="type2">NEW</span>';
 						str += '<a href="ndetail.no?nId='
 								+ data[i].nId
 								+ '">'
@@ -433,126 +505,47 @@ th {
 	</script>
 	<!-- 공지사항 인덱스 리스트 끝 -->
 
-	<!-- 중고 신착 도서 리스트 -->
-	<section class="section"
-		style="padding-top: 0px; padding-bottom: 50px;">
-		<div class="col-md-1"></div>
-		<div class="col-md-4 notice nopad">
-			<b style="padding-left: 15px;">중고서적</b><a href="bslist.bs"
-				class="more" title="More" style="float: right; padding-right: 10px;"><img
-				src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
-			<ul id="d"
-				style="max-width: 564px; padding-left: 10px; display: flex; border-top: 1px solid #878787;">
-				<!-- 중고서적 이미지 -->
-			</ul>
-		</div>
-	</section>
-
-	<!-- 중고서적 탑 리스트 -->
+	<!-- 스터디룸 게시판 -->
 	<script>
-		function topList1() {
-			$
-					.ajax({
-						url : "topList.bs",
-						dataType : "json",
-						success : function(data) {
-							console.log(data);
-							$("#d").text("");
-							var str = "";
-							for ( var i in data) {
-								str += '<ul style="padding-left: 10px; list-style-type:none; padding-top: 10px; width: 130px; height: 160px;">';
-								str += '<a href="'
-										+ "bsdetail.bs?brBnumber="
-										+ data[i].brBnumber
-										+ '"><span class="img"><span class="bookKind" style="position: absolute; background: url(resources/images/신착도서.png); background-size: 100%; z-index: 100; width: 30px; height: 316px; color: #fff; font-size: 13px; padding-top: 5px; background-repeat: no-repeat; text-align: center;">신착</span>';
-								str += '<li class="imgBox ebook-details nopad">';
-								str += '<img alt="" src="resources/bsuploadFiles/'
-										+ data[i].renameFileName + '"';
-								str += ' style="width: 100%; height: auto; padding-left:10px;" class="img-respive">';
-								str += '<li style="padding-left:25px; padding-top: 9px;">'
-										+ data[i].brPrice + '원</div>';
-								str += '</a>';
-								str += '</li>';
-								str += '</span>';
-								str += '</ul>';
-							}
-							console.log(str);
-							$("#d").append(str);
-						}
-					});
+		function topList2() {
+			$.ajax({
+				url : "topList.bo",
+				dataType : "json",
+				success : function(data) {
+					$tableBody = $("#tb tbody");
+					$tableBody.html("");
+
+					for ( var i in data) {
+						var $tr = $("<tr>");
+						var $bId = $("<td align='center' class='aa'>").text(
+								data[i].bo_number);
+						var $bTitle = $("<td align='center' class='cc'>").text(
+								decodeURIComponent(data[i].bo_title.replace(
+										/\+/g, " ")));
+						var $bWriter = $("<td align='center' class='bb'>")
+								.text(data[i].bo_count);
+						var $bCreateDate = $("<td align='center' class='dd'>")
+								.text(data[i].bo_date);
+
+						$tr.append($bId);
+						$tr.append($bTitle);
+						$tr.append($bWriter);
+						$tr.append($bCreateDate);
+
+						$tableBody.append($tr);
+					}
+				}
+			});
 		}
 		$(function() {
-			topList1();
+			topList2();
+
 			setInterval(function() {
-				topList1();
-			}, 15000);
+				topList2();
+			}, 5000);
 		});
 	</script>
 
-	<!-- 스터디룸 조회수 게시글 top5 -->
-	<section class="section"
-		style="padding-top: 20px; padding-bottom: 50px;">
-		<div class="col-md-1"></div>
-		<div class="col-md-4 notice nopad">
-			<b style="padding-left: 15px;" class="caption">스터디룸 게시판 조회수 TOP5</b><a
-				href="bList.bo" class="more" title="More"
-				style="float: right; padding-right: 10px;"><img
-				src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
-
-			<table id="tb" border="0">
-				<thead>
-					<tr>
-						<th class="bo_top">번호</th>
-						<th class="bo_top" style="width: 350px;">제목</th>
-						<th class="bo_top">조회수</th>
-						<th class="bo_top" style="width: 100px;">날자</th>
-					</tr>
-				</thead>
-				<tbody></tbody>
-			</table>
-		</div>
-		<script>
-			function topList2() {
-				$.ajax({
-					url : "topList.bo",
-					dataType : "json",
-					success : function(data) {
-						$tableBody = $("#tb tbody");
-						$tableBody.html("");
-
-						for ( var i in data) {
-							var $tr = $("<tr>");
-							var $bId = $("<td align='center' class='aa'>")
-									.text(data[i].bo_number);
-							var $bTitle = $("<td align='center' class='cc'>")
-									.text(
-											decodeURIComponent(data[i].bo_title
-													.replace(/\+/g, " ")));
-							var $bWriter = $("<td align='center' class='bb'>")
-									.text(data[i].bo_count);
-							var $bCreateDate = $(
-									"<td align='center' class='dd'>").text(
-									data[i].bo_date);
-
-							$tr.append($bId);
-							$tr.append($bTitle);
-							$tr.append($bWriter);
-							$tr.append($bCreateDate);
-
-							$tableBody.append($tr);
-						}
-					}
-				});
-			}
-			$(function() {
-				topList2();
-
-				setInterval(function() {
-					topList2();
-				}, 5000);
-			});
-		</script>
-	</section>
 
 	<!-- 유용한 싸이트 링크 슬라이드 -->
 	<section style="background-color: white;">

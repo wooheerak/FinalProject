@@ -117,7 +117,7 @@
 		            	<th>번호</th>
 		            	<th>신청자 아이디</th>
 		            	<th>도서 제목</th>
-		            	<th>작 가</th>
+		            	<th>저 자</th>
 		            	<th>역 자</th>
 		            	<th>출판사</th>
 		            	<th>ISBN</th>
@@ -158,6 +158,7 @@
 			            	<c:if test="${r.BQ_STATUS eq 'Y' }">
 			            		<p>요청 승인됨</p>
 			            	</c:if>
+			            		            	
 		            	</td>
 		            </c:forEach>
 		        </tbody>

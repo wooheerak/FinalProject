@@ -47,13 +47,13 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 			<form action="insertRequest.bk" method="post" enctype="Multipart/form-data">
 				<table id="booksalesInsertTable" class="table" border="1">
 					<tr>
-						<th>책제목</th>
+						<th>도서 제목</th>
 						<td>
 							<input type="text" size="100%" name="name">
 						</td>
 					</tr>
 					<tr>
-						<th>책저자</th>
+						<th>저 자</th>
 						<td>
 							<input type="text" name="writer">
 						</td>

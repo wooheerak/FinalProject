@@ -50,11 +50,14 @@
 						<ul>
 							<!-- <span><i class="fa fa-check"></i></span> -->
 							<div class="menuContent" focusable="true">내 정보 조회</div>
-							<div class="menuContent" focusable="true">대출 내역 조회</div>
+							<div class="menuContent" focusable="true" onclick="location.href='borrowBookList.bk'">대출 내역 조회</div>
 							<div class="menuContent" focusable="true" onclick="location.href='myseatList.ss'">열람실/스터디룸 이용내역 조회</div>
-							<div class="menuContent" focusable="true">도서 신청 조회</div>
+							<div class="menuContent" focusable="true" onclick="location.href='selectRequestBook.bk'">도서 신청 조회</div>
 							<div class="menuContent" focusable="true">
 								BOOKSALES<br>거래 내역
+							</div>
+							<div class="menuContent" focusable="true" onclick="location.href='reservationBookView.bk'">
+								도서 예약 내역
 							</div>
 							<!-- <li>Sector and Competitor Analysis <span><i class="fa fa-check"></i></span></li> -->
 
@@ -78,7 +81,7 @@
 						<thead>
 							<tr>
 								<th style="text-align: center;">도서 제목</th>
-								<th style="text-align: center;">작 가</th>
+								<th style="text-align: center;">저 자</th>
 								<th style="text-align: center;">예약 날짜</th>
 								<th style="text-align: center;">만료 날짜</th>
 								<th style="text-align: center;">대출 상황</th>
@@ -91,43 +94,50 @@
 								String tt = sdf.format(today);
 							%>
 							<c:forEach var="r" items="${ list }">
+								<c:url var="cancel" value="cancelReservation.bk">
+									<c:param name="bv_no" value="${ r.bv_no }"/>		
+									<c:param name="b_no" value="${ r.b_no }"/>				
+								</c:url>
 								<tr>
-									<td>${r.bName }</td>
-									<td>${r.bWriter }</td>
+									<td>${r.book.bName }</td>
+									<td>${r.book.bWriter }</td>
 									<c:set var="bvDate">
 										<fmt:setLocale value="ko"/>
-										<fmt:parseDate value="${r.bookReservation.bv_date }" pattern="yyyy/MM/dd HH:mm"/>
+										<fmt:parseDate value="${r.bv_date }" pattern="yyyy/MM/dd HH:mm"/>
 									</c:set>
 									<c:set var="returnDate">
 									    <fmt:setLocale value="ko"/>
-										<fmt:parseDate value="${r.bookReservation.bv_return_date }" pattern="yyyy/MM/dd HH:mm"/>
+										<fmt:parseDate value="${r.bv_return_date }" pattern="yyyy/MM/dd HH:mm"/>
 									</c:set>
-									<td>${ r.bookReservation.bv_date }</td>
-									<td>${ r.bookReservation.bv_return_date }</td>
+									<td>${ r.bv_date }</td>
+									<td>${ r.bv_return_date }</td>
 									<td>
 										<c:set var="today" value="<%= tt %>" />
-										<c:if test="${ today < r.bookReservation.bv_return_date }">
+										<c:if test="${ today < r.bv_return_date }">
 											<c:set var="result" value="1" />
 										</c:if> 
-										<c:if test="${ today >= r.bookReservation.bv_return_date }">
+										<c:if test="${ today >= r.bv_return_date }">
 											<c:set var="result" value="0" />
 										</c:if> 
 										
 										<c:if test="${result == 1 }">
-											<p>대출 대기</p>
+						            		<c:if test="${r.bv_status eq 'W' }">
+												<p>대출 대기</p> &nbsp;&nbsp;
+							            		<input id="" type="button" onclick="location.href='${cancel}'" value="취소하기" style="background-color: white; color: black; border: 2px solid red;"/>&nbsp;
+							            	</c:if>										
 										</c:if> 
 										<c:if test="${result == 0 }">
-											<c:if test='${r.bookReservation.bv_status == "N" }'>
+											<c:if test='${r.bv_status == "N" }'>
 												<p>기간 만료</p>
 											</c:if>
-											<c:if test='${r.bookReservation.bv_status  == "R" }'>
-												<p>대출 완료</p>
-											</c:if>
-											
 										</c:if>
-										<c:if test='${ r.bookReservation.bv_status == "C" }'>
+										<c:if test='${ r.bv_status == "C" }'>
 											<p>예약 취소</p>
 										</c:if>
+										<c:if test='${ r.bv_status == "Y" }'>
+											<p>승인 완료</p>
+										</c:if>										
+										
 									</td>
 								</tr>
 							</c:forEach>

@@ -1,6 +1,7 @@
 package com.kh.FinalProject.book.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.FinalProject.book.model.dao.BookDao;
 import com.kh.FinalProject.book.model.vo.Book;
+import com.kh.FinalProject.book.model.vo.BookRent;
 import com.kh.FinalProject.book.model.vo.BookRequest;
 import com.kh.FinalProject.book.model.vo.BookReservation;
 import com.kh.FinalProject.book.model.vo.PageInfo;
@@ -93,7 +95,13 @@ public class BookServiceImpl implements BookService{
 
 	@Override
 	public int checkBook() {
-		return bDao.checkBook(sqlSession);
+		int result = bDao.checkBook(sqlSession);
+		int updateBook = 0;
+		if(result >= 0) {
+			updateBook = bDao.checkBook2(sqlSession);
+		}
+		
+		return updateBook;
 	}
 
 
@@ -124,6 +132,90 @@ public class BookServiceImpl implements BookService{
 	@Override
 	public int cancelRequest(int bq_no) {
 		return bDao.cancelRequest(sqlSession, bq_no);
+	}
+
+
+	@Override
+	public int updateResv(int bv_no) {
+		return bDao.updateResv(sqlSession, bv_no);
+	}
+
+
+	@Override
+	public int updateBk(int b_no) {
+		return bDao.updateBk(sqlSession, b_no);
+	}
+
+
+	@Override
+	public int updateRAllow(int bv_no) {
+		return bDao.updateRAllow(sqlSession, bv_no);
+	}
+
+
+	@Override
+	public int updqteBAllow(int b_no) {
+		return bDao.updateBAllow(sqlSession, b_no);
+	}
+
+
+	@Override
+	public int insertRent(HashMap<String, Object> map) {
+		return bDao.insertRent(sqlSession, map);
+	}
+
+
+	@Override
+	public ArrayList<BookRent> selectborrowBkList(String userId) {
+		return bDao.selectborrowBkList(sqlSession, userId);
+	}
+
+
+	@Override
+	public int updateExtension(Map<String, Object> map) {
+		return bDao.updateExtension(sqlSession, map);
+	}
+
+
+	@Override
+	public int returnRentBook(int br_no) {
+		return bDao.returnRentBook(sqlSession, br_no);
+	}
+
+
+	@Override
+	public int returnBook(int b_no) {
+		return bDao.returnBook(sqlSession, b_no);
+	}
+
+
+	@Override
+	public ArrayList<BookRent> loanBookList() {
+		return bDao.loanBookList(sqlSession);
+	}
+
+
+	@Override
+	public ArrayList<Book> selectBkListM() {
+		return bDao.selectBkListM(sqlSession);
+	}
+
+
+	@Override
+	public int insertBk(Book bk) {
+		return bDao.insertBk(sqlSession, bk);
+	}
+
+
+	@Override
+	public int updateNBook(Book bk) {
+		return bDao.updateNBook(sqlSession, bk);
+	}
+
+
+	@Override
+	public int deleteBook(int bNo) {
+		return bDao.deleteBook(sqlSession, bNo);
 	}
 
 

@@ -34,6 +34,7 @@
 
 .btn {
 	background-color:white;
+	border-color:rgba(0,82,156,0.7) !important;
 	text-align:center;
 	width:80px;
 	height: 30px;
@@ -41,6 +42,8 @@
 }
 .btn-transparent{
 	padding : 0px;
+	border-color:rgba(0,82,156,0.7) !important;
+	color:rgba(0,82,156,0.7) !important;
 	
 }
 .srbtn{
@@ -70,7 +73,7 @@
 .studyroom_main th {
 	width: 45px;
 	height: 40px;
-	background-color: lightblue;
+	background-color: rgba(0,82,156,0.7);
 	font-size: 1.3px;
 	color: white;
 	text-align: center;
@@ -86,6 +89,11 @@
 	margin-right:10px;
 	text-align:right;
 }
+.calbtn {
+	border-color:rgba(0,82,156,0.7) !important;
+	color:rgba(0,82,156,0.7);
+}
+
 
 </style>
 </head>
@@ -193,7 +201,7 @@
 											
 												<!-- 예약정보 있을 시 -->
 												<c:if test="${contains eq true}">
-													<td rowspan="${org.so_end_time - org.so_start_time }" id="sotd" style="background-color:${org.so_bColor}">
+													<td rowspan="${org.so_end_time - org.so_start_time }" id="sotd" style="padding:0px;width:73px;height:38px;background-color:${org.so_bColor}">
 													${org.so_end_time - org.so_start_time} hour <br>
 													${org.so_organizer}
 													</td>

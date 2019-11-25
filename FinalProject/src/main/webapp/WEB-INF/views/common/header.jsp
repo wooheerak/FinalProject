@@ -218,7 +218,6 @@
 		}
 	}
 	</script>
-	</script>
 	<!-- 요기까지 -->
 </body>
 </html>

@@ -1,8 +1,6 @@
 package com.kh.FinalProject.book.controller;
 
 import java.io.File;
-import java.sql.Date;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,11 +25,9 @@ import com.kh.FinalProject.book.model.vo.BookRent;
 import com.kh.FinalProject.book.model.vo.BookRequest;
 import com.kh.FinalProject.book.model.vo.BookReservation;
 import com.kh.FinalProject.book.model.vo.PageInfo;
-import com.kh.FinalProject.booksales.model.exception.BSException;
-import com.kh.FinalProject.booksales.model.vo.BookReg;
 import com.kh.FinalProject.common.Pagination;
-import com.kh.FinalProject.studyroom_board.model.exception.BoardException;
 import com.kh.FinalProject.user.model.vo.User;
+
 
 @Controller
 public class BookController {
@@ -148,7 +144,7 @@ public class BookController {
 			mv.addObject("searchOption", searchOption);
 			mv.setViewName("bookListView"); 
 		} else { 
-			  throw new BoardException("도서 조회에 실패하였습니다");
+			  throw new BookException("도서 조회에 실패하였습니다");
 		}
 		 
 
@@ -572,7 +568,5 @@ public class BookController {
 		}
 		
 	}
-
-	 
-	 
+	
 }

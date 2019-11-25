@@ -197,7 +197,7 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 					<tr>
 						<th>
 							첨부파일
-							<p><font size="2">※ 책 표지 사진을 <br>첨부해 주세요</font></p>
+							<p><font size="2">※ 책 표지 사진을 <br>첨부해 주세요<br>(최대 4kbyte)</font></p>
 						</th>
 						<td>
 							<input type="file" name="reloadFile">

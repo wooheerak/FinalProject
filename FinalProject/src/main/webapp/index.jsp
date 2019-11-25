@@ -85,8 +85,6 @@
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
-<<<<<<< HEAD
-=======
 
 .lButton {
   background-color: #00529c;
@@ -133,8 +131,6 @@ th{
    font-size:18px;
 }
 
-
->>>>>>> branch 'master' of https://github.com/wooheerak/FinalProject.git
 </style>
 
 </head>

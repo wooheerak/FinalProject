@@ -59,9 +59,59 @@
          <!-- end row -->
       </div>
       <!-- end container -->
+      
+      	<div id = "myModal5">
+		<!-- Button trigger modal -->
+		<button type="button" id = "mButton1" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter5" style = "display : none;">
+  		
+		</button>
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModalCenter5" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+  			<div class="modal-dialog modal-dialog-centered" role="document">
+    			<div class="modal-content" style = "margin-top : 300px; width : 500px;">
+      				<div class="modal-header" style = "width : 500px; text-align : center;">
+       					 <h3 class="modal-title" id="exampleModalLongTitle" style = "display : inline;">Message!</h3>
+        				 <button type="button" class="close" data-dismiss="modal" aria-label="Close" style = "display : inline;">
+          				 	<span aria-hidden="true">&times;</span>
+        				 </button>
+   				    </div>
+     			   
+     			    <div class="modal-body"  style = "text-align : center;">
+     			    	<br>
+        				<p id = "mMessage1" style = "font-size : 20px; color : black;">아이디와 비밀번호를 확인해주세요!<p>
+        				
+      				</div>
+      		
+      				<div class="modal-footer">
+        				<button type="button" id = "mB1" class="btn btn-secondary" data-dismiss="modal" style = "float : left ; margin-left : 140px; width : 200px;" onclick = "" >확인</button>        				
+      				</div>
+    			</div>
+  			</div>
+		</div>
+		
+	</div>
    </section>
+   
+   	
+		<!-- 수진쓰 추가부분 -->
+	
 
    <jsp:include page="../common/footer.jsp" />
+   
+   
       
 </body>
+
+	<script>
+		 $(function(){
+			check = Number(${ checkL }) ;
+			console.log("checkL" + check);
+			
+			if(check != 0){
+				$("#mButton1").trigger("click");
+				
+			}
+		});
+	</script>
 </html>

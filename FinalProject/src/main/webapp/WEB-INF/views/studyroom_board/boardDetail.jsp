@@ -30,16 +30,23 @@
 	margin-top: 10px !important;
 }
 
-#rContent {
+.rContent {
 	margin: auto;
+}
+#rContent {
+	width: 400px !important;
 }
 
 th{
  text-align: center !important;
- background: #bbd1f9;
- color: #806464;
+ background: rgba(0,82,156,0.7);
+ color: white;
  width: 150px;
  height: 50px;
+}
+td{
+	font-weight:600; 
+   font-size:18px;
 }
 .aa{background: #e3ebf9;}
 .bb{background: #;}
@@ -797,7 +804,7 @@ button[class*="btn"] {border: 0;}
                   for(var i in data){
                      $tr = $("<tr>");
                      $rWriter = $("<td>").text(data[i].rWriter);
-                     $rContent = $("<td id='listContent" + num + "'>").text(decodeURIComponent(data[i].rContent.replace(/\+/g , " ")));
+                     $rContent = $("<td class='rin' id='listContent" + num + "'>").text(decodeURIComponent(data[i].rContent.replace(/\+/g , " ")));
                      $rCreateDate = $("<td>").text(data[i].rCreateDate);
                      $rUpbutton = $('<a href="javascript:void(0)" class="btn-gradient mini yellow" onclick="fn_editReplyView(listContent' + num + ',' + data[i].rId + ')">수정</a>');
                      $rDebutton = $("<a href='javascript:void(0)' class='btn-gradient mini red' onclick='fn_deleteReply(" + data[i].rId + ")'>삭제</a>'"); 

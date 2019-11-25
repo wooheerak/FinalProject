@@ -188,7 +188,7 @@ border-bottom: 1px solid #878787;
             <li>
             <div class="col-md-2 col-sm-6 nopad" >
                <div class="home-service c1" style="background-color: #dfe8ea; height :165px; padding : 7px;">
-                  <img src="resources/images/timeIcon1.png" style="width: 100px;">
+                  <img src="resources/images/timeIcon1.png" style="width: 110px;">
                   <p>대출/연장</p>
                </div>
                <!-- end home-service -->
@@ -198,7 +198,7 @@ border-bottom: 1px solid #878787;
             <li>
             <div class="col-md-2 col-sm-6 nopad">
                <div onclick="checkLogin()" class="home-service c2" style="background-color: #dfe8ea; height :165px;padding : 7px;">
-               <img src="resources/images/quickMenu4.png" style="width: 100px; hight: 101.67px;">
+               <img src="resources/images/quickMenu4.png" style="width: 100px;">
                   <p>도서 신청</p>
                </div>
                <!-- end home-service -->

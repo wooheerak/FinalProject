@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -275,15 +275,7 @@ table th {
 
 						$("#close").trigger("click");
 						alert(msg);
-						location.href = "complete.bs?brBnumber=" + $
-						{
-							bs.brBnumber
-						}
-						+"&brStudentId=" + $
-						{
-							bs.brStudentId
-						}
-						;
+						location.href = "complete.bs?brBnumber=" + ${ bs.brBnumber } +"&brStudentId=" + ${ bs.brStudentId };
 					} else {
 						var msg = '결제에 실패하였습니다. \n';
 						msg += '에러내용 : ' + rsp.error_msg;

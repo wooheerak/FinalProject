@@ -321,6 +321,7 @@ public class StudySeatController {
 			if(result > 0) {
 				
 				// 문자 전송 
+				
 				sendMsg(seat,request);
 				
 				Cookie cookie = new Cookie("certTimer" + user.getMember_Id() , "certTimer");

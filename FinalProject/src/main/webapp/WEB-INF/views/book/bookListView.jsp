@@ -50,8 +50,7 @@
       </div>
    </section>
 
-
-      
+     
    <section class="section" style="padding:0px;">
          <div class="container" id="bookList">
             <div class="row" style="margin-left: 150px;">

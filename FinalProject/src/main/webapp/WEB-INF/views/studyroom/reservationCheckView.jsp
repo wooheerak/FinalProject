@@ -72,26 +72,19 @@
 		<c:param name="so_date" value="${sr.so_date}"/>
 		<c:param name="so_name" value="${sr.so_name}"/>
 	</c:url>
-	
-	<input type="button" class="btn btn-transparent" id="close" onclick="location.href='${ bComplete }'" value="확인" />
+	<c:if test="${sr.bo_number != 0 }">
+		<input type="button" class="btn btn-transparent" id="close" onclick="location.href='${ bComplete }'" value="확인" />
+	</c:if>
+	<c:if test="${sr.bo_number == 0 }">
+		<input type="button" class="btn btn-transparent" id="close" onclick="wclose()" value="확인" />
+	</c:if>
 	</div>
 	
-<!-- <script>
-$("#close").on("click" , function(){
-	 
-	$.ajax({
-         url : "bComplete" ,
-         data : {bo_number : bId},
-         dataType : "json" ,
-         success : function(data){
-        	 
-         }
-		
-	});
-	
-	
+<script>
+function wclose(){
+	opener.parent.location.reload();
 	self.close();
-});
-</script> -->
+}
+</script>
 </body>
 </html>

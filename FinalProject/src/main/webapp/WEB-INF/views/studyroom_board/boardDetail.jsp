@@ -669,7 +669,7 @@ button[class*="btn"] {border: 0;}
 												}).then((result) => {
 												if (result.value) {
 													var url = "srAppointment.sr?bo_number=${board.bo_number}&bo_member=${board.bo_member}&member_Name=${ loginUser.member_Id }&bo_join=${ board.bo_join }";
-													var srReservation2 = "srReservation2";
+													var srReservation2 = "srReservation22";
 													var specs="width=420px, height=350px, left=20, top=30, toolbar=no, location=no, directories=no";
 													window.open(url,srReservation2,specs);
 												  } else {

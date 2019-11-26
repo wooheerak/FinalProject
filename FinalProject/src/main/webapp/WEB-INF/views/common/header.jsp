@@ -99,7 +99,7 @@
 												<div class="col-md-3">
 													<ul>
 														<li><a href="bslist.bs">중고서적</a></li>
-														<li><a href="bsinsertView.bs">중고서적 등록</a></li>
+														<li><a href="#" onclick="checkLogin5()">중고서적 등록</a></li>
 													</ul>
 												</div>
 												<div class="col-md-3">
@@ -224,6 +224,20 @@
 				 
 			if(id != ""){
 				location.href="requestBook.bk";
+			}
+			else{
+				alert('로그인이 필요한 기능입니다.');
+				location.href="loginForm.ul";
+			}
+		}
+		
+		/* 희락 중고서적 등록 */
+		// 중고서적 등록
+		function checkLogin5(){
+			var id = '${ loginUser.member_Name }';
+				 
+			if(id != ""){
+				location.href="bsinsertView.bs";
 			}
 			else{
 				alert('로그인이 필요한 기능입니다.');

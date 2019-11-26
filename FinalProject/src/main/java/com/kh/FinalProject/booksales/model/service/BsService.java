@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.FinalProject.booksales.model.vo.BookReg;
+import com.kh.FinalProject.booksales.model.vo.BookSales;
 
 
 public interface BsService {
@@ -23,6 +24,8 @@ public interface BsService {
 	int insertBookSale(HashMap<String, Object> map);
 
 	ArrayList<BookReg> selectTopList();
+
+	ArrayList<BookSales> selectList(String userId);
 
 	
 

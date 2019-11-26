@@ -2,7 +2,6 @@ package com.kh.FinalProject.booksales.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,11 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.kh.FinalProject.booksales.model.exception.BSException;
 import com.kh.FinalProject.booksales.model.service.BsService;
 import com.kh.FinalProject.booksales.model.vo.BookReg;
+import com.kh.FinalProject.booksales.model.vo.BookSales;
 import com.kh.FinalProject.user.model.vo.User;
 
 
@@ -243,6 +242,36 @@ public class BookSalesController {
 		gson.toJson(tlist, response.getWriter());
 	}
 	
-	
+	// 중고서적 거래내역 조회
+	@RequestMapping("bsHistory.bs")
+	public ModelAndView bsHistory(ModelAndView mv, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		User u = (User)session.getAttribute("loginUser");
+		
+		String userId = "";
+		
+		if(u != null) {
+			userId = u.getMember_Id();
+		}
+		
+		ArrayList<BookSales> blist = bsService.selectList(userId);
+		
+		for(int i=0; i < blist.size(); i++ ) {
+			if(blist.get(i).getsStudent().equals(userId)) {
+				blist.get(i).setBsStatus("s");
+			}
+			else if(blist.get(i).getbStudent().equals(userId)){
+				blist.get(i).setBsStatus("b");
+			}
+		}
+		
+		mv.addObject("bsList", blist);
+		mv.setViewName("bsHistory");
+		
+		return mv;
+		
+	}
 	
 }

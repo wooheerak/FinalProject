@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.FinalProject.booksales.model.dao.BsDAO;
 import com.kh.FinalProject.booksales.model.vo.BookReg;
+import com.kh.FinalProject.booksales.model.vo.BookSales;
 
 @Service("bsService")
 public class BsServiceImpl implements BsService{
@@ -65,6 +66,11 @@ public class BsServiceImpl implements BsService{
 	// 중고서적 TOP 리스트
 	public ArrayList<BookReg> selectTopList() {
 		return bsDAO.selectTopList(sqlSession);
+	}
+
+	// 중고서적 거래 내역 리스트
+	public ArrayList<BookSales> selectList(String userId) {
+		return bsDAO.selectList(sqlSession, userId);
 	}
 	
 	

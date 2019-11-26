@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.FinalProject.booksales.model.vo.BookReg;
+import com.kh.FinalProject.booksales.model.vo.BookSales;
 
 
 @Repository("bsDAO")
@@ -56,6 +57,10 @@ public class BsDAO {
 	public ArrayList<BookReg> selectTopList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("bsMapper.selectTopList");
 		
+	}
+
+	public ArrayList<BookSales> selectList(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("bsMapper.selectHistory", userId);
 	}
 
 

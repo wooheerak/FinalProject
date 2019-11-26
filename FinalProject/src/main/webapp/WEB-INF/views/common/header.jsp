@@ -59,11 +59,10 @@
 					<div id="navbar" class="navbar-collapse collapse"
 						style="float: left; margin-left: 150px;">
 						<ul class="nav navbar-nav navbar-right">
-							<li><a href="borrowBookList.bk">대출/연장</a></li>
+							<li><a href="#" onclick="checkLogin2()">대출/연장</a></li>
 							<li><a href="selectList.bk?searchOption="+'title'+"&search="+' '">도서검색</a></li>
 							<li><a href="">도서관 서비스</a></li>
 							<li><a href="">도서관 안내</a></li>
-							<li><a href="">마이라이브러리</a></li>
 							
 							<li class="dropdown yamm-fw hasmenu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 

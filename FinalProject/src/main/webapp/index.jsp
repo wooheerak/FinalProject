@@ -659,6 +659,7 @@ th {
 		function newBookList() {
 			$.ajax({
 				url : "newBookList.bk",
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
 				dataType : "json",
 				success : function(data) {
 					console.log(data);
@@ -667,13 +668,13 @@ th {
 					for ( var i in data) {
 						str += '<ul style="padding-left: 5px; list-style-type:none; padding-top: 10px; width: 140px; height: 170px;">';
 						str += '<a href="'
-								+ "bookdetail.bk?bNo="
-								+ data[i].bNo
+								+ "bookdetailIndex.bk?bNo="
+								+ data[i].bNo + "&bISBN=" + data[i].bISBN
 								+ '"><span class="img"><span class="bookKind" style="position: absolute; background: url(resources/images/신착도서.png); background-size: 100%; z-index: 100; width: 30px; height: 316px; color: #fff; font-size: 13px; padding-top: 5px; background-repeat: no-repeat; text-align: center;">신착</span>';
 						str += '<li class="imgBox ebook-details nopad">';
 						str += '<img alt="누락" src="resources/BOOK_IMG/'
 								+ data[i].bIMG + '"';
-						str += ' style="width: 100%; height: auto; padding-left:10px;" class="img-respive"/></li>';
+						str += ' style="width: 135px; height: 180px; padding-left:10px;" class="img-respive"/></li>';
 						str += '<li style="padding-left:25px; padding-top: 9px;"><b>'
 								+ data[i].bName + '</b></li>';
 						str += '</a>';

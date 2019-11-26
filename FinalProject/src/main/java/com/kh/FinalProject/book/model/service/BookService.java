@@ -75,4 +75,6 @@ public interface BookService {
 
 	ArrayList<Book> selectTopList();
 
+	Book selectBookIndex(String bNo);
+
 }

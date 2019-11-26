@@ -160,6 +160,10 @@ public class BookDao {
 	public ArrayList<Book> selectTopList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("bookMapper.selectTopList");
 	}
+
+	public Book selectBookIndex(SqlSessionTemplate sqlSession, String bNo) {
+		return sqlSession.selectOne("bookMapper.selectDetailIndex",bNo);
+	}
 	
 	
 }

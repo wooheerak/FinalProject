@@ -310,4 +310,10 @@
     	WHERE ROWNUM <= 4
     	]]>   		
 	</select>
+	
+	<select id="selectDetailIndex" resultMap="bookResultSet">
+		select *
+		from book
+		where b_no = #{bNo}
+	</select>
 </mapper>

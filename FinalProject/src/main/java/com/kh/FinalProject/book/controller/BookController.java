@@ -587,11 +587,35 @@ public class BookController {
 	@RequestMapping("newBookList.bk")
 	public void bsTopList(ModelAndView mv, HttpServletResponse response) throws JsonIOException, IOException {
 		
+		response.setContentType("application/json ;charset=UTF-8");
+		
 		ArrayList<Book> bklist = bService.selectTopList();
 		
 		Gson gson = new Gson();
 		gson.toJson(bklist, response.getWriter());
 	}	
+	
+	// 인덱스 북 디테일
+	@RequestMapping("bookdetailIndex.bk")
+	public ModelAndView bookdetailIndex(ModelAndView mv,
+										@RequestParam("bNo") String bNo,
+										@RequestParam("bISBN") String bISBN) {
+
+		Book book = bService.selectBookIndex(bNo);
+		
+		int bCount = bService.selectAllCount(bISBN);
+		
+		int bYCount = bService.selectYCount(bISBN);
+		
+		if(book != null) {
+			mv.addObject("book", book)
+			.addObject("allCount", bCount)
+			.addObject("yCount", bYCount)
+			.setViewName("bookDetailView");
+		}
+		
+		return mv;
+	}
 
 	 
 	 

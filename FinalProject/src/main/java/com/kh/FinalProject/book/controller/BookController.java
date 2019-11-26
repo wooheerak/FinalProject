@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,7 +36,11 @@ import com.kh.FinalProject.booksales.model.exception.BSException;
 import com.kh.FinalProject.booksales.model.vo.BookReg;
 import com.kh.FinalProject.common.Pagination;
 import com.kh.FinalProject.studyroom_board.model.exception.BoardException;
+import com.kh.FinalProject.studyseat.model.vo.Seat;
 import com.kh.FinalProject.user.model.vo.User;
+
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Controller
 public class BookController {
@@ -77,7 +82,6 @@ public class BookController {
 		}
 
 		int listCount = bService.getReservationCount(userId);
-		System.out.println("listCount : " + listCount);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		  
@@ -236,8 +240,38 @@ public class BookController {
 	
 	@RequestMapping("checkBook.bk")
 	@ResponseBody
-	public String checkBook(HttpServletRequest req) {
+	public String checkBook(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("loginUser");
+		
+		String userId = "";
+		
+		if(user != null) {
+			userId = user.getMember_Id();
+		}
 		int result = bService.checkBook();
+		int result1 = 0 ;
+		
+		ArrayList<BookRent> brList = bService.checkExpire(userId);
+		ArrayList<String> bList = new ArrayList<>();
+		Map<String, Object> map = new HashMap<String , Object>();
+		ArrayList<Integer> noList = new ArrayList<>();
+		
+	    if(brList.size() > 0) { for(int i = 0 ; i< brList.size() ; i++) {
+	    	bList.add(brList.get(i).getBook().getbName());
+	    	noList.add(brList.get(i).getBr_no()); }
+	  
+	  
+	    	sendMsg(bList , request); 
+	    	map.put("list", noList); 
+	    	result1 = bService.updateMsg(map); 
+	    }
+		 
+		
+		if(result1 < 0) {
+			throw new BookException("문자status 업데이트 실패");
+		}
 		
 		if(result >= 0) {
 			return "success";
@@ -298,7 +332,6 @@ public class BookController {
 		mv.addObject("list", list);
 		mv.setViewName("reservationBookmasterPage");
 		
-		System.out.println("list1" + list);
 		return mv;
 	}
 	
@@ -617,6 +650,66 @@ public class BookController {
 		return mv;
 	}
 
-	 
+	// 예약 인증코드 문자 전송
+	public void sendMsg(ArrayList<String> bList ,  HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("loginUser");  
+		 
+		String api_key = "NCSU4SUSDGQAJ4NB";
+	    String api_secret = "ONIC8SHR7QB2KI4C3JX1WLI35BXGX5NJ";
+	    Message coolsms = new Message(api_key, api_secret);
+	    
+	    String msg = "";
+	    String phone = "";
+	    String books = "";
+	    
+	    for(int i = 0 ; i < bList.size() ; i++) {
+	    	if(i != bList.size() -1 ) {
+	    		books += bList.get(i) + ", ";
+	    	}
+	    	else {
+	    		books += bList.get(i);
+	    	}
+	    }
+	    
+	    if(user != null) {
+	    	phone = user.getPhone();
+	    	msg += user.getMember_Name() + "님의 도서 대출 기간이 " ;
+	    	msg += "만료되었습니다. \n" ;
+	    	msg += "도서 목록 : " + books; 
+	    			
+	    }
+	    
+	    //System.out.println("phone : " + phone + ", msg : " + msg);
+	    // 4 params(to, from, type, text) are mandatory. must be filled
+	    HashMap<String, String> params = new HashMap<String, String>();
+	    params.put("to", phone); // 수신번호
+	    params.put("from", "01072111601"); // 발신번호
+	    params.put("type", "SMS"); // Message type ( SMS, LMS, MMS, ATA )
+	    params.put("text", msg); // 문자내용    
+	    params.put("app_version", "JAVA SDK v1.2"); // application name and version
+	    params.put("charset", "utf-8");
+	    
+	    // Optional parameters for your own needs
+	    // params.put("delay", "10"); // 0~20사이의 값으로 전송지연 시간을 줄 수 있습니다.
+	    // params.put("country", "KR"); // Korea(KR) Japan(JP) America(USA) China(CN) Default is Korea
+	    // params.put("datetime", "20140106153000"); // Format must be(YYYYMMDDHHMISS) 2014 01 06 15 30 00 (2014 Jan 06th 3pm 30 00)
+	    // params.put("mid", "mymsgid01"); // set message id. Server creates automatically if empty
+	    // params.put("gid", "mymsg_group_id01"); // set group id. Server creates automatically if empty
+	    // params.put("subject", "Message Title"); // set msg title for LMS and MMS
+	    // params.put("charset", "euckr"); // For Korean language, set euckr or utf-8
+
+	    try {
+	      JSONObject obj = (JSONObject) coolsms.send(params);
+	      System.out.println(obj.toString());
+	    } catch (CoolsmsException e) {
+	      System.out.println(e.getMessage());
+	      System.out.println(e.getCode());
+	    }
+	    
+	 }
+	
+	
 	 
 }

@@ -231,6 +231,18 @@ public class BookServiceImpl implements BookService{
 	}
 
 
+	@Override
+	public ArrayList<BookRent> checkExpire(String userId) {
+		return bDao.checkExpire(sqlSession , userId);
+	}
+
+
+	@Override
+	public int updateMsg(Map<String, Object> map) {
+		return bDao.updateMsg(sqlSession , map);
+	}
+
+
 	
 	
 }

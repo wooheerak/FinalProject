@@ -77,4 +77,8 @@ public interface BookService {
 
 	Book selectBookIndex(String bNo);
 
+	ArrayList<BookRent> checkExpire(String userId);
+
+	int updateMsg(Map<String, Object> map);
+
 }

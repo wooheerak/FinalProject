@@ -60,6 +60,7 @@
 		<result property="br_return_date" column="BR_RETURN_DATE"/>
 		<result property="user_id" column="USER_ID"/>
 		<result property="br_status" column="BR_STATUS"/>
+		<result property="m_status" column="M_STATUS"/>
 		<association property="book" javaType="Book">
 			<id property="bNo" column="B_NO"/>
 			<result property="bName" column="B_NAME"/>
@@ -176,6 +177,7 @@
  		where BR_RETURN_DATE <![CDATA[<]]> to_char(sysdate,'YYYY/MM/DD HH24:MI')
  	</update>
  	
+ 	
  	<select id="requestBookListmaster" resultType="BookRequest">
  		select *
  		from book_request
@@ -232,7 +234,7 @@
 	
 	<insert id="insertRent" parameterType="map">
 		insert into book_rent
-		values(SEQ_BKNO.nextval, #{b_no} , to_char(sysdate,'YYYY/MM/DD HH24:MI') , to_char((sysdate + 3),'YYYY/MM/DD HH24:MI'), #{userId} , default)
+		values(SEQ_BKNO.nextval, #{b_no} , to_char(sysdate,'YYYY/MM/DD HH24:MI') , to_char((sysdate + 3),'YYYY/MM/DD HH24:MI'), #{userId} , default , default)
 	</insert>
 	
 	<select id="selectborrowBkList" resultMap="bookRentSet">
@@ -316,4 +318,25 @@
 		from book
 		where b_no = #{bNo}
 	</select>
+	
+	<select id="checkExpire" parameterType="string" resultMap="bookRentSet">
+ 		select *
+		from book_rent br
+		join book b on (br.b_no = b.b_no)
+		where br.BR_RETURN_DATE <![CDATA[<=]]> to_char(sysdate,'YYYY/MM/DD HH24:MI') and br.user_id = #{userId} and m_status = 'N' 
+ 	</select>
+ 	
+ 	<update id="updateMsg" parameterType = "java.util.HashMap">
+		UPDATE BOOK_RENT
+		SET M_STATUS = 'Y'
+		WHERE 
+		<choose>
+			<when test = "list.size != 0">
+				BR_NO IN
+				<foreach collection="list" item = "item" index = "index" separator = "," open = "(" close = ")">
+					#{item}
+				</foreach>
+			</when>
+		</choose>
+	</update>
 </mapper>

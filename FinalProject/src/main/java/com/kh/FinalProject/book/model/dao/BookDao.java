@@ -164,6 +164,14 @@ public class BookDao {
 	public Book selectBookIndex(SqlSessionTemplate sqlSession, String bNo) {
 		return sqlSession.selectOne("bookMapper.selectDetailIndex",bNo);
 	}
+
+	public ArrayList<BookRent> checkExpire(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("bookMapper.checkExpire" , userId);
+	}
+
+	public int updateMsg(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("bookMapper.updateMsg" , map);
+	}
 	
 	
 }

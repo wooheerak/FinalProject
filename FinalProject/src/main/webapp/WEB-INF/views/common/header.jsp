@@ -194,8 +194,8 @@
 
 	<!-- 동수파트 -->
 	<script>
-		window.onload = setInterval(function() {
-
+		/* window.onload = setInterval(function() {
+		
 			$.ajax({
 				url : "checkBook.bk",
 				success : function(data) {
@@ -203,7 +203,24 @@
 				error : function(data) {
 				}
 			});
-		}, 60000);
+		}, 60000); */
+		
+		function checkBook(){
+			$.ajax({
+				url : "checkBook.bk",
+				success : function(data) {
+				},
+				error : function(data) {
+				}
+			});
+		}
+		
+		$(function(){
+			checkBook();
+			setInterval(function() {
+				checkBook();
+			}, 60000);
+		});
 		
 		// 신청 목록
 		function checkLogin3(){

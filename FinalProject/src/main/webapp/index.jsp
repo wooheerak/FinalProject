@@ -153,6 +153,10 @@ th {
 #tb {
 	border-bottom: 1px solid #878787;
 }
+
+#sbackground {
+	background-image: url("resources/images/background.jpg");
+}
 </style>
 
 </head>
@@ -162,8 +166,8 @@ th {
 	<c:import url="WEB-INF/views/common/header.jsp"></c:import>
 
 	<!-- 검색바 -->
-	<section class="section nopad"
-		style="background-color: rgba(0, 82, 156, 0.7); width: 100%; height: 250px;">
+	<section id="sbackground" class="section nopad"
+		style="width: 100%; height: 300px;">
 
 		<div class="col-md-10 col-md-offset-1  text-center" style="">
 			<form action="selectList.bk" class="calculateform"
@@ -265,18 +269,32 @@ th {
 	</section>
 	<!-- 메뉴바 end-->
 
-	<!-- 로그인, 중고서적, 좌석현황 -->
+	<!-- 스터디룸, 열람실, 로그인 -->
 	<section class="section"
 		style="padding-top: 50px; padding-bottom: 20px;">
+		<div class="col-md-2"></div>
+		<div class="col-md-5 notice nopad">
+			<b style="padding-left: 15px;">공지사항</b> <a href="nlist.no"
+				class="more" title="More" style="float: right; padding-right: 10px;"><img
+				src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
+			<ul id="t" style="padding-left: 10px;">
+				<!-- li 태그로 공지사항 제목 들어가는 부분 -->
+			</ul>
+		</div>
 		<div class="col-md-1"></div>
+
+
 		<!-- 로그인 -->
 		<c:if test="${ empty sessionScope.loginUser }">
 			<form class="lForm" action="userlogin.ul" method="post">
-				<div class="col-md-3" style="border: 1px solid lightgray; width: 330px; padding: 10px;">
-					<label for="uname"><b>Student Id</b></label>
-					<input class="lInput" type="text" placeholder="Enter Student Id" name="member_Id" required style="height: 40px;">
-					<label for="psw"><b>Password</b></label> 
-					<input class="lInput" type="password" placeholder="Enter Password" name="member_Password" required style="height: 40px;">
+
+				<div class="col-md-3"
+					style="border: 1px solid lightgray; width: 330px; padding: 10px;">
+					<label for="uname"><b>Student Id</b></label> <input class="lInput"
+						type="text" placeholder="Enter Student Id" name="member_Id"
+						required style="height: 40px;"> <label for="psw"><b>Password</b></label>
+					<input class="lInput" type="password" placeholder="Enter Password"
+						name="member_Password" required style="height: 40px;">
 
 					<button class="lButton" type="submit">Login</button>
 					<a href="userpasswordfind.ul">비밀번호를 잊으셨나요?</a>
@@ -303,31 +321,14 @@ th {
 				</div>
 			</div>
 		</c:if>
+	</section>
+	<!-- <!-- 스터디룸, 열람실, 로그인  end -->
 
-		<!-- 중고서적 top -->
-		<div class="col-md-4 notice nopad" style="margin-left: 90px; padding-top: 20px;">
-			<b style="padding-left: 15px;">중고서적</b><a href="bslist.bs"
-				class="more" title="More" style="float: right; padding-right: 10px;"><img
-				src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
-			<ul id="d"
-				style="max-width: 564px; padding-left: 0px;display: flex; border-top: 1px solid #878787;">
-				<!-- 중고서적 이미지 -->
-			</ul>
-		</div>
-		
-		<!-- 신착도서 top -->
-		<div class="col-md-4 notice nopad" style="padding-left: 50px; padding-top: 20px;">
-			<b style="padding-left: 15px;">신착도서</b><a href="selectList.bk?searchOption="+'title'+"&search="+' '"
-				class="more" title="More" style="float: right; padding-right: 10px;"><img
-				src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
-			<ul id="nb"
-				style="max-width: 564px; padding-left: 0px;display: flex; border-top: 1px solid #878787;">
-				<!-- 도서 이미지 -->
-			</ul>
-		</div>		
-
+	<!-- 공지사항 & 중고서적  & 신작도서-->
+	<section class="section"
+		style="padding-top: 35px; padding-bottom: 80px; padding-left: 60px;">
 		<!-- 열람실 좌석현황 -->
-		<div class="col-md-2" style="margin-left: 60px; padding-top: 20px;">
+		<div class="col-md-2" style="margin-left: 30px;">
 			<div class="readingR ">
 				<b>열람실 좌석현황</b>
 				<ul id="seatStat" style="padding-left: 0px;">
@@ -370,108 +371,55 @@ th {
 				</ul>
 			</div>
 		</div>
-	</section>
-	<!-- end section -->
-	
-	<!-- 중고서적 탑 리스트 -->
-	<script>
-		function topList1() {
-			$
-					.ajax({
-						url : "topList.bs",
-						dataType : "json",
-						success : function(data) {
-							console.log(data);
-							$("#d").text("");
-							var str = "";
-							for ( var i in data) {
-								str += '<ul style="padding-left: 5px; list-style-type:none; padding-top: 10px; width: 140px; height: 170px;">';
-								str += '<a href="'
-										+ "bsdetail.bs?brBnumber="
-										+ data[i].brBnumber
-										+ '"><span class="img"><span class="bookKind" style="position: absolute; background: url(resources/images/신착도서.png); background-size: 100%; z-index: 100; width: 30px; height: 316px; color: #fff; font-size: 13px; padding-top: 5px; background-repeat: no-repeat; text-align: center;">신착</span>';
-								str += '<li class="imgBox ebook-details nopad">';
-								str += '<img alt="" src="resources/bsuploadFiles/'
-										+ data[i].renameFileName + '"';
-								str += ' style="width: 100%; height: auto; padding-left:10px;" class="img-respive">';
-								str += '<li style="padding-left:25px; padding-top: 9px;">'
-										+ data[i].brPrice + '원</div>';
-								str += '</a>';
-								str += '</li>';
-								str += '</span>';
-								str += '</ul>';
-							}
-							console.log(str);
-							$("#d").append(str);
-						}
-					});
-		}
-		$(function() {
-			topList1();
-			setInterval(function() {
-				topList1();
-			}, 15000);
-		});
-	</script>
-	
-	<!-- 스터디룸 게시판 & 공지사항 -->
-	<section class="section"
-		style="padding-top: 30px; padding-bottom: 50px;">
-		<!-- 스터디룸 -->
-		<div class="col-md-1"></div>
-		<div class="col-md-4 notice nopad">
-			<b style="padding-left: 15px;">스터디룸 게시판 조회수 TOP5</b><a
-				href="bList.bo" class="more" title="More"
-				style="float: right; padding-right: 10px;"><img
-				src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
-			<ul style="border-top: 1px solid #878787;"></ul>
-			<table id="tb">
-				<thead>
-					<tr>
-						<th class="bo_top">번호</th>
-						<th class="bo_top" style="width: 350px;">제목</th>
-						<th class="bo_top">조회수</th>
-						<th class="bo_top" style="width: 100px;">날자</th>
-					</tr>
-				</thead>
-				<tbody></tbody>
-			</table>
-		</div>
 
-		<div class="col-md-1"></div>
-		<div class="col-md-4 notice nopad">
-			<b style="padding-left: 15px;">공지사항</b> <a href="nlist.no"
+		<!-- 신착도서 top -->
+		<div class="col-md-4 notice nopad" style="margin-left: 60px;">
+			<b style="padding-left: 15px;">신착도서</b><a
+				href="selectList.bk?searchOption=" +'title'+"&search="+' '"
 				class="more" title="More" style="float: right; padding-right: 10px;"><img
 				src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
-			<ul id="t" style="padding-left: 10px;">
-				<!-- li 태그로 공지사항 제목 들어가는 부분 -->
+			<ul id="nb"
+				style="max-width: 564px; padding-left: 0px; display: flex; border-top: 1px solid #878787;">
+				<!-- 도서 이미지 -->
 			</ul>
 		</div>
+
+		<!-- 중고서적 top -->
+		<div class="col-md-4 notice nopad" style="margin-left: 60px;">
+			<b style="padding-left: 15px;">중고서적</b><a href="bslist.bs"
+				class="more" title="More" style="float: right; padding-right: 10px;"><img
+				src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
+			<ul id="d"
+				style="max-width: 564px; padding-left: 0px; display: flex; border-top: 1px solid #878787;">
+				<!-- 중고서적 이미지 -->
+			</ul>
+		</div>	
 	</section>
 
 	<!-- 공지사항 인덱스 리스트 -->
 	<script>
 		function topList() {
-			$.ajax({
-				url : "topList.no",
-				dataType : "json",
-				success : function(data) {
-					console.log(data);
-					$("#t").html("");
-					var str = "";
-					for ( var i in data) {
-						str += '<li style="height:52px;"><span class="type2">NEW</span>';
-						str += '<a href="ndetail.no?nId='
-								+ data[i].nId
-								+ '">'
-								+ (decodeURIComponent(data[i].nTitle.replace(
-										/\+/g, " "))) + '</a>';
-						str += '</li>';
-					}
-					console.log(str);
-					$("#t").html(str);
-				}
-			});
+			$
+					.ajax({
+						url : "topList.no",
+						dataType : "json",
+						success : function(data) {
+							console.log(data);
+							$("#t").html("");
+							var str = "";
+							for ( var i in data) {
+								str += '<li style="height:52px;"><span class="type2">NEW</span>';
+								str += '<a href="ndetail.no?nId='
+										+ data[i].nId
+										+ '">'
+										+ (decodeURIComponent(data[i].nTitle
+												.replace(/\+/g, " "))) + '</a>';
+								str += '</li>';
+							}
+							console.log(str);
+							$("#t").html(str);
+						}
+					});
 		}
 		$(function() {
 			topList();
@@ -556,9 +504,49 @@ th {
 		});
 	</script>
 
+	<!-- 중고서적 탑 리스트 -->
+	<script>
+		function topList1() {
+			$
+					.ajax({
+						url : "topList.bs",
+						dataType : "json",
+						success : function(data) {
+							console.log(data);
+							$("#d").text("");
+							var str = "";
+							for ( var i in data) {
+								str += '<ul style="padding-left: 5px; list-style-type:none; padding-top: 10px; width: 140px; height: 170px;">';
+								str += '<a href="'
+										+ "bsdetail.bs?brBnumber="
+										+ data[i].brBnumber
+										+ '"><span class="img"><span class="bookKind" style="position: absolute; background: url(resources/images/신착도서.png); background-size: 100%; z-index: 100; width: 30px; height: 316px; color: #fff; font-size: 13px; padding-top: 5px; background-repeat: no-repeat; text-align: center;">신착</span>';
+								str += '<li class="imgBox ebook-details nopad">';
+								str += '<img alt="" src="resources/bsuploadFiles/'
+										+ data[i].renameFileName + '"';
+								str += ' style="width: 100%; height: auto; padding-left:10px;" class="img-respive">';
+								str += '<li style="padding-left:25px; padding-top: 9px;">'
+										+ data[i].brPrice + '원</div>';
+								str += '</a>';
+								str += '</li>';
+								str += '</span>';
+								str += '</ul>';
+							}
+							console.log(str);
+							$("#d").append(str);
+						}
+					});
+		}
+		$(function() {
+			topList1();
+			setInterval(function() {
+				topList1();
+			}, 15000);
+		});
+	</script>
 
 	<!-- 유용한 싸이트 링크 슬라이드 -->
-	<section style="background-color: white;">
+	<section style="background-color: white; padding-top: 20px;">
 		<div id="logoSlider"
 			style="border-top: 1px solid #dadada; border-bottom: 1px solid #dadada;">
 			<div class="MS-content">
@@ -611,6 +599,7 @@ th {
 			<!-- .slider-content -->
 		</div>
 		<!-- #logoSlider -->
+
 	</section>
 
 	<!-- Include jQuery -->
@@ -654,47 +643,49 @@ th {
 				location.href = "loginForm.ul";
 			}
 		}
-		
+
+		/* 신작도서 */
 		function newBookList() {
-			$.ajax({
-				url : "newBookList.bk",
-				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-				dataType : "json",
-				success : function(data) {
-					console.log(data);
-					$("#nb").text("");
-					var str = "";
-					for ( var i in data) {
-						str += '<ul style="padding-left: 5px; list-style-type:none; padding-top: 10px; width: 140px; height: 170px;">';
-						str += '<a href="'
-								+ "bookdetailIndex.bk?bNo="
-								+ data[i].bNo + "&bISBN=" + data[i].bISBN
-								+ '"><span class="img"><span class="bookKind" style="position: absolute; background: url(resources/images/신착도서.png); background-size: 100%; z-index: 100; width: 30px; height: 316px; color: #fff; font-size: 13px; padding-top: 5px; background-repeat: no-repeat; text-align: center;">신착</span>';
-						str += '<li class="imgBox ebook-details nopad">';
-						str += '<img alt="누락" src="resources/BOOK_IMG/'
+			$
+					.ajax({
+						url : "newBookList.bk",
+						contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+						dataType : "json",
+						success : function(data) {
+							console.log(data);
+							$("#nb").text("");
+							var str = "";
+							for ( var i in data) {
+								str += '<ul style="padding-left: 5px; list-style-type:none; padding-top: 10px; width: 140px; height: 170px;">';
+								str += '<a href="'
+										+ "bookdetailIndex.bk?bNo="
+										+ data[i].bNo
+										+ "&bISBN="
+										+ data[i].bISBN
+										+ '"><span class="img"><span class="bookKind" style="position: absolute; background: url(resources/images/신착도서.png); background-size: 100%; z-index: 100; width: 30px; height: 316px; color: #fff; font-size: 13px; padding-top: 5px; background-repeat: no-repeat; text-align: center;">신착</span>';
+								str += '<li class="imgBox ebook-details nopad">';
+								str += '<img alt="누락" src="resources/BOOK_IMG/'
 								+ data[i].bIMG + '"';
-						str += ' style="width: 135px; height: 180px; padding-left:10px;" class="img-respive"/></li>';
-						str += '<li style="padding-left:25px; padding-top: 9px;"><b>'
-								+ data[i].bName + '</b></li>';
-						str += '</a>';
-						str += '</span>';
-						str += '</ul>';
-					}
-					console.log(str);
-					$("#nb").append(str);
-				}
-			});
+						str += ' style="width: 115px; height: 160px; padding-left:10px;" class="img-respive"/></li>';
+								str += '<li style="padding-left:25px; padding-top: 9px;"><b>'
+										+ data[i].bName + '</b></li>';
+								str += '</a>';
+								str += '</span>';
+								str += '</ul>';
+							}
+							console.log(str);
+							$("#nb").append(str);
+						}
+					});
 		}
 		$(function() {
 			newBookList();
 			setInterval(function() {
 				topList1();
 			}, 15000);
-		});			
+		});
 	</script>
-
 	<!-- 동수 수정 끝 -->
-
 
 	<c:import url="WEB-INF/views/common/footer.jsp"></c:import>
 

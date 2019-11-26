@@ -172,7 +172,7 @@ th {
 					style="display: flex; margin-top: 30px; width: 100%;">
 					<SELECT name='searchOption'>
 						<!-- 검색 컬럼 -->
-						<OPTION value='title'>제목 검색</OPTION>
+						<OPTION value='title' selected>제목 검색</OPTION>
 						<OPTION value='author'>저자 검색</OPTION>
 						<OPTION value='publisher'>출판사 검색</OPTION>
 						<OPTION value='ISBN'>ISBN 검색</OPTION>
@@ -314,6 +314,17 @@ th {
 				<!-- 중고서적 이미지 -->
 			</ul>
 		</div>
+		
+		<!-- 신착도서 top -->
+		<div class="col-md-4 notice nopad" style="padding-left: 50px; padding-top: 20px;">
+			<b style="padding-left: 15px;">신착도서</b><a href="selectList.bk?searchOption="+'title'+"&search="+' '"
+				class="more" title="More" style="float: right; padding-right: 10px;"><img
+				src="resources/images/more.gif" alt="더보기" style="width: 15px;"></a>
+			<ul id="nb"
+				style="max-width: 564px; padding-left: 0px;display: flex; border-top: 1px solid #878787;">
+				<!-- 도서 이미지 -->
+			</ul>
+		</div>		
 
 		<!-- 열람실 좌석현황 -->
 		<div class="col-md-2" style="margin-left: 60px; padding-top: 20px;">
@@ -618,7 +629,7 @@ th {
 			$(obj).prop('src', imgPath);
 		}
 	</script>
-
+	<!-- 동수 수정 시작 -->
 	<script>
 		// 도서 신청
 		function checkLogin() {
@@ -643,7 +654,46 @@ th {
 				location.href = "loginForm.ul";
 			}
 		}
+		
+		function newBookList() {
+			$.ajax({
+				url : "newBookList.bk",
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+				dataType : "json",
+				success : function(data) {
+					console.log(data);
+					$("#nb").text("");
+					var str = "";
+					for ( var i in data) {
+						str += '<ul style="padding-left: 5px; list-style-type:none; padding-top: 10px; width: 140px; height: 170px;">';
+						str += '<a href="'
+								+ "bookdetailIndex.bk?bNo="
+								+ data[i].bNo + "&bISBN=" + data[i].bISBN
+								+ '"><span class="img"><span class="bookKind" style="position: absolute; background: url(resources/images/신착도서.png); background-size: 100%; z-index: 100; width: 30px; height: 316px; color: #fff; font-size: 13px; padding-top: 5px; background-repeat: no-repeat; text-align: center;">신착</span>';
+						str += '<li class="imgBox ebook-details nopad">';
+						str += '<img alt="누락" src="resources/BOOK_IMG/'
+								+ data[i].bIMG + '"';
+						str += ' style="width: 135px; height: 180px; padding-left:10px;" class="img-respive"/></li>';
+						str += '<li style="padding-left:25px; padding-top: 9px;"><b>'
+								+ data[i].bName + '</b></li>';
+						str += '</a>';
+						str += '</span>';
+						str += '</ul>';
+					}
+					console.log(str);
+					$("#nb").append(str);
+				}
+			});
+		}
+		$(function() {
+			newBookList();
+			setInterval(function() {
+				topList1();
+			}, 15000);
+		});			
 	</script>
+
+	<!-- 동수 수정 끝 -->
 
 
 	<c:import url="WEB-INF/views/common/footer.jsp"></c:import>

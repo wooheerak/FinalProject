@@ -156,6 +156,14 @@ public class BookDao {
 	public int deleteBook(SqlSessionTemplate sqlSession, int bNo) {
 		return sqlSession.update("bookMapper.deleteBook", bNo);
 	}
+
+	public ArrayList<Book> selectTopList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("bookMapper.selectTopList");
+	}
+
+	public Book selectBookIndex(SqlSessionTemplate sqlSession, String bNo) {
+		return sqlSession.selectOne("bookMapper.selectDetailIndex",bNo);
+	}
 	
 	
 }

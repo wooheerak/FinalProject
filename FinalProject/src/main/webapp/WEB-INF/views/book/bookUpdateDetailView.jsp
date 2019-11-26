@@ -38,7 +38,10 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 	<!-- end section -->
 
 	<!-- 공지사항 -->
-
+	<c:url var="cancelBtn" value="bookDetailViewMaster.bk">
+		<c:param name="bno" value="${book.bNo }"/>
+		<c:param name="isbn" value="${book.bISBN }"/>
+	</c:url>
 	<section class="section overfree">
 		<div class="icon-center">
 			<i class="fa fa-code"></i>
@@ -110,6 +113,7 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 						<th>ISBN</th>
 						<td>
 							<input type="text" name="bISBN" value="${book.bISBN }" required>
+							<input type="hidden" name="isbn" value="${book.bISBN }"/>
 						</td>
 					</tr>
 					<tr>
@@ -126,21 +130,19 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 						<td><input type="file" name="uploadFile" required/></td>
 					</tr>					
 				</table>
+				<input type="hidden" name="bno" value="${book.bNo }"/>
 				<input type="hidden" name="bNo" value="${book.bNo }"/>
 				
 				<div class="text-center">
 					<input class="btn btn-transparent" type="submit" value="수정 하기" style="background-color: transparent;"> &nbsp;
-					<a href="${cancelBtn }" class="btn btn-transparent">취소하기</a>
+					<a href="${cancelBtn}" class="btn btn-transparent">취소하기</a>
 				</div>
 			</form>
 		</div>
-		<c:url var="cancelBtn" value="bookDetailViewMaster.bk">
-			<c:param name="bNo" value="${bNo }"></c:param>
-		</c:url>
-<!--  -->
+	<!--  -->
 	</section>
 	<!-- end section -->
-<!--  -->
+	<!--  -->
 	<jsp:include page="../common/footer.jsp"/>
 
 </body>

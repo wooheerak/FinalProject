@@ -543,7 +543,7 @@ public class BookController {
 		int bCount = bService.selectAllCount(bISBN);
 		
 		int bYCount = bService.selectYCount(bISBN);
-		
+		System.out.println(bCount + ", " + bYCount);
 		if(book != null) {
 			mv.addObject("book", book)
 			.addObject("allCount", bCount)

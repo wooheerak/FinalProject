@@ -23,20 +23,27 @@
 	</section><!-- end section -->
 
 	<section class="section" style="padding-top: 10px;">
-		<div class="col-md-2" style="margin-left: 135px; border-radius: 30px;">
-			<div class="pricing-box clearfix">
-				<div class="pricing-header firstch">
-					<h4>개인 정보 조회</h4>
+		<div class="col-md-2" style="margin-left: 50px; border-radius: 30px; diplay:inline;">
+					<div class="pricing-box clearfix">
+						<div class="pricing-header firstch">
+							<h4>도서 관리</h4>
+						</div>
+						<!-- end pricing-header -->
+	
+						<!-- end pricing-top -->
+						<div class="pricing-details" style="text-align: center;">
+							<ul>
+								<div class="menuContent" focusable="true" onclick="location.href='requestBookMaster.bk'">신청 도서 관리</div>
+								<div class="menuContent" focusable="true" onclick="location.href='reservationBookMaster.bk'">대출 예약 도서 관리</div>
+								<div class="menuContent" focusable="true" onclick="location.href='loanBookMaster.bk'">대출 도서 관리</div>
+								<div class="menuContent" focusable="true" onclick="location.href='bookManagement.bk'">도서 관리</div>
+								<div class="menuContent" focusable="true" onclick="location.href=''">...</div>
+							</ul>
+						</div>
+						<!-- end pricing-details -->
+					</div>
+					<!-- end pricing-box -->
 				</div>
-				<div class="pricing-details" style="text-align: center;">
-					<div class="menuContent">내 정보 조회</div>
-					<div class="menuContent">대출 내역 조회</div>
-					<div class="menuContent">열람실/스터디룸 이용내역 조회</div>
-					<div class="menuContent">도서 신청 조회</div>
-					<div class="menuContent">BOOKSALES<br>거래 내역</div>
-				</div>
-			</div>
-		</div>
 
 		<div class="container">
 			<div class="row case-single" style="margin-left: 100px;">
@@ -80,14 +87,17 @@
 					<td>종합 자료실</td>
 					<td>${book.bNo }</td>
 					<td>${book.bLocation }</td>
-					<td>${yCount} / ${allCount }</td>
+					<td>${bCount} / ${bYCount }</td>
 					<td>
-						<c:if test="${yCount <= 0 }">
-							예약 불가능
+						<c:if test="${book.status == 'Y' }">
+							<p>대출 가능</p>
 						</c:if>
-						<c:if test="${yCount > 0 }">
-							예약 가능
-						</c:if>						
+						<c:if test="${book.status == 'R' }">
+							<p>대출 중</p>
+						</c:if>
+						<c:if test="${book.status == 'N' }">
+							<p>폐기 도서</p>
+						</c:if>
 					</td>
 				</tr>
 			</tbody>

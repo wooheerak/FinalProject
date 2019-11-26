@@ -53,7 +53,7 @@
      
    <section class="section" style="padding:0px;">
          <div class="container" id="bookList">
-            <div class="row" style="margin-left: 150px;">
+            <div class="col-md-12" style="margin-left: 90px;">
             
 			<c:forEach var="b" items="${ list }" varStatus="status" >
 				<input type="hidden" name="bNo" value="${b.bNo }">
@@ -135,7 +135,7 @@
      <br><br><br><br>
      <br><br><br><br>
      <br><br><br><br>
-   </section>
+
    <!-- end section -->
 	
    <jsp:include page="../common/footer.jsp" />

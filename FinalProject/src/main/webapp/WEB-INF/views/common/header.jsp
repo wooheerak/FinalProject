@@ -8,14 +8,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 
 <!-- Basic -->
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <!-- Site Meta -->
@@ -61,8 +59,8 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="#" onclick="checkLogin2()">대출/연장</a></li>
 							<li><a href="selectList.bk?searchOption="+'title'+"&search="+' '">도서검색</a></li>
-							<li><a href="">도서관 서비스</a></li>
-							<li><a href="">도서관 안내</a></li>
+							<li><a href="studymain.ss">열람실/스터디룸</a></li>
+							<li><a href="bList.bo">스터디룸 게시판</a></li>
 							
 							<li class="dropdown yamm-fw hasmenu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 

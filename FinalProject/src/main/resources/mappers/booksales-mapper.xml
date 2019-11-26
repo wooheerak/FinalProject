@@ -98,4 +98,20 @@
     	]]>    
     </select>
     
+    <resultMap type="BookSales" id="bsHistoryResultSet">
+    	<id property="bsOrderNo" column="BS_ORDER_NO"/>
+    	<result property="bsBnumber" column="BS_BNUMBER"/>
+    	<result property="sStudent" column="S_STUDENT_ID"/>
+    	<result property="bStudent" column="B_STUDENT_ID"/>
+    	<result property="bsDate" column="BS_DATE"/>
+    	<result property="bName" column="BR_NAME"/>
+    	<result property="bPrice" column="BR_PRICE"/>
+    </resultMap>
+    <select id="selectHistory" parameterType="string" resultMap="bsHistoryResultSet">
+    	SELECT BS.* , BR_NAME , BR_PRICE
+		FROM BOOK_SALE BS
+		JOIN BOOK_REG BR ON (BS.BS_BNUMBER = BR.BR_BNUMBER)
+		WHERE S_STUDENT_ID = #{userId} OR B_STUDENT_ID = #{userId}
+    </select>
+    
 </mapper>

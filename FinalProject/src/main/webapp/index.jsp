@@ -269,7 +269,7 @@ th {
 	</section>
 	<!-- 메뉴바 end-->
 
-	<!-- 스터디룸, 열람실, 로그인 -->
+	<!-- 공지사항, 로그인 -->
 	<section class="section"
 		style="padding-top: 50px; padding-bottom: 20px;">
 		<div class="col-md-2"></div>
@@ -322,9 +322,44 @@ th {
 			</div>
 		</c:if>
 	</section>
-	<!-- <!-- 스터디룸, 열람실, 로그인  end -->
+	<!-- 공지사항, 로그인  end -->
+	<!-- 공지사항 인덱스 리스트 -->
+	<script>
+		function topList() {
+			$
+					.ajax({
+						url : "topList.no",
+						dataType : "json",
+						success : function(data) {
+							console.log(data);
+							$("#t").html("");
+							var str = "";
+							for ( var i in data) {
+								str += '<li style="height:52px;"><span class="type2">NEW</span>';
+								str += '<a href="ndetail.no?nId='
+										+ data[i].nId
+										+ '">'
+										+ (decodeURIComponent(data[i].nTitle
+												.replace(/\+/g, " "))) + '</a>';
+								str += '</li>';
+							}
+							console.log(str);
+							$("#t").html(str);
+						}
+					});
+		}
+		$(function() {
+			topList();
+			setInterval(function() {
+				topList();
+			}, 15000);
+		});
+	</script>
 
-	<!-- 공지사항 & 중고서적  & 신작도서-->
+
+
+
+	<!-- 열람실 & 신착도서 & 중고서적 -->
 	<section class="section"
 		style="padding-top: 35px; padding-bottom: 80px; padding-left: 60px;">
 		<!-- 열람실 좌석현황 -->
@@ -393,41 +428,11 @@ th {
 				style="max-width: 564px; padding-left: 0px; display: flex; border-top: 1px solid #878787;">
 				<!-- 중고서적 이미지 -->
 			</ul>
-		</div>	
+		</div>
 	</section>
-
-	<!-- 공지사항 인덱스 리스트 -->
+	<!-- 열람실 & 신착도서 & 중고서적 end -->
+	<!-- 좌석현황 -->
 	<script>
-		function topList() {
-			$
-					.ajax({
-						url : "topList.no",
-						dataType : "json",
-						success : function(data) {
-							console.log(data);
-							$("#t").html("");
-							var str = "";
-							for ( var i in data) {
-								str += '<li style="height:52px;"><span class="type2">NEW</span>';
-								str += '<a href="ndetail.no?nId='
-										+ data[i].nId
-										+ '">'
-										+ (decodeURIComponent(data[i].nTitle
-												.replace(/\+/g, " "))) + '</a>';
-								str += '</li>';
-							}
-							console.log(str);
-							$("#t").html(str);
-						}
-					});
-		}
-		$(function() {
-			topList();
-			setInterval(function() {
-				topList();
-			}, 15000);
-		});
-
 		function countSeat() {
 			$.ajax({
 				url : "cSeat.ss",
@@ -461,48 +466,7 @@ th {
 			}, 10000);
 		});
 	</script>
-	<!-- 공지사항 인덱스 리스트 끝 -->
-
-	<!-- 스터디룸 게시판 -->
-	<script>
-		function topList2() {
-			$.ajax({
-				url : "topList.bo",
-				dataType : "json",
-				success : function(data) {
-					$tableBody = $("#tb tbody");
-					$tableBody.html("");
-
-					for ( var i in data) {
-						var $tr = $("<tr>");
-						var $bId = $("<td align='center' class='aa'>").text(
-								data[i].bo_number);
-						var $bTitle = $("<td align='center' class='cc'>").text(
-								decodeURIComponent(data[i].bo_title.replace(
-										/\+/g, " ")));
-						var $bWriter = $("<td align='center' class='bb'>")
-								.text(data[i].bo_count);
-						var $bCreateDate = $("<td align='center' class='dd'>")
-								.text(data[i].bo_date);
-
-						$tr.append($bId);
-						$tr.append($bTitle);
-						$tr.append($bWriter);
-						$tr.append($bCreateDate);
-
-						$tableBody.append($tr);
-					}
-				}
-			});
-		}
-		$(function() {
-			topList2();
-
-			setInterval(function() {
-				topList2();
-			}, 5000);
-		});
-	</script>
+	<!-- 좌석현황 끝 -->
 
 	<!-- 중고서적 탑 리스트 -->
 	<script>
@@ -599,7 +563,6 @@ th {
 			<!-- .slider-content -->
 		</div>
 		<!-- #logoSlider -->
-
 	</section>
 
 	<!-- Include jQuery -->

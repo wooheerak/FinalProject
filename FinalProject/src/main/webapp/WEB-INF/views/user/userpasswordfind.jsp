@@ -23,12 +23,12 @@
    </section>
    <!-- end section -->
 
-   <section class="section overfree">
+   <section class="section overfree" style="height: 517px;">
       <div class="icon-center">
          <i class="fa fa-code"></i>
       </div>
       <div class="container">
-         <div class="row">
+         <div class="row" style="padding-top: 50px;">
             <div class="col-md-4">
                <div class="contact-details"></div>
             </div>

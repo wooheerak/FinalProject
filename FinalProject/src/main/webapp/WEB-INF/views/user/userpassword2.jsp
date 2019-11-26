@@ -24,12 +24,13 @@
    </section>
    <!-- end section -->
 
-   <section class="section overfree">
+   <section class="section overfree text-center" style="height: 517px;">
       <div class="icon-center">
          <i class="fa fa-code"></i>
       </div>
       <div class="container">
          <div class="row">
+         	<div class="col-md-3"></div>
             <div class="col-md-6">
                <div class="design-title text-left">
                   <small>본인 인증이 완료되었습니다.</small>

@@ -326,7 +326,7 @@ public class StudySeatController {
 				
 				Cookie cookie = new Cookie("certTimer" + user.getMember_Id() , "certTimer");
 				// 인증타이머 시간 설정
-				cookie.setMaxAge(10);
+				cookie.setMaxAge(20);
 				response.addCookie(cookie);
 				
 				user.setcStatus("cert");
@@ -594,7 +594,7 @@ public class StudySeatController {
 				// 인증완료 후 퇴실타이머 생성
 				Cookie cookie = new Cookie("outTimer"+user.getMember_Id() , "outTimer");
 				// 퇴실타이머 시간 설정
-				cookie.setMaxAge(10);
+				cookie.setMaxAge(20);
 				response.addCookie(cookie);
 				
 				user.setcStatus("out");

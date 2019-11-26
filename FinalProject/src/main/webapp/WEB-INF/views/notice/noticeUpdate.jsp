@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>공지사항</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.13.0/standard-all/ckeditor.js"></script>
 </head>
 <style>
 table{
@@ -63,12 +63,88 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 					<tr>
 						<th>내용</th>
 						<td>
-							<!-- <textarea rows="20" cols="140" name="nContent" style="resize: none;"></textarea> -->
-							<textarea name=nContent>${ notice.nContent }</textarea>
+			                <textarea cols="80" id="nContent" name="nContent"  rows="10" data-sample-short>${ notice.nContent }</textarea>
 							※ 가로 최대 사이즈 1100 까지 가능
-			                <script>
-			                        CKEDITOR.replace( 'nContent' );
-			                </script>
+  <script>
+  // Don't forget to add CSS for your custom styles.
+  CKEDITOR.addCss('figure[class*=easyimage-gradient]::before { content: ""; position: absolute; top: 0; bottom: 0; left: 0; right: 0; }' +
+    'figure[class*=easyimage-gradient] figcaption { position: relative; z-index: 2; }' +
+    '.easyimage-gradient-1::before { background-image: linear-gradient( 135deg, rgba( 115, 110, 254, 0 ) 0%, rgba( 66, 174, 234, .72 ) 100% ); }' +
+    '.easyimage-gradient-2::before { background-image: linear-gradient( 135deg, rgba( 115, 110, 254, 0 ) 0%, rgba( 228, 66, 234, .72 ) 100% ); }');
+
+  CKEDITOR.replace('nContent', {
+    extraPlugins: 'easyimage',
+    removePlugins: 'image',
+    removeDialogTabs: 'link:advanced',
+    toolbar: [{
+        name: 'document',
+        items: ['Undo', 'Redo']
+      },
+      {
+        name: 'styles',
+        items: ['Format']
+      },
+      {
+        name: 'basicstyles',
+        items: ['Bold', 'Italic', 'Strike', '-', 'RemoveFormat']
+      },
+      {
+        name: 'paragraph',
+        items: ['NumberedList', 'BulletedList']
+      },
+      {
+        name: 'links',
+        items: ['Link', 'Unlink']
+      },
+      {
+        name: 'insert',
+        items: ['EasyImageUpload']
+      }
+    ],
+    height: 400,
+    cloudServices_uploadUrl: 'https://33333.cke-cs.com/easyimage/upload/',
+    // Note: this is a token endpoint to be used for CKEditor 4 samples only. Images uploaded using this token may be deleted automatically at any moment.
+    // To create your own token URL please visit https://ckeditor.com/ckeditor-cloud-services/.
+    cloudServices_tokenUrl: 'https://33333.cke-cs.com/token/dev/ijrDsqFix838Gh3wGO3F77FSW94BwcLXprJ4APSp3XQ26xsUHTi0jcb1hoBt',
+    easyimage_styles: {
+      gradient1: {
+        group: 'easyimage-gradients',
+        attributes: {
+          'class': 'easyimage-gradient-1'
+        },
+        label: 'Blue Gradient',
+        icon: 'https://ckeditor.com/docs/ckeditor4/4.13.0/examples/assets/easyimage/icons/gradient1.png',
+        iconHiDpi: 'https://ckeditor.com/docs/ckeditor4/4.13.0/examples/assets/easyimage/icons/hidpi/gradient1.png'
+      },
+      gradient2: {
+        group: 'easyimage-gradients',
+        attributes: {
+          'class': 'easyimage-gradient-2'
+        },
+        label: 'Pink Gradient',
+        icon: 'https://ckeditor.com/docs/ckeditor4/4.13.0/examples/assets/easyimage/icons/gradient2.png',
+        iconHiDpi: 'https://ckeditor.com/docs/ckeditor4/4.13.0/examples/assets/easyimage/icons/hidpi/gradient2.png'
+      },
+      noGradient: {
+        group: 'easyimage-gradients',
+        attributes: {
+          'class': 'easyimage-no-gradient'
+        },
+        label: 'No Gradient',
+        icon: 'https://ckeditor.com/docs/ckeditor4/4.13.0/examples/assets/easyimage/icons/nogradient.png',
+        iconHiDpi: 'https://ckeditor.com/docs/ckeditor4/4.13.0/examples/assets/easyimage/icons/hidpi/nogradient.png'
+      }
+    },
+    easyimage_toolbar: [
+      'EasyImageFull',
+      'EasyImageSide',
+      'EasyImageGradient1',
+      'EasyImageGradient2',
+      'EasyImageNoGradient',
+      'EasyImageAlt'
+    ]
+  });
+  </script>
 						</td>
 					</tr>
 					<tr>

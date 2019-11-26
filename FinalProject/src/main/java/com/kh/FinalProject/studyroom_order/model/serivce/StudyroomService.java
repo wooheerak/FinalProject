@@ -36,6 +36,8 @@ public interface StudyroomService {
 
 	int deleteOrder(String so_no);
 
+	int cancelOrder(String bo_number);
+
 
 	
 

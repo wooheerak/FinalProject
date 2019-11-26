@@ -59,9 +59,8 @@
 					<div id="navbar" class="navbar-collapse collapse"
 						style="float: left; margin-left: 150px;">
 						<ul class="nav navbar-nav navbar-right">
-							<li><a href="index.jsp">Home</a></li>
-							<li><a href="selectList.bk?searchOption="
-								+'title'+"&search="+' '">자료검색</a></li>
+							<li><a href="borrowBookList.bk">대출/연장</a></li>
+							<li><a href="selectList.bk?searchOption="+'title'+"&search="+' '">도서검색</a></li>
 							<li><a href="">도서관 서비스</a></li>
 							<li><a href="">도서관 안내</a></li>
 							<li><a href="">마이라이브러리</a></li>
@@ -77,8 +76,8 @@
 											<div class="row">
 												<div class="col-md-3">
 													<ul>
-														<li><a href="selectRequestBook.bk">신청 목록</a></li>
-														<li><a href="requestBook.bk">도서 신청하기</a></li>
+														<li><a href="#" onclick="checkLogin3()">신청 목록</a></li>
+														<li><a href="#" onclick="checkLogin4()">도서 신청하기</a></li>
 														<%
 															if (loginUser != null) {
 																if (loginUser.getMember_Sep().equals("A")) {
@@ -100,7 +99,7 @@
 												<div class="col-md-3">
 													<ul>
 														<li><a href="bslist.bs">중고서적</a></li>
-														<li><a href="bsinsertView.bs">중고서적 등록</a></li>
+														<li><a href="#" onclick="checkLogin5()">중고서적 등록</a></li>
 													</ul>
 												</div>
 												<div class="col-md-3">
@@ -205,6 +204,46 @@
 				}
 			});
 		}, 60000);
+		
+		// 신청 목록
+		function checkLogin3(){
+			var id = '${ loginUser.member_Name }';
+				 
+			if(id != ""){
+				location.href="selectRequestBook.bk";
+			}
+			else{
+				alert('로그인이 필요한 기능입니다.');
+				location.href="loginForm.ul";
+			}
+		}
+		
+		// 신청 목록
+		function checkLogin4(){
+			var id = '${ loginUser.member_Name }';
+				 
+			if(id != ""){
+				location.href="requestBook.bk";
+			}
+			else{
+				alert('로그인이 필요한 기능입니다.');
+				location.href="loginForm.ul";
+			}
+		}
+		
+		/* 희락 중고서적 등록 */
+		// 중고서적 등록
+		function checkLogin5(){
+			var id = '${ loginUser.member_Name }';
+				 
+			if(id != ""){
+				location.href="bsinsertView.bs";
+			}
+			else{
+				alert('로그인이 필요한 기능입니다.');
+				location.href="loginForm.ul";
+			}
+		}			
 	</script>
 	<!-- 요기까지 -->
 </body>

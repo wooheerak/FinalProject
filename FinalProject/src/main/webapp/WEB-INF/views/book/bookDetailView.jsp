@@ -43,7 +43,7 @@
 				<div class="col-md-6 col-sm-6 col-xs-12" style="width:230px; height:340px;">
 					<div class="pitem" style="width:220px; height:330px;">
 						<div class="case-box">
-							<img src="resources/BOOK_IMG/${book.bIMG }" alt=""
+							<img src="resources/BOOK_IMG/${book.bIMG }" alt="이미지 준비중"
 								class="img-responsive">
 						</div><!-- end case-box -->
 					</div><!-- end pitem -->
@@ -116,7 +116,7 @@
 		</div>
 	</div>
 	<div style="background-color: white;">
-	<button onclick="history.back();" class="w3-btn w3-white w3-border" style="border-radius: 10px; margin-left:48%; background-color: white;">목록으로</button>
+	<button onclick="history.back();" class="w3-btn w3-white w3-border" style="border-radius: 10px; margin-left:48%; background-color: white;">뒤로가기</button>
 	</div>
 	<div style="background-color: white; width:100%; height:200px"></div>
 	

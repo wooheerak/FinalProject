@@ -124,72 +124,84 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 							<!-- <textarea rows="20" cols="140" name="nContent" style="resize: none;"></textarea> -->
 							<textarea cols="80" id="brComment" name="brComment" rows="10" data-sample-short>${ br.brComment }</textarea>
 			                <script>
-    CKEDITOR.addCss('.cke_editable { font-size: 15px; padding: 2em; }');
+  // Don't forget to add CSS for your custom styles.
+  CKEDITOR.addCss('figure[class*=easyimage-gradient]::before { content: ""; position: absolute; top: 0; bottom: 0; left: 0; right: 0; }' +
+    'figure[class*=easyimage-gradient] figcaption { position: relative; z-index: 2; }' +
+    '.easyimage-gradient-1::before { background-image: linear-gradient( 135deg, rgba( 115, 110, 254, 0 ) 0%, rgba( 66, 174, 234, .72 ) 100% ); }' +
+    '.easyimage-gradient-2::before { background-image: linear-gradient( 135deg, rgba( 115, 110, 254, 0 ) 0%, rgba( 228, 66, 234, .72 ) 100% ); }');
 
-    CKEDITOR.replace('brComment', {
-      toolbar: [{
-          name: 'document',
-          items: ['Print']
+  CKEDITOR.replace('brComment', {
+    extraPlugins: 'easyimage',
+    removePlugins: 'image',
+    removeDialogTabs: 'link:advanced',
+    toolbar: [{
+        name: 'document',
+        items: ['Undo', 'Redo']
+      },
+      {
+        name: 'styles',
+        items: ['Format']
+      },
+      {
+        name: 'basicstyles',
+        items: ['Bold', 'Italic', 'Strike', '-', 'RemoveFormat']
+      },
+      {
+        name: 'paragraph',
+        items: ['NumberedList', 'BulletedList']
+      },
+      {
+        name: 'links',
+        items: ['Link', 'Unlink']
+      },
+      {
+        name: 'insert',
+        items: ['EasyImageUpload']
+      }
+    ],
+    height: 400,
+    cloudServices_uploadUrl: 'https://33333.cke-cs.com/easyimage/upload/',
+    // Note: this is a token endpoint to be used for CKEditor 4 samples only. Images uploaded using this token may be deleted automatically at any moment.
+    // To create your own token URL please visit https://ckeditor.com/ckeditor-cloud-services/.
+    cloudServices_tokenUrl: 'https://33333.cke-cs.com/token/dev/ijrDsqFix838Gh3wGO3F77FSW94BwcLXprJ4APSp3XQ26xsUHTi0jcb1hoBt',
+    easyimage_styles: {
+      gradient1: {
+        group: 'easyimage-gradients',
+        attributes: {
+          'class': 'easyimage-gradient-1'
         },
-        {
-          name: 'clipboard',
-          items: ['Undo', 'Redo']
+        label: 'Blue Gradient',
+        icon: 'https://ckeditor.com/docs/ckeditor4/4.13.0/examples/assets/easyimage/icons/gradient1.png',
+        iconHiDpi: 'https://ckeditor.com/docs/ckeditor4/4.13.0/examples/assets/easyimage/icons/hidpi/gradient1.png'
+      },
+      gradient2: {
+        group: 'easyimage-gradients',
+        attributes: {
+          'class': 'easyimage-gradient-2'
         },
-        {
-          name: 'styles',
-          items: ['Format', 'Font', 'FontSize']
+        label: 'Pink Gradient',
+        icon: 'https://ckeditor.com/docs/ckeditor4/4.13.0/examples/assets/easyimage/icons/gradient2.png',
+        iconHiDpi: 'https://ckeditor.com/docs/ckeditor4/4.13.0/examples/assets/easyimage/icons/hidpi/gradient2.png'
+      },
+      noGradient: {
+        group: 'easyimage-gradients',
+        attributes: {
+          'class': 'easyimage-no-gradient'
         },
-        {
-          name: 'colors',
-          items: ['TextColor', 'BGColor']
-        },
-        {
-          name: 'align',
-          items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
-        },
-        '/',
-        {
-          name: 'basicstyles',
-          items: ['Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'CopyFormatting']
-        },
-        {
-          name: 'links',
-          items: ['Link', 'Unlink']
-        },
-        {
-          name: 'paragraph',
-          items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote']
-        },
-        {
-          name: 'insert',
-          items: ['Image', 'Table']
-        },
-        {
-          name: 'tools',
-          items: ['Maximize']
-        },
-        {
-          name: 'editing',
-          items: ['Scayt']
-        }
-      ],
-
-      extraAllowedContent: 'h3{clear};h2{line-height};h2 h3{margin-left,margin-top}',
-
-      // Adding drag and drop image upload.
-      extraPlugins: 'print,format,font,colorbutton,justify,uploadimage',
-      uploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
-
-      // Configure your file manager integration. This example uses CKFinder 3 for PHP.
-      filebrowserBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html',
-      filebrowserImageBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html?type=Images',
-      filebrowserUploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files',
-      filebrowserImageUploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Images',
-
-      height: 560,
-
-      removeDialogTabs: 'image:advanced;link:advanced'
-    });
+        label: 'No Gradient',
+        icon: 'https://ckeditor.com/docs/ckeditor4/4.13.0/examples/assets/easyimage/icons/nogradient.png',
+        iconHiDpi: 'https://ckeditor.com/docs/ckeditor4/4.13.0/examples/assets/easyimage/icons/hidpi/nogradient.png'
+      }
+    },
+    easyimage_toolbar: [
+      'EasyImageFull',
+      'EasyImageSide',
+      'EasyImageGradient1',
+      'EasyImageGradient2',
+      'EasyImageNoGradient',
+      'EasyImageAlt'
+    ]
+  });
   </script>
 							<P>※ 상세 이미지 내용에 붙여넣기 가능</P>
 						</td>

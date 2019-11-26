@@ -299,4 +299,21 @@
 		set B_STATUS = 'N'
 		where B_NO = #{bNo}
 	</update>
+	
+	<select id="selectTopList" resultMap="bookResultSet">
+    	<![CDATA[
+    	SELECT *
+    	FROM (SELECT *
+    		  FROM BOOK
+    		  WHERE B_STATUS != 'N'
+    		  ORDER BY B_ISSUE_DATE DESC)
+    	WHERE ROWNUM <= 4
+    	]]>   		
+	</select>
+	
+	<select id="selectDetailIndex" resultMap="bookResultSet">
+		select *
+		from book
+		where b_no = #{bNo}
+	</select>
 </mapper>

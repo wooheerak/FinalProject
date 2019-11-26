@@ -171,7 +171,7 @@ th {
 
 		<div class="col-md-10 col-md-offset-1  text-center" style="">
 			<form action="selectList.bk" class="calculateform"
-				style="height: 150px; padding-top: 33px; background-color: rgba(0, 82, 156); margin-bottom: 30px;">
+				style="height: 150px; padding-top: 33px; background-color: rgba(0, 82, 156); margin-bottom: 30px; opacity: 0.9;">
 				<div class="dorpdown dropdown"
 					style="display: flex; margin-top: 30px; width: 100%;">
 					<SELECT name='searchOption'>
@@ -180,10 +180,12 @@ th {
 						<OPTION value='author'>저자 검색</OPTION>
 						<OPTION value='publisher'>출판사 검색</OPTION>
 						<OPTION value='ISBN'>ISBN 검색</OPTION>
-					</SELECT> &nbsp;&nbsp; <input type="text" class="form-control"
+					</SELECT> &nbsp;&nbsp; 
+					<input type="text" class="form-control"
 						id="searchbar" name="search"
 						style="height: 49.33px; width: 450px;" placeholder="검색어를 입력하세요">
-					&nbsp;&nbsp; <input type="submit" name="send" value="검색"
+					&nbsp;&nbsp; 
+					<input type="submit" name="send" value="검색"
 						class="btn btn-default" style="height: 49.33px; width: 150px;" />
 				</div>
 			</form>

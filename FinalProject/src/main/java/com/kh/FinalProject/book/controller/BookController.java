@@ -258,9 +258,11 @@ public class BookController {
 		Map<String, Object> map = new HashMap<String , Object>();
 		ArrayList<Integer> noList = new ArrayList<>();
 		
-	    if(brList.size() > 0) { for(int i = 0 ; i< brList.size() ; i++) {
-	    	bList.add(brList.get(i).getBook().getbName());
-	    	noList.add(brList.get(i).getBr_no()); }
+	    if(brList.size() > 0) { 
+	    	for(int i = 0 ; i< brList.size() ; i++) {
+		    	bList.add(brList.get(i).getBook().getbName());
+		    	noList.add(brList.get(i).getBr_no()); 
+	    	}
 	  
 	  
 	    	sendMsg(bList , request); 

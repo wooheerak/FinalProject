@@ -329,7 +329,7 @@ th {
 						</p>
 						<p id="aTitle" title="A열람실 : 344석" style="display: inline;">
 							<span class="num numA" style="font-size: 17px;">344</span>/<span
-								class="total" style="font-size: 17px;">344</span>
+								class="total" style="font-size: 17px;">160</span>
 						</p>
 					</li>
 
@@ -340,7 +340,7 @@ th {
 						</p>
 						<p id="bTitle" title="B열람실 : 176석" style="display: inline;">
 							<span class="num numB" style="font-size: 17px;">46</span>/<span
-								class="total" style="font-size: 17px;">176</span>
+								class="total" style="font-size: 17px;">140</span>
 						</p>
 					</li>
 
@@ -353,7 +353,7 @@ th {
 						<p id="cTitle" title="C열람실 : 148석, 노트북 사용가능"
 							style="display: inline;">
 							<span class="num numC" style="font-size: 17px;">29</span>/<span
-								class="total" style="font-size: 17px;">148</span>
+								class="total" style="font-size: 17px;">140</span>
 						</p>
 					</li>
 				</ul>

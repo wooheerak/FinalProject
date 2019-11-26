@@ -51,20 +51,7 @@
    </section>
 
    <section class="section" style="padding-top: 10px;">
-      <div class="col-md-2" style="margin-left: 135px; border-radius: 30px;">
-         <div class="pricing-box clearfix">
-            <div class="pricing-header firstch">
-               <h4>개인 정보 조회</h4>
-            </div>
-            <div class="pricing-details" style="text-align: center;">
-               <div class="menuContent">내 정보 조회</div>
-               <div class="menuContent" onclick="location.href='borrowBookList.bk'">대출 내역 조회</div>
-               <div class="menuContent">열람실/스터디룸 이용내역 조회</div>
-               <div class="menuContent">도서 신청 조회</div>
-               <div class="menuContent">BOOKSALES<br>거래 내역</div>
-            </div>
-         </div>
-      </div>
+      
       
    <section class="section" style="padding:0px;">
          <div class="container" id="bookList">

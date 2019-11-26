@@ -321,7 +321,7 @@ public class StudySeatController {
 			if(result > 0) {
 				
 				// 문자 전송 
-				//sendMsg(seat,request);
+				sendMsg(seat,request);
 				
 				Cookie cookie = new Cookie("certTimer" + user.getMember_Id() , "certTimer");
 				// 인증타이머 시간 설정

@@ -86,12 +86,12 @@ public class StudySeatController {
 			if(shList != null) {
 				mv.addObject("list" , shList).setViewName("my_studyseatList");
 				
-				return mv;
 			}
 			else {
-				throw new SeatException("개인정보 : 열람실이용내역 불러오기 실패 !");
+				mv.addObject("message", "로그인 후 이용해주세요!").setViewName("../common/errorPage");
 			}	
 			
+			return mv;
 			
 		}
 		

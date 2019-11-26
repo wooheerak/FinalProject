@@ -25,12 +25,37 @@
    <!-- end section -->
 
    <section class="section overfree">
+   	  
       <div class="icon-center">
          <i class="fa fa-code"></i>
       </div>
+      
+      <div class="col-md-2" style="margin-left: 50px; border-radius: 30px; diplay:inline;">
+					<div class="pricing-box clearfix">
+						<div class="pricing-header firstch">
+							<h4>도서 관리</h4>
+						</div>
+						<!-- end pricing-header -->
+	
+						<!-- end pricing-top -->
+						<div class="pricing-details" style="text-align: center;">
+							<ul>
+								<div class="menuContent" focusable="true" onclick="location.href='userinformationcheck.ul'">내 정보 조회</div>
+								<div class="menuContent" focusable="true" onclick="location.href='borrowBookList.bk'">대출 내역 조회</div>
+								<div class="menuContent" focusable="true" onclick="location.href='myseatList.ss'">열람실/스터디룸 이용내역 조회</div>
+								<div class="menuContent" focusable="true" onclick="location.href='selectRequestBook.bk'">도서 신청 조회</div>
+								<div class="menuContent" focusable="true" onclick="location.href='#'">BOOKSALES<br>거래 내역</div>
+								<div class="menuContent" focusable="true" onclick="location.href='reservationBookView.bk'">도서 예약 내역</div>
+							</ul>
+						</div>
+						<!-- end pricing-details -->
+					</div>
+					<!-- end pricing-box -->
+				</div>
       <div class="container">
          <div class="row">
-            <div class="col-md-3">
+         
+            <div class="col-md-2">
             </div>
       
             <div class="col-md-5 text-left">

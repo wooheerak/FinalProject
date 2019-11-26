@@ -36,37 +36,28 @@
 
 		<!-- 메뉴바 -->
 		<section class="section">
-			<div class="col-md-2 col-sm-12 "
-				style="margin-left: 135px; border-radius: 30px;">
-				<div class="pricing-box clearfix">
-					<div class="pricing-header firstch">
-						<h4>개인 정보 조회</h4>
+			<div class="col-md-2" style="margin-left: 50px; border-radius: 30px; diplay:inline;">
+					<div class="pricing-box clearfix">
+						<div class="pricing-header firstch">
+							<h4>도서 관리</h4>
+						</div>
+						<!-- end pricing-header -->
+	
+						<!-- end pricing-top -->
+						<div class="pricing-details" style="text-align: center;">
+							<ul>
+								<div class="menuContent" focusable="true" onclick="location.href='userinformationcheck.ul'">내 정보 조회</div>
+								<div class="menuContent" focusable="true" onclick="location.href='borrowBookList.bk'">대출 내역 조회</div>
+								<div class="menuContent" focusable="true" onclick="location.href='myseatList.ss'">열람실/스터디룸 이용내역 조회</div>
+								<div class="menuContent" focusable="true" onclick="location.href='selectRequestBook.bk'">도서 신청 조회</div>
+								<div class="menuContent" focusable="true" onclick="location.href='#'">BOOKSALES<br>거래 내역</div>
+								<div class="menuContent" focusable="true" onclick="location.href='reservationBookView.bk'">도서 예약 내역</div>
+							</ul>
+						</div>
+						<!-- end pricing-details -->
 					</div>
-					<!-- end pricing-header -->
-
-					<!-- end pricing-top -->
-					<div class="pricing-details" style="text-align: center;">
-						<ul>
-							<!-- <span><i class="fa fa-check"></i></span> -->
-							<div class="menuContent" focusable="true">내 정보 조회</div>
-							<div class="menuContent" focusable="true" onclick="location.href='borrowBookList.bk'">대출 내역 조회</div>
-							<div class="menuContent" focusable="true" onclick="location.href='myseatList.ss'">열람실/스터디룸 이용내역 조회</div>
-							<div class="menuContent" focusable="true" onclick="location.href='selectRequestBook.bk'">신청 도서 조회</div>
-							<div class="menuContent" focusable="true">
-								BOOKSALES<br>거래 내역
-							</div>
-							<div class="menuContent" focusable="true" onclick="location.href='reservationBookView.bk'">
-								도서 예약 내역
-							</div>
-							<!-- <li>Sector and Competitor Analysis <span><i class="fa fa-check"></i></span></li> -->
-
-						</ul>
-					</div>
-					<!-- end pricing-details -->
-
+					<!-- end pricing-box -->
 				</div>
-				<!-- end pricing-box -->
-			</div>
 
 			<!-- 공지사항 -->
 			<div class="container col-md-8 col-sm-12" style="margin-left: 20px;">

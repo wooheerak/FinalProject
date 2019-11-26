@@ -56,7 +56,7 @@ background-color: #f3f3f3; border: 1px solid #e6e6e6; border-top: 1px solid #b3b
 					<tr>
 						<th>작성자</th>
 						<td>
-							<input type="text" name="nWriter" value="관리자" disabled>
+							<input type="text" name="nWriter" value="관리자">
 						</td>
 					</tr>
 					<tr>

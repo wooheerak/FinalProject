@@ -79,7 +79,7 @@
 															if (loginUser != null) {
 																if (loginUser.getMember_Sep().equals("A")) {
 														%>
-														<li><a href="masterPage.bk">관리자 페이지</a></li>
+														<li><a href="bookManagement.bk">관리자 페이지</a></li>
 														<%
 															}
 															}
@@ -218,6 +218,17 @@
 				checkBook();
 			}, 60000);
 		});
+		// 대출/연장
+		function checkLogin2() {
+			var id = '${ loginUser.member_Name }';
+
+			if (id != "") {
+				location.href = "borrowBookList.bk";
+			} else {
+				alert('로그인이 필요한 기능입니다.');
+				location.href = "loginForm.ul";
+			}
+		}
 		
 		// 신청 목록
 		function checkLogin3(){

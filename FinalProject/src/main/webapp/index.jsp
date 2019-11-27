@@ -565,12 +565,11 @@ th {
 		</div>
 	</section>
 
-	<!-- Include jQuery -->
+	<!-- 슬라이드 관련 jquery 스크립트 -->
 	<script src="resources/js/jquery-2.2.4.min.js"></script>
-	<!-- Include Multislider -->
 	<script src="resources/js/multislider.min.js"></script>
 
-	<!-- Initialize element with Multislider -->
+	<!-- 유용한 링크 속도 및 마우스 동작 -->
 	<script>
 		$('#logoSlider').multislider({
 			continuous : true,

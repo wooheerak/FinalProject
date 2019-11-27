@@ -245,25 +245,25 @@ public class BookSalesController {
 	// 중고서적 거래내역 조회
 	@RequestMapping("bsHistory.bs")
 	public ModelAndView bsHistory(ModelAndView mv, HttpServletRequest request) {
-		
 		HttpSession session = request.getSession();
 		
-		User u = (User)session.getAttribute("loginUser");
+		User u = (User)session.getAttribute("loginUser");		// Session에 로그인한 유저 정보를 담아준다
 		
-		String userId = "";
+		String userId = "";										
 		
-		if(u != null) {
-			userId = u.getMember_Id();
+		if(u != null) {	
+			userId = u.getMember_Id();			  // Session에 로그인한 유저 정보에서 Id를 userId에 넣어준다
 		}
 		
+		// 유저의 판매기록을  ArrayList를 통해 blist에 담아준다  
 		ArrayList<BookSales> blist = bsService.selectList(userId);
 		
 		for(int i=0; i < blist.size(); i++ ) {
-			if(blist.get(i).getsStudent().equals(userId)) {
-				blist.get(i).setBsStatus("s");
+			if(blist.get(i).getsStudent().equals(userId)) {			// 로그인한 유저가 '판매자'이면
+				blist.get(i).setBsStatus("s");						// status를 "s" 판매 라고 정의한다
 			}
-			else if(blist.get(i).getbStudent().equals(userId)){
-				blist.get(i).setBsStatus("b");
+			else if(blist.get(i).getbStudent().equals(userId)){		// 로그인한 유저가 '구매자'이면
+				blist.get(i).setBsStatus("b");						// ststus를 "b" 구매 라고 정의한다
 			}
 		}
 		

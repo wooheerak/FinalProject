@@ -562,9 +562,7 @@ th {
 					</a>
 				</div>
 			</div>
-			<!-- .slider-content -->
 		</div>
-		<!-- #logoSlider -->
 	</section>
 
 	<!-- Include jQuery -->

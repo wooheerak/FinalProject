@@ -38,6 +38,7 @@
                   <div class="form-group">
                      <p>학번</p>
                      <input type="text" class="form-control" name="student_number" readonly value="${ loginUser.member_Id }" style="background: lightgrey;">
+                     <input type="hidden" class="form-control" name="password" readonly value="${ loginUser.member_Password }" style="background: lightgrey;">
                   </div>
                   <div class="form-group">
                      <p>이름</p>

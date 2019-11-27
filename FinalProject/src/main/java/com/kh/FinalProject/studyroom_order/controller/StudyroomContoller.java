@@ -111,8 +111,21 @@ public class StudyroomContoller {
 			month = cr.get(Calendar.MONTH)+1;
 			date = cr.get(Calendar.DATE);
 		}
-		System.out.println(year+" "+month+" "+date);
-		String dateInfo = Integer.toString(year) + Integer.toString(month) + Integer.toString(date);
+		String smonth ="";
+		if(month<10) {
+			smonth="0"+Integer.toString(month);
+		}else {
+			smonth=Integer.toString(month);
+		}
+		
+		String dateInfo ="";
+		
+		if(date<10) {
+			dateInfo = Integer.toString(year) + smonth + "0"+Integer.toString(date);
+		}else{
+			dateInfo = Integer.toString(year) + smonth + Integer.toString(date);
+		}
+		System.out.println(dateInfo);
 		
 		ArrayList<StudyroomOrder> reservationInfo = srService.reservationInfo(dateInfo);
 		System.out.println("reservationInfo: "+reservationInfo);

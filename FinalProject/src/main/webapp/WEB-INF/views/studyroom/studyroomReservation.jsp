@@ -189,7 +189,7 @@ input{
 	
 	// 랜덤 배경색상 지정
 	var color='#';
-	var letters = ['f6c9cc','a8c0c0','FEBF36','FF7838','6478A0','acc7bf','5e5f67','c37070','eae160','bf7aa3','d7d967'];
+	var letters = ['4B0082','663399','483D8B','6A5ACD','9370DB','800080','9999ff','008000','f6c9cc','a8c0c0','FEBF36','FF7838','6478A0','acc7bf','5e5f67','c37070','eae160','bf7aa3','d7d967','ffdf80','b3ffb3','00b3b3','3399ff','669999','cc6699'];
 	color += letters[Math.floor(Math.random() * letters.length)];
 	document.getElementById('so_bColor').value = color;
 	

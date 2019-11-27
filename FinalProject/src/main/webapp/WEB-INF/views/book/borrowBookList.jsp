@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>책 예약현황</title>
+<title>도서 대출 현황</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
@@ -76,7 +76,7 @@
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
 						<h2>도서 관리 페이지</h2>
-						<p class="lead">예약 도서 관리</p>
+						<p class="lead">도서 대출 관리</p>
 					</div>
 					<!-- end col -->
 				</div>

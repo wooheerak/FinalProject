@@ -73,7 +73,7 @@ th {
 					</tr>
 					<tr>
 						<th>작성자 학생번호</th>
-						<td><input type="text" name="brStudentId"></td>
+						<td><input type="text" name="brStudentId" value="${ loginUser.member_Id }"></td>
 					</tr>
 					<tr>
 						<th>책저자</th>

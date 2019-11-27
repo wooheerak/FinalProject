@@ -263,7 +263,7 @@ public class BookSalesController {
 				blist.get(i).setBsStatus("s");						// status를 "s" 판매 라고 정의한다
 			}
 			else if(blist.get(i).getbStudent().equals(userId)){		// 로그인한 유저가 '구매자'이면
-				blist.get(i).setBsStatus("b");						// ststus를 "b" 구매 라고 정의한다
+				blist.get(i).setBsStatus("b");						// status를 "b" 구매 라고 정의한다
 			}
 		}
 		

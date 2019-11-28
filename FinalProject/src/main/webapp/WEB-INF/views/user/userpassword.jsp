@@ -38,15 +38,15 @@
                   <input type="hidden" name="member_Id"
                      value="${ loginUser.member_Id }"/>
                   <div class="form-group">
-                     <input type="text" class="form-control" id="password" placeholder="현재 비밀번호를 입력해주세요." required/>
+                     <input type="password" class="form-control" id="password" placeholder="현재 비밀번호를 입력해주세요." required/>
                         <div class="alert alert-success" id="alert-success1">비밀번호가 일치합니다.</div>
                         <div class="alert alert-danger" id="alert-danger1">비밀번호가 일치하지 않습니다.</div>
                   </div>
                   <div class="form-group">
-                     <input type="text" class="form-control" id="password1" name="member_Password" placeholder="새 비밀번호를 입력해주세요." required/>
+                     <input type="password" class="form-control" id="password1" name="member_Password" placeholder="새 비밀번호를 입력해주세요." required/>
                   </div>
                   <div class="form-group">
-                     <input type="text" class="form-control" id="password2" name="member_Password1" placeholder="새 비밀번호를 다시 입력해주세요." required/>
+                     <input type="password" class="form-control" id="password2" name="member_Password1" placeholder="새 비밀번호를 다시 입력해주세요." required/>
                         <div class="alert alert-success" id="alert-success2">비밀번호가 일치합니다.</div>
                         <div class="alert alert-danger" id="alert-danger2">비밀번호가 일치하지 않습니다.</div>
                   </div>
